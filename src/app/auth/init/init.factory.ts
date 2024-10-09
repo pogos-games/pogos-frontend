@@ -6,7 +6,7 @@ export function initializeKeycloak(keycloak: KeycloakService) {
     keycloak.init({
       config: {
         url: 'http://localhost:8180/keycloak',
-        realm: 'master',
+        realm: 'pogos',
         clientId: 'pogos-frontend'
       },
       loadUserProfileAtStartUp: true,
