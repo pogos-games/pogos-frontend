@@ -1,0 +1,42 @@
+<div class="main-content">
+
+  <h1 class="title luckiest-guy-regular">{{ title }}</h1>
+
+
+  <div id="actions">
+
+    <div id="game-selector">
+
+      <img ngSrc="assets/pogos-logo.jpeg" alt="pogos-logo" height="150" width="150">
+
+      <button nz-button nzType="primary" (click)="onTitleChange('BlackJack')">BlackJack</button>
+      <button nz-button nzType="primary" (click)="onTitleChange('Uno')">Uno</button>
+      <button nz-button nzType="primary" (click)="onTitleChange('Tarot')">Tarot</button>
+      <button nz-button nzType="primary" (click)="onTitleChange('Poker')">Poker</button>
+
+    </div>
+
+
+    <div id="game-actions">
+
+      <div id="top-buttons">
+        <button nz-button class="main-button luckiest-guy-regular">Jouer en solo</button>
+        <button nz-button class="main-button luckiest-guy-regular">Jouer en multijoueur</button>
+      </div>
+
+      <div id="bottom-button">
+        <button nz-button class="main-button luckiest-guy-regular" >Créer une partie privée</button>
+      </div>
+
+    </div>
+
+    <div id="rankings">
+
+      <h3 class="luckiest-guy-regular">Classement</h3>
+
+    </div>
+
+  </div>
+
+
+</div>
