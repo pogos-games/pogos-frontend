@@ -20,7 +20,7 @@
     <div id="game-actions">
 
       <div id="top-buttons">
-        <button nz-button class="main-button luckiest-guy-regular">Jouer en solo</button>
+        <button nz-button class="main-button luckiest-guy-regular" [routerLink]="['/games', title.toLowerCase()]">Jouer en solo</button>
         <button nz-button class="main-button luckiest-guy-regular">Jouer en multijoueur</button>
       </div>
 

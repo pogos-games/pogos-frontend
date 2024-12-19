@@ -17,7 +17,7 @@ export class AuthGuard extends KeycloakAuthGuard {
     keycloakService.keycloakEvents$.subscribe({
       next(event) {
         if (event.type == KeycloakEventType.OnTokenExpired) {
-          keycloakService.updateToken(20).then(r => {
+          keycloakService.updateToken(20).then(() => {
             // disable in production
             console.log('Token updated');
           });
