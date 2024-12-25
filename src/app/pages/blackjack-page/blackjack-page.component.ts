@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, signal, WritableSignal} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
@@ -11,6 +11,9 @@ import {NzBadgeComponent} from "ng-zorro-antd/badge";
 import {delay} from "rxjs";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {BlackJackMessage} from "../../model/enum/black-jack-message";
+import {NzDividerComponent} from "ng-zorro-antd/divider";
+import {NzDrawerComponent} from "ng-zorro-antd/drawer";
+import {ChatComponent} from "../../components/chat/chat.component";
 
 @Component({
   selector: 'app-blackjack-page',
@@ -20,7 +23,10 @@ import {BlackJackMessage} from "../../model/enum/black-jack-message";
     NzButtonComponent,
     NzIconDirective,
     NzSpinComponent,
-    NzBadgeComponent
+    NzBadgeComponent,
+    NzDividerComponent,
+    NzDrawerComponent,
+    ChatComponent
   ],
   templateUrl: './blackjack-page.component.html',
   styleUrl: './blackjack-page.component.scss'
@@ -32,6 +38,10 @@ export class BlackjackPageComponent {
   protected BlackJackAction : typeof BlackJackActions = BlackJackActions;
 
   protected isActionDisabled : boolean = false;
+
+  protected readonly BlackJackMessage = BlackJackMessage;
+
+  protected visible: WritableSignal<boolean> = signal(false);
 
   constructor(private blackJackService:BlackjackService,private message:NzMessageService) {
     this.blackJackService.blackjackSubject.pipe(delay(1000)).subscribe((deck: BlackjackDeck|undefined) => {
@@ -73,5 +83,7 @@ export class BlackjackPageComponent {
     this.blackJackService.sendMessage(action);
   }
 
-  protected readonly BlackJackMessage = BlackJackMessage;
+  open(): void {
+    this.visible.set(true);
+  }
 }
