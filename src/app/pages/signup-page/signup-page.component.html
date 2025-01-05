@@ -1,0 +1,48 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+  <h1 class="title luckiest-guy-regular">Pogos</h1>
+
+  <div class="form-box" fxLayout="column" fxLayoutAlign="center center">
+    <h3 class="form-title luckiest-guy-regular">Inscription</h3>
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <nz-input-group nzAddOnAfterIcon="user">
+        <input type="text" placeholder="pseudo" nz-input formControlName="pseudo" />
+      </nz-input-group>
+
+      <nz-input-group nzAddOnAfterIcon="mail">
+        <input type="text" placeholder="adresse mail" nz-input formControlName="login" />
+      </nz-input-group>
+
+      <nz-input-group [nzSuffix]="suffixTemplate" nzAddOnAfterIcon="lock">
+        <input
+          [type]="isPasswordHided ?  'password' : 'text'"
+          nz-input
+          placeholder="mot de passe"
+          formControlName="password"
+        />
+      </nz-input-group>
+      <nz-input-group [nzSuffix]="suffixTemplate" nzAddOnAfterIcon="lock">
+        <input
+          [type]="isPasswordHided ?  'password' : 'text'"
+          nz-input
+          placeholder="confirmer mot de passe"
+          formControlName="confirmPassword"
+        />
+      </nz-input-group>
+      <ng-template #suffixTemplate>
+      <span
+        nz-icon
+        class="ant-input-password-icon"
+        [nzType]="isPasswordHided ? 'eye-invisible' : 'eye'"
+        (click)="isPasswordHided = !isPasswordHided"
+      ></span>
+      </ng-template>
+      @if (loginForm.hasError('invalid_credentials')) {
+        <p class="form-error">Identifiants incorrects</p>
+      }
+      <button nz-button nzType="primary" nzBlock [disabled]="loginForm.invalid">S'inscrire</button>
+      <a routerLink="/login"><span>Se connecter</span></a>
+    </form>
+  </div>
+</div>

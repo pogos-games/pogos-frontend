@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  height: 60vh;
+  height: 70vh;
   width: 20vw;
   padding: 30px;
   background-color: #FFF8EB;
@@ -30,7 +30,7 @@
 
 #game-actions{
   width: 40vw;
-  height: 60vh;
+  height: 70vh;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -55,13 +55,3 @@
 
 
 
-#rankings {
-
-  height: 60vh;
-  width: 20vw;
-  background-color: #FFF8EB;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 2px .5px;
-
-}

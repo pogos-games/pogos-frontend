@@ -1,50 +1,30 @@
-#game-table {
-  width: 80vw;
-  height: 70vh;
-  //max-width: 1000px;
-  //max-height: 600px;
-  background-color: #2e9a3e;
-  border-radius: 10px;
-  border: 2px solid black;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  margin: auto;
-  overflow: hidden;
-}
-
-.card-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.card-hand {
+.game-content{
+  width: 100vw;
   display: flex;
   flex-direction: row;
-  gap: 1vw;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
-.symbols {
+.actions{
+  margin-top: 10px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.icon img {
-  width: 5vw;
-  height: auto;
+  justify-content: space-evenly;
+  width: 100vw;
 }
 
 .game-actions {
-  margin-top: 10px;
   display: flex;
   align-items: center;
   flex-direction: row;
+  gap: 1vw;
+}
+
+.other-actions{
+  display: flex;
+  flex-direction: row;
+  height: 35;
+  align-items: center;
+  justify-content: center;
   gap: 1vw;
 }
 
@@ -56,12 +36,6 @@
   align-items: center;
 }
 
-@media (max-width: 768px) {
-  #game-table {
-    width: 90vw;
-    height: 60vh;
-  }
-}
 
 @keyframes slideIn {
   from {
@@ -74,9 +48,6 @@
   }
 }
 
-.card-hand img {
-  animation: slideIn 0.5s ease-in-out;
-}
 
 #coins {
   display: flex;
@@ -101,19 +72,3 @@
   transform: scale(1.1);
 }
 
-@media (max-width: 480px) {
-  .card-hand img {
-    height: 6vh;
-    margin-left: 0;
-  }
-
-  .card-hand {
-    flex-wrap: wrap;
-    gap: 2vw;
-  }
-
-  .game-actions {
-    flex-direction: column;
-    gap: 5px;
-  }
-}

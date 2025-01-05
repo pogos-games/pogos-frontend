@@ -1,0 +1,58 @@
+<div id="game-table">
+  <div class="symbols">
+    <div class="icon">
+      <img ngSrc="/assets/icons/coeur.png" alt="coeur" height="1024" width="1024"/>
+    </div>
+    <div class="icon">
+      <img ngSrc="/assets/icons/pique.png" alt="pique" height="512" width="512"/>
+    </div>
+  </div>
+
+  @if (blackJackDeck) {
+
+    <div class="card-container">
+      <!-- player 1 on left of the display -->
+      <div class="hand-container">
+        <app-card-hand [handName]="'player1'" [cards]="cards" [currentUser]="false" [isColDirection]="true"></app-card-hand>
+      </div>
+
+      <div class="hand-container">
+        <!-- player 2 on top of the display -->
+        <app-card-hand [handName]="'player2'" [cards]="cards" [currentUser]="false"></app-card-hand>
+
+        <!-- player 2 on top of the display -->
+        <app-card-hand [handName]="'dealer'" [cards]="cards" [currentUser]="false"></app-card-hand>
+
+
+        <div class="self-player">
+          <app-card-hand [currentUser]="true" [cards]="cards" [handName]="'Toi'"></app-card-hand>
+          @if (blackJackDeck.message !== BlackJackMessage.CONTINUE) {
+            <button nz-button nzType="primary" (click)="executeAction(BlackJackAction.RESTART)">
+              Rejouer
+            </button>
+          }
+        </div>
+      </div>
+      <div class="hand-container">
+        <app-card-hand [handName]="'Player 3'" [cards]="cards" [currentUser]="false" [isColDirection]="true"></app-card-hand>
+
+      </div>
+
+    </div>
+
+  } @else {
+    <div id="spinner-container">
+      <nz-spin nzSimple nzSize="large"></nz-spin>
+    </div>
+  }
+
+  <div class="symbols">
+    <div class="icon">
+      <img ngSrc="/assets/icons/trefle.png" alt="trefle" height="800" width="900"/>
+    </div>
+    <div class="icon">
+      <img ngSrc="/assets/icons/carreau.png" alt="carreau" height="410" width="410"/>
+    </div>
+  </div>
+
+</div>
