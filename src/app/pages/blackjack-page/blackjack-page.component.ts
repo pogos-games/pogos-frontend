@@ -5,11 +5,11 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {BlackjackService} from "../../services/blackjack.service";
 import {BlackjackDeck} from "../../model/dto/request/black-jack-deck";
 import {Card} from "../../model/dto/request/card";
-import {BlackJackActions} from "../../model/enum/black-jack-actions";
+import {BlackJackActions} from "../../model/enum/black-jack.actions.enum";
 import {NzBadgeComponent} from "ng-zorro-antd/badge";
 import {delay} from "rxjs";
 import {NzMessageService} from "ng-zorro-antd/message";
-import {BlackJackMessage} from "../../model/enum/black-jack-message";
+import {BlackJackMessage} from "../../model/enum/black-jack.message.enum";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {ChatComponent} from "../../components/chat/chat.component";
 import {HeaderComponent} from "../../components/header/header.component";
@@ -97,7 +97,7 @@ export class BlackjackPageComponent {
 
   handleOkMiddle(){
     this.isLeaveModalVisible.set(false)
-    this.router.navigateByUrl("/games")
+    return this.router.navigateByUrl("/games")
   }
 
 

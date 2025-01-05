@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {RouterLink} from "@angular/router";
@@ -19,7 +19,6 @@ import {RankingComponent} from "../../components/ranking/ranking.component";
   styleUrl: './game-page.component.scss'
 })
 export class GamePageComponent {
-
 
   protected title = 'BlackJack';
 

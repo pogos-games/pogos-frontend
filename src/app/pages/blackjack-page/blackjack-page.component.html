@@ -2,17 +2,12 @@
 <app-header [title]="'Blackjack'" [canLeave]="true" [leaveSignal]="isLeaveModalVisible"></app-header>
 <div class="main-content">
 
-
   <div class="game-content">
-
     <app-game-table></app-game-table>
-
     <app-ranking></app-ranking>
-
-</div>
+  </div>
 
   <div class="actions">
-
   <div class="game-actions">
     <button nz-button nzType="primary" disabled>
       <span nz-icon nzType="double-right"></span>
@@ -96,7 +91,6 @@
   >
     <ng-container *nzModalContent>
       <p>Est-tu sûr de vouloir quitter la partie ?</p>
-      <p>Cette action sera irréversible</p>
     </ng-container>
   </nz-modal>
 

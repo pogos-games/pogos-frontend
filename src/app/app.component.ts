@@ -9,8 +9,7 @@ import {NzMenuModule} from 'ng-zorro-antd/menu';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
 }
