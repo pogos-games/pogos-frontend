@@ -72,10 +72,12 @@
   </div>
 
     <div class="other-actions">
+    @if(gameType == GameType.MULTI) {
     <button nz-button nzType="primary" (click)="open()">
       Tchat
       <span nz-icon nzType="message"></span>
     </button>
+    }
     </div>
 
   </div>
@@ -93,5 +95,6 @@
       <p>Est-tu sûr de vouloir quitter la partie ?</p>
     </ng-container>
   </nz-modal>
+
 
 </div>

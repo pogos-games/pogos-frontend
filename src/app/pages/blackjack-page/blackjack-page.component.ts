@@ -109,4 +109,5 @@ export class BlackjackPageComponent implements OnInit {
     return this.router.navigateByUrl("/games")
   }
 
+  protected readonly GameType = GameType;
 }
