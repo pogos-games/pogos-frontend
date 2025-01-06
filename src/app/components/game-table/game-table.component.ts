@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {BlackJackActions} from "../../model/enum/black-jack.actions.enum";
 import {BlackJackMessage} from "../../model/enum/black-jack.message.enum";
 import {NgOptimizedImage} from "@angular/common";
-import {NzBadgeComponent} from "ng-zorro-antd/badge";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzSpinComponent} from "ng-zorro-antd/spin";
 import {BlackjackDeck} from "../../model/dto/request/black-jack-deck";
@@ -14,7 +13,6 @@ import {CardHandComponent} from "../card-hand/card-hand.component";
   standalone: true,
   imports: [
     NgOptimizedImage,
-    NzBadgeComponent,
     NzButtonComponent,
     NzSpinComponent,
     CardHandComponent
