@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
-import {NzSpaceItemDirective} from "ng-zorro-antd/space";
-import {NzImageDirective} from "ng-zorro-antd/image";
 import {RouterLink} from "@angular/router";
 
 @Component({
@@ -9,8 +7,6 @@ import {RouterLink} from "@angular/router";
   standalone: true,
   imports: [
     NzButtonComponent,
-    NzSpaceItemDirective,
-    NzImageDirective,
     RouterLink
   ],
   templateUrl: './home-page.component.html',

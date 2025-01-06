@@ -1,79 +1,20 @@
+
+<app-header [title]="'Blackjack'" [canLeave]="true" [leaveSignal]="isLeaveModalVisible"></app-header>
 <div class="main-content">
 
-  <h1 class="title luckiest-guy-regular">Blackjack</h1>
-
-  <button nz-button nzType="primary" (click)="open()">
-    <span nz-icon nzType="check"></span>
-    Tchat
-  </button>
-
-  <div id="game-table">
-    <div class="symbols">
-      <div class="icon">
-        <img ngSrc="/assets/icons/coeur.png" alt="coeur" height="1024" width="1024"/>
-      </div>
-      <div class="icon">
-        <img ngSrc="/assets/icons/pique.png" alt="pique" height="512" width="512"/>
-      </div>
-    </div>
-
-    @if (blackJackDeck) {
-
-      <div class="card-container">
-        <div class="dealer">
-          <h3 class="luckiest-guy-regular">Dealer</h3>
-          <div class="card-hand">
-            @for (card of blackJackDeck.dealerHand; track $index) {
-              <img [ngSrc]=findCardImage(card) alt="OC" height="150" width="100"/>
-            }
-          </div>
-        </div>
-
-        <div class="player">
-          <div class="card-hand">
-            @for (card of blackJackDeck.playerHand; track $index) {
-              @if (blackJackDeck.playerHand.size - 1 == $index) {
-                <nz-badge [nzCount]="blackJackDeck.playerTotal">
-                  <img [ngSrc]=findCardImage(card) alt="OC" height="150" width="100"/>
-                </nz-badge>
-              } @else {
-                <img [ngSrc]=findCardImage(card) alt="OC" height="150" width="100"/>
-              }
-            }
-          </div>
-          <h3 class="luckiest-guy-regular" style="margin-top: 5px">Toi</h3>
-          @if (blackJackDeck.message !== BlackJackMessage.CONTINUE) {
-            <button nz-button nzType="primary" (click)="executeAction(BlackJackAction.RESTART)">
-              Rejouer
-            </button>
-          }
-        </div>
-      </div>
-
-    } @else {
-      <div id="spinner-container">
-        <nz-spin nzSimple nzSize="large"></nz-spin>
-      </div>
-    }
-
-    <div class="symbols">
-      <div class="icon">
-        <img ngSrc="/assets/icons/trefle.png" alt="trefle" height="800" width="900"/>
-      </div>
-      <div class="icon">
-        <img ngSrc="/assets/icons/carreau.png" alt="carreau" height="410" width="410"/>
-      </div>
-    </div>
-
+  <div class="game-content">
+    <app-game-table></app-game-table>
+    <app-ranking></app-ranking>
   </div>
 
+  <div class="actions">
   <div class="game-actions">
-    <button nz-button nzType="primary" [disabled]="isActionDisabled">
+    <button nz-button nzType="primary" disabled>
       <span nz-icon nzType="double-right"></span>
       Miser double
     </button>
 
-    <button nz-button nzType="primary" [disabled]="isActionDisabled">
+    <button nz-button nzType="primary" disabled>
       <span nz-icon nzType="double-left"></span>
       Diviser
     </button>
@@ -130,6 +71,30 @@
 
   </div>
 
-  <app-chat [visible]="visible"></app-chat>
+    <div class="other-actions">
+    @if(gameType == GameType.MULTI) {
+    <button nz-button nzType="primary" (click)="open()">
+      Tchat
+      <span nz-icon nzType="message"></span>
+    </button>
+    }
+    </div>
+
+  </div>
+
+  <app-chat [visible]="isChatVisible"></app-chat>
+
+  <nz-modal
+    [nzVisible]="isLeaveModalVisible()"
+    nzTitle="Déconnexion"
+    nzCentered
+    (nzOnCancel)="handleCancelMiddle()"
+    (nzOnOk)="handleOkMiddle()"
+  >
+    <ng-container *nzModalContent>
+      <p>Est-tu sûr de vouloir quitter la partie ?</p>
+    </ng-container>
+  </nz-modal>
+
 
 </div>

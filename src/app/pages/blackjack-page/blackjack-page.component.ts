@@ -1,19 +1,23 @@
-import {Component, signal, WritableSignal} from '@angular/core';
+import {Component, OnInit, signal, WritableSignal} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {BlackjackService} from "../../services/blackjack.service";
 import {BlackjackDeck} from "../../model/dto/request/black-jack-deck";
-import {NzSpinComponent} from "ng-zorro-antd/spin";
 import {Card} from "../../model/dto/request/card";
-import {BlackJackActions} from "../../model/enum/black-jack-actions";
+import {BlackJackActions} from "../../model/enum/black-jack.actions.enum";
 import {NzBadgeComponent} from "ng-zorro-antd/badge";
 import {delay} from "rxjs";
 import {NzMessageService} from "ng-zorro-antd/message";
-import {BlackJackMessage} from "../../model/enum/black-jack-message";
+import {BlackJackMessage} from "../../model/enum/black-jack.message.enum";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
-import {NzDrawerComponent} from "ng-zorro-antd/drawer";
 import {ChatComponent} from "../../components/chat/chat.component";
+import {HeaderComponent} from "../../components/header/header.component";
+import {RankingComponent} from "../../components/ranking/ranking.component";
+import {GameTableComponent} from "../../components/game-table/game-table.component";
+import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
+import {ActivatedRoute, Router} from "@angular/router";
+import {GameType} from "../../model/enum/game-type.enum";
 
 @Component({
   selector: 'app-blackjack-page',
@@ -22,16 +26,19 @@ import {ChatComponent} from "../../components/chat/chat.component";
     NgOptimizedImage,
     NzButtonComponent,
     NzIconDirective,
-    NzSpinComponent,
     NzBadgeComponent,
     NzDividerComponent,
-    NzDrawerComponent,
-    ChatComponent
+    ChatComponent,
+    HeaderComponent,
+    RankingComponent,
+    GameTableComponent,
+    NzModalComponent,
+    NzModalModule
   ],
   templateUrl: './blackjack-page.component.html',
   styleUrl: './blackjack-page.component.scss'
 })
-export class BlackjackPageComponent {
+export class BlackjackPageComponent implements OnInit {
 
   protected blackJackDeck : BlackjackDeck = { playerHand: new Set<Card>(), dealerHand: new Set<Card>(), playerTotal: 0, message: BlackJackMessage.CONTINUE };
 
@@ -39,11 +46,15 @@ export class BlackjackPageComponent {
 
   protected isActionDisabled : boolean = false;
 
-  protected readonly BlackJackMessage = BlackJackMessage;
+  protected isChatVisible: WritableSignal<boolean> = signal(false);
 
-  protected visible: WritableSignal<boolean> = signal(false);
+  public isLeaveModalVisible: WritableSignal<boolean> = signal(false);
 
-  constructor(private blackJackService:BlackjackService,private message:NzMessageService) {
+  protected gameType: GameType|undefined;
+
+  constructor(private blackJackService:BlackjackService,private message:NzMessageService,
+                       private readonly router: Router, private readonly route:ActivatedRoute) {
+
     this.blackJackService.blackjackSubject.pipe(delay(1000)).subscribe((deck: BlackjackDeck|undefined) => {
        if(deck) {
          this.blackJackDeck.playerHand = new Set(deck.playerHand);
@@ -74,8 +85,10 @@ export class BlackjackPageComponent {
     }});
   }
 
-  findCardImage(card : Card) : string {
-    return `assets/cards/${card.rank}${card.suit}.png`;
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.gameType = params['gameType'];
+    });
   }
 
   executeAction(action : BlackJackActions) : void {
@@ -84,6 +97,17 @@ export class BlackjackPageComponent {
   }
 
   open(): void {
-    this.visible.set(true);
+    this.isChatVisible.set(true);
   }
+
+  handleCancelMiddle(){
+    this.isLeaveModalVisible.set(false)
+  }
+
+  handleOkMiddle(){
+    this.isLeaveModalVisible.set(false)
+    return this.router.navigateByUrl("/games")
+  }
+
+  protected readonly GameType = GameType;
 }

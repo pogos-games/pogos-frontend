@@ -1,17 +1,16 @@
-import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom, PLATFORM_ID} from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {provideRouter} from '@angular/router';
 
-import { routes } from './app.routes';
-import { fr_FR, provideNzI18n } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import {routes} from './app.routes';
+import {fr_FR, provideNzI18n} from 'ng-zorro-antd/i18n';
+import {registerLocaleData} from '@angular/common';
 import fr from '@angular/common/locales/fr';
-import { FormsModule } from '@angular/forms';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
-import {KeycloakService} from "keycloak-angular";
-import {initializeKeycloak} from "./auth/init/init.factory";
+import {FormsModule} from '@angular/forms';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
+import {provideHttpClient} from '@angular/common/http';
 import {provideNzIcons, provideNzIcons as provideNzIcons_alias} from 'ng-zorro-antd/icon';
 import {icons} from './icons-provider'
+
 registerLocaleData(fr);
 
 // import all icons (bad)
@@ -25,13 +24,6 @@ registerLocaleData(fr);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    {
-      provide:APP_INITIALIZER,
-      useFactory:initializeKeycloak,
-      multi:true,
-      deps:[KeycloakService]
-    },
-    KeycloakService,
     provideRouter(routes),
     provideNzIcons(icons),
     provideNzI18n(fr_FR),
