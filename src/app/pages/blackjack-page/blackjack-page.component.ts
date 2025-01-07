@@ -20,23 +20,22 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {GameType} from "../../model/enum/game-type.enum";
 
 @Component({
-  selector: 'app-blackjack-page',
-  standalone: true,
-  imports: [
-    NgOptimizedImage,
-    NzButtonComponent,
-    NzIconDirective,
-    NzBadgeComponent,
-    NzDividerComponent,
-    ChatComponent,
-    HeaderComponent,
-    RankingComponent,
-    GameTableComponent,
-    NzModalComponent,
-    NzModalModule
-  ],
-  templateUrl: './blackjack-page.component.html',
-  styleUrl: './blackjack-page.component.scss'
+    selector: 'app-blackjack-page',
+    imports: [
+        NgOptimizedImage,
+        NzButtonComponent,
+        NzIconDirective,
+        NzBadgeComponent,
+        NzDividerComponent,
+        ChatComponent,
+        HeaderComponent,
+        RankingComponent,
+        GameTableComponent,
+        NzModalComponent,
+        NzModalModule
+    ],
+    templateUrl: './blackjack-page.component.html',
+    styleUrl: './blackjack-page.component.scss'
 })
 export class BlackjackPageComponent implements OnInit {
 

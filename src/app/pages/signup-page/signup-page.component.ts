@@ -14,19 +14,18 @@ import { CookiesService } from "../../services/storage/cookies.service";
 import { AuthResponseDto } from '../../model/dto/response/auth-response.dto';
 
 @Component({
-  selector: 'app-signup-page',
-  standalone: true,
-  imports: [
-    NzButtonComponent,
-    NzIconDirective,
-    NzInputDirective,
-    NzInputGroupComponent,
-    NzInputGroupWhitSuffixOrPrefixDirective,
-    ReactiveFormsModule,
-    RouterLink
-  ],
-  templateUrl: './signup-page.component.html',
-  styleUrls: ['./signup-page.component.scss']
+    selector: 'app-signup-page',
+    imports: [
+        NzButtonComponent,
+        NzIconDirective,
+        NzInputDirective,
+        NzInputGroupComponent,
+        NzInputGroupWhitSuffixOrPrefixDirective,
+        ReactiveFormsModule,
+        RouterLink
+    ],
+    templateUrl: './signup-page.component.html',
+    styleUrls: ['./signup-page.component.scss']
 })
 export class SignupPageComponent {
 

@@ -6,10 +6,9 @@ import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import {NzMenuModule} from 'ng-zorro-antd/menu';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule],
-  templateUrl: './app.component.html'
+    selector: 'app-root',
+    imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule],
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
 }

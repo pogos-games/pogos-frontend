@@ -5,15 +5,14 @@ import {RouterLink} from "@angular/router";
 import {UserService} from "../../services/user.service";
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [
-    NzButtonComponent,
-    NzIconDirective,
-    RouterLink
-  ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+    selector: 'app-header',
+    imports: [
+        NzButtonComponent,
+        NzIconDirective,
+        RouterLink
+    ],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
 
