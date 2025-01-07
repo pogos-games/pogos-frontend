@@ -1,7 +1,11 @@
 <div class="main-content">
-  
-  <h1 class="luckiest-guy-regular">OOPS ! Page not found</h1>
-  <h2 class="luckiest-guy-regular">404</h2>
-  <a nz-button nzType="link" nzDanger class="luckiest-guy-regular" routerLink="/">Go back to home page</a>
+
+<h1 class="luckiest-guy-regular title">OOPS ! </h1>
+
+  <nz-result nzStatus="404" nzTitle="404" nzSubTitle="Sorry, the page you visited does not exist.">
+    <div nz-result-extra>
+      <a nz-button nzType="link"  class="luckiest-guy-regular" routerLink="/">Go back to home page</a>
+    </div>
+  </nz-result>
 
 </div>
