@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
                 // Gère une éventuelle expiration de session
                 if (error.status === 401) {
-                    this.userService.logout(); // Déconnecte l'utilisateur si le token est invalide
+                    //this.userService.logout(); // Déconnecte l'utilisateur si le token est invalide
                 }
 
                 return throwError(() => error);

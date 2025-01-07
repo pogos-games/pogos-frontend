@@ -9,19 +9,20 @@ import { LoginRequestDto } from "../../model/dto/request/login-request.dto";
 import { catchError } from "rxjs";
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login-page.component.html',
-    imports: [
-        ReactiveFormsModule,
-        NzInputDirective,
-        NzInputGroupWhitSuffixOrPrefixDirective,
-        NzInputGroupComponent,
-        NzIconDirective,
-        NzIconModule,
-        NzButtonComponent,
-        RouterLink
-    ],
-    styleUrl: './login-page.component.scss'
+  selector: 'app-login',
+  standalone: true,
+  templateUrl: './login-page.component.html',
+  imports: [
+    ReactiveFormsModule,
+    NzInputDirective,
+    NzInputGroupWhitSuffixOrPrefixDirective,
+    NzInputGroupComponent,
+    NzIconDirective,
+    NzIconModule,
+    NzButtonComponent,
+    RouterLink
+  ],
+  styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
 
