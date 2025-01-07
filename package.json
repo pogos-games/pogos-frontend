@@ -18,6 +18,7 @@
     "@angular/platform-browser": "^18.2.5",
     "@angular/platform-browser-dynamic": "^18.2.5",
     "@angular/router": "^18.2.5",
+    "jwt-decode": "^4.0.0",
     "keycloak-angular": "^16.0.1",
     "keycloak-js": "^25.0.6",
     "ng-zorro-antd": "^18.1.1",

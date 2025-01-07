@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
 
-body,* {
-    margin: 0;
-    padding: 0;
+body,
+* {
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -27,10 +28,11 @@ body {
 .main-button {
   background-color: #FFF8EB;
   color: black;
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
+  font-size: 25px;
   border-radius: 10%;
-  border-color: #FFF8EB ;
+  border-color: #FFF8EB;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -47,4 +49,3 @@ body {
   font-family: "Luckiest Guy", cursive;
   font-style: normal;
 }
-
