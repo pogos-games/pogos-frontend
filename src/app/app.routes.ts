@@ -10,6 +10,7 @@ import { AuthGuard } from "./auth/guard/auth-guard";
 import { MyProfileComponent } from './components/pages/profile/my-profile/my-profile.component';
 import { FriendsComponent } from "./components/pages/profile/friends/main-friends/friends.component";
 import { GameHistoryComponent } from "./components/pages/profile/rankings/game-history.component";
+import { PokerPageComponent } from './pages/poker-page/poker-page.component';
 
 export const routes: Routes = [
   { path: 'games', component: GamePageComponent },
