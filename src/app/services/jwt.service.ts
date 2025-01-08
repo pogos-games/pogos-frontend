@@ -9,15 +9,11 @@ export class JwtService {
   /**
    * Décoder un token JWT
    * @param token Le JWT à décoder
-   * @returns Le payload décodé du token
+   * @returns Un objet JwtDto contenant les informations du token
+   * @throws Erreur si le token est invalide ou si des propriétés manquent
    */
   decodeToken(token: string): JwtDto {
-    try {
-      return jwtDecode<JwtDto>(token);
-    } catch (error) {
-      console.error('Invalid JWT token:', error);
-      throw new Error('Failed to decode JWT');
-    }
+    return jwtDecode(token);
   }
 
   /**
@@ -34,8 +30,8 @@ export class JwtService {
    * @param exp Timestamp d'expiration (du payload JWT)
    * @returns Vrai si le token est expiré, sinon faux
    */
-  isTokenExpired(exp: number): boolean {
-    return Date.now() >= exp * 1000;
+  isTokenExpired(exp: Date): boolean {
+    return Date.now() >= exp.getTime();
   }
 
   /**
@@ -46,10 +42,40 @@ export class JwtService {
   isTokenValid(token: string): boolean {
     try {
       const decodedToken = this.decodeToken(token);
-      return !this.isTokenExpired(decodedToken.exp);
+      return !this.isTokenExpired(this.getTokenExpirationDate(decodedToken.exp));
     } catch (error) {
       console.error('Token validation failed:', error);
       return false;
+    }
+  }
+
+  /**
+   * Récupérer le username contenu dans le token
+   * @param token Le JWT
+   * @returns Le username (ou null si le token est invalide)
+   */
+  getUsernameFromToken(token: string): string | null {
+    try {
+      const decodedToken = this.decodeToken(token);
+      return decodedToken.username || null;
+    } catch (error) {
+      console.error('Failed to retrieve username from token:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Récupérer l'email contenu dans le token
+   * @param token Le JWT
+   * @returns L'email (ou null si le token est invalide)
+   */
+  getEmailFromToken(token: string): string | null {
+    try {
+      const decodedToken = this.decodeToken(token);
+      return decodedToken.email || null;
+    } catch (error) {
+      console.error('Failed to retrieve email from token:', error);
+      return null;
     }
   }
 }

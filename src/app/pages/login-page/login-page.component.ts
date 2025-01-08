@@ -6,7 +6,12 @@ import { NzIconDirective, NzIconModule } from "ng-zorro-antd/icon";
 import { NzButtonComponent } from "ng-zorro-antd/button";
 import { AuthService } from "../../auth/service/auth.service";
 import { LoginRequestDto } from "../../model/dto/request/login-request.dto";
-import { catchError } from "rxjs";
+import { StorageService } from "../../services/storage/session-storage.service";
+import { CookiesStorageService } from "../../services/storage/cookies-storage.service";
+import { catchError, of } from "rxjs";
+import { AuthResponseDto } from '../../model/auth-response.dto';
+import { User } from '../../model/user.interface';
+import { JwtService } from '../../services/jwt.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +31,7 @@ import { catchError } from "rxjs";
 })
 export class LoginPageComponent {
 
-  constructor(private readonly authService: AuthService) {
+  constructor(private readonly authService: AuthService, private readonly router: Router, private readonly storageService: StorageService, private readonly cookiesService: CookiesStorageService, private readonly jwtService: JwtService) {
   }
 
   isPasswordHided: boolean = true;
@@ -37,7 +42,6 @@ export class LoginPageComponent {
   })
 
   onSubmit(): void {
-    console.log(this.loginForm.value);
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
@@ -51,11 +55,29 @@ export class LoginPageComponent {
     this.authService.login(loginRequest).pipe(
       catchError((error) => {
         this.loginForm.setErrors({ invalid_credentials: true });
-        return error;
+        return of(undefined);
       }
-      )).subscribe((response => {
-        console.log(response);
-      }))
-  }
+      )).subscribe((response: AuthResponseDto | undefined) => {
+        if (!response) {
+          return;
+        }
+        const accessToken = response.accessToken;
+        const refreshToken = response.refreshToken;
 
+        const pseudo = this.jwtService.getUsernameFromToken(accessToken) ?? '';
+
+        const user: User = {
+          pseudo: pseudo,
+          mail: loginRequest.email,
+          accessToken: accessToken
+        };
+        this.storageService.setUserStorage(user);
+
+        const decodedToken = this.jwtService.decodeToken(refreshToken);
+        const exp = this.jwtService.getTokenExpirationDate(decodedToken.exp);
+        this.cookiesService.setCookie('pogos-refreshToken', refreshToken, exp);
+
+        this.router.navigate(['/games']);
+      });
+  }
 }

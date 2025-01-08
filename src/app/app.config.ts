@@ -1,7 +1,7 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, withInterceptorsFromDi } from '@angular/common/http';
 import { routes } from './app.routes';
 import { fr_FR, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -36,5 +36,5 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(fr_FR),
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
-    provideHttpClient(), provideNzIcons_alias(icons)],
+    provideHttpClient(withInterceptorsFromDi()), provideNzIcons_alias(icons)],
 };

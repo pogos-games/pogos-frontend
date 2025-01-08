@@ -2,24 +2,38 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CookiesStorageService {
-
   constructor(private cookieService: CookieService) { }
 
-  setCookie(name: string, value: string, days: number): void {
-    const expiryDate = new Date();
-    expiryDate.setTime(expiryDate.getTime() + (days * 24 * 60 * 60 * 1000));
-    this.cookieService.set(name, value, expiryDate);
-    console.log("get cookie : ", this.getCookie(name));
+  /**
+   * Définit un cookie avec une date d'expiration spécifique.
+   * @param name Nom du cookie.
+   * @param value Valeur du cookie.
+   * @param expires Date d'expiration.
+   * @param path Chemin où le cookie sera accessible (par défaut '/').
+   * @param secure Définit si le cookie est sécurisé (HTTPS uniquement).
+   */
+  setCookie(name: string, value: string, expires: Date, path: string = '/', secure: boolean = false): void {
+    this.cookieService.set(name, value, expires, path, undefined, secure, 'Strict');
   }
 
+  /**
+   * Récupère la valeur d'un cookie.
+   * @param name Nom du cookie.
+   * @returns Valeur du cookie ou null si inexistant.
+   */
   getCookie(name: string): string | null {
-    return this.cookieService.get(name);
+    return this.cookieService.get(name) || null;
   }
 
-  deleteCookie(name: string): void {
-    this.cookieService.delete(name);
+  /**
+   * Supprime un cookie.
+   * @param name Nom du cookie.
+   * @param path Chemin où le cookie est accessible (par défaut '/').
+   */
+  deleteCookie(name: string, path: string = '/'): void {
+    this.cookieService.delete(name, path);
   }
 }

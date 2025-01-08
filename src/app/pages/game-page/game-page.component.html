@@ -14,16 +14,21 @@
 
     </div>
 
+    @if (user){
+    <button nz-button nzType="primary" (click)="onClick()">coucou</button>
+    }
 
     <div id="game-actions">
 
       <div id="top-buttons">
-        <button nz-button class="main-button luckiest-guy-regular" [routerLink]="['/games', title.toLowerCase()]" [queryParams]="{ gameType: 'solo' }">Jouer en solo</button>
-        <button nz-button class="main-button luckiest-guy-regular" [routerLink]="['/games', title.toLowerCase()]" [queryParams]="{ gameType: 'multi' }">Jouer en multijoueur</button>
+        <button nz-button class="main-button luckiest-guy-regular" [routerLink]="['/games', title.toLowerCase()]"
+          [queryParams]="{ gameType: 'solo' }">Jouer en solo</button>
+        <button nz-button class="main-button luckiest-guy-regular" [routerLink]="['/games', title.toLowerCase()]"
+          [queryParams]="{ gameType: 'multi' }">Jouer en multijoueur</button>
       </div>
 
       <div id="bottom-button">
-        <button nz-button class="main-button luckiest-guy-regular" >Créer une partie privée</button>
+        <button nz-button class="main-button luckiest-guy-regular">Créer une partie privée</button>
       </div>
 
     </div>

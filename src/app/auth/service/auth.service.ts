@@ -25,4 +25,7 @@ export class AuthService {
     return this.httpClient.post<AuthResponseDto>(`${environment.coreURL}/auth/refresh`, { refreshToken });
   }
 
+  profile(): Observable<any> {
+    return this.httpClient.get(`${environment.coreURL}/auth/profile`);
+  }
 }
