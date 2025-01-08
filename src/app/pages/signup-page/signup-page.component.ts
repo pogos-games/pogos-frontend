@@ -7,11 +7,11 @@ import { RouterLink } from "@angular/router";
 import { AuthService } from "../../auth/service/auth.service";
 import { SignupRequestDto } from "../../model/dto/request/signup-request.dto";
 import { catchError, of } from "rxjs";
-import { HttpErrorResponse } from "@angular/common/http";
+import { HttpErrorResponse, HttpStatusCode } from "@angular/common/http";
 import { User } from "../../model/user.interface";
 import { StorageService } from "../../services/storage/session-storage.service";
-import { CookiesService } from "../../services/storage/cookies.service";
-import { AuthResponseDto } from '../../model/dto/response/auth-response.dto';
+import { CookiesStorageService } from "../../services/storage/cookies-storage.service";
+import { AuthResponseDto } from '../../model/auth-response.dto';
 
 @Component({
   selector: 'app-signup-page',
@@ -45,7 +45,7 @@ export class SignupPageComponent {
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
-  constructor(private readonly authService: AuthService, private readonly storageService: StorageService, private readonly cookiesService: CookiesService) { }
+  constructor(private readonly authService: AuthService, private readonly storageService: StorageService, private readonly cookiesService: CookiesStorageService) { }
 
   passwordMatch(password1: string, password2: string): boolean {
     return password1 === password2;
@@ -79,7 +79,7 @@ export class SignupPageComponent {
     this.authService.signup(signUpRequest).pipe(
       catchError((error) => {
         if (error instanceof HttpErrorResponse) {
-          if (error.status === 409) {
+          if (error.status === HttpStatusCode.Conflict) {
             this.signupForm.setErrors({ already_exists: true });
           }
         }
@@ -97,7 +97,7 @@ export class SignupPageComponent {
         accessToken: accessToken
       };
       this.storageService.setUserStorage(user);
-      //this.cookiesService.setCookie('refreshToken', refreshToken, 30);
+      this.cookiesService.setCookie('pogos-refreshToken', refreshToken, 7); // Définit un cookie de 7 jours
     });
 
   }

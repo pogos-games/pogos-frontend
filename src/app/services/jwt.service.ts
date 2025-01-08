@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';  // Correction de l'importation
+import { jwtDecode } from 'jwt-decode';
 import { JwtDto } from '../model/dto/jwt.dto';
 
 @Injectable({

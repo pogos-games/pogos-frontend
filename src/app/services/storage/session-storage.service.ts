@@ -18,5 +18,8 @@ export class StorageService {
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 
-
+  // Remove the user from the local storage
+  removeUserStorage(): void {
+    sessionStorage.removeItem('user');
+  }
 }
