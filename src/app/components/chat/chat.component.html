@@ -1,0 +1,25 @@
+<nz-drawer
+  class="drawer"
+  [nzClosable]="true"
+  [nzVisible]="visible()"
+  nzPlacement="right"
+  nzTitle="Discussion en ligne"
+  (nzOnClose)="close()">
+
+  <ng-container *nzDrawerContent    class="drawer"
+  >
+    <div class="messages">
+
+    </div>
+    <div class="input">
+      <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+        <input type="text" nz-input placeholder="Écris un message" [(ngModel)]="message"  (keydown.enter)="sendMessage()"/>
+      </nz-input-group>
+      <ng-template #suffixIconButton>
+        <button nz-button nzType="primary" nzSearch (click)="sendMessage()">
+          <span nz-icon nzType="send" ></span></button>
+      </ng-template>
+
+    </div>
+  </ng-container>
+</nz-drawer>

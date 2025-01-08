@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.back-button {
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  color: black;
+  border-radius: 7.5px;
+  width: 140px;
+  height: 40px;
+  font-family: "Luckiest Guy", cursive;
+  font-style: normal;
+  font-size: 22px;
+  background-color: #fffcf5;
+  border: 2px solid #fffcf5;
+  cursor: pointer;
+  transition: transform 0.3s ease, font-size 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #fff8e6;
+  font-size: 24px;
+  transform: rotate(-4deg) scale(1.5);
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5%;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  max-height: 425px;
+  background-color: #fffcf5;
+  padding: 20px;
+  border-radius: 10%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 350px;
+  gap: 10px;
+}
+
+.form-title {
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 7.5px;
+  border: none;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-icon-size {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.ant-input-password-icon {
+  font-size: 18px;
+  line-height: 1;
+  margin-right: 0.75em;
+}
+
+.submit-button {
+  margin-top: 20px;
+  background-color: #4E7FBA;
+  color: white;
+  border-radius: 7.5px;
+  border: none;
+  height: auto;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.signup-link {
+  margin-top: 10px;
+  text-align: center;
+  color: #4E7FBA;
+}
+
+.submit-button:hover {
+  background-color: #214484;
+  color: white;
+}
+
+.form-error {
+  margin-bottom: -1em;
+  color: red;
+  font-size: 14px;
+  align-self: center;
+}
+
+.buttonhidepassword {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.buttonform {
+  border-radius: 5px;
+}

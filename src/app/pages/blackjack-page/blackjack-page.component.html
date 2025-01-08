@@ -1,0 +1,100 @@
+
+<app-header [title]="'Blackjack'" [canLeave]="true" [leaveSignal]="isLeaveModalVisible"></app-header>
+<div class="main-content">
+
+  <div class="game-content">
+    <app-game-table></app-game-table>
+    <app-ranking></app-ranking>
+  </div>
+
+  <div class="actions">
+  <div class="game-actions">
+    <button nz-button nzType="primary" disabled>
+      <span nz-icon nzType="double-right"></span>
+      Miser double
+    </button>
+
+    <button nz-button nzType="primary" disabled>
+      <span nz-icon nzType="double-left"></span>
+      Diviser
+    </button>
+
+    <div id="coins">
+      <div class="chips">
+      <button class="chip-button">
+        <div class="chip-container">
+          <img ngSrc="assets/chips/blue_chip.png" alt="blue_chip" height="35" width="35"/>
+          <nz-badge [nzCount]="5" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+        </div>
+      </button>
+      <button class="chip-button">
+        <div class="chip-container">
+          <img ngSrc="assets/chips/green_chip.png" alt="green_chip" height="35" width="35"/>
+          <nz-badge [nzCount]="10" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+        </div>
+      </button>
+
+      <button class="chip-button">
+        <div class="chip-container">
+          <img ngSrc="assets/chips/red_chip.png" alt="red_chip" height="35" width="35"/>
+          <nz-badge [nzCount]="50" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+        </div>
+      </button>
+      <button class="chip-button">
+        <div class="chip-container">
+          <img ngSrc="assets/chips/yellow_chip.png" alt="white_chip" height="35" width="35"/>
+          <nz-badge [nzCount]="100" [nzOverflowCount]="150" nzStandalone  [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+        </div>
+      </button>
+      </div>
+      <nz-divider nzType="vertical"></nz-divider>
+      <div class="user-coins">
+        Coins
+        <nz-badge
+          nzStandalone
+          [nzCount]="300"
+          [nzOverflowCount]="999"
+          [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
+        ></nz-badge>
+      </div>
+    </div>
+
+    <button nz-button nzType="primary" (click)="executeAction(BlackJackAction.HIT)" [disabled]="isActionDisabled">
+      <span nz-icon nzType="plus"></span>
+      Tirer
+    </button>
+
+    <button nz-button nzType="primary" (click)="executeAction(BlackJackAction.STAND)" [disabled]="isActionDisabled">
+      <span nz-icon nzType="check"></span>
+      Rester
+    </button>
+
+  </div>
+
+    <div class="other-actions">
+    @if(gameType == GameType.MULTI) {
+    <button nz-button nzType="primary" (click)="open()">
+      Tchat
+      <span nz-icon nzType="message"></span>
+    </button>
+    }
+    </div>
+
+  </div>
+
+  <app-chat [visible]="isChatVisible"></app-chat>
+
+  <nz-modal
+    [nzVisible]="isLeaveModalVisible()"
+    nzTitle="Déconnexion"
+    nzCentered
+    (nzOnCancel)="handleCancelMiddle()"
+    (nzOnOk)="handleOkMiddle()"
+  >
+    <ng-container *nzModalContent>
+      <p>Est-tu sûr de vouloir quitter la partie ?</p>
+    </ng-container>
+  </nz-modal>
+
+
+</div>
