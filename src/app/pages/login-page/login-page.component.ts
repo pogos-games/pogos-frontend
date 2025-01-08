@@ -1,12 +1,12 @@
-import {Component,} from '@angular/core';
-import {Router, RouterLink} from "@angular/router";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective} from "ng-zorro-antd/input";
-import {NzIconDirective} from "ng-zorro-antd/icon";
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {AuthService} from "../../services/auth.service";
-import {LoginRequestDto} from "../../model/dto/request/login-request.dto";
-import {catchError} from "rxjs";
+import { Component, } from '@angular/core';
+import { Router, RouterLink } from "@angular/router";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective } from "ng-zorro-antd/input";
+import { NzIconDirective, NzIconModule } from "ng-zorro-antd/icon";
+import { NzButtonComponent } from "ng-zorro-antd/button";
+import { AuthService } from "../../auth/service/auth.service";
+import { LoginRequestDto } from "../../model/dto/request/login-request.dto";
+import { catchError } from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -18,6 +18,7 @@ import {catchError} from "rxjs";
     NzInputGroupWhitSuffixOrPrefixDirective,
     NzInputGroupComponent,
     NzIconDirective,
+    NzIconModule,
     NzButtonComponent,
     RouterLink
   ],
@@ -25,7 +26,7 @@ import {catchError} from "rxjs";
 })
 export class LoginPageComponent {
 
-  constructor(private readonly authService:AuthService) {
+  constructor(private readonly authService: AuthService) {
   }
 
   isPasswordHided: boolean = true;
@@ -35,14 +36,14 @@ export class LoginPageComponent {
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
-  onSubmit() : void {
+  onSubmit(): void {
     console.log(this.loginForm.value);
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
 
-    const loginRequest : LoginRequestDto = {
+    const loginRequest: LoginRequestDto = {
       email: this.loginForm.value.login,
       password: this.loginForm.value.password
     }
@@ -52,8 +53,8 @@ export class LoginPageComponent {
         this.loginForm.setErrors({ invalid_credentials: true });
         return error;
       }
-    )).subscribe((response => {
-      console.log(response);
+      )).subscribe((response => {
+        console.log(response);
       }))
   }
 

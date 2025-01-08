@@ -6,17 +6,16 @@ import {HeaderComponent} from "../../components/header/header.component";
 import {RankingComponent} from "../../components/ranking/ranking.component";
 
 @Component({
-  selector: 'app-game-page',
-  standalone: true,
-  imports: [
-    NgOptimizedImage,
-    NzButtonComponent,
-    RouterLink,
-    HeaderComponent,
-    RankingComponent
-  ],
-  templateUrl: './game-page.component.html',
-  styleUrl: './game-page.component.scss'
+    selector: 'app-game-page',
+    imports: [
+        NgOptimizedImage,
+        NzButtonComponent,
+        RouterLink,
+        HeaderComponent,
+        RankingComponent
+    ],
+    templateUrl: './game-page.component.html',
+    styleUrl: './game-page.component.scss'
 })
 export class GamePageComponent {
 

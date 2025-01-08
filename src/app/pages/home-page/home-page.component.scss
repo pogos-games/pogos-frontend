@@ -1,4 +1,4 @@
-#home-page{
+#home-page {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -7,20 +7,20 @@
   height: 100%;
 }
 
-#home-page .home-page-container{
+#home-page .home-page-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-#home-page .home-page-container h1{
+#home-page .home-page-container h1 {
   font-size: 80px;
   font-weight: bold;
 }
 
 
-.home-page-container{
+.home-page-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -30,7 +30,7 @@
   width: 33%;
 }
 
-.home-page-container-right{
+.home-page-container-right {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -46,10 +46,9 @@
 }
 
 .rotate-left {
-  transform: rotate(5deg);
+  transform: rotate(5deg) scale(0.9);
 }
 
 .rotate-right {
-  transform: rotate(-5deg);
+  transform: rotate(-5deg) scale(0.9);
 }
-

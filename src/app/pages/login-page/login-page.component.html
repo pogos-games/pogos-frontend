@@ -2,36 +2,38 @@
 
   <h1 class="title luckiest-guy-regular">Pogos</h1>
 
+  <button nz-button nzType="primary" class="back-button" routerLink="/">Retour !</button>
+
   <div class="form-box" fxLayout="column" fxLayoutAlign="center center">
     <h3 class="form-title luckiest-guy-regular">Connexion</h3>
     <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-      <nz-input-group nzAddOnAfterIcon="mail">
-        <input type="text" placeholder="adresse mail" nz-input formControlName="login" />
+      <nz-input-group class="input" [nzSuffix]="suffixTemplateMail">
+        <input type="text" placeholder="Email" nz-input formControlName="login" />
+      </nz-input-group>
+      <ng-template #suffixTemplateMail>
+        <span nz-icon class="input-icon custom-icon-size" nzType="mail"></span>
+      </ng-template>
+
+      <nz-input-group class="input" [nzSuffix]="suffixTemplate">
+        <input [type]="isPasswordHided ? 'password' : 'text'" nz-input placeholder="Mot de passe"
+          formControlName="password" />
       </nz-input-group>
 
-      <nz-input-group [nzSuffix]="suffixTemplate" nzAddOnAfterIcon="lock">
-        <input
-          [type]="isPasswordHided ?  'password' : 'text'"
-          nz-input
-          placeholder="mot de passe"
-          formControlName="password"
-        />
-      </nz-input-group>
       <ng-template #suffixTemplate>
-      <span
-        nz-icon
-        class="ant-input-password-icon"
-        [nzType]="isPasswordHided ? 'eye-invisible' : 'eye'"
-        (click)="isPasswordHided = !isPasswordHided"
-      ></span>
+        <div class="suffix-container">
+          <span nz-icon class="ant-input-password-icon" [nzType]="isPasswordHided ? 'eye-invisible' : 'eye'"
+            (click)="isPasswordHided = !isPasswordHided"></span>
+          <span nz-icon class="input-icon custom-icon-size" nzType="lock"></span>
+        </div>
       </ng-template>
       @if (loginForm.hasError('invalid_credentials')) {
-        <p class="form-error">Identifiants incorrects</p>
+      <p class="form-error">Identifiants incorrects</p>
       }
 
-      <button nz-button nzType="primary" nzBlock [disabled]="loginForm.invalid">Se connecter</button>
-      <a routerLink="/signup"><span>se creéer un compte</span></a>
+      <button nz-button class="submit-button" nzType="primary" nzBlock [disabled]="loginForm.invalid">Se
+        connecter</button>
+      <a class="signup-link" routerLink="/signup"><span>Se creéer un compte</span></a>
     </form>
   </div>
 </div>

@@ -9,16 +9,15 @@ import {Card} from "../../model/dto/request/card";
 import {CardHandComponent} from "../card-hand/card-hand.component";
 
 @Component({
-  selector: 'app-game-table',
-  standalone: true,
-  imports: [
-    NgOptimizedImage,
-    NzButtonComponent,
-    NzSpinComponent,
-    CardHandComponent
-  ],
-  templateUrl: './game-table.component.html',
-  styleUrl: './game-table.component.scss'
+    selector: 'app-game-table',
+    imports: [
+        NgOptimizedImage,
+        NzButtonComponent,
+        NzSpinComponent,
+        CardHandComponent
+    ],
+    templateUrl: './game-table.component.html',
+    styleUrl: './game-table.component.scss'
 })
 export class GameTableComponent {
 
