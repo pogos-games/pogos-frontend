@@ -14,15 +14,15 @@ export class AuthService {
   constructor(private readonly httpClient: HttpClient) { }
 
   login(loginRequest: LoginRequestDto): Observable<AuthResponseDto> {
-    return this.httpClient.post<AuthResponseDto>(`${environment.apiURL}/auth/login`, loginRequest);
+    return this.httpClient.post<AuthResponseDto>(`${environment.coreURL}/auth/login`, loginRequest);
   }
 
   signup(signupRequest: SignupRequestDto): Observable<AuthResponseDto> {
-    return this.httpClient.post<AuthResponseDto>(`${environment.apiURL}/auth/signup`, signupRequest);
+    return this.httpClient.post<AuthResponseDto>(`${environment.coreURL}/auth/signup`, signupRequest);
   }
 
   refreshToken(refreshToken: string): Observable<AuthResponseDto> {
-    return this.httpClient.post<AuthResponseDto>(`${environment.apiURL}/auth/refresh`, { refreshToken });
+    return this.httpClient.post<AuthResponseDto>(`${environment.coreURL}/auth/refresh`, { refreshToken });
   }
 
 }
