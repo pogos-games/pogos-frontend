@@ -1,6 +1,8 @@
 export interface JwtDto {
-    sub: string;
-    email: string;
-    iat: number;
-    exp: number;
+    sub: string;       // ID unique de l'utilisateur
+    email: string;     // Email de l'utilisateur
+    username: string;  // Nom d'utilisateur
+    iat: number;       // Timestamp d'émission
+    exp: number;       // Timestamp d'expiration
 }
+

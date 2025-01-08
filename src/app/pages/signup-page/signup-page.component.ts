@@ -12,6 +12,8 @@ import { User } from "../../model/user.interface";
 import { StorageService } from "../../services/storage/session-storage.service";
 import { CookiesStorageService } from "../../services/storage/cookies-storage.service";
 import { AuthResponseDto } from '../../model/auth-response.dto';
+import { Router } from '@angular/router';
+import { JwtService } from '../../services/jwt.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -45,7 +47,7 @@ export class SignupPageComponent {
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
-  constructor(private readonly authService: AuthService, private readonly storageService: StorageService, private readonly cookiesService: CookiesStorageService) { }
+  constructor(private readonly authService: AuthService, private readonly storageService: StorageService, private readonly cookiesService: CookiesStorageService, private readonly router: Router, private readonly jwtService: JwtService) { }
 
   passwordMatch(password1: string, password2: string): boolean {
     return password1 === password2;
@@ -97,7 +99,12 @@ export class SignupPageComponent {
         accessToken: accessToken
       };
       this.storageService.setUserStorage(user);
-      this.cookiesService.setCookie('pogos-refreshToken', refreshToken, 7); // Définit un cookie de 7 jours
+
+      const decodedToken = this.jwtService.decodeToken(refreshToken);
+      const exp = this.jwtService.getTokenExpirationDate(decodedToken.exp);
+      this.cookiesService.setCookie('pogos-refreshToken', refreshToken, exp);
+
+      this.router.navigate(['/games']);
     });
 
   }
