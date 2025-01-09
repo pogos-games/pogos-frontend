@@ -31,16 +31,4 @@ export class GamePageComponent {
   onTitleChange(title: string): void {
     this.title = title;
   }
-
-  onClick(): void {
-    this.authService.profile().subscribe({
-      next: (response) => {
-        console.log("Profil récupéré :", response); // Utilisez `response` pour afficher les données reçues
-      },
-      error: (error) => {
-        console.error("Erreur lors de la récupération du profil :", error);
-      },
-    });
-  }
-
 }

@@ -1,0 +1,68 @@
+::ng-deep .custom-modal .ant-modal-body {
+    border-color: #fff8e6;
+    background-color: #fff8e6;
+    padding: 3.5em;
+    border-radius: 0 0 12px 12px;
+}
+
+.description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.6em;
+    font-family: "Luckiest Guy", cursive;
+}
+
+::ng-deep .custom-modal .ant-modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-top: none;
+    margin-top: -3em;
+}
+
+::ng-deep .custom-modal .ant-modal-footer .ant-btn:first-child {
+    margin: 0 2em;
+    width: 160px;
+    height: 55px;
+    border-radius: 12px;
+    background-color: #ff7875;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #ffffff;
+    font-family: "Luckiest Guy", cursive;
+    cursor: pointer;
+    font-size: 1.7em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, font-size 0.3s ease;
+}
+
+::ng-deep .custom-modal .ant-modal-footer .ant-btn:first-child:hover {
+    background-color: #ff4d4f;
+    transform: scale(1.1);
+}
+
+::ng-deep .custom-modal .ant-modal-footer .ant-btn:last-child {
+    margin: 0 2em;
+    width: 160px;
+    height: 55px;
+    border-radius: 12px;
+    background-color: #ffdb4d;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #ffffff;
+    font-size: 1.7em;
+    font-family: "Luckiest Guy", cursive;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, font-size 0.3s ease;
+}
+
+::ng-deep .custom-modal .ant-modal-footer .ant-btn:last-child:hover {
+    background-color: #ffcc00;
+    transform: scale(1.1);
+}
