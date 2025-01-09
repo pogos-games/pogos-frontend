@@ -24,8 +24,8 @@ export class CookiesStorageService {
    * @param name Nom du cookie.
    * @returns Valeur du cookie ou null si inexistant.
    */
-  getCookie(name: string): string | null {
-    return this.cookieService.get(name) || null;
+  getCookie(name: string): string | undefined {
+    return this.cookieService.get(name) || undefined;
   }
 
   /**

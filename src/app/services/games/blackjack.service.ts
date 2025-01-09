@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {SocketService} from "./socket.service";
+import {SocketService} from "../socket.service";
 import {BehaviorSubject} from "rxjs";
-import {BlackjackDeck} from "../model/dto/request/black-jack-deck";
+import {BlackjackDeck} from "../../model/dto/request/black-jack-deck";
 
 @Injectable({
   providedIn: 'root'

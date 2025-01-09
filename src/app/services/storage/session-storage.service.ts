@@ -4,22 +4,21 @@ import { User } from '../../model/user.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class StorageService {
+export class SessionStorageService {
 
   constructor() { }
 
-  // Get the user from the local storage
-  getUserStorage(): User {
-    return JSON.parse(sessionStorage.getItem('user') as string);
+  getItem<T>(key:string): T | undefined {
+    const item = sessionStorage.getItem(key);
+    return item ? JSON.parse(item) as T : undefined;
   }
 
-  // Set the user in the local storage
-  setUserStorage(user: User): void {
-    sessionStorage.setItem('user', JSON.stringify(user));
+  setItem<T>(key:string, value:T) {
+    sessionStorage.setItem(key,JSON.stringify(value))
   }
 
-  // Remove the user from the local storage
-  removeUserStorage(): void {
-    sessionStorage.removeItem('user');
+  removeItem(key:string) {
+    sessionStorage.removeItem(key)
   }
+
 }

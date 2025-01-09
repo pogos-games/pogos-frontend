@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';
-import { JwtDto } from '../model/dto/jwt.dto';
+import {Injectable} from '@angular/core';
+import {jwtDecode} from 'jwt-decode';
+import {DecodedJwt} from '../model/decoded-jwt.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class JwtService {
    * @returns Un objet JwtDto contenant les informations du token
    * @throws Erreur si le token est invalide ou si des propriétés manquent
    */
-  decodeToken(token: string): JwtDto {
+  decodeToken(token: string): DecodedJwt {
     return jwtDecode(token);
   }
 

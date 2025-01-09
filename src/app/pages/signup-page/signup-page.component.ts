@@ -1,19 +1,15 @@
-import { Component } from '@angular/core';
-import { NzButtonComponent } from "ng-zorro-antd/button";
-import { NzIconDirective } from "ng-zorro-antd/icon";
-import { NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective } from "ng-zorro-antd/input";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { RouterLink } from "@angular/router";
-import { AuthService } from "../../auth/service/auth.service";
-import { SignupRequestDto } from "../../model/dto/request/signup-request.dto";
-import { catchError, of } from "rxjs";
-import { HttpErrorResponse, HttpStatusCode } from "@angular/common/http";
-import { User } from "../../model/user.interface";
-import { StorageService } from "../../services/storage/session-storage.service";
-import { CookiesStorageService } from "../../services/storage/cookies-storage.service";
-import { AuthResponseDto } from '../../model/auth-response.dto';
-import { Router } from '@angular/router';
-import { JwtService } from '../../services/jwt.service';
+import {Component} from '@angular/core';
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective} from "ng-zorro-antd/input";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Router, RouterLink} from "@angular/router";
+import {AuthService} from "../../auth/service/auth.service";
+import {SignupRequestDto} from "../../model/dto/request/signup-request.dto";
+import {catchError, of} from "rxjs";
+import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
+import {AuthResponseDto} from '../../model/auth-response.dto';
+import {UserAuthService} from "../../services/auth/user-auth.service";
 
 @Component({
   selector: 'app-signup-page',
@@ -47,7 +43,9 @@ export class SignupPageComponent {
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
-  constructor(private readonly authService: AuthService, private readonly storageService: StorageService, private readonly cookiesService: CookiesStorageService, private readonly router: Router, private readonly jwtService: JwtService) { }
+  constructor(private readonly authService: AuthService,
+              private readonly userAuthService:UserAuthService,
+              private readonly router: Router) { }
 
   passwordMatch(password1: string, password2: string): boolean {
     return password1 === password2;
@@ -93,18 +91,8 @@ export class SignupPageComponent {
       }
       const accessToken = response.accessToken;
       const refreshToken = response.refreshToken;
-      const user: User = {
-        pseudo: signUpRequest.username,
-        mail: signUpRequest.email,
-        accessToken: accessToken
-      };
-      this.storageService.setUserStorage(user);
-
-      const decodedToken = this.jwtService.decodeToken(refreshToken);
-      const exp = this.jwtService.getTokenExpirationDate(decodedToken.exp);
-      this.cookiesService.setCookie('pogos-refreshToken', refreshToken, exp);
-
-      this.router.navigate(['/games']);
+      this.userAuthService.login(accessToken,refreshToken);
+      return this.router.navigate(['/games']);
     });
 
   }
