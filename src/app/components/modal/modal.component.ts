@@ -10,20 +10,19 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  @Input() isVisible: boolean = false; // Contrôle de la visibilité
-  @Input() title: string = 'Titre de la modal'; // Titre de la modal
-  @Input() description: string = 'Description ici...'; // Description de la modal
-  @Input() okText: string = 'Oui'; // Texte du bouton "OK"
-  @Input() cancelText: string = 'Non'; // Texte du bouton "Annuler"
+  @Input({ required: true }) isVisible: boolean = false; // Contrôle de la visibilité
+  @Input({ required: true }) title: string = 'Titre de la modal'; // Titre de la modal
+  @Input({ required: true }) description: string = 'Description ici...'; // Description de la modal
+  @Input({ required: true }) okText: string = 'Oui'; // Texte du bouton "OK"
+  @Input({ required: true }) cancelText: string = 'Non'; // Texte du bouton "Annuler"
 
   @Output() onOk: EventEmitter<void> = new EventEmitter<void>(); // Événement pour le bouton "OK"
-  @Output() onCancel: EventEmitter<void> = new EventEmitter<void>(); // Événement pour le bouton "Annuler"
 
   handleOk(): void {
     this.onOk.emit();
   }
 
   handleCancel(): void {
-    this.onCancel.emit();
+    this.isVisible = false;
   }
 }
