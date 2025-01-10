@@ -89,6 +89,8 @@ export class UserAuthService {
   }
 
   logout(): void {
+    this.user = undefined;
+    this.userTokenExpirationDate = undefined;
     this.storageService.removeItem(this.USER__SESSION_STORAGE_NAME);
     this.cookiesStorageService.deleteCookie(this.REFRESH_TOKEN_COOKIE_NAME);
   }
