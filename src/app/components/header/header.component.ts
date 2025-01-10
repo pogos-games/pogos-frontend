@@ -1,5 +1,5 @@
 import {Component, Input, signal, WritableSignal} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzDividerModule} from 'ng-zorro-antd/divider';
@@ -13,7 +13,8 @@ import {UserAuthService} from "../../services/auth/user-auth.service";
     NzButtonComponent,
     NzIconDirective,
     NzDividerModule,
-    ModalComponent
+    ModalComponent,
+    RouterLink
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
