@@ -1,4 +1,4 @@
-export interface JwtDto {
+export interface DecodedJwt {
     sub: string;       // ID unique de l'utilisateur
     email: string;     // Email de l'utilisateur
     username: string;  // Nom d'utilisateur

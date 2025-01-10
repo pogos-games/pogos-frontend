@@ -2,7 +2,7 @@ import {Component, OnInit, signal, WritableSignal} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
-import {BlackjackService} from "../../services/blackjack.service";
+import {BlackjackService} from "../../services/games/blackjack.service";
 import {BlackjackDeck} from "../../model/dto/request/black-jack-deck";
 import {Card} from "../../model/dto/request/card";
 import {BlackJackActions} from "../../model/enum/black-jack.actions.enum";

@@ -13,12 +13,14 @@
 
   <div class="right">
     <div class="actions">
-      <button nz-button class="button" nzType="primary" (click)="showModal()">
-        <span nz-icon nzType="logout" nzTheme="outline"></span>
-      </button>
+
+      @if(isUserLoggedIn()) {
+        <button nz-button class="button" nzType="primary" (click)="showModal()">
+          <span nz-icon nzType="logout" nzTheme="outline"></span>
+        </button>
+      }
       <app-modal [isVisible]="isModalVisible" title="Déconnexion"
-        description="Êtes-vous sûr de vouloir vous déconnecter ?" okText="Oui" cancelText="Non" (onOk)="handleOk()"
-        (onCancel)="handleCancel()">
+        description="Êtes-vous sûr de vouloir vous déconnecter ?" okText="Oui" cancelText="Non" (onOk)="handleDisconnect()">
       </app-modal>
       <button nz-button class="button" nzType="primary">
         <span nz-icon nzType="setting" nzTheme="outline"></span>
@@ -32,7 +34,7 @@
     </div>
     <nz-divider class="divider" nzType="vertical"></nz-divider>
     <button class="username-avatar">
-      <p class="username">{{ user.pseudo }}</p>
+      <p class="username">{{ username }}</p>
       <span nz-icon class="avatar" nzType="user" nzTheme="outline"></span>
     </button>
   </div>

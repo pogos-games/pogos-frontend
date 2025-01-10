@@ -1,13 +1,10 @@
-import { Component, Input, signal, WritableSignal } from '@angular/core';
-import { Router } from '@angular/router';
-import { NzButtonComponent } from "ng-zorro-antd/button";
-import { NzIconDirective } from "ng-zorro-antd/icon";
-import { UserService } from "../../services/user.service";
-import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { StorageService } from '../../services/storage/session-storage.service';
-import { User } from '../../model/user.interface';
-import { ModalComponent } from '../modal/modal.component';
-import { CookiesStorageService } from '../../services/storage/cookies-storage.service';
+import {Component, Input, signal, WritableSignal} from '@angular/core';
+import {Router} from '@angular/router';
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzDividerModule} from 'ng-zorro-antd/divider';
+import {ModalComponent} from '../modal/modal.component';
+import {UserAuthService} from "../../services/auth/user-auth.service";
 
 @Component({
   selector: 'app-header',
@@ -32,31 +29,29 @@ export class HeaderComponent {
   @Input()
   public leaveSignal: WritableSignal<boolean> = signal(false);
 
-  constructor(private readonly userService: UserService, private readonly storageService: StorageService, private readonly cookiesStorageService: CookiesStorageService, private readonly router: Router) { }
+  username: string|undefined = this.userAuthService.getUsername();
 
-  user: User = this.storageService.getUserStorage();
-  isModalVisible: boolean = false;
+  isModalVisible: WritableSignal<boolean> = signal(false);
+
+  constructor(private readonly userAuthService:UserAuthService, private readonly router: Router) { }
+
 
   showModal(): void {
-    this.isModalVisible = true;
+    this.isModalVisible.set(true);
   }
 
-  handleOk(): void {
-    this.storageService.removeUserStorage();
-    this.cookiesStorageService.deleteCookie('pogos-refreshToken');
-    this.isModalVisible = false;
-    this.router.navigate(['/']);
-  }
-
-  handleCancel(): void {
-    this.isModalVisible = false;
+  handleDisconnect(): void {
+    this.userAuthService.logout();
+    this.username = undefined;
+    this.isModalVisible.set(false);
+    this.router.navigateByUrl('/');
   }
 
   emitLeave() {
     this.leaveSignal.set(true);
   }
 
-  isUserLoggedIn() {
-    return false;
+  protected isUserLoggedIn() {
+    return this.userAuthService.isUserLoggedIn();
   }
 }
