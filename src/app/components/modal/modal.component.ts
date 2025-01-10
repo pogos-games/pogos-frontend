@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {Component, Input, Output, EventEmitter, WritableSignal, signal} from '@angular/core';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -10,7 +10,7 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  @Input({ required: true }) isVisible: boolean = false; // Contrôle de la visibilité
+  @Input({ required: true }) isVisible: WritableSignal<boolean> = signal(false);
   @Input({ required: true }) title: string = 'Titre de la modal'; // Titre de la modal
   @Input({ required: true }) description: string = 'Description ici...'; // Description de la modal
   @Input({ required: true }) okText: string = 'Oui'; // Texte du bouton "OK"
@@ -23,6 +23,6 @@ export class ModalComponent {
   }
 
   handleCancel(): void {
-    this.isVisible = false;
+    this.isVisible.set(false);
   }
 }

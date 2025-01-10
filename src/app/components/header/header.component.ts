@@ -30,25 +30,21 @@ export class HeaderComponent {
   public leaveSignal: WritableSignal<boolean> = signal(false);
 
   username: string|undefined = this.userAuthService.getUsername();
-  isModalVisible: boolean = false;
 
+  isModalVisible: WritableSignal<boolean> = signal(false);
 
   constructor(private readonly userAuthService:UserAuthService, private readonly router: Router) { }
 
 
   showModal(): void {
-    this.isModalVisible = true;
+    this.isModalVisible.set(true);
   }
 
   handleDisconnect(): void {
     this.userAuthService.logout();
     this.username = undefined;
-    this.isModalVisible = false;
+    this.isModalVisible.set(false);
     this.router.navigateByUrl('/');
-  }
-
-  handleCancel(): void {
-    this.isModalVisible = false;
   }
 
   emitLeave() {
