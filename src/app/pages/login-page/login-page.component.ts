@@ -9,7 +9,7 @@ import {LoginRequestDto} from "../../model/dto/request/login-request.dto";
 import {catchError, of} from "rxjs";
 import {AuthResponseDto} from '../../model/auth-response.dto';
 import {UserAuthService} from "../../services/auth/user-auth.service";
-
+import { LeaveButtonComponent } from '../../components/leave-button/leave-button.component';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -22,7 +22,8 @@ import {UserAuthService} from "../../services/auth/user-auth.service";
     NzIconDirective,
     NzIconModule,
     NzButtonComponent,
-    RouterLink
+    RouterLink,
+    LeaveButtonComponent
   ],
   styleUrl: './login-page.component.scss'
 })

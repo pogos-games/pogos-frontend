@@ -10,6 +10,7 @@ import {catchError, of} from "rxjs";
 import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
 import {AuthResponseDto} from '../../model/auth-response.dto';
 import {UserAuthService} from "../../services/auth/user-auth.service";
+import { LeaveButtonComponent } from '../../components/leave-button/leave-button.component';
 
 @Component({
   selector: 'app-signup-page',
@@ -21,7 +22,8 @@ import {UserAuthService} from "../../services/auth/user-auth.service";
     NzInputGroupComponent,
     NzInputGroupWhitSuffixOrPrefixDirective,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    LeaveButtonComponent
   ],
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.scss']
