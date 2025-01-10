@@ -3,10 +3,7 @@ import {Router} from '@angular/router';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzDividerModule} from 'ng-zorro-antd/divider';
-import {SessionStorageService} from '../../services/storage/session-storage.service';
-import {User} from '../../model/user.interface';
 import {ModalComponent} from '../modal/modal.component';
-import {CookiesStorageService} from '../../services/storage/cookies-storage.service';
 import {UserAuthService} from "../../services/auth/user-auth.service";
 
 @Component({
@@ -32,10 +29,12 @@ export class HeaderComponent {
   @Input()
   public leaveSignal: WritableSignal<boolean> = signal(false);
 
-  constructor(private readonly userAuthService:UserAuthService, private readonly router: Router) { }
-
   username: string|undefined = this.userAuthService.getUsername();
   isModalVisible: boolean = false;
+
+
+  constructor(private readonly userAuthService:UserAuthService, private readonly router: Router) { }
+
 
   showModal(): void {
     this.isModalVisible = true;
@@ -56,7 +55,7 @@ export class HeaderComponent {
     this.leaveSignal.set(true);
   }
 
-  isUserLoggedIn() {
-    return false;
+  protected isUserLoggedIn() {
+    return this.userAuthService.isUserLoggedIn();
   }
 }
