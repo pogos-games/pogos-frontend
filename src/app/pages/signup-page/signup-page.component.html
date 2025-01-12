@@ -36,7 +36,9 @@
         <ng-template #emailErrorTpl let-control>
           @if ((control.errors?.['required'] || control.errors?.['pattern']) && control.touched) {
             Entrez mail valide
-          }
+          } @else if(control.errors?.['email_already_exists']){
+          <p class="form-error">Cet adresse email est déjà utilisée</p>
+        }
         </ng-template>
       </nz-form-control>
 
@@ -80,10 +82,6 @@
           }
         </ng-template>
       </nz-form-control>
-
-      @if(signupForm.hasError('email_already_exists')){
-        <p class="form-error">Cet adresse email est déjà utilisée</p>
-      }
 
       <button nz-button class="submit-button" nzType="primary" nzBlock type="submit" [disabled]="this.signupForm.invalid">S'inscrire</button>
 

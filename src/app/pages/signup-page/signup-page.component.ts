@@ -40,8 +40,8 @@ export class SignupPageComponent {
 
     pseudo: new FormControl('', {validators:[Validators.required, Validators.minLength(3)], asyncValidators :SignupValidator.createValidator(this.userService), updateOn:'change'}),
     mail: new FormControl('',{validators:[Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)],updateOn:'change'}),
-    password: new FormControl('',{validators:[Validators.required,Validators.minLength(6), Validators.maxLength(20)],updateOn:'change'}),
-    confirmPassword: new FormControl('',{validators:[Validators.required, SignupValidator.passwordMatchValidator('password')],updateOn:'change'})
+    password: new FormControl('',{validators:[Validators.required,Validators.minLength(6), Validators.maxLength(20)],updateOn:'blur'}),
+    confirmPassword: new FormControl('',{validators:[Validators.required, SignupValidator.passwordMatchValidator('password')],updateOn:'blur'})
   })
 
   constructor(private readonly authService: AuthService,
@@ -49,10 +49,7 @@ export class SignupPageComponent {
               private readonly userService:UserService,
               private readonly router: Router) { }
 
-
   onSubmit(): void {
-
-    console.log("into submit")
     if(this.signupForm.invalid){
       this.signupForm.markAllAsTouched()
       return;
@@ -67,9 +64,9 @@ export class SignupPageComponent {
     this.authService.signup(signUpRequest).pipe(
       catchError((error) => {
         if (error instanceof HttpErrorResponse) {
-          console.log("error messsage : ",error?.error.message)
           if (error.status === HttpStatusCode.Conflict) {
             this.signupForm.setErrors({ email_already_exists: true });
+            this.signupForm.get('mail')?.setErrors({email_already_exists: true})
           }
         }
         return of(undefined);
