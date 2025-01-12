@@ -29,6 +29,9 @@ export class HeaderComponent {
   @Input({ required: true })
   canLeave: boolean = false;
 
+  @Input()
+  leaveLink:string|undefined;
+
   @Input() public leaveSignal: WritableSignal<boolean> = signal(false);
 
   username: string | undefined = this.userAuthService.getUsername();

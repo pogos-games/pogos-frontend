@@ -1,9 +1,11 @@
 <div class="header">
   <div class="left">
-    @if(canLeave) {
+    @if(canLeave && leaveLink) {
+      <app-leave-button text="Quitter" [routerLink]="leaveLink"></app-leave-button>
+    } @else if(canLeave) {
       <app-leave-button text="Quitter" (click)="showModal('leave')"></app-leave-button>
       <app-modal [isVisible]="isModalVisible('leave')" title="Quitter"
-        description="Êtes-vous sûr de vouloir quitter la partie ?" okText="Oui" cancelText="Non" (onOk)="handleLeaveGame()">
+                 description="Êtes-vous sûr de vouloir quitter ?" okText="Oui" cancelText="Non" (onOk)="handleLeaveGame()">
       </app-modal>
     }
   </div>
