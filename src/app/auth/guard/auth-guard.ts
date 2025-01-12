@@ -20,6 +20,7 @@ export class AuthGuard implements CanActivate {
       return this.userAuthService.updateToken().pipe(
         map((tokenRefreshed: boolean) => tokenRefreshed),
         catchError(() => {
+          console.log("should redirec to login")
           this.router.navigate(['/login']);
           return of(false);
         })
