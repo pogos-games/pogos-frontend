@@ -61,10 +61,6 @@ export class HeaderComponent  {
     this.router.navigateByUrl('/');
   }
 
-  emitLeave(): void {
-    this.leaveSignal.set(true);
-  }
-
   protected isUserLoggedIn(): boolean {
     return this.userAuthService.isUserLoggedIn();
   }
