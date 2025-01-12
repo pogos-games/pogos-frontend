@@ -5,7 +5,7 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {ModalComponent} from '../modal/modal.component';
 import {UserAuthService} from "../../services/auth/user-auth.service";
-import { LeaveButtonComponent } from '../leave-button/leave-button.component';
+import {LeaveButtonComponent} from '../leave-button/leave-button.component';
 
 @Component({
   selector: 'app-header',
@@ -21,21 +21,21 @@ import { LeaveButtonComponent } from '../leave-button/leave-button.component';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent  {
 
   @Input({ required: true })
   title: string = "";
-  
-  @Input({ required: true }) 
+
+  @Input({ required: true })
   canLeave: boolean = false;
-  
+
   @Input() public leaveSignal: WritableSignal<boolean> = signal(false);
 
   username: string | undefined = this.userAuthService.getUsername();
 
   modalVisibility: Map<string, WritableSignal<boolean>> = new Map();
 
-  constructor(private readonly userAuthService: UserAuthService, private readonly router: Router) {}
+  constructor(private readonly userAuthService:UserAuthService, private readonly router: Router) { }
 
   showModal(modalId: string): void {
     if (!this.modalVisibility.has(modalId)) {
@@ -59,10 +59,6 @@ export class HeaderComponent {
     this.username = undefined;
     this.hideModal('disconnectModal');
     this.router.navigateByUrl('/');
-  }
-
-  emitLeave(): void {
-    this.leaveSignal.set(true);
   }
 
   protected isUserLoggedIn(): boolean {

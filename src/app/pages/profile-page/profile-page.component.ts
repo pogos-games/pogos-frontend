@@ -1,32 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {KeycloakService} from "keycloak-angular";
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {Router} from "@angular/router";
+import {Component} from '@angular/core';
+import {HeaderComponent} from "../../components/header/header.component";
+import {UserAuthService} from "../../services/auth/user-auth.service";
+import {User} from "../../model/user.interface";
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
   imports: [
-    NzButtonComponent
+    HeaderComponent
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss'
 })
-export class ProfilePageComponent implements OnInit {
+export class ProfilePageComponent {
 
-  protected username: string | undefined ;
+  protected user:User;
 
-  constructor(private keycloakService:KeycloakService){}
-
-  ngOnInit(){
-    this.username = this.keycloakService.getUsername()
+  constructor(private readonly userAuthService:UserAuthService) {
+    this.user = this.userAuthService.user;
   }
-
-
-  logout() {
-    return this.keycloakService.logout(window.location.origin)
-  }
-
 
 
 

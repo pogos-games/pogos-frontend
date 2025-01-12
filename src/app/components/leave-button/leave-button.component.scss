@@ -1,6 +1,6 @@
 .back-button {
     position: absolute;
-    top: 60px;
+    top: 35px;
     left: 60px;
     color: black;
     border-radius: 7.5px;
@@ -14,7 +14,7 @@
     cursor: pointer;
     transition: transform 0.3s ease, font-size 0.3s ease;
   }
-  
+
   .back-button:hover {
     background-color: #fff8e6;
     font-size: 24px;

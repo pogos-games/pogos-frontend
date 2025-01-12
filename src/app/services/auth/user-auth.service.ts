@@ -13,7 +13,7 @@ import {AuthResponseDto} from "../../model/auth-response.dto";
 })
 export class UserAuthService {
 
-  private user:User|undefined;
+  private _user:User|undefined;
 
   private userTokenExpirationDate: Date|undefined;
 
@@ -25,12 +25,19 @@ export class UserAuthService {
                        private readonly cookiesStorageService: CookiesStorageService,
                        private readonly jwtService:JwtService) {
 
-   this.user = this.storageService.getItem<User>(this.USER__SESSION_STORAGE_NAME);
+   this._user = this.storageService.getItem<User>(this.USER__SESSION_STORAGE_NAME);
 
-    if(this.user){
-      const userAccessToken = this.jwtService.decodeToken(this.user.accessToken);
+    if(this._user){
+      const userAccessToken = this.jwtService.decodeToken(this._user.accessToken);
       this.userTokenExpirationDate = this.jwtService.getTokenExpirationDate(userAccessToken.exp);
     }
+  }
+
+  get user(): User {
+    if (!this._user) {
+      throw new Error("User is undefined");
+    }
+    return this._user;
   }
 
   isUserLoggedIn() : boolean {
@@ -43,19 +50,19 @@ export class UserAuthService {
   }
 
   getUsername() {
-    return this.user?.pseudo
+    return this._user?.pseudo
   }
 
   // will be used later
   getUserId() : string | undefined {
-    return this.user?.userId;
+    return this._user?.userId;
   }
 
   getAccessToken(): string {
-    if (!this.user?.accessToken) {
+    if (!this._user?.accessToken) {
       throw new Error("Access token is undefined");
     }
-    return this.user.accessToken;
+    return this._user.accessToken;
   }
 
   updateToken(): Observable<boolean> {
@@ -79,17 +86,17 @@ export class UserAuthService {
   login(accessToken:string, refreshToken:string) {
     const jwtResponse: DecodedJwt = this.jwtService.decodeToken(accessToken)
     this.userTokenExpirationDate = this.jwtService.getTokenExpirationDate(jwtResponse.exp);
-    this.user = {pseudo:jwtResponse.username, mail:jwtResponse.email, accessToken:accessToken, userId:jwtResponse.sub};
+    this._user = {pseudo:jwtResponse.username, mail:jwtResponse.email, accessToken:accessToken, userId:jwtResponse.sub};
 
     const jwtRefreshToken : DecodedJwt = this.jwtService.decodeToken(refreshToken);
     const refreshTokenExpiration = this.jwtService.getTokenExpirationDate(jwtRefreshToken.exp);
 
-    this.storageService.setItem<User>(this.USER__SESSION_STORAGE_NAME,this.user);
+    this.storageService.setItem<User>(this.USER__SESSION_STORAGE_NAME,this._user);
     this.cookiesStorageService.setCookie(this.REFRESH_TOKEN_COOKIE_NAME,refreshToken, refreshTokenExpiration);
   }
 
   logout(): void {
-    this.user = undefined;
+    this._user = undefined;
     this.userTokenExpirationDate = undefined;
     this.storageService.removeItem(this.USER__SESSION_STORAGE_NAME);
     this.cookiesStorageService.deleteCookie(this.REFRESH_TOKEN_COOKIE_NAME);
