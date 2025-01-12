@@ -10,6 +10,9 @@ import {catchError, of} from "rxjs";
 import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
 import {AuthResponseDto} from '../../model/auth-response.dto';
 import {UserAuthService} from "../../services/auth/user-auth.service";
+import {UserService} from "../../services/user.service";
+import {NzFormControlComponent, NzFormDirective} from "ng-zorro-antd/form";
+import {SignupValidator} from "../../validator/signup.validator";
 
 @Component({
   selector: 'app-signup-page',
@@ -21,7 +24,9 @@ import {UserAuthService} from "../../services/auth/user-auth.service";
     NzInputGroupComponent,
     NzInputGroupWhitSuffixOrPrefixDirective,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    NzFormDirective,
+    NzFormControlComponent
   ],
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.scss']
@@ -32,41 +37,24 @@ export class SignupPageComponent {
   isConfirmPasswordHided: boolean = true;
 
   signupForm: FormGroup = new FormGroup({
-    pseudo: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    mail: new FormControl('', [
-      Validators.required,
-      Validators.pattern(
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
-      )
-    ]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
+
+    pseudo: new FormControl('', {validators:[Validators.required, Validators.minLength(3)], asyncValidators :SignupValidator.createValidator(this.userService), updateOn:'change'}),
+    mail: new FormControl('',{validators:[Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)],updateOn:'change'}),
+    password: new FormControl('',{validators:[Validators.required,Validators.minLength(6), Validators.maxLength(20)],updateOn:'change'}),
+    confirmPassword: new FormControl('',{validators:[Validators.required, SignupValidator.passwordMatchValidator('password')],updateOn:'change'})
   })
 
   constructor(private readonly authService: AuthService,
               private readonly userAuthService:UserAuthService,
+              private readonly userService:UserService,
               private readonly router: Router) { }
 
-  passwordMatch(password1: string, password2: string): boolean {
-    return password1 === password2;
-  }
 
-  // Soumission du formulaire
   onSubmit(): void {
 
-    if (this.signupForm.get('pseudo')?.errors) {
-      this.signupForm.markAllAsTouched();
-      this.signupForm.setErrors({ invalid_credentials: true });
-      return;
-    }
-
-    if (this.signupForm.get('mail')?.errors) {
-      this.signupForm.setErrors({ invalid_mail: true });
-      return;
-    }
-
-    if (!this.passwordMatch(this.signupForm.get('password')?.value, this.signupForm.get('confirmPassword')?.value)) {
-      this.signupForm.setErrors({ notMatching: true });
+    console.log("into submit")
+    if(this.signupForm.invalid){
+      this.signupForm.markAllAsTouched()
       return;
     }
 
@@ -79,8 +67,9 @@ export class SignupPageComponent {
     this.authService.signup(signUpRequest).pipe(
       catchError((error) => {
         if (error instanceof HttpErrorResponse) {
+          console.log("error messsage : ",error?.error.message)
           if (error.status === HttpStatusCode.Conflict) {
-            this.signupForm.setErrors({ already_exists: true });
+            this.signupForm.setErrors({ email_already_exists: true });
           }
         }
         return of(undefined);

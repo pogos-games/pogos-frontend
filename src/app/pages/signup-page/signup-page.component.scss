@@ -40,7 +40,7 @@
   width: 100%;
   max-width: 400px;
   height: 100%;
-  max-height: 425px;
+  max-height: 450px;
   background-color: #fffcf5;
   padding: 20px;
   border-radius: 10%;
@@ -60,6 +60,10 @@
   font-size: 26px;
   font-weight: 700;
   text-align: center;
+}
+
+.form-control{
+  margin-bottom: 15px;
 }
 
 .input {
@@ -82,7 +86,7 @@
 }
 
 .submit-button {
-  margin-top: 20px;
+  margin-top: 5px;
   background-color: #4E7FBA;
   color: white;
   border-radius: 7.5px;
@@ -104,7 +108,7 @@
 }
 
 .form-error {
-  margin-bottom: -1em;
+  margin-bottom: -.5em;
   color: red;
   font-size: 14px;
   align-self: center;

@@ -2,5 +2,6 @@
 export enum PublicEndPoint {
     LOGIN = 'login',
     SIGNUP = 'signup',
-    REFRESH = 'refresh'
+    REFRESH = 'refresh',
+    USER_EXISTS = "users/exists"
 }
