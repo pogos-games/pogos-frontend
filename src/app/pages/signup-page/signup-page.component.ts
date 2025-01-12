@@ -13,6 +13,7 @@ import {UserAuthService} from "../../services/auth/user-auth.service";
 import {UserService} from "../../services/user.service";
 import {NzFormControlComponent, NzFormDirective} from "ng-zorro-antd/form";
 import {SignupValidator} from "../../validator/signup.validator";
+import { LeaveButtonComponent } from '../../components/leave-button/leave-button.component';
 
 @Component({
   selector: 'app-signup-page',
@@ -24,6 +25,8 @@ import {SignupValidator} from "../../validator/signup.validator";
     NzInputGroupComponent,
     NzInputGroupWhitSuffixOrPrefixDirective,
     ReactiveFormsModule,
+    RouterLink,
+    LeaveButtonComponent,
     RouterLink,
     NzFormDirective,
     NzFormControlComponent
@@ -65,7 +68,6 @@ export class SignupPageComponent {
       catchError((error) => {
         if (error instanceof HttpErrorResponse) {
           if (error.status === HttpStatusCode.Conflict) {
-            this.signupForm.setErrors({ email_already_exists: true });
             this.signupForm.get('mail')?.setErrors({email_already_exists: true})
           }
         }

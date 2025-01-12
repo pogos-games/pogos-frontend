@@ -1,11 +1,10 @@
 <div class="header">
   <div class="left">
     @if(canLeave) {
-    <button nz-button nzType="primary" [nzSize]="'large'" nzShape="round" class="luckiest-guy-regular"
-      (click)="emitLeave()">
-      <span nz-icon nzType="left-square"></span>
-      Quitter
-    </button>
+      <app-leave-button text="Quitter" (click)="showModal('leave')"></app-leave-button>
+      <app-modal [isVisible]="isModalVisible('leave')" title="Quitter"
+        description="Êtes-vous sûr de vouloir quitter la partie ?" okText="Oui" cancelText="Non" (onOk)="handleLeaveGame()">
+      </app-modal>
     }
   </div>
 
@@ -15,11 +14,11 @@
     <div class="actions">
 
       @if(isUserLoggedIn()) {
-        <button nz-button class="button" nzType="primary" (click)="showModal()">
+        <button nz-button class="button" nzType="primary" (click)="showModal('logout')">
           <span nz-icon nzType="logout" nzTheme="outline"></span>
         </button>
       }
-      <app-modal [isVisible]="isModalVisible" title="Déconnexion"
+      <app-modal [isVisible]="isModalVisible('logout')" title="Déconnexion"
         description="Êtes-vous sûr de vouloir vous déconnecter ?" okText="Oui" cancelText="Non" (onOk)="handleDisconnect()">
       </app-modal>
       <button nz-button class="button" nzType="primary">

@@ -1,0 +1,22 @@
+.back-button {
+    position: absolute;
+    top: 35px;
+    left: 60px;
+    color: black;
+    border-radius: 7.5px;
+    width: 140px;
+    height: 40px;
+    font-family: "Luckiest Guy", cursive;
+    font-style: normal;
+    font-size: 22px;
+    background-color: #fffcf5;
+    border: 2px solid #fffcf5;
+    cursor: pointer;
+    transition: transform 0.3s ease, font-size 0.3s ease;
+  }
+
+  .back-button:hover {
+    background-color: #fff8e6;
+    font-size: 24px;
+    transform: rotate(-4deg) scale(1.5);
+  }
