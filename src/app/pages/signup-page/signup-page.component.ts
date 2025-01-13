@@ -13,7 +13,7 @@ import {UserAuthService} from "../../services/auth/user-auth.service";
 import {UserService} from "../../services/user.service";
 import {NzFormControlComponent, NzFormDirective} from "ng-zorro-antd/form";
 import {SignupValidator} from "../../validator/signup.validator";
-import { LeaveButtonComponent } from '../../components/leave-button/leave-button.component';
+import {LeaveButtonComponent} from '../../components/leave-button/leave-button.component';
 
 @Component({
   selector: 'app-signup-page',
@@ -25,6 +25,9 @@ import { LeaveButtonComponent } from '../../components/leave-button/leave-button
     NzInputGroupComponent,
     NzInputGroupWhitSuffixOrPrefixDirective,
     ReactiveFormsModule,
+    RouterLink,
+    NzFormDirective,
+    NzFormControlComponent,
     RouterLink,
     LeaveButtonComponent,
     RouterLink,

@@ -1,0 +1,27 @@
+.profile{
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.profile-actions-selector{
+  height: 70vh;
+  width: 20vw;
+  background-color: #FFF8EB;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.profile-actions{
+  width: 60%;
+  height: 70vh;
+  background-color: #FFF8EB;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

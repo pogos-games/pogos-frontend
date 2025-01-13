@@ -1,7 +1,4 @@
-import { Component } from '@angular/core';
-import { routes } from '../../app.routes';
-import { Input } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-leave-button',

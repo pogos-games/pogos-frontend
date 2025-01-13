@@ -21,13 +21,16 @@ import {LeaveButtonComponent} from '../leave-button/leave-button.component';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent  {
+export class HeaderComponent {
 
   @Input({ required: true })
   title: string = "";
 
   @Input({ required: true })
   canLeave: boolean = false;
+
+  @Input()
+  leaveLink:string|undefined;
 
   @Input() public leaveSignal: WritableSignal<boolean> = signal(false);
 

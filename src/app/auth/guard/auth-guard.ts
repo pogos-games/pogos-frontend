@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { CanActivate, Router, UrlTree } from "@angular/router";
-import { UserAuthService } from "../../services/auth/user-auth.service";
-import { catchError, map, Observable, of } from "rxjs";
+import {Injectable} from "@angular/core";
+import {CanActivate, Router, UrlTree} from "@angular/router";
+import {UserAuthService} from "../../services/auth/user-auth.service";
+import {map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +18,13 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       return this.userAuthService.updateToken().pipe(
-        map((tokenRefreshed: boolean) => tokenRefreshed),
-        catchError(() => {
-          console.log("should redirec to login")
-          this.router.navigate(['/login']);
-          return of(false);
+        map((tokenRefreshed: boolean) => {
+          if (!tokenRefreshed) {
+            this.router.navigateByUrl('/login');
+            return false;
+          } else {
+            return true;
+          }
         })
       );
     }
