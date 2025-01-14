@@ -18,7 +18,9 @@ body {
   --pogos-button-bg: #f7d58c; // MENU POGOS BACKGROUND BUTTON
   --pogos-button-bg-hover: #ffe3a8; // MENU POGOS BACKGROUND BUTTON HOVER
 
-  --input-code-bg-color: white;
+  --input-code-bg-color: white; 
+
+  --table-color: #2e9a3e; // GREEN TABLE COLOR
   &.dark-theme {
     --primary-bg-color: #070E1C; // BACKGROUND
     --primary-title-color: #DEE1E9; // TEXT TITLE
@@ -28,7 +30,9 @@ body {
     --pogos-button-bg: #214484; // MENU POGOS BACKGROUND BUTTON
     --pogos-button-bg-hover: #365286; // MENU POGOS BACKGROUND BUTTON HOVER
 
-    --input-code-bg-color: rgb(217, 217, 231);
+    --input-code-bg-color: rgb(217, 217, 231); 
+
+    --table-color: #197126; // GREEN TABLE COLOR 
   }
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);

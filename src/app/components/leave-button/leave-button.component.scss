@@ -10,9 +10,10 @@
     font-style: normal;
     font-size: 22px;
     background-color: var(--secondary-bg-color);
-    box-shadow: 0 0 0.5px 0.5px;
     cursor: pointer;
     transition: transform 0.3s ease, font-size 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   }
 
   .back-button:hover {
