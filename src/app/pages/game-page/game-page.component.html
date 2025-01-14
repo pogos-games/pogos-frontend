@@ -7,10 +7,10 @@
 
       <img ngSrc="assets/pogos-logo.webp" alt="pogos-logo" height="150" width="150">
 
-      <button nz-button nzType="primary" (click)="onTitleChange('BlackJack')">BlackJack</button>
-      <button nz-button nzType="primary" (click)="onTitleChange('Uno')" disabled>Uno</button>
-      <button nz-button nzType="primary" (click)="onTitleChange('Tarot')" disabled>Tarot</button>
-      <button nz-button nzType="primary" (click)="onTitleChange('Poker')" disabled>Poker</button>
+      <app-pogos-button (click)="onTitleChange('BlackJack')" [title]="'BlackJack'"></app-pogos-button>
+      <app-pogos-button (click)="onTitleChange('Uno')" [title]="'Uno'" [disabled]="true"></app-pogos-button>
+      <app-pogos-button (click)="onTitleChange('Tarot')" [title]="'Tarot'" [disabled]="true"></app-pogos-button>
+      <app-pogos-button (click)="onTitleChange('Poker')" [title]="'Poker'" [disabled]="true"></app-pogos-button>
 
     </div>
 

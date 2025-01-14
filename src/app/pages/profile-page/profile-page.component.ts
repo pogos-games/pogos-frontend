@@ -3,8 +3,8 @@ import {HeaderComponent} from "../../components/header/header.component";
 import {UserAuthService} from "../../services/auth/user-auth.service";
 import {User} from "../../model/user.interface";
 import {NgOptimizedImage} from "@angular/common";
-import {NzButtonComponent} from "ng-zorro-antd/button";
 import {PogosButton} from "../../components/pogos-button/pogos-button.component";
+import {RouterLink, RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-profile-page',
@@ -12,8 +12,9 @@ import {PogosButton} from "../../components/pogos-button/pogos-button.component"
   imports: [
     HeaderComponent,
     NgOptimizedImage,
-    NzButtonComponent,
-    PogosButton
+    PogosButton,
+    RouterOutlet,
+    RouterLink
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss'

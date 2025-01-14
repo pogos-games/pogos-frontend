@@ -7,6 +7,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class PogosButton {
   @Input({required:true}) title: string = '';
+  @Input() disabled:boolean = false;
   @Output() clicked = new EventEmitter<void>();
 
   onClick() {

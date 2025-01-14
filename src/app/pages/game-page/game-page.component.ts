@@ -5,6 +5,7 @@ import {RouterLink} from "@angular/router";
 import {HeaderComponent} from "../../components/header/header.component";
 import {RankingComponent} from "../../components/ranking/ranking.component";
 import {UserAuthService} from "../../services/auth/user-auth.service";
+import {PogosButton} from "../../components/pogos-button/pogos-button.component";
 
 @Component({
   selector: 'app-game-page',
@@ -13,7 +14,8 @@ import {UserAuthService} from "../../services/auth/user-auth.service";
     NzButtonComponent,
     RouterLink,
     HeaderComponent,
-    RankingComponent
+    RankingComponent,
+    PogosButton
   ],
   templateUrl: './game-page.component.html',
   styleUrl: './game-page.component.scss'
@@ -28,6 +30,7 @@ export class GamePageComponent implements OnInit {
   username: string | undefined;
 
   onTitleChange(title: string): void {
+    console.log("title")
     this.title = title;
   }
 
