@@ -1,6 +1,6 @@
 ::ng-deep .custom-modal .ant-modal-body {
-    border-color: #fff8e6;
-    background-color: #fff8e6;
+    border-color: var(--button-bg-hover);
+    background-color: var(--button-bg-hover);
     padding: 3.5em;
     border-radius: 0 0 12px 12px;
 }

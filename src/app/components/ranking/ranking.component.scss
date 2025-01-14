@@ -4,7 +4,7 @@
   flex-direction: column;
   height: 100%;
   border-radius: 15px;
-  background-color: #FFF8EB;
+  background-color: var(--secondary-bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -15,5 +15,4 @@
   transform: translateX(-50%);
   align-items: center;
   font-size: 2.5em;
-  color: #000000;
 }

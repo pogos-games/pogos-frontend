@@ -16,25 +16,25 @@
     <div class="actions">
 
       @if(isUserLoggedIn()) {
-        <button nz-button class="button" nzType="primary" (click)="showModal('logout')">
+        <button nz-button class="button" nzType="primary" (click)="showModal('logout')" title="Déconnexion">
           <span nz-icon nzType="logout" nzTheme="outline"></span>
         </button>
       }
       <app-modal [isVisible]="isModalVisible('logout')" title="Déconnexion"
         description="Êtes-vous sûr de vouloir vous déconnecter ?" okText="Oui" cancelText="Non" (onOk)="handleDisconnect()">
       </app-modal>
-      <button nz-button class="button" nzType="primary">
+      <button nz-button class="button" nzType="primary" title="Paramètres">
         <span nz-icon nzType="setting" nzTheme="outline"></span>
       </button>
-      <button nz-button class="button" nzType="primary">
-        <span nz-icon nzType="moon" nzTheme="outline"></span>
+      <button nz-button class="button" nzType="primary" (click)="toggleTheme()" title="Changer le thème">
+        <span nz-icon [nzType]="isDarkTheme ? 'sun' : 'moon'" nzTheme="outline"></span>
       </button>
-      <button nz-button class="button" nzType="primary" [disabled]="isUserLoggedIn()">
+      <button nz-button class="button" nzType="primary" [disabled]="isUserLoggedIn()" title="Amis">
         <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
       </button>
     </div>
     <nz-divider class="divider" nzType="vertical"></nz-divider>
-    <button class="username-avatar" [routerLink]="'/profile'">
+    <button class="username-avatar" [routerLink]="'/profile'" title="Profil">
       <p class="username">{{ username }}</p>
       <span nz-icon class="avatar" nzType="user" nzTheme="outline"></span>
     </button>

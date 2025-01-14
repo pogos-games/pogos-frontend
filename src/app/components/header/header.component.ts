@@ -6,6 +6,7 @@ import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {ModalComponent} from '../modal/modal.component';
 import {UserAuthService} from "../../services/auth/user-auth.service";
 import {LeaveButtonComponent} from '../leave-button/leave-button.component';
+import { LocalStorageService } from '../../services/storage/local-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -38,7 +39,9 @@ export class HeaderComponent {
 
   modalVisibility: Map<string, WritableSignal<boolean>> = new Map();
 
-  constructor(private readonly userAuthService:UserAuthService, private readonly router: Router) { }
+  isDarkTheme: boolean = false
+
+  constructor(private readonly userAuthService:UserAuthService, private readonly localStorageService: LocalStorageService, private readonly router: Router) { }
 
   showModal(modalId: string): void {
     if (!this.modalVisibility.has(modalId)) {
@@ -73,5 +76,30 @@ export class HeaderComponent {
       this.modalVisibility.set(modalId, signal(false));
     }
     return this.modalVisibility.get(modalId)!;
+  }
+
+  ngOnInit(): void {
+    const savedTheme = this.localStorageService.getItem('theme');
+    
+    if (savedTheme !== null) {
+      this.isDarkTheme = JSON.parse(savedTheme);
+    } else {
+      this.isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    document.body.classList.toggle('dark-theme', this.isDarkTheme);
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+      if (savedTheme === null) { 
+        this.isDarkTheme = event.matches;
+        document.body.classList.toggle('dark-theme', this.isDarkTheme);
+      }
+    });
+  }
+
+  toggleTheme(): void {
+    this.isDarkTheme = !this.isDarkTheme;
+    document.body.classList.toggle('dark-theme', this.isDarkTheme);
+    this.localStorageService.setItem('theme', JSON.stringify(this.isDarkTheme));
   }
 }

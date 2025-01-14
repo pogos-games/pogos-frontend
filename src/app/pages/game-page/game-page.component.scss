@@ -47,7 +47,7 @@
   width: 100%;
   height: 82.5%;
   border-radius: 15px;
-  background-color: #FFF8EB;
+  background-color: var(--secondary-bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -60,7 +60,7 @@
   width: 100%;
   height: 12.5%;
   border-radius: 15px;
-  background-color: #FFF8EB;
+  background-color:  var(--secondary-bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -69,7 +69,6 @@
   top: -0.8em;
   align-items: center;
   font-size: 2.25em;
-  color: #000000;
 }
 
 .description-join-code {
@@ -80,7 +79,6 @@
 .description-join-code p {
   margin-top: 0.4em;
   font-size: 1.5em;
-  color: #000000;
 }
 
 .input-join-code {
@@ -89,8 +87,9 @@
   border-radius: 7.5px;
   font-size: 1.2em;
   border: none;
-  background-color: white;
+  background-color: var(--input-code-bg-color);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: black;
 }
 
 #game-actions {
