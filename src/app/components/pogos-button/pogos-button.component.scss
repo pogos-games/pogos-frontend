@@ -1,17 +1,18 @@
 .pogos-button {
-  padding: 5px 20px;
+  width: 12.75em;
+  padding: 0.25em 0.75em;
   background-color: #f7d58c;
-  width: 150px;
   color: #fff;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.4rem;
   border: none;
-  border-radius: 25px;
+  border-radius: 15px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
 
   &:hover {
+    background-color: #ffe3a8;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
   }
 
