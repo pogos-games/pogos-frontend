@@ -1,37 +1,38 @@
 <app-header [canLeave]="false" [title]="'Pogos'"></app-header>
 
 <div class="main-content">
-  <div id="actions">
-
+  <div class="left-part">
     <div id="game-selector">
-
-      <img ngSrc="assets/pogos-logo.webp" alt="pogos-logo" height="150" width="150">
-
-      <button nz-button nzType="primary" (click)="onTitleChange('BlackJack')">BlackJack</button>
-      <button nz-button nzType="primary" (click)="onTitleChange('Uno')" disabled>Uno</button>
-      <button nz-button nzType="primary" (click)="onTitleChange('Tarot')" disabled>Tarot</button>
-      <button nz-button nzType="primary" (click)="onTitleChange('Poker')" disabled>Poker</button>
-
-    </div>
-
-    <div id="game-actions">
-
-      <div id="top-buttons">
-        <button nz-button class="main-button luckiest-guy-regular" [routerLink]="['/games', title.toLowerCase()]"
-          [queryParams]="{ gameType: 'solo' }">Jouer en solo</button>
-        <button nz-button class="main-button luckiest-guy-regular" [routerLink]="['/games', title.toLowerCase()]"
-          [queryParams]="{ gameType: 'multi' }">Jouer en multijoueur</button>
+      <div class="back-image">
+        <img src="assets/pogos-logo.webp" id="image" alt="pogos-logo" />
       </div>
-
-      <div id="bottom-button">
-        <button nz-button class="main-button luckiest-guy-regular">Créer une partie privée</button>
+      <div class="game-buttons">
+        <app-pogos-button [title]="'BlackJack'" (click)="onTitleChange('BlackJack')"></app-pogos-button>
+        <app-pogos-button [title]="'Uno'" (click)="onTitleChange('Uno')"></app-pogos-button>
+        <app-pogos-button [title]="'Tarot'" (click)="onTitleChange('Tarot')"></app-pogos-button>
+        <app-pogos-button [title]="'Poker'" (click)="onTitleChange('Poker')"></app-pogos-button>
       </div>
-
     </div>
-
-    <app-ranking></app-ranking>
-
+    <div class="box-join-code">
+      <p class="title-join-code luckiest-guy-regular">Rejoins les !</p>
+      <div class="description-join-code">
+        <p class="luckiest-guy-regular">Code</p>
+        <input nz-input class="input-join-code luckiest-guy-regular" type="text" />
+      </div>
+    </div>
   </div>
-
-
+  <div id="game-actions">
+    <div id="top-buttons">
+      <button nz-button class="main-button luckiest-guy-regular" [routerLink]="['/games', title.toLowerCase()]"
+        [queryParams]="{ gameType: 'solo' }">Jouer en solo</button>
+      <button nz-button class="main-button luckiest-guy-regular" [routerLink]="['/games', title.toLowerCase()]"
+        [queryParams]="{ gameType: 'multi' }">Jouer en <br /> multijoueur</button>
+    </div>
+    <div id="bottom-button">
+      <button nz-button class="main-button luckiest-guy-regular">Créer une partie privée</button>
+    </div>
+  </div>
+  <div class="rankings">
+    <app-ranking></app-ranking>
+  </div>
 </div>
