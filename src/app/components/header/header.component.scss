@@ -48,7 +48,7 @@ button {
 }
 
 .divider {
-  background-color: black;
+  background-color: var(--primary-bg-color);
 }
 
 .username {
@@ -66,13 +66,13 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: black;
+  color: var(--primary-text-color);
   padding: 8px;
   border-radius: 7.5px;
-  background-color: #fffcf5;
+  background-color: var(--secondary-bg-color);
   border: none;
   outline: none;
-  box-shadow: none;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: transform 0.3s ease, font-size 0.3s ease;
 }
@@ -83,12 +83,12 @@ button {
 
 .button {
   padding: 8px;
-  color: black;
+  color: var(--primary-text-color);
   border-radius: 7.5px;
-  background-color: #fffcf5;
+  background-color: var(--secondary-bg-color);
   border: none;
   outline: none;
-  box-shadow: none;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -112,7 +112,7 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #fff8e6;
+  background-color: var(--secondary-bg-color);
   border-radius: 12px 12px 0 0;
   border-color: #000000;
 }
@@ -122,7 +122,7 @@ button {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  color: black;
+  color: var(--primary-text-color);
   margin-top: 0.4em;
   font-size: 3em;
   font-family: "Luckiest Guy", cursive;
@@ -130,7 +130,7 @@ button {
 
 ::ng-deep .custom-modal .ant-modal-body {
   border-color: #fff8e6;
-  background-color: #fff8e6;
+  background-color: var(--secondary-bg-color);
   padding: 3.5em;
   border-radius: 0 0 12px 12px;
 }

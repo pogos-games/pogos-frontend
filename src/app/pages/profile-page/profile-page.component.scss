@@ -9,7 +9,7 @@
 .profile-actions-selector{
   height: 70vh;
   width: 20vw;
-  background-color: #FFF8EB;
+  background-color: var(--secondary-bg-color);
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -21,7 +21,7 @@
 .profile-actions{
   width: 60%;
   height: 70vh;
-  background-color: #FFF8EB;
+  background-color: var(--secondary-bg-color);
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
