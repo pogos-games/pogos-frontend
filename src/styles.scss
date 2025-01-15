@@ -8,7 +8,34 @@ body,
 }
 
 body {
-  background-color: antiquewhite;
+  transition: background-color 0.1s, color 0.1s;
+  
+  --primary-bg-color: antiquewhite; // BACKGROUND
+  --primary-title-color: black; // TEXT TITLE
+  --primary-text-color: black; // TEXT GENERAL
+  --secondary-bg-color: #FFF8EB; // BACKGROUND BUTTON
+  --button-bg-hover: #FFFFFF; // BACKGROUND BUTTON HOVER
+  --pogos-button-bg: #f7d58c; // MENU POGOS BACKGROUND BUTTON
+  --pogos-button-bg-hover: #ffe3a8; // MENU POGOS BACKGROUND BUTTON HOVER
+
+  --input-code-bg-color: white; 
+
+  --table-color: #2e9a3e; // GREEN TABLE COLOR
+  &.dark-theme {
+    --primary-bg-color: #070E1C; // BACKGROUND
+    --primary-title-color: #DEE1E9; // TEXT TITLE
+    --primary-text-color: #DEE1E9; // TEXT GENERAL
+    --secondary-bg-color: #2D3443; // BACKGROUND BUTTON
+    --button-bg-hover: #4A4E57; // BACKGROUND BUTTON HOVER
+    --pogos-button-bg: #214484; // MENU POGOS BACKGROUND BUTTON
+    --pogos-button-bg-hover: #365286; // MENU POGOS BACKGROUND BUTTON HOVER
+
+    --input-code-bg-color: rgb(217, 217, 231); 
+
+    --table-color: #197126; // GREEN TABLE COLOR 
+  }
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
 }
 
 .title {
@@ -24,20 +51,21 @@ body {
 }
 
 .main-button {
-  background-color: #FFF8EB;
-  color: black;
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-text-color);
   width: 250px;
   height: 250px;
   font-size: 25px;
   border-radius: 10%;
-  border-color: #FFF8EB;
+  border-color: var(--secondary-bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 
 .main-button:hover {
-  color: black;
+  color: var(--primary-text-color);
+  background-color: var(--button-bg-hover);
   border: none;
 }
 
@@ -46,4 +74,5 @@ body {
   margin: 0;
   font-family: "Luckiest Guy", cursive;
   font-style: normal;
+  color: var(--primary-text-color);
 }

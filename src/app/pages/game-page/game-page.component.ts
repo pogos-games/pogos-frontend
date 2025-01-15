@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {NgOptimizedImage} from "@angular/common";
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {RouterLink} from "@angular/router";
-import {HeaderComponent} from "../../components/header/header.component";
-import {RankingComponent} from "../../components/ranking/ranking.component";
-import {UserAuthService} from "../../services/auth/user-auth.service";
-import {PogosButton} from "../../components/pogos-button/pogos-button.component";
+import { Component, OnInit } from '@angular/core';
+import { NgOptimizedImage } from "@angular/common";
+import { NzButtonComponent } from "ng-zorro-antd/button";
+import { RouterLink } from "@angular/router";
+import { HeaderComponent } from "../../components/header/header.component";
+import { RankingComponent } from "../../components/ranking/ranking.component";
+import { UserAuthService } from "../../services/auth/user-auth.service";
+import { PogosButton } from '../../components/pogos-button/pogos-button.component';
 
 @Component({
   selector: 'app-game-page',
@@ -24,7 +24,7 @@ export class GamePageComponent implements OnInit {
 
   protected title = 'BlackJack';
 
-  constructor(private readonly userAuthService:UserAuthService) {
+  constructor(private readonly userAuthService: UserAuthService) {
   }
 
   username: string | undefined;
@@ -35,7 +35,7 @@ export class GamePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.userAuthService.isUserLoggedIn()) {
+    if (this.userAuthService.isUserLoggedIn()) {
       this.username = this.userAuthService.getUsername();
     }
   }
