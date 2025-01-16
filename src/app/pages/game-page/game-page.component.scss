@@ -21,6 +21,7 @@
   width: 77.5%;
   border-radius: 15px;
   background-color: #214484;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
 }
 
 .game-buttons {
@@ -36,7 +37,6 @@
   width: 50%;
   height: auto;
   border-radius: 15px;
-  background-color: #FFF8EB;
 }
 
 #game-selector {
@@ -65,10 +65,11 @@
 }
 
 .title-join-code {
+  color: white;
   position: absolute;
-  top: -0.8em;
+  top: -1em;
   align-items: center;
-  font-size: 2.25em;
+  font-size: 2em;
 }
 
 .description-join-code {
@@ -88,7 +89,7 @@
   font-size: 1.2em;
   border: none;
   background-color: var(--input-code-bg-color);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
   color: black;
 }
 
