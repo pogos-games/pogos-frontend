@@ -1,27 +1,51 @@
-.profile{
-  width: 100vw;
-  height: 80vh;
+.main-content {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: 25px;
+  width: 100%;
+  height: 85vh;
+  padding: 0 0 0 25px;
 }
 
-.profile-actions-selector{
-  height: 70vh;
-  width: 20vw;
-  background-color: var(--secondary-bg-color);
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.profile-actions-selector {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  width: 20vw;
+  height: 85%;
+  background-color: var(--secondary-bg-color);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.profile-actions{
-  width: 60%;
-  height: 70vh;
+.profile-actions {
+  width: 70vw;
+  height: 85%;
   background-color: var(--secondary-bg-color);
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-image {
+  width: 85%;
+  border-radius: 15px;
+  background-color: #214484;
+}
+
+#image {
+  width: 50%;
+  height: auto;
+  border-radius: 15px;
+  background-color: #FFF8EB;
+}
+
+.divider-profile {
+  width: 50%;
+  height: 4px;
+  border-radius: 15px;
+  background-color: var(--primary-bg-color);
+  margin: 10px 0;
 }
