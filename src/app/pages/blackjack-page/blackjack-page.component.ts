@@ -51,6 +51,35 @@ export class BlackjackPageComponent implements OnInit {
 
   protected gameType: GameType|undefined;
 
+  protected hands: {
+    player1Hand: Card[], 
+    player2Hand: Card[], 
+    player3Hand: Card[], 
+    dealerHand: Card[], 
+    selfHand: Card[] 
+  } = {
+    player1Hand: [
+      { rank: 'back', suit: '', value: 0 },
+      { rank: 'back', suit: '', value: 0 },
+    ],
+    player2Hand: [
+      { rank: 'back', suit: '', value: 0 },
+      { rank: 'back', suit: '', value: 0 },
+    ],
+    player3Hand: [
+      { rank: 'back', suit: '', value: 0 },
+      { rank: 'back', suit: '', value: 0 },
+    ],
+    selfHand: [
+      { rank: 'A', suit: 'H', value: 0 },
+      { rank: 'K', suit: 'H', value: 0 },
+    ],
+    dealerHand: [
+      { rank: 'A', suit: 'S', value: 0 },
+      { rank: 'A', suit: 'C', value: 0 },
+      { rank: 'A', suit: 'D', value: 0 },
+    ],
+  };
   constructor(private blackJackService:BlackjackService,private message:NzMessageService,
                        private readonly router: Router, private readonly route:ActivatedRoute) {
 
