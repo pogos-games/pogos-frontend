@@ -6,14 +6,14 @@
     <div class="profile-actions-selector">
 
       <img ngSrc="assets/pogos-logo.webp" alt="pogos-logo" height="150" width="150">
+      
+      <span style="font-size: 2em;" class="luckiest-guy-regular">{{user.pseudo}}</span>
 
-      <span class="luckiest-guy-regular">{{user.pseudo}}</span>
+      <app-pogos-button style="width: 100%;" [title]="'Préférences'" ></app-pogos-button>
 
-      <app-pogos-button [title]="'Préférences'" ></app-pogos-button>
+      <app-pogos-button style="width: 100%;" [title]="'Copains'" ></app-pogos-button>
 
-      <app-pogos-button [title]="'Copains'" ></app-pogos-button>
-
-      <app-pogos-button [title]="'Classements'"></app-pogos-button>
+      <app-pogos-button style="width: 100%;" [title]="'Classements'"></app-pogos-button>
 
     </div>
 
