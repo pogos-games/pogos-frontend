@@ -1,11 +1,9 @@
 <app-header [canLeave]="true" [leaveLink]="'/games'" [title]="'Profil'"></app-header>
 <div class="main-content">
+  <div class="profile-actions-selector">
 
-  <div class="profile">
-
-    <div class="profile-actions-selector">
-
-      <img ngSrc="assets/pogos-logo.webp" alt="pogos-logo" height="150" width="150">
+    <div class="back-image">
+      <img src="assets/pogos-logo.webp" id="image" alt="pogos-logo" />
       
       <span style="font-size: 2em;" class="luckiest-guy-regular">{{user.pseudo}}</span>
 
@@ -17,12 +15,17 @@
 
     </div>
 
-    <div class="profile-actions">
+    <nz-divider class="divider-profile" nzType="vertical"></nz-divider>
 
-    </div>
+    <app-pogos-button [title]="'Mon profil'" routerLink="/profile/my-profile"></app-pogos-button>
+
+    <app-pogos-button [title]="'Copains'" routerLink="/profile/friends"></app-pogos-button>
+
+    <app-pogos-button [title]="'Parties'" routerLink="/profile/game-history"></app-pogos-button>
 
   </div>
 
+  <div class="profile-actions">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-
-

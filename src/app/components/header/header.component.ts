@@ -1,12 +1,12 @@
-import {Component, Input, signal, WritableSignal} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {NzIconDirective} from "ng-zorro-antd/icon";
-import {NzDividerModule} from 'ng-zorro-antd/divider';
-import {ModalComponent} from '../modal/modal.component';
-import {UserAuthService} from "../../services/auth/user-auth.service";
-import {LeaveButtonComponent} from '../leave-button/leave-button.component';
-import { LocalStorageService } from '../../services/storage/local-storage.service';
+import { Component, Input, signal, WritableSignal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { NzButtonComponent } from "ng-zorro-antd/button";
+import { NzIconDirective } from "ng-zorro-antd/icon";
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { ModalComponent } from '../modal/modal.component';
+import { UserAuthService } from "../../services/auth/user-auth.service";
+import { LeaveButtonComponent } from '../leave-button/leave-button.component';
+import { LocalStorageService } from "../../services/storage/local-storage.service";
 
 @Component({
   selector: 'app-header',
@@ -31,7 +31,7 @@ export class HeaderComponent {
   canLeave: boolean = false;
 
   @Input()
-  leaveLink:string|undefined;
+  leaveLink: string | undefined;
 
   @Input() public leaveSignal: WritableSignal<boolean> = signal(false);
 
@@ -41,7 +41,7 @@ export class HeaderComponent {
 
   isDarkTheme: boolean = false
 
-  constructor(private readonly userAuthService:UserAuthService, private readonly localStorageService: LocalStorageService, private readonly router: Router) { }
+  constructor(private readonly userAuthService: UserAuthService, private readonly router: Router, private readonly localStorageService: LocalStorageService) { }
 
   showModal(modalId: string): void {
     if (!this.modalVisibility.has(modalId)) {
@@ -80,7 +80,7 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     const savedTheme = this.localStorageService.getItem('theme');
-    
+
     if (savedTheme !== null) {
       this.isDarkTheme = JSON.parse(savedTheme);
     } else {
@@ -90,7 +90,7 @@ export class HeaderComponent {
     document.body.classList.toggle('dark-theme', this.isDarkTheme);
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-      if (savedTheme === null) { 
+      if (savedTheme === null) {
         this.isDarkTheme = event.matches;
         document.body.classList.toggle('dark-theme', this.isDarkTheme);
       }
