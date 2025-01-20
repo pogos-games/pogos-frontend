@@ -7,11 +7,6 @@ body,
 }
 
 body {
-
-  #image {
-    content: url('../src/assets/pogos-logo-light.webp');
-  }
-
   transition: background-color 0.1s, color 0.1s;
   
   --primary-bg-color: antiquewhite; // BACKGROUND
@@ -42,9 +37,6 @@ body {
     -webkit-text-stroke-color: rgb(148, 143, 143);
   }
   &.dark-theme {
-    #image {
-      content: url('../src/assets/pogos-logo.webp');
-    }
 
     --primary-bg-color: #070E1C; // BACKGROUND
     --primary-title-color: #DEE1E9; // TEXT TITLE
