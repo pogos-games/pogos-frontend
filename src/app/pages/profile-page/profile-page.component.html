@@ -4,6 +4,15 @@
 
     <div class="back-image">
       <img src="assets/pogos-logo.webp" id="image" alt="pogos-logo" />
+      
+      <span style="font-size: 2em;" class="luckiest-guy-regular">{{user.pseudo}}</span>
+
+      <app-pogos-button style="width: 100%;" [title]="'Préférences'" ></app-pogos-button>
+
+      <app-pogos-button style="width: 100%;" [title]="'Copains'" ></app-pogos-button>
+
+      <app-pogos-button style="width: 100%;" [title]="'Classements'"></app-pogos-button>
+
     </div>
 
     <nz-divider class="divider-profile" nzType="vertical"></nz-divider>

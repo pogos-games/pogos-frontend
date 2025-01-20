@@ -37,6 +37,7 @@ body {
     -webkit-text-stroke-color: rgb(148, 143, 143);
   }
   &.dark-theme {
+
     --primary-bg-color: #070E1C; // BACKGROUND
     --primary-title-color: #DEE1E9; // TEXT TITLE
     --primary-text-color: #DEE1E9; // TEXT GENERAL
@@ -69,10 +70,6 @@ body {
   color: var(--primary-text-color);
 }
 
-.title {
-  font-size: 80px;
-}
-
 .main-content {
   display: flex;
   text-align: center;
@@ -83,15 +80,18 @@ body {
 
 .main-button {
   background-color: var(--secondary-bg-color);
-  width: 250px;
-  height: 250px;
   font-size: 25px;
   border-radius: 10%;
   border-color: var(--secondary-bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
+  width: 50%;
+  height: 30%;
 }
 
+.main-button span {
+  font-size: 1.5vw;
+}
 
 .main-button:hover {
   background-color: var(--button-bg-hover);
