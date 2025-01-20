@@ -1,12 +1,12 @@
 <div class="header">
   <div class="left">
     @if(canLeave && leaveLink) {
-      <app-leave-button text="Quitter" [routerLink]="leaveLink"></app-leave-button>
+    <app-leave-button text="Quitter" [routerLink]="leaveLink"></app-leave-button>
     } @else if(canLeave) {
-      <app-leave-button text="Quitter" (click)="showModal('leave')"></app-leave-button>
-      <app-modal [isVisible]="isModalVisible('leave')" title="❌ Quitter"
-                 description="Êtes-vous sûr de vouloir quitter ?" okText="Oui" cancelText="Non" (onOk)="handleLeaveGame()">
-      </app-modal>
+    <app-leave-button text="Quitter" (click)="showModal('leave')"></app-leave-button>
+    <app-modal [isVisible]="isModalVisible('leave')" title="Quitter ❌" description="Êtes-vous sûr de vouloir quitter ?"
+      okText="Oui" cancelText="Non" (onOk)="handleLeaveGame()">
+    </app-modal>
     }
   </div>
 
@@ -16,12 +16,13 @@
     <div class="actions">
 
       @if(isUserLoggedIn()) {
-        <button nz-button class="button" nzType="primary" (click)="showModal('logout')" title="Déconnexion">
-          <span nz-icon nzType="logout" nzTheme="outline"></span>
-        </button>
+      <button nz-button class="button" nzType="primary" (click)="showModal('logout')" title="Déconnexion">
+        <span nz-icon nzType="logout" nzTheme="outline"></span>
+      </button>
       }
-      <app-modal [isVisible]="isModalVisible('logout')" title="⚠️ Déconnexion"
-        description="Êtes-vous sûr de vouloir vous déconnecter ?" okText="Oui" cancelText="Non" (onOk)="handleDisconnect()">
+      <app-modal [isVisible]="isModalVisible('logout')" title="Déconnexion ⚠️"
+        description="Êtes-vous sûr de vouloir vous déconnecter ?" okText="Oui" cancelText="Non"
+        (onOk)="handleDisconnect()">
       </app-modal>
       <button nz-button class="button" nzType="primary" title="Paramètres">
         <span nz-icon nzType="setting" nzTheme="outline"></span>
@@ -34,9 +35,15 @@
       </button>
     </div>
     <nz-divider class="divider" nzType="vertical"></nz-divider>
+    @if(isUserLoggedIn()) {
     <button class="username-avatar" [routerLink]="'/profile'" title="Profil">
+      <img [src]="'/assets/avatar/' + avatar?.toLowerCase() + '.png'" [alt]="avatar" class="my-avatar" />
       <p class="username">{{ username }}</p>
-      <span nz-icon class="avatar" nzType="user" nzTheme="outline"></span>
     </button>
+    } @else {
+    <button nz-button class="button" nzType="primary" [routerLink]="'/login'" title="Connexion">
+      <span nz-icon nzType="login" nzTheme="outline"></span>
+    </button>
+    }
   </div>
 </div>

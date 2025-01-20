@@ -1,17 +1,31 @@
 import { Component } from '@angular/core';
+import { Avatar } from '../../../model/enum/avatar.enum';
 import { User } from '../../../model/user.interface';
-import { UserAuthService } from '../../../services/auth/user-auth.service'
+import { UserAuthService } from '../../../services/auth/user-auth.service';
 
 @Component({
   selector: 'app-my-profile',
-  imports: [],
   templateUrl: './my-profile.component.html',
-  styleUrl: './my-profile.component.scss'
+  styleUrls: ['./my-profile.component.scss'],
 })
 export class MyProfileComponent {
+  user: User = this.userAuthService.user;
 
-  constructor(private sessionStorageService: UserAuthService) { }
+  avatars = Object.values(Avatar);
 
-  user: User = this.sessionStorageService.user;
+  selectedAvatar: string = this.user.avatar || 'default';
 
+  constructor(private readonly userAuthService: UserAuthService) { }
+
+  get formattedAvatarName(): string {
+    return this.selectedAvatar.replace(/_/g, ' ');
+  }
+
+  selectAvatar(avatar: string): void {
+    this.selectedAvatar = avatar;
+    this.user.avatar = avatar;
+    this.userAuthService.updateAvatar(avatar);
+
+    console.log(`Avatar sélectionné : ${avatar}`);
+  }
 }

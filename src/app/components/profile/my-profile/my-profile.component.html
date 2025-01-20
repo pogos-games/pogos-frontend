@@ -1,6 +1,23 @@
 <div class="main-content">
-    <p id="title profile">Mon profile</p>
-    <div>
-
+    <p class="title-profile">Mon profil</p>
+    <div class="container">
+        <div class="left">
+            <div class="avatar-picker">
+                <div class="selected-avatar">
+                    <img [src]="'/assets/avatar/' + selectedAvatar.toLowerCase() + '.png'" [alt]="selectedAvatar"
+                        class="selected-avatar-image" />
+                    <p class="selected-avatar-name">{{ formattedAvatarName }}</p>
+                </div>
+                <p class="avatars-title">Choisissez !</p>
+                <div class="avatars-grid">
+                    @for (avatar of avatars; track avatar) {
+                    <div (click)="selectAvatar(avatar)">
+                        <img [src]="'/assets/avatar/' + avatar.toLowerCase() + '.png'" class="avatars" [alt]="avatar" />
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="right">coucou</div>
     </div>
 </div>

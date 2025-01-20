@@ -36,6 +36,7 @@ export class HeaderComponent {
   @Input() public leaveSignal: WritableSignal<boolean> = signal(false);
 
   username: string | undefined = this.userAuthService.getUsername();
+  avatar: string | undefined = this.userAuthService.getAvatar();
 
   modalVisibility: Map<string, WritableSignal<boolean>> = new Map();
 
