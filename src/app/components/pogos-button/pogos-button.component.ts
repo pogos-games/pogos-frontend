@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pogos-button',
@@ -6,8 +6,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   styleUrls: ['./pogos-button.component.scss'],
 })
 export class PogosButton {
-  @Input({required:true}) title: string = '';
-  @Input() disabled:boolean = false;
+  @Input({ required: true }) title: string = '';
+  @Input() disabled: boolean = false;
   @Output() clicked = new EventEmitter<void>();
 
   onClick() {

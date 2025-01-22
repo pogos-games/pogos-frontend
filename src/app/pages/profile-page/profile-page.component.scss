@@ -30,16 +30,16 @@
 }
 
 .back-image {
-  width: 85%;
+  width: 77.5%;
   border-radius: 15px;
-  background-color: #214484;
+  background-color: var(--pogos-button-bg);
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
 }
 
 #image {
   width: 50%;
   height: auto;
   border-radius: 15px;
-  background-color: #FFF8EB;
 }
 
 .divider-profile {

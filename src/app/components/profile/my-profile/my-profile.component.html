@@ -1,6 +1,6 @@
 <div class="main-content">
     <p class="title-profile">Mon profil</p>
-    <div class="container">
+    <div class="container" [formGroup]="updateProfileForm">
         <div class="left">
             <div class="avatar-picker">
                 <div class="selected-avatar">
@@ -8,7 +8,7 @@
                         class="selected-avatar-image" />
                     <p class="selected-avatar-name">{{ formattedAvatarName }}</p>
                 </div>
-                <p class="avatars-title">Choisissez !</p>
+                <p class="avatars-title">Choisis !</p>
                 <div class="avatars-grid">
                     @for (avatar of avatars; track avatar) {
                     <div (click)="selectAvatar(avatar)">
@@ -18,6 +18,44 @@
                 </div>
             </div>
         </div>
-        <div class="right">coucou</div>
+        <nz-divider class="divider-profile" nzType="vertical"></nz-divider>
+        <div class="right">
+            <div class="inputs">
+                <div class="pseudo-mail-div">
+                    <p class="pseudo-mail-title">Mail :</p>
+                    <p class="mail">{{user.mail}}</p>
+                </div>
+                <div class="pseudo-mail-div">
+                    <p class="pseudo-mail-title">Mon pseudo :</p>
+                    <div class="div-pseudo">
+                        @if(!isEditing){
+                        <p class="pseudo">{{user.pseudo}}</p>
+                        }
+                        @if(isEditing){
+                        <nz-form-control class="form-control" nzHasFeedback [nzErrorTip]="userErrorTpl">
+                            <nz-input-group class="input-update-profile">
+                                <input type="text" placeholder="Pseudo*" nz-input formControlName="pseudo" />
+                            </nz-input-group>
+                            <ng-template #userErrorTpl let-control>
+                                @if (control.errors?.['minlength'] && control.touched) {
+                                Entrez un nom d'au moins 3 caractères
+                                } @else if (control.errors?.['username_already_exists']) {
+                                Ce nom d'utilisateur est déjà pris
+                                }
+                            </ng-template>
+                        </nz-form-control>
+                        }
+                        <button nz-button class="button-update-pseudo" nzType="primary" title="Amis"
+                            (click)="handleEdit()">
+                            <span nz-icon class="icon-button" nzType="edit" nzTheme="outline"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button nz-button class="submit-update-button" nzType="primary" nzBlock type="submit"
+                [disabled]="!hasChanges || updateProfileForm.invalid" (click)="updateProfile()">
+                Modifier
+            </button>
+        </div>
     </div>
 </div>

@@ -1,19 +1,19 @@
-import {Component} from '@angular/core';
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {NzIconDirective} from "ng-zorro-antd/icon";
-import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective} from "ng-zorro-antd/input";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Router, RouterLink} from "@angular/router";
-import {AuthService} from "../../auth/service/auth.service";
-import {SignupRequestDto} from "../../model/dto/request/signup-request.dto";
-import {catchError, of} from "rxjs";
-import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
-import {AuthResponseDto} from '../../model/auth-response.dto';
-import {UserAuthService} from "../../services/auth/user-auth.service";
-import {UserService} from "../../services/user.service";
-import {NzFormControlComponent, NzFormDirective} from "ng-zorro-antd/form";
-import {SignupValidator} from "../../validator/signup.validator";
-import {LeaveButtonComponent} from '../../components/leave-button/leave-button.component';
+import { Component } from '@angular/core';
+import { NzButtonComponent } from "ng-zorro-antd/button";
+import { NzIconDirective } from "ng-zorro-antd/icon";
+import { NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective } from "ng-zorro-antd/input";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Router, RouterLink } from "@angular/router";
+import { AuthService } from "../../auth/service/auth.service";
+import { SignupRequestDto } from "../../model/dto/request/signup-request.dto";
+import { catchError, of } from "rxjs";
+import { HttpErrorResponse, HttpStatusCode } from "@angular/common/http";
+import { AuthResponseDto } from '../../model/dto/response/auth-response.dto';
+import { UserAuthService } from "../../services/auth/user-auth.service";
+import { UserService } from "../../services/user.service";
+import { NzFormControlComponent, NzFormDirective } from "ng-zorro-antd/form";
+import { CustomValidator } from "../../validator/custom.validator";
+import { LeaveButtonComponent } from '../../components/leave-button/leave-button.component';
 
 @Component({
   selector: 'app-signup-page',
@@ -44,19 +44,19 @@ export class SignupPageComponent {
 
   signupForm: FormGroup = new FormGroup({
 
-    pseudo: new FormControl('', {validators:[Validators.required, Validators.minLength(3)], asyncValidators :SignupValidator.createValidator(this.userService), updateOn:'change'}),
-    mail: new FormControl('',{validators:[Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)],updateOn:'change'}),
-    password: new FormControl('',{validators:[Validators.required,Validators.minLength(6), Validators.maxLength(20)],updateOn:'blur'}),
-    confirmPassword: new FormControl('',{validators:[Validators.required, SignupValidator.passwordMatchValidator('password')],updateOn:'blur'})
+    pseudo: new FormControl('', { validators: [Validators.required, Validators.minLength(3)], asyncValidators: CustomValidator.isUserameExist(this.userService), updateOn: 'change' }),
+    mail: new FormControl('', { validators: [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)], updateOn: 'change' }),
+    password: new FormControl('', { validators: [Validators.required, Validators.minLength(6), Validators.maxLength(20)], updateOn: 'blur' }),
+    confirmPassword: new FormControl('', { validators: [Validators.required, CustomValidator.passwordMatchValidator('password')], updateOn: 'blur' })
   })
 
   constructor(private readonly authService: AuthService,
-              private readonly userAuthService:UserAuthService,
-              private readonly userService:UserService,
-              private readonly router: Router) { }
+    private readonly userAuthService: UserAuthService,
+    private readonly userService: UserService,
+    private readonly router: Router) { }
 
   onSubmit(): void {
-    if(this.signupForm.invalid){
+    if (this.signupForm.invalid) {
       this.signupForm.markAllAsTouched()
       return;
     }
@@ -71,7 +71,7 @@ export class SignupPageComponent {
       catchError((error) => {
         if (error instanceof HttpErrorResponse) {
           if (error.status === HttpStatusCode.Conflict) {
-            this.signupForm.get('mail')?.setErrors({email_already_exists: true})
+            this.signupForm.get('mail')?.setErrors({ email_already_exists: true })
           }
         }
         return of(undefined);
@@ -82,7 +82,7 @@ export class SignupPageComponent {
       }
       const accessToken = response.accessToken;
       const refreshToken = response.refreshToken;
-      this.userAuthService.login(accessToken,refreshToken);
+      this.userAuthService.login(accessToken, refreshToken);
       return this.router.navigate(['/games']);
     });
 
