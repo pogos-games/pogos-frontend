@@ -10,8 +10,6 @@ import {NzFormControlComponent} from "ng-zorro-antd/form";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {CustomValidator} from "../../../validator/custom.validator";
 import {UserService} from "../../../services/user.service";
-import {UpdateUserRequestDto} from "../../../model/dto/request/update-user-request.dto";
-import {UpdateUserResponseDto} from "../../../model/dto/response/update-user-response.dto";
 
 @Component({
   selector: 'app-my-profile',
@@ -54,9 +52,7 @@ export class MyProfileComponent {
   ) {
   }
 
-
   get formattedAvatarName(): string {
-
     return this.selectedAvatar ? this.selectedAvatar.replace(/_/g, ' ') : '';
   }
 
@@ -71,23 +67,13 @@ export class MyProfileComponent {
   }
 
   updateProfile(): void {
-
     const formValues = this.updateProfileForm.value;
+    const username = formValues.pseudo?.trim() || this.user().pseudo;
+    const avatar = formValues.avatar ?? this.selectedAvatar;
 
-    console.log('this.user().pseudo : ',this.user().pseudo)
-
-    const request: UpdateUserRequestDto = {
-      username: formValues.pseudo?.trim() || this.user().pseudo,
-      avatar: formValues.avatar ?? this.selectedAvatar,
-    };
-
-    this.userService.updateProfile(this.user().id, request).subscribe((response: UpdateUserResponseDto | undefined) => {
-      if (!response) {
-        return;
-      }
-
-      this.userAuthService.updateProfile(response.username, response.avatar).subscribe();
-      this.isEditing = false;
-    });
+    this.userAuthService.updateProfile(username, avatar).subscribe();
+    this.isEditing = false;
+    this.hasChanges = false;
   }
+
 }
