@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
 
   handleLeaveGame(): void {
     this.showModal('leaveModal');
-    void this.router.navigateByUrl('/games');
+    this.router.navigateByUrl('/games');
   }
 
 
@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit {
     this.userAuthService.logout();
     //this.username = undefined;
     this.hideModal('disconnectModal');
-    void this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/');
   }
 
   protected isUserLoggedIn(): boolean {
