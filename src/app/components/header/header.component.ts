@@ -65,7 +65,6 @@ export class HeaderComponent implements OnInit {
 
   handleDisconnect(): void {
     this.userAuthService.logout();
-    //this.username = undefined;
     this.hideModal('disconnectModal');
     this.router.navigateByUrl('/');
   }

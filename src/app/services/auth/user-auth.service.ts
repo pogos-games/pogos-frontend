@@ -18,7 +18,7 @@ import {UserService} from "../user.service";
 })
 export class UserAuthService {
 
-  private _user : WritableSignal<User> = signal({accessToken: '', mail: '', id: '', pseudo: '', avatar: Avatar.DEFAULT, nbNotifications: 0})
+  private readonly _user : WritableSignal<User> = signal({accessToken: '', mail: '', id: '', pseudo: '', avatar: Avatar.DEFAULT, nbNotifications: 0})
   public user = this._user.asReadonly();
 
   private userAccessToken : string|undefined;
