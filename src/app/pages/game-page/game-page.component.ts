@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { NgOptimizedImage } from "@angular/common";
-import { NzButtonComponent } from "ng-zorro-antd/button";
-import { RouterLink } from "@angular/router";
-import { RankingComponent } from "../../components/ranking/ranking.component";
-import { UserAuthService } from "../../services/auth/user-auth.service";
-import { PogosButton } from '../../components/pogos-button/pogos-button.component';
-import { HeaderComponent } from "../../components/header/header.component";
+import {Component, OnInit} from '@angular/core';
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {RouterLink} from "@angular/router";
+import {RankingComponent} from "../../components/ranking/ranking.component";
+import {UserAuthService} from "../../services/auth/user-auth.service";
+import {PogosButton} from '../../components/pogos-button/pogos-button.component';
+import {HeaderComponent} from "../../components/header/header.component";
 
 @Component({
   selector: 'app-game-page',
   standalone: true,
   imports: [
-    NgOptimizedImage,
     NzButtonComponent,
     RouterLink,
     HeaderComponent,
