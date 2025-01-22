@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Signal} from '@angular/core';
 import {Avatar} from '../../../model/enum/avatar.enum';
 import {User} from '../../../model/user.interface';
 import {UserAuthService} from '../../../services/auth/user-auth.service';
@@ -30,15 +30,17 @@ import {UpdateUserResponseDto} from "../../../model/dto/response/update-user-res
 })
 export class MyProfileComponent {
 
-  user: User| undefined = this.userAuthService.user();
+  user : Signal<User> = this.userAuthService.user;
 
   isEditing = false;
   hasChanges = false;
 
-  selectedAvatar: Avatar = this.user?.avatar ||Avatar.DEFAULT;
+  selectedAvatar: Avatar = this.user().avatar || Avatar.DEFAULT;
+
+  readonly avatars: Avatar[] = Object.values(Avatar)
 
   updateProfileForm = new FormGroup({
-    pseudo: new FormControl(this.user() ? this.user.pseudo, {
+    pseudo: new FormControl(this.user().pseudo,  {
       validators: [Validators.minLength(3)],
       asyncValidators: CustomValidator.isUserameExist(this.userService),
       updateOn: 'change',
@@ -50,28 +52,18 @@ export class MyProfileComponent {
     private readonly userAuthService: UserAuthService,
     private readonly userService: UserService
   ) {
-    this.listenToFormChanges();
   }
+
 
   get formattedAvatarName(): string {
-    return this.selectedAvatar.replace(/_/g, ' ');
-  }
 
-  private listenToFormChanges(): void {
-    this.updateProfileForm.valueChanges.subscribe((formValues) => {
-      this.hasChanges = this.checkForChanges(formValues);
-    });
-  }
-
-  private checkForChanges(formValues: any): boolean {
-    return (
-      formValues.pseudo !== this.user.pseudo || formValues.avatar !== this.user.avatar
-    );
+    return this.selectedAvatar ? this.selectedAvatar.replace(/_/g, ' ') : '';
   }
 
   selectAvatar(avatar: Avatar): void {
     this.selectedAvatar = avatar;
     this.updateProfileForm.get('avatar')?.setValue(avatar);
+    this.hasChanges = this.selectedAvatar !== this.user().avatar
   }
 
   handleEdit(): void {
@@ -79,25 +71,23 @@ export class MyProfileComponent {
   }
 
   updateProfile(): void {
-    if (this.updateProfileForm.invalid) {
-      return;
-    }
+
     const formValues = this.updateProfileForm.value;
 
+    console.log('this.user().pseudo : ',this.user().pseudo)
+
     const request: UpdateUserRequestDto = {
-      username: formValues.pseudo ?? this.user.pseudo,
-      avatar: formValues.avatar ?? this.user.avatar
+      username: formValues.pseudo?.trim() || this.user().pseudo,
+      avatar: formValues.avatar ?? this.selectedAvatar,
     };
 
-
-    this.userService.updateProfile(this.user.id, request).subscribe((response: UpdateUserResponseDto | undefined) => {
+    this.userService.updateProfile(this.user().id, request).subscribe((response: UpdateUserResponseDto | undefined) => {
       if (!response) {
         return;
       }
 
-      this.userAuthService.updateProfile(response.username, response.avatar);
+      this.userAuthService.updateProfile(response.username, response.avatar).subscribe();
       this.isEditing = false;
     });
-
   }
 }

@@ -1,5 +1,6 @@
 <div class="header">
   <div class="left">
+
     @if(canLeave && leaveLink) {
     <app-leave-button text="Quitter" [routerLink]="leaveLink"></app-leave-button>
     } @else if(canLeave) {
@@ -37,8 +38,8 @@
     <nz-divider class="divider" nzType="vertical"></nz-divider>
     @if(isUserLoggedIn()) {
     <button class="username-avatar" [routerLink]="'/profile'" title="Profil">
-      <img [src]="'/assets/avatar/' + avatar?.toLowerCase() + '.png'" [alt]="avatar" class="my-avatar" />
-      <p class="username">{{ username }}</p>
+      <img [src]="'/assets/avatar/' + user().avatar.toLowerCase() + '.png'" [alt]="user().avatar" class="my-avatar" />
+      <p class="username">{{ user().pseudo }}</p>
     </button>
     } @else {
     <button nz-button class="button" nzType="primary" [routerLink]="'/login'" title="Connexion">

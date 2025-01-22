@@ -23,18 +23,17 @@
             <div class="inputs">
                 <div class="pseudo-mail-div">
                     <p class="pseudo-mail-title">Mail :</p>
-                    <p class="mail">{{user.mail}}</p>
+                    <p class="mail">{{user().mail}}</p>
                 </div>
                 <div class="pseudo-mail-div">
                     <p class="pseudo-mail-title">Mon pseudo :</p>
                     <div class="div-pseudo">
                         @if(!isEditing){
-                        <p class="pseudo">{{user.pseudo}}</p>
-                        }
-                        @if(isEditing){
-                        <nz-form-control class="form-control" nzHasFeedback [nzErrorTip]="userErrorTpl">
+                        <p class="pseudo">{{user().pseudo}}</p>
+                        } @else {
+                          <nz-form-control class="form-control" nzHasFeedback [nzErrorTip]="userErrorTpl">
                             <nz-input-group class="input-update-profile">
-                                <input type="text" placeholder="Pseudo*" nz-input formControlName="pseudo" />
+                                <input type="text" placeholder="Pseudo*" nz-input formControlName="pseudo"  (change)="hasChanges =true"/>
                             </nz-input-group>
                             <ng-template #userErrorTpl let-control>
                                 @if (control.errors?.['minlength'] && control.touched) {
