@@ -1,7 +1,10 @@
+import { Avatar } from './enum/avatar.enum';
+
 export interface User {
-    userId: string,
+    id: string,
     pseudo: string,
     mail: string,
-    avatar: string,
+    avatar: Avatar,
+    nbNotifications: number,
     accessToken: string
 }

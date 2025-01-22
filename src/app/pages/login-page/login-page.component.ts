@@ -1,14 +1,14 @@
-import {Component,} from '@angular/core';
-import {Router, RouterLink} from "@angular/router";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective} from "ng-zorro-antd/input";
-import {NzIconDirective, NzIconModule} from "ng-zorro-antd/icon";
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {AuthService} from "../../auth/service/auth.service";
-import {LoginRequestDto} from "../../model/dto/request/login-request.dto";
-import {catchError, of} from "rxjs";
-import {AuthResponseDto} from '../../model/auth-response.dto';
-import {UserAuthService} from "../../services/auth/user-auth.service";
+import { Component, } from '@angular/core';
+import { Router, RouterLink } from "@angular/router";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective } from "ng-zorro-antd/input";
+import { NzIconDirective, NzIconModule } from "ng-zorro-antd/icon";
+import { NzButtonComponent } from "ng-zorro-antd/button";
+import { AuthService } from "../../auth/service/auth.service";
+import { LoginRequestDto } from "../../model/dto/request/login-request.dto";
+import { catchError, of } from "rxjs";
+import { AuthResponseDto } from '../../model/dto/response/auth-response.dto';
+import { UserAuthService } from "../../services/auth/user-auth.service";
 import { LeaveButtonComponent } from '../../components/leave-button/leave-button.component';
 @Component({
   selector: 'app-login',
@@ -30,8 +30,8 @@ import { LeaveButtonComponent } from '../../components/leave-button/leave-button
 export class LoginPageComponent {
 
   constructor(private readonly authService: AuthService,
-              private readonly router: Router,
-              private readonly userAuthService:UserAuthService) {
+    private readonly router: Router,
+    private readonly userAuthService: UserAuthService) {
   }
 
   isPasswordHided: boolean = true;
@@ -64,7 +64,7 @@ export class LoginPageComponent {
         const accessToken = response.accessToken;
         const refreshToken = response.refreshToken;
 
-        this.userAuthService.login(accessToken,refreshToken);
+        this.userAuthService.login(accessToken, refreshToken);
         return this.router.navigate(['/games']);
       });
   }

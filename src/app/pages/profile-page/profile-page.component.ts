@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from "../../components/header/header.component";
 import { UserAuthService } from "../../services/auth/user-auth.service";
 import { User } from "../../model/user.interface";
-import { NgOptimizedImage } from "@angular/common";
 import { PogosButton } from "../../components/pogos-button/pogos-button.component";
 import { RouterLink, RouterOutlet } from "@angular/router";
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -12,7 +11,6 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
   standalone: true,
   imports: [
     HeaderComponent,
-    NgOptimizedImage,
     PogosButton,
     RouterOutlet,
     RouterLink,

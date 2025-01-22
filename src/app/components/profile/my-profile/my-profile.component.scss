@@ -103,10 +103,95 @@
     cursor: pointer;
 }
 
+.divider-profile {
+    width: 0.35em;
+    height: 50%;
+    border-radius: 15px;
+    background-color: var(--primary-bg-color);
+    margin-bottom: 7%;
+}
+
 .right {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    justify-content: space-evenly;
+    width: 49%;
     height: 100%;
-    background-color: white
+    padding: 0 2em 3em 2em;
+}
+
+.inputs {
+    height: 70%;
+}
+
+.pseudo-mail-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.pseudo-mail-title {
+    font-family: "Luckiest Guy", cursive;
+    font-size: 1.5em;
+    margin: 1em 0 0 0;
+    color: var(--pogos-button-bg);
+}
+
+.mail,
+.pseudo {
+    font-family: "Lilita One", serif;
+    font-size: 1.5em;
+    margin: 0;
+    width: 100%;
+    font-size: 2em;
+    padding: 0.2em 1em;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.div-pseudo {
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+    gap: 10px;
+    width: 100%;
+}
+
+.input-update-profile {
+    width: 100%;
+    height: 100%;
+    font-size: 1.5em;
+    padding: 0.5em 2em;
+    border-radius: 15px;
+    font-family: "Lilita One", serif;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.button-update-pseudo {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--pogos-button-bg);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.icon-button {
+    font-size: 1.5em;
+}
+
+.submit-update-button {
+    min-height: 2.5em;
+    font-size: 1.5em;
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--pogos-button-bg);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+    font-family: "Luckiest Guy", cursive;
+}
+
+.submit-update-button:hover {
+    background-color: var(--pogos-button-bg-hover);
 }
