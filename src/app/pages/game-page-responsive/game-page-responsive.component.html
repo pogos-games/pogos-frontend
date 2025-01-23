@@ -1,0 +1,24 @@
+<app-header [title]="title" [canLeave]="false"></app-header>
+<div class="main-content">
+  <div class="row" nz-row [nzGutter]="{ xs: 32, sm: 32, md: 32, lg: 32 }">
+
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="6" [nzXl]="{ span: 6 }" class="col-wrapper">
+      <div class="game-selector-box">
+        <app-game-selector></app-game-selector>
+      </div>
+    </div>
+
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="12" [nzXl]="{ span: 12 }" class="col-wrapper">
+      <div class="game-buttons-box">
+        <app-game-buttons></app-game-buttons>
+      </div>
+    </div>
+
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="6" [nzXl]="{ span: 6 }" class="col-wrapper">
+      <div class="game-ranking-box">
+        <app-ranking></app-ranking>
+      </div>
+    </div>
+
+  </div>
+</div>

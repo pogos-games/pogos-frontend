@@ -10,13 +10,14 @@ import { AuthGuard } from "./auth/guard/auth-guard";
 import { MyProfileComponent } from './components/profile/my-profile/my-profile.component';
 import { FriendsComponent } from "./components/profile/friends/friends.component";
 import { GameHistoryComponent } from "./components/profile/rankings/game-history.component";
+import {GamePageResponsiveComponent} from "./pages/game-page-responsive/game-page-responsive.component";
 
 export const routes: Routes = [
   { path: 'games', component: GamePageComponent },
+  { path: 'game-responsive', component:GamePageResponsiveComponent},
   { path: 'games/blackjack', component: BlackjackPageComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: 'signup', component: SignupPageComponent },
-  {
+  { path: 'signup', component: SignupPageComponent }, {
     path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'my-profile', pathMatch: 'full' },

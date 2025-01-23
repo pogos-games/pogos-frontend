@@ -13,7 +13,7 @@ import {BlackJackMessage} from "../../model/enum/black-jack.message.enum";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {ChatComponent} from "../../components/chat/chat.component";
 import {HeaderComponent} from "../../components/header/header.component";
-import {RankingComponent} from "../../components/ranking/ranking.component";
+import {RankingComponent} from "../../components/game-page/ranking/ranking.component";
 import {GameTableComponent} from "../../components/game-table/game-table.component";
 import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
 import {ActivatedRoute, Router} from "@angular/router";
