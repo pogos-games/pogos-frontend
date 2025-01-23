@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { AuthResponseDto } from "../../model/auth-response.dto";
+import { AuthResponseDto } from "../../model/dto/response/auth-response.dto";
 import { Observable } from "rxjs";
 import { LoginRequestDto } from "../../model/dto/request/login-request.dto";
 import { SignupRequestDto } from "../../model/dto/request/signup-request.dto";
@@ -23,9 +23,5 @@ export class AuthService {
 
   refreshToken(refreshToken: string): Observable<AuthResponseDto> {
     return this.httpClient.post<AuthResponseDto>(`${environment.coreURL}/auth/refresh`, { refreshToken });
-  }
-
-  profile(): Observable<any> {
-    return this.httpClient.get(`${environment.coreURL}/auth/profile`);
   }
 }

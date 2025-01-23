@@ -1,0 +1,8 @@
+import { Avatar } from "../../enum/avatar.enum";
+
+export interface SelfResponseDto {
+    id: string;
+    username: string;
+    avatar: Avatar;
+    nbNotifications: number;
+}

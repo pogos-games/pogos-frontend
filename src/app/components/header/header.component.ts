@@ -1,12 +1,13 @@
-import { Component, Input, signal, WritableSignal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { NzButtonComponent } from "ng-zorro-antd/button";
-import { NzIconDirective } from "ng-zorro-antd/icon";
-import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { ModalComponent } from '../modal/modal.component';
-import { UserAuthService } from "../../services/auth/user-auth.service";
-import { LeaveButtonComponent } from '../leave-button/leave-button.component';
-import { LocalStorageService } from "../../services/storage/local-storage.service";
+import {Component, Input, OnInit, Signal, signal, WritableSignal} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzDividerModule} from 'ng-zorro-antd/divider';
+import {ModalComponent} from '../modal/modal.component';
+import {UserAuthService} from "../../services/auth/user-auth.service";
+import {LeaveButtonComponent} from '../leave-button/leave-button.component';
+import {LocalStorageService} from "../../services/storage/local-storage.service";
+import {User} from "../../model/user.interface";
 
 @Component({
   selector: 'app-header',
@@ -22,7 +23,7 @@ import { LocalStorageService } from "../../services/storage/local-storage.servic
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   @Input({ required: true })
   title: string = "";
@@ -35,13 +36,15 @@ export class HeaderComponent {
 
   @Input() public leaveSignal: WritableSignal<boolean> = signal(false);
 
-  username: string | undefined = this.userAuthService.getUsername();
 
   modalVisibility: Map<string, WritableSignal<boolean>> = new Map();
 
   isDarkTheme: boolean = false
 
-  constructor(private readonly userAuthService: UserAuthService, private readonly router: Router, private readonly localStorageService: LocalStorageService) { }
+  user: Signal<User> = this.userAuthService.user;
+
+  constructor(private readonly userAuthService: UserAuthService, private readonly router: Router, private readonly localStorageService: LocalStorageService) {
+  }
 
   showModal(modalId: string): void {
     if (!this.modalVisibility.has(modalId)) {
@@ -62,7 +65,6 @@ export class HeaderComponent {
 
   handleDisconnect(): void {
     this.userAuthService.logout();
-    this.username = undefined;
     this.hideModal('disconnectModal');
     this.router.navigateByUrl('/');
   }
@@ -79,6 +81,7 @@ export class HeaderComponent {
   }
 
   ngOnInit(): void {
+
     const savedTheme = this.localStorageService.getItem('theme');
 
     if (savedTheme !== null) {

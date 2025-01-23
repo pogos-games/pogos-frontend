@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {PublicEndPoint} from '../../model/enum/public-endpoint.enum';
 import {UserAuthService} from "../../services/auth/user-auth.service";
+import {switchMap} from "rxjs/operators";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -33,18 +34,29 @@ export class AuthInterceptor implements HttpInterceptor {
      * Gère la validation des tokens et rafraîchit si nécessaire.
      */
     private handleTokenValidation(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-        if (this.userAuthService.isUserLoggedIn()) {
-            return this.sendRequestWithToken(req, next, this.userAuthService.getAccessToken());
-        } else if (this.userAuthService.updateToken()) {
-            return this.sendRequestWithToken(req, next, this.userAuthService.getAccessToken());
-        } else {
-            this.logoutAndRedirect();
-            return throwError(() => new Error('Session expirée - veuillez vous reconnecter'));
-        }
+      if (this.userAuthService.isUserLoggedIn()) {
+        return this.sendRequestWithToken(req, next, this.userAuthService.getAccessToken());
+      } else {
+        return this.userAuthService.updateToken().pipe(
+          switchMap((isTokenUpdated: boolean) => {
+            if (isTokenUpdated) {
+              return this.sendRequestWithToken(req, next, this.userAuthService.getAccessToken());
+            } else {
+              return this.handleSessionExpiration();
+            }
+          }),
+          catchError(() => this.handleSessionExpiration())
+        );
+      }
     }
 
-    /**
+  private handleSessionExpiration() {
+    this.userAuthService.logout();
+    this.router.navigateByUrl('/login');
+    return throwError(() => new Error('Session expirée - veuillez vous reconnecter'));
+  }
+
+  /**
      * Ajoute le token à l'en-tête et envoie la requête.
      */
     private sendRequestWithToken(req: HttpRequest<any>, next: HttpHandler, token: string): Observable<HttpEvent<any>> {
@@ -54,13 +66,5 @@ export class AuthInterceptor implements HttpInterceptor {
             },
         });
         return next.handle(authReq);
-    }
-
-    /**
-     * Déconnecte l'utilisateur et redirige vers la page de connexion.
-     */
-    private logoutAndRedirect(): void {
-        this.userAuthService.logout();
-      this.router.navigateByUrl('/login');
     }
 }
