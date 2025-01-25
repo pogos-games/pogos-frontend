@@ -33,6 +33,7 @@ export class GameTableComponent {
   ];
 
   executeAction(action : BlackJackActions) : void {
+    console.log('action : ',action)
   }
 
 }
