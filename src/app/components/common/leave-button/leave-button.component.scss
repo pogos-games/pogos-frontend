@@ -1,11 +1,6 @@
 .back-button {
-    //position: absolute;
-    //top: 35px;
-    //left: 60px;
     color: var(--primary-text-color);
     border-radius: 7.5px;
-    //width: 7%;
-    //height: 6%;
     font-family: "Lilita One", cursive;
     font-style: normal;
     font-size: 22px;
@@ -15,8 +10,7 @@
     border: none;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     width: 150px;
-    background-color: var(--secondary-bg-color);
-  }
+}
 
   .back-button:hover {
     background-color: var(--button-bg-hover);

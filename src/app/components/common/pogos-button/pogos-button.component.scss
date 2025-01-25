@@ -1,6 +1,5 @@
 .pogos-button {
   width: 75%;
-  //padding: 0.25em 0.75em;
   background-color: var(--pogos-button-bg);
   color: #fff;
   font-weight: bold;
@@ -11,8 +10,7 @@
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
-  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
-  padding: 2.5px;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
   padding-top: 5px;
   padding-bottom: 5px;
 

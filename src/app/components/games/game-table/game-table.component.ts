@@ -33,8 +33,6 @@ export class GameTableComponent {
   ];
 
   executeAction(action : BlackJackActions) : void {
-    //this.isActionDisabled = true;
-    // this.blackJackService.sendMessage(action);
   }
 
 }

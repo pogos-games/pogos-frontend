@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NzInputDirective} from "ng-zorro-antd/input";
 
 @Component({
