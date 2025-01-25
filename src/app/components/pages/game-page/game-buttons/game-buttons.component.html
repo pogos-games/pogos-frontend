@@ -1,0 +1,21 @@
+<div id="game-actions">
+  <div class="row" nz-row [nzGutter]="{ xs: 15, sm: 15, md: 32, lg: 32 }">
+
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="12" [nzXl]="12" class="col-wrapper">
+      <button nz-button class="game-button"
+              [routerLink]="['/games', title.toLowerCase()]"
+              [queryParams]="{ gameType: 'solo' }">Jouer en solo</button>
+    </div>
+
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="12" [nzXl]="12"  class="col-wrapper">
+          <button nz-button class="game-button"
+                  [routerLink]="['/games', title.toLowerCase()]"
+                  [queryParams]="{ gameType: 'multi' }">Jouer en multijoueur</button>
+    </div>
+
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="24" [nzXl]="24" class="col-wrapper">
+          <button nz-button class="game-button">Créer une partie privée</button>
+    </div>
+
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {HeaderComponent} from "../../components/header/header.component";
-import {PogosButton} from "../../components/pogos-button/pogos-button.component";
+import {HeaderComponent} from "../../components/common/header/header.component";
+import {PogosButton} from "../../components/common/pogos-button/pogos-button.component";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {NzDividerModule} from 'ng-zorro-antd/divider';
 

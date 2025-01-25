@@ -90,17 +90,18 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100vh;
 }
 
 .main-button {
-  background-color: var(--secondary-bg-color);
+  width: 50%;
+  height: 30%;
   font-size: 25px;
   border-radius: 10%;
+  background-color: var(--secondary-bg-color);
   border-color: var(--secondary-bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
-  width: 50%;
-  height: 30%;
 }
 
 .main-button span {
@@ -125,4 +126,11 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
+.leave-button {
+    position: absolute;
+    top: 35px;
+    left: 60px;
+}
+
 

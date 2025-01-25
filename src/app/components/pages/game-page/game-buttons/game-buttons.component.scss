@@ -1,0 +1,69 @@
+.game-button{
+  width: 100%;
+  height: 90%;
+  background-color: var(--secondary-bg-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  font-family: "Luckiest Guy", 'serif';
+  font-size: x-large;
+  color: var(--secondary-text-color);
+  border: none;
+}
+
+.game-button:hover {
+  background-color: var(--button-bg-hover);
+  color: #FFD78A;
+}
+
+.row{
+  height: 80%;
+}
+
+#game-actions {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#top-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40%;
+  width: 100%;
+}
+
+#top-buttons button {
+  width: 45%;
+  border-radius: 20px;
+  height: 100%;
+}
+
+#bottom-button {
+  height: 40%;
+  width: 100%;
+}
+
+#bottom-button button {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+@media screen and (max-width: 1450px) {
+  .game-button {
+    font-size: large;
+  }
+}
+
+@media screen and (max-width: 992px) {
+
+  .game-button {
+    font-size: large;
+  }
+
+
+}
+
+

@@ -13,7 +13,7 @@ import { UserAuthService } from "../../services/auth/user-auth.service";
 import { UserService } from "../../services/user.service";
 import { NzFormControlComponent, NzFormDirective } from "ng-zorro-antd/form";
 import { CustomValidator } from "../../validator/custom.validator";
-import { LeaveButtonComponent } from '../../components/leave-button/leave-button.component';
+import { LeaveButtonComponent } from '../../components/common/leave-button/leave-button.component';
 
 @Component({
   selector: 'app-signup-page',
