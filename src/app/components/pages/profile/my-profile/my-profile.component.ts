@@ -1,15 +1,15 @@
 import {Component, Signal} from '@angular/core';
-import {Avatar} from '../../../model/enum/avatar.enum';
-import {User} from '../../../model/user.interface';
-import {UserAuthService} from '../../../services/auth/user-auth.service';
+import {Avatar} from '../../../../model/enum/avatar.enum';
+import {User} from '../../../../model/user.interface';
+import {UserAuthService} from '../../../../services/auth/user-auth.service';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzFormControlComponent} from "ng-zorro-antd/form";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
-import {CustomValidator} from "../../../validator/custom.validator";
-import {UserService} from "../../../services/user.service";
+import {CustomValidator} from "../../../../validator/custom.validator";
+import {UserService} from "../../../../services/user.service";
 
 @Component({
   selector: 'app-my-profile',

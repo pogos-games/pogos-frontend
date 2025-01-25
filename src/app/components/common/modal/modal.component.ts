@@ -1,5 +1,5 @@
-import {Component, Input, Output, EventEmitter, WritableSignal, signal} from '@angular/core';
-import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import {Component, EventEmitter, Input, Output, signal, WritableSignal} from '@angular/core';
+import {NzModalModule} from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-modal',

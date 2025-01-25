@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
-import {BlackJackActions} from "../../model/enum/black-jack.actions.enum";
-import {BlackJackMessage} from "../../model/enum/black-jack.message.enum";
+import {BlackJackActions} from "../../../model/enum/black-jack.actions.enum";
+import {BlackJackMessage} from "../../../model/enum/black-jack.message.enum";
 import {NgOptimizedImage} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzSpinComponent} from "ng-zorro-antd/spin";
-import {BlackjackDeck} from "../../model/dto/request/black-jack-deck";
-import {Card} from "../../model/dto/request/card";
+import {BlackjackDeck} from "../../../model/dto/request/black-jack-deck";
+import {Card} from "../../../model/dto/request/card";
 import {CardHandComponent} from "../card-hand/card-hand.component";
 
 @Component({
@@ -33,8 +33,7 @@ export class GameTableComponent {
   ];
 
   executeAction(action : BlackJackActions) : void {
-    //this.isActionDisabled = true;
-    // this.blackJackService.sendMessage(action);
+    console.log('action : ',action)
   }
 
 }

@@ -1,141 +1,56 @@
 .main-content {
+  height: 80vh;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  height: 88vh;
-  padding: 20px 35px;
-}
-
-.left-part {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
-  width: 20%;
-  height: 100%;
-}
-
-.back-image {
-  width: 77.5%;
-  border-radius: 15px;
-  background-color: var(--pogos-button-bg);
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
-}
-
-.game-buttons {
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+.row {
   width: 100%;
-  height: 55%;
 }
 
-#image {
-  width: 50%;
-  height: auto;
-  border-radius: 15px;
-}
-
-#game-selector {
+.col-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
-  width: 100%;
-  height: 82.5%;
-  border-radius: 15px;
-  background-color: var(--secondary-bg-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.box-join-code {
-  padding: 10%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+}
+
+.game-selector-box {
+  height: 70vh;
   width: 100%;
-  height: 10%;
-  border-radius: 15px;
-  background-color:  var(--secondary-bg-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 10px;
 }
 
-.title-join-code {
-  color: white;
-  position: absolute;
-  top: -1em;
-  align-items: center;
-  font-size: 1.7vw;
-}
-
-.description-join-code {
-  display: flex;
-  align-items: center;
-}
-
-.description-join-code p {
-  margin-top: 0.4em;
-  font-size: 1.2vw;
-}
-
-.input-join-code {
+.game-buttons-box{
+  height: 70vh;
   width: 100%;
-  height: 90%;
-  padding: 5px;
-  text-align: center;
-  margin-left: 1em;
-  border-radius: 7.5px;
-  font-size: 1.2em;
-  border: none;
-  background-color: var(--input-code-bg-color);
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
-  color: black;
+  margin: 10px;
 }
 
-#game-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 60px;
-  width: 65%;
-  height: 100%;
-}
-
-#top-buttons,
-#bottom-button {
-  display: flex;
-  justify-content: space-around;
-  padding: 15px;
-}
-
-#top-buttons {
+.game-ranking-box {
+  height: 70vh;
   width: 100%;
-  height: 50%;
+  margin: 10px;
 }
 
-#bottom-button {
-  width: 90%;
-  height: 30%;
+#mobile-join-code{
+  display: none;
 }
 
-#top-buttons button {
-  width: 40%;
-  border-radius: 15px;
-  height: 100%;
-}
+@media screen and (max-width: 992px) {
+  .game-selector-box {
+    height: 50px;
+  }
 
-#bottom-button button {
-  width: 100%;
-  border-radius: 15px;
-  height: 100%;
-}
+  .game-buttons-box {
+    height: 300px;
+  }
 
-.rankings {
-  width: 20%;
-  height: 90%;
+  .game-ranking-box {
+    height: 100px;
+  }
+
+  #computer-join-code {
+    display: none;
+  }
+
 }

@@ -1,4 +1,4 @@
-#rankings {
+#ranking {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -7,9 +7,9 @@
   border-radius: 15px;
   background-color: var(--secondary-bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+}q
 
-#rankings .title {
+#ranking .title {
   position: absolute;
   top: -0.65em;
   left: 50%;
@@ -17,3 +17,7 @@
   align-items: center;
   font-size: 1.8vw;
 }
+//
+//@media screen and(max-width: 992px) {
+//
+//}

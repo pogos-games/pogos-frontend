@@ -1,24 +1,27 @@
 import {Component, Input, OnInit, Signal, signal, WritableSignal} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzDividerModule} from 'ng-zorro-antd/divider';
-import {ModalComponent} from '../modal/modal.component';
-import {UserAuthService} from "../../services/auth/user-auth.service";
-import {LeaveButtonComponent} from '../leave-button/leave-button.component';
-import {LocalStorageService} from "../../services/storage/local-storage.service";
-import {User} from "../../model/user.interface";
+import {UserAuthService} from "../../../services/auth/user-auth.service";
+import {LocalStorageService} from "../../../services/storage/local-storage.service";
+import {User} from "../../../model/user.interface";
+import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
+import {LeaveButtonComponent} from "../leave-button/leave-button.component";
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {ModalComponent} from "../modal/modal.component";
+import {NzIconDirective} from "ng-zorro-antd/icon";
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
-    NzButtonComponent,
-    NzIconDirective,
     NzDividerModule,
-    ModalComponent,
+    NzRowDirective,
+    NzColDirective,
+    LeaveButtonComponent,
     RouterLink,
-    LeaveButtonComponent
+    NzButtonComponent,
+    ModalComponent,
+    NzIconDirective
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

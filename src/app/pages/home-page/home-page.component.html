@@ -1,16 +1,33 @@
-<div id="home-page">
-  <div class="home-page-container">
-    <button nz-button class="main-button secondary-text-style luckiest-guy-regular rotate-left" routerLink="/games">Jouer en tant <br />
-      qu'invité</button>
+<div class="main-content">
+
+  <h1 class="title luckiest-guy-regular primary-text-style" >
+    Pogos
+  </h1>
+
+  <div class="row"  nz-row>
+
+    <div nz-col [nzXs]="{span:24, order:3}" [nzSm]="{span:24, order:3}" [nzMd]="{span:24,order:3}" [nzLg]="{span:8,order:1}" [nzXl]="{span:8,order:1}" class="col-wrapper">
+      <div class="home-inner-box">
+        <button nz-button class="home-button luckiest-guy-regular rotate-left" routerLink="/games">
+          Jouer en tant qu'invité
+        </button>
+      </div>
+    </div>
+
+    <div nz-col [nzXs]="{span:24, order:2}" [nzSm]="{span:24, order:2}" [nzMd]="{span:24,order:2}" [nzLg]="{span:8,order:2}" [nzXl]="{span:8,order:2}" class="col-wrapper">
+      <div class="home-inner-box">
+            <img src="../../../assets/pogos-tornado.webp" alt="tonardo cards">
+      </div>
+    </div>
+
+    <div nz-col [nzXs]="{span:24, order:1}" [nzSm]="{span:24, order:1}" [nzMd]="{span:24,order:1}" [nzLg]="{span:8,order:3}" [nzXl]="{span:8,order:3}" class="col-wrapper">
+      <div class="home-inner-box-login-signup">
+        <button nz-button class="home-button luckiest-guy-regular rotate-right" routerLink="/login">Se connecter</button>
+        <button nz-button class="home-button luckiest-guy-regular rotate-left" routerLink="/signup">S'inscrire</button>
+      </div>
+    </div>
+
+
   </div>
 
-  <div class="home-page-container">
-    <h1 class="luckiest-guy-regular primary-text-style" >Pogos</h1>
-    <img src="../../../assets/pogos-tornado.webp" alt="tonardo cards">
-  </div>
-
-  <div class="home-page-container-right">
-    <button nz-button class="main-button secondary-text-style luckiest-guy-regular rotate-right" routerLink="/login">Se connecter</button>
-    <button nz-button class="main-button secondary-text-style luckiest-guy-regular rotate-left" routerLink="/signup">S'inscrire</button>
-  </div>
 </div>
