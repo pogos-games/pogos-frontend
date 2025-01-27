@@ -4,24 +4,27 @@ import {User} from '../../../../model/user.interface';
 import {UserAuthService} from '../../../../services/auth/user-auth.service';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {CustomValidator} from "../../../../validator/custom.validator";
+import {UserService} from "../../../../services/user.service";
+import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
+import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzFormControlComponent} from "ng-zorro-antd/form";
-import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
-import {CustomValidator} from "../../../../validator/custom.validator";
-import {UserService} from "../../../../services/user.service";
 
 @Component({
   selector: 'app-my-profile',
   imports: [
     NzDividerModule,
-    NzButtonComponent,
     FormsModule,
     ReactiveFormsModule,
+    NzColDirective,
+    NzRowDirective,
+    NzInputGroupComponent,
+    NzButtonComponent,
     NzIconDirective,
-    NzFormControlComponent,
     NzInputDirective,
-    NzInputGroupComponent
+    NzFormControlComponent
   ],
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.scss'],

@@ -1,22 +1,25 @@
 <app-header [canLeave]="true" [leaveLink]="'/games'" [title]="'Profil'"></app-header>
 <div class="main-content">
-  <div class="profile-actions-selector">
 
-    <div class="back-image">
-      <img src="assets/pogos-logo.webp" id="image" alt="pogos-logo" />
+  <div nz-row class="profile-row" [nzGutter]="20">
+    <div nz-col [nzXs]="24"  [nzSm]="24"  [nzMd]="24" [nzLg]="6">
+
+        <div id="profile-actions-selector">
+          <div id="back-image">
+            <img src="assets/pogos-logo.webp" id="image" alt="pogos-logo" />
+          </div>
+          <nz-divider id="divider-profile" nzType="vertical"></nz-divider>
+          <app-pogos-button style="width: 100%;" [title]="'Mon profil'" routerLink="/profile/my-profile"></app-pogos-button>
+          <app-pogos-button style="width: 100%;" [title]="'Copains'" routerLink="/profile/friends"></app-pogos-button>
+          <app-pogos-button style="width: 100%;" [title]="'Parties'" routerLink="/profile/game-history"></app-pogos-button>
+        </div>
+
     </div>
 
-    <nz-divider class="divider-profile" nzType="vertical"></nz-divider>
-
-    <app-pogos-button style="width: 100%;" [title]="'Mon profil'" routerLink="/profile/my-profile"></app-pogos-button>
-
-    <app-pogos-button style="width: 100%;" [title]="'Copains'" routerLink="/profile/friends"></app-pogos-button>
-
-    <app-pogos-button style="width: 100%;" [title]="'Parties'" routerLink="/profile/game-history"></app-pogos-button>
-
-  </div>
-
-  <div class="profile-actions">
-    <router-outlet></router-outlet>
+    <div nz-col [nzXs]="24" [nzSm]="24"  [nzMd]="24" [nzLg]="18">
+      <div id="profile-actions">
+            <router-outlet></router-outlet>
+      </div>
+    </div>
   </div>
 </div>
