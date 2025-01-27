@@ -25,9 +25,24 @@
         description="Êtes-vous sûr de vouloir vous déconnecter ?" okText="Oui" cancelText="Non"
         (onOk)="handleDisconnect()">
       </app-modal>
-      <button nz-button class="button" nzType="primary" title="Paramètres">
-        <span nz-icon nzType="setting" nzTheme="outline"></span>
-      </button>
+
+      <nz-badge [nzCount]="user().nbNotifications" nzSize="small" [nzOverflowCount]="3" [nzOffset]="[-10, -2]">
+        <button nz-button nz-popover class="button" nzType="primary" nzPopoverTitle="Notifications"
+          [nzPopoverContent]="contentTemplate" nzPopoverPlacement="bottom">
+          <span nz-icon nzType="notification" nzTheme="outline"></span>
+        </button>
+      </nz-badge>
+      <ng-template #contentTemplate>
+        <div class="notifications">
+          @for (notification of notifications(); track $index) {
+          <app-notification [notification]="notification" (accept)="handleAcceptFriendship($event)"
+            (denied)="handleRejectFriendship($event)" class="notifications">
+          </app-notification>
+          }
+        </div>
+      </ng-template>
+
+
       <button nz-button class="button" nzType="primary" (click)="toggleTheme()" title="Changer le thème">
         <span nz-icon [nzType]="isDarkTheme ? 'sun' : 'moon'" nzTheme="outline"></span>
       </button>

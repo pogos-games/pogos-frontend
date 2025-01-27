@@ -97,6 +97,33 @@ button {
   transform: scale(1.4);
 }
 
+::ng-deep .ant-badge-count {
+  background-color: red;
+  font-size: 0.8em;
+  box-shadow: none;
+}
+
+.notifications {
+  width: 350px;
+  margin: -1.5em -0.5em;
+}
+
+::ng-deep .ant-popover-inner {
+  border-radius: 15px;
+  background-color: var(--secondary-bg-color);
+}
+
+::ng-deep .ant-popover-title {
+  font-size: 1.2em;
+  font-family: "Lilita One", serif;
+  color: var(--primary-text-color);
+  border: none;
+}
+
+::ng-deep .ant-popover-inner-content {
+  color: white;
+}
+
 ::ng-deep .ant-modal-mask {
   background-color: rgba(0, 0, 0, 0.4) !important;
   -webkit-backdrop-filter: blur(8px);

@@ -1,27 +1,27 @@
-import {Injectable, signal, WritableSignal} from '@angular/core';
-import {SessionStorageService} from "../storage/session-storage.service";
-import {CookiesStorageService} from "../storage/cookies-storage.service";
-import {User} from "../../model/user.interface";
-import {JwtService} from "../jwt.service";
-import {DecodedJwt} from "../../model/decoded-jwt.interface";
-import {AuthService} from "../../auth/service/auth.service";
-import {catchError, map, Observable, of} from "rxjs";
-import {AuthResponseDto} from "../../model/dto/response/auth-response.dto";
-import {UpdateUserRequestDto} from '../../model/dto/request/update-user-request.dto';
-import {UpdateUserResponseDto} from '../../model/dto/response/update-user-response.dto';
-import {Avatar} from '../../model/enum/avatar.enum';
-import {SelfResponseDto} from '../../model/dto/response/self-response.dto';
-import {UserService} from "../user.service";
+import { Injectable, signal, WritableSignal } from '@angular/core';
+import { SessionStorageService } from "../storage/session-storage.service";
+import { CookiesStorageService } from "../storage/cookies-storage.service";
+import { User } from "../../model/user.interface";
+import { JwtService } from "../jwt.service";
+import { DecodedJwt } from "../../model/decoded-jwt.interface";
+import { AuthService } from "../../auth/service/auth.service";
+import { catchError, map, Observable, of } from "rxjs";
+import { AuthResponseDto } from "../../model/dto/response/auth-response.dto";
+import { UpdateUserRequestDto } from '../../model/dto/request/update-user-request.dto';
+import { UpdateUserResponseDto } from '../../model/dto/response/update-user-response.dto';
+import { Avatar } from '../../model/enum/avatar.enum';
+import { SelfResponseDto } from '../../model/dto/response/self-response.dto';
+import { UserService } from "../user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAuthService {
 
-  private readonly _user : WritableSignal<User> = signal({accessToken: '', mail: '', id: '', pseudo: '', avatar: Avatar.DEFAULT, nbNotifications: 0})
+  private readonly _user: WritableSignal<User> = signal({ accessToken: '', mail: '', id: '', pseudo: '', avatar: Avatar.DEFAULT, nbNotifications: 0 })
   public user = this._user.asReadonly();
 
-  private userAccessToken : string|undefined;
+  private userAccessToken: string | undefined;
 
   private userTokenExpirationDate: Date | undefined;
 
@@ -29,7 +29,7 @@ export class UserAuthService {
   private readonly REFRESH_TOKEN_COOKIE_NAME = "pogos-refreshToken";
 
   constructor(
-    private readonly userService:UserService,
+    private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly storageService: SessionStorageService,
     private readonly cookiesStorageService: CookiesStorageService,
@@ -38,7 +38,7 @@ export class UserAuthService {
 
     const user = this.storageService.getItem<User>(this.USER__SESSION_STORAGE_NAME);
 
-    if(user) {
+    if (user) {
       this._user.set(user);
       this.userAccessToken = user.accessToken;
       const userAccessToken = this.jwtService.decodeToken(user.accessToken);
@@ -46,7 +46,7 @@ export class UserAuthService {
     }
   }
 
-    isUserLoggedIn(): boolean {
+  isUserLoggedIn(): boolean {
     if (!this.userTokenExpirationDate) {
       return false;
     }
@@ -108,13 +108,13 @@ export class UserAuthService {
     this.userTokenExpirationDate = this.jwtService.getTokenExpirationDate(jwtResponse.exp);
     this.userAccessToken = accessToken;
 
-    const user: User = { pseudo: jwtResponse.username, mail: jwtResponse.email, accessToken: accessToken, id: jwtResponse.sub, avatar: Avatar.DEFAULT, nbNotifications:0};
+    const user: User = { pseudo: jwtResponse.username, mail: jwtResponse.email, accessToken: accessToken, id: jwtResponse.sub, avatar: Avatar.DEFAULT, nbNotifications: 0 };
     this._user.set(user)
     this.storageService.setItem<User>(this.USER__SESSION_STORAGE_NAME, user);
 
     this.userService.self().subscribe({
       next: (selfResponse: SelfResponseDto) => {
-        const newUser : User = {
+        const newUser: User = {
           accessToken: accessToken,
           mail: jwtResponse.email,
           id: selfResponse.id,
@@ -124,7 +124,7 @@ export class UserAuthService {
         };
         this._user.set(newUser)
         this.storageService.setItem<User>(this.USER__SESSION_STORAGE_NAME, newUser);
-        },
+      },
       error: (error) => {
         console.error('Erreur lors de l’appel à self():', error);
       },
@@ -138,7 +138,7 @@ export class UserAuthService {
   }
 
   logout(): void {
-    this._user.set({accessToken: '', mail: '', id: '', pseudo: '', avatar: Avatar.DEFAULT, nbNotifications: 0});
+    this._user.set({ accessToken: '', mail: '', id: '', pseudo: '', avatar: Avatar.DEFAULT, nbNotifications: 0 });
     this.userTokenExpirationDate = undefined;
     this.storageService.removeItem(this.USER__SESSION_STORAGE_NAME);
     this.cookiesStorageService.deleteCookie(this.REFRESH_TOKEN_COOKIE_NAME);
