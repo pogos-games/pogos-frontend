@@ -1,38 +1,26 @@
-<app-header [canLeave]="false" [title]="'Pogos'"></app-header>
-
+<app-header [title]="title" [canLeave]="false"></app-header>
 <div class="main-content">
-  <div class="left-part">
-    <div id="game-selector">
-      <div class="back-image">
-        <img src="/assets/pogos-logo.webp" id="image" alt="pogos-logo" />
-      </div>
-      <div class="game-buttons">
-        <app-pogos-button style="width: 100%;" [title]="'BlackJack'" (click)="onTitleChange('BlackJack')"></app-pogos-button>
-        <app-pogos-button style="width: 100%;" [title]="'Uno'" (click)="onTitleChange('Uno')"></app-pogos-button>
-        <app-pogos-button style="width: 100%;" [title]="'Tarot'" (click)="onTitleChange('Tarot')"></app-pogos-button>
-        <app-pogos-button style="width: 100%;" [title]="'Poker'" (click)="onTitleChange('Poker')"></app-pogos-button>
+  <div class="row" nz-row [nzGutter]="{ xs: 15, sm: 15, md: 32, lg: 32 }">
+
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="6" [nzXl]="{ span: 6 }" class="col-wrapper">
+      <div class="game-selector-box">
+        <app-game-selector></app-game-selector>
+        <br>
+        <app-box-join-code id="computer-join-code"></app-box-join-code>
       </div>
     </div>
-    <div class="box-join-code">
-      <p class="title-join-code lilita-one-regular secondary-text-style">Rejoindre !</p>
-      <div class="description-join-code">
-        <p class="luckiest-guy-regular secondary-text-style">Code</p>
-        <input nz-input class="input-join-code lilita-one-regular" type="text" />
+
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="12" [nzXl]="{ span: 12 }" class="col-wrapper">
+      <div class="game-buttons-box">
+        <app-game-buttons></app-game-buttons>
       </div>
     </div>
-  </div>
-  <div id="game-actions">
-    <div id="top-buttons">
-      <button nz-button class="main-button luckiest-guy-regular secondary-text-style" [routerLink]="['/games', title.toLowerCase()]"
-        [queryParams]="{ gameType: 'solo' }">Jouer en solo</button>
-      <button nz-button class="main-button luckiest-guy-regular secondary-text-style" [routerLink]="['/games', title.toLowerCase()]"
-        [queryParams]="{ gameType: 'multi' }">Jouer en <br /> multijoueur</button>
+
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="6" [nzXl]="{ span: 6 }" class="col-wrapper">
+      <div class="game-ranking-box">
+        <app-ranking></app-ranking>
+      </div>
     </div>
-    <div id="bottom-button">
-      <button nz-button class="main-button luckiest-guy-regular secondary-text-style">Créer une partie privée</button>
-    </div>
-  </div>
-  <div class="rankings">
-    <app-ranking></app-ranking>
+
   </div>
 </div>

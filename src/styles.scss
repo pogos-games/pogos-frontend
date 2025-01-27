@@ -1,4 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Luckiest+Guy&display=swap');
+
+@font-face {
+  font-family: "Luckiest Guy";
+  src: url("assets/fonts/LuckiestGuy-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Lilita One";
+  src: url("assets/fonts/LilitaOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 body,
 * {
@@ -8,7 +22,7 @@ body,
 
 body {
   transition: background-color 0.1s, color 0.1s;
-  
+
   --primary-bg-color: antiquewhite; // BACKGROUND
   --primary-title-color: black; // TEXT TITLE
   --primary-text-color: black; // TEXT GENERAL
@@ -17,7 +31,7 @@ body {
   --pogos-button-bg: #f7d58c; // MENU POGOS BACKGROUND BUTTON
   --pogos-button-bg-hover: #ffe3a8; // MENU POGOS BACKGROUND BUTTON HOVER
 
-  --input-code-bg-color: white; 
+  --input-code-bg-color: white;
 
   --table-color: #2e9a3e; // GREEN TABLE COLOR
 
@@ -25,14 +39,14 @@ body {
 
   .primary-text-style {
     text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2), /* Ombre grise */;
-    color: #FFD78A;  
+    color: #FFD78A;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: #B7B895;
   }
-  
+
   .secondary-text-style {
     text-shadow: 1px 1px 0.5px black, /* Ombre grise */;
-    color: #FFD78A;  
+    color: #FFD78A;
     -webkit-text-stroke-width: 0.5px;
     -webkit-text-stroke-color: rgb(148, 143, 143);
   }
@@ -46,22 +60,22 @@ body {
     --pogos-button-bg: #214484; // MENU POGOS BACKGROUND BUTTON
     --pogos-button-bg-hover: #365286; // MENU POGOS BACKGROUND BUTTON HOVER
 
-    --input-code-bg-color: rgb(217, 217, 231); 
+    --input-code-bg-color: rgb(217, 217, 231);
 
-    --table-color: #197126; // GREEN TABLE COLOR 
+    --table-color: #197126; // GREEN TABLE COLOR
 
     --focus-button: rgba(17, 22, 41, 0.6); // BUTTON FOCUS
 
     .primary-text-style {
       text-shadow: 4px 4px 0px rgba(255, 255, 255, 0.2), /* Ombre grise */;
-      color: var(--primary-title-color);  
+      color: var(--primary-title-color);
       -webkit-text-stroke-width: 2px;
       -webkit-text-stroke-color: #70798a;
     }
 
     .secondary-text-style {
       text-shadow: 1px 1px 8px black, /* Ombre grise */;
-      color: var(--secondary-text-color);  
+      color: var(--secondary-text-color);
       -webkit-text-stroke-width: 0.5px;
       -webkit-text-stroke-color: rgb(59, 59, 94)
     }
@@ -76,17 +90,18 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100vh;
 }
 
 .main-button {
-  background-color: var(--secondary-bg-color);
+  width: 50%;
+  height: 30%;
   font-size: 25px;
   border-radius: 10%;
+  background-color: var(--secondary-bg-color);
   border-color: var(--secondary-bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
-  width: 50%;
-  height: 30%;
 }
 
 .main-button span {
@@ -111,4 +126,11 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
+.leave-button {
+    position: absolute;
+    top: 35px;
+    left: 60px;
+}
+
 

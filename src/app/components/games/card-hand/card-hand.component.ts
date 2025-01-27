@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {NgClass, NgOptimizedImage} from "@angular/common";
-import {Card} from "../../model/dto/request/card";
+import {Card} from "../../../model/dto/request/card";
 import {NzBadgeComponent} from "ng-zorro-antd/badge";
 
 @Component({
