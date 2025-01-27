@@ -4,10 +4,16 @@
     justify-content: flex-end;
     align-items: flex-start;
     width: 100%;
-    height: 100%;
+    height: 70vh;
+    background-color: var(--secondary-bg-color);
+    border-radius: 15px;
 }
 
+// LEFT - SIDE - AVATARS
+
 .title-profile {
+  display: flex;
+  align-items: flex-start;
     font-weight: bold;
     margin: 0;
     padding: 1em 0 0 1.5em;
@@ -15,85 +21,67 @@
     font-family: "Luckiest Guy", cursive;
 }
 
-.container {
+#my-profile-row {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+
+#profile-icon-selector {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+
+#profile-updater {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#selected-avatar {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
     align-items: center;
+    justify-content: space-evenly;
+    height: 200px;
     width: 100%;
-    height: 85%;
-    margin: 0 auto;
 }
 
-.left {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    height: 100%;
+
+#selected-avatar-image {
+  width: 150px;
+  height: 150px;
 }
 
-.avatar-picker {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
-    padding: 0 2em 2em 2em;
+#selected-avatar-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1em;
+  writing-mode: vertical-rl;
+  text-orientation: sideways-left;
+  font-size: 2em;
+  letter-spacing: 0.1em;
+  font-family: "Luckiest Guy", cursive;
+  word-wrap: break-word;
+  white-space: normal;
+  word-break: break-word; /* Add this property */
+  overflow-wrap: break-word; /* Add this property */
 }
 
-.selected-avatar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 85%;
-    height: 62%;
-}
 
-.selected-avatar-name {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 30%;
-    height: 100%;
-    margin-right: 1em;
-    writing-mode: vertical-rl;
-    text-orientation: sideways-left;
-    font-size: 2.5em;
-    letter-spacing: 0.1em;
-    font-family: "Luckiest Guy", cursive;
-}
-
-.selected-avatar-image {
-    height: auto;
-    padding: 2em;
-}
-
-.avatars-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: 0.7em;
-    width: 100%;
-    height: 26%;
-    overflow: scroll;
-    padding: 1em;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
-}
-
-.avatars-title {
-    font-weight: bold;
-    font-size: 1.5em;
-    margin: 1em 0 0 1em;
-    font-family: "Luckiest Guy", cursive;
-}
 
 .avatars {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 3em;
-    height: auto;
+  width: 50px;
+  height: auto;
 }
 
 .avatars:hover {
@@ -103,6 +91,27 @@
     cursor: pointer;
 }
 
+
+#avatars-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 0.7em;
+    width: 90%;
+    height: 10em;
+    overflow-y: auto; /* Ensure vertical scrolling */
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+#avatars-title {
+    font-weight: bold;
+    font-size: 1.5em;
+    font-family: "Luckiest Guy", cursive;
+}
+
+// RIGHT-SIDE-PROFILE
+
 .divider-profile {
     width: 0.35em;
     height: 50%;
@@ -110,6 +119,168 @@
     background-color: var(--primary-bg-color);
     margin-bottom: 7%;
 }
+
+
+.mail,
+.pseudo {
+  font-family: "Lilita One", serif;
+  margin: 0;
+  width: 100%;
+  font-size: 2em;
+  padding: 0.2em 1em;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.submit-update-button {
+  min-height: 2.5em;
+  font-size: 1.5em;
+  width: 80%;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--pogos-button-bg);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+  font-family: "Luckiest Guy", cursive;
+}
+
+
+.inputs {
+  height: 70%;
+  width: 80%;
+}
+
+.input-update-profile {
+  width: 100%;
+  height: 100%;
+  font-size: 1.5em;
+  padding: 0.5em 2em;
+  border-radius: 15px;
+  font-family: "Lilita One", serif;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.pseudo-mail-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+
+
+// RESPONSIVE
+@media screen and (max-width: 1350px) {
+
+  // LEFT-SIDE-AVATARS
+
+  #avatars-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+
+  }
+}
+
+@media screen and (max-width: 1190px) {
+
+  #avatars-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media screen and (max-width: 992px) {
+
+
+  .profile-col {
+    height: 50%;
+  }
+
+  #avatars-grid {
+    min-height: 60px;
+    display: grid;
+    height: 250px;
+  }
+
+  #profile-icon-selector {
+    width: 100%;
+    height: 50%;
+  }
+
+  .title-profile {
+    font-size: 20px;
+  }
+
+  #selected-avatar-image {
+    width: 75px;
+    height: 75px;
+  }
+
+  #selected-avatar-name {
+    font-size: small;
+  }
+  // RIGHT - SIDE - PROFILE
+
+  #profile-updater {
+    width: 100%;
+    height: 100%;
+  }
+
+  .inputs {
+    height: 100%;
+    width: 90%;
+    justify-content: space-evenly;
+  }
+
+  .submit-update-button {
+    height: 20px;
+    font-size: medium;
+  }
+
+
+  .mail,
+  .pseudo {
+    font-family: "Lilita One", serif;
+    width: 100%;
+    font-size: medium;
+    padding: 0;
+    margin: 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .input-update-profile {
+    margin: 0;
+    height: 30px;
+    font-size: small;
+    padding: 0.5em 2em;
+  }
+
+  input-update-profile input {
+    width: 70%;
+  }
+
+
+  .pseudo-mail-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+
+
+  .pseudo-mail-title {
+    font-family: "Luckiest Guy", cursive;
+    font-size: small;
+    margin: 1em 0 0 0;
+    color: var(--pogos-button-bg);
+  }
+
+}
+
+
 
 .right {
     display: flex;
@@ -120,34 +291,11 @@
     padding: 0 2em 3em 2em;
 }
 
-.inputs {
-    height: 70%;
-}
-
-.pseudo-mail-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-}
-
 .pseudo-mail-title {
     font-family: "Luckiest Guy", cursive;
-    font-size: 1.5em;
+    font-size: medium;
     margin: 1em 0 0 0;
     color: var(--pogos-button-bg);
-}
-
-.mail,
-.pseudo {
-    font-family: "Lilita One", serif;
-    margin: 0;
-    width: 100%;
-    font-size: 2em;
-    padding: 0.2em 1em;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
 }
 
 .div-pseudo {
@@ -157,15 +305,6 @@
     width: 100%;
 }
 
-.input-update-profile {
-    width: 100%;
-    height: 100%;
-    font-size: 1.5em;
-    padding: 0.5em 2em;
-    border-radius: 15px;
-    font-family: "Lilita One", serif;
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
-}
 
 .button-update-pseudo {
     width: 100%;
@@ -180,17 +319,39 @@
     font-size: 1.5em;
 }
 
-.submit-update-button {
-    min-height: 2.5em;
-    font-size: 1.5em;
-    width: 100%;
-    border: none;
-    border-radius: 15px;
-    background-color: var(--pogos-button-bg);
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
-    font-family: "Luckiest Guy", cursive;
-}
 
 .submit-update-button:hover {
     background-color: var(--pogos-button-bg-hover);
+}
+
+@media screen and (max-width: 400px) {
+
+
+  .profile-col {
+    height: 50%;
+  }
+
+  #avatars-grid {
+    min-height: 60px;
+    height: 2.5em;
+  }
+
+  #selected-avatar-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .title-profile {
+    font-size: 15px;
+  }
+
+  #avatars-title {
+    font-size: small;
+  }
+
+  .avatars {
+    width: 30px;
+    height: auto;
+  }
+
 }

@@ -3,6 +3,7 @@ import {HeaderComponent} from "../../components/common/header/header.component";
 import {PogosButton} from "../../components/common/pogos-button/pogos-button.component";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {NzDividerModule} from 'ng-zorro-antd/divider';
+import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 
 @Component({
   selector: 'app-profile-page',
@@ -10,9 +11,11 @@ import {NzDividerModule} from 'ng-zorro-antd/divider';
   imports: [
     HeaderComponent,
     PogosButton,
-    RouterOutlet,
     RouterLink,
-    NzDividerModule
+    NzDividerModule,
+    NzRowDirective,
+    NzColDirective,
+    RouterOutlet
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss'
