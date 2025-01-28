@@ -1,4 +1,3 @@
-
 export enum BlackJackMessage {
   PLAYER_BUST = "PLAYER_BUST",
   DEALER_BUST = "DEALER_BUST",

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {BlackJackActions} from "../../../model/enum/black-jack.actions.enum";
 import {BlackJackMessage} from "../../../model/enum/black-jack.message.enum";
 import {NgOptimizedImage} from "@angular/common";
