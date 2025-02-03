@@ -1,82 +1,89 @@
 <div id="header">
-  <div class="row" nz-row>
+  <div class="row">
 
-    <div nz-col [nzXs]="{span:12}" [nzSm]="{span:12}" [nzMd]="{span:12}" [nzLg]="{span:16}"   class="col-wrapper">
+    <div nz-col [nzXs]="{span:14}" [nzSm]="{span:14}" [nzMd]="{span:14}" [nzLg]="{span:18}" class="col-wrapper">
       <div class="row" nz-row>
-        <div nz-col  [nzXs]="{span:24, order:2}"  [nzSm]="{span:24, order:2}" [nzLg]="{span:12,order:1}"   class="col-wrapper">
+        <div nz-col [nzXs]="{span:24, order:2}" [nzSm]="{span:24, order:2}" [nzLg]="{span:12,order:1}"
+          class="col-wrapper">
           <div class="inner-box">
-                @if(canLeave && leaveLink) {
-                <app-leave-button text="Quitter" [routerLink]="leaveLink"></app-leave-button>
-                } @else if(canLeave) {
-                <app-leave-button text="Quitter" (click)="showModal('leave')"></app-leave-button>
-                <app-modal [isVisible]="isModalVisible('leave')" title="Quitter ❌" description="Êtes-vous sûr de vouloir quitter ?"
-                  okText="Oui" cancelText="Non" (onOk)="handleLeaveGame()">
-                </app-modal>
-                }
+            @if(canLeave && leaveLink) {
+            <app-leave-button text="Quitter" [routerLink]="leaveLink"></app-leave-button>
+            } @else if(canLeave) {
+            <app-leave-button text="Quitter" (click)="showModal('leave')"></app-leave-button>
+            <app-modal [isVisible]="isModalVisible('leave')" title="Quitter ❌"
+              description="Êtes-vous sûr de vouloir quitter ?" okText="Oui" cancelText="Non" (onOk)="handleLeaveGame()">
+            </app-modal>
+            }
           </div>
         </div>
-        <div nz-col  [nzXs]="{span:24, order:1}" [nzSm]="{span:24, order:1}" [nzLg]="{span:12,order:1}"   class="col-wrapper">
+        <div nz-col [nzXs]="{span:24, order:1}" [nzSm]="{span:24, order:1}" [nzLg]="{span:12,order:1}"
+          class="col-wrapper">
           <div class="inner-box">
             <p class="title_header luckiest-guy-regular primary-text-style">{{ title }}</p>
+          </div>
         </div>
       </div>
-     </div>
     </div>
 
-    <div nz-col [nzXs]="{span:12}"  [nzSm]="{span:12}" [nzMd]="{span:12}" [nzLg]="{span:8}"   class="col-wrapper">
+    <div nz-col [nzXs]="{span:10}" [nzSm]="{span:10}" [nzMd]="{span:10}" [nzLg]="{span:4}" class="col-wrapper">
       <div class="row" nz-row>
-        <div nz-col  [nzXs]="{span:24, order:1}"  [nzSm]="{span:24, order:1}" [nzLg]="{span:20,order:2}"   class="col-wrapper">
+        <div nz-col [nzXs]="{span:24, order:1}" [nzSm]="{span:24, order:1}" [nzLg]="{span:20,order:2}"
+          class="col-wrapper">
           <div class="inner-box-actions">
-                <div class="actions">
+            <div class="actions">
 
-                  @if(isUserLoggedIn()) {
-                    <button nz-button class="button" nzType="primary" (click)="showModal('logout')" title="Déconnexion">
-                      <span class="icon" nz-icon nzType="logout" nzTheme="outline"></span>
-                    </button>
+              @if(isUserLoggedIn()) {
+              <button nz-button class="button" nzType="primary" (click)="showModal('logout')" title="Déconnexion">
+                <span class="icon" nz-icon nzType="logout" nzTheme="outline"></span>
+              </button>
+              }
+              <app-modal [isVisible]="isModalVisible('logout')" title="Déconnexion ⚠️"
+                description="Êtes-vous sûr de vouloir vous déconnecter ?" okText="Oui" cancelText="Non"
+                (onOk)="handleDisconnect()">
+              </app-modal>
+
+              <nz-badge [nzCount]="user().nbNotifications" nzSize="small" [nzOverflowCount]="3" [nzOffset]="[-10, -2]">
+                <button nz-button nz-popover class="button" nzType="primary" nzPopoverTitle="Notifications"
+                  [nzPopoverContent]="contentTemplate" nzPopoverPlacement="bottom">
+                  <span nz-icon nzType="notification" nzTheme="outline"></span>
+                </button>
+              </nz-badge>
+              <ng-template #contentTemplate>
+                <div class="notifications">
+                  @if (notifications().length === 0) {
+                  <p class="no-notifications">Pas de notifications 🥺</p>
                   }
-                  <app-modal [isVisible]="isModalVisible('logout')" title="Déconnexion ⚠️"
-                             description="Êtes-vous sûr de vouloir vous déconnecter ?" okText="Oui" cancelText="Non"
-                             (onOk)="handleDisconnect()">
-                  </app-modal>
-
-                  <nz-badge [nzCount]="user().nbNotifications" nzSize="small" [nzOverflowCount]="3" [nzOffset]="[-10, -2]">
-                    <button nz-button nz-popover class="button" nzType="primary" nzPopoverTitle="Notifications"
-                            [nzPopoverContent]="contentTemplate" nzPopoverPlacement="bottom">
-                      <span nz-icon nzType="notification" nzTheme="outline"></span>
-                    </button>
-                  </nz-badge>
-                  <ng-template #contentTemplate>
-                    <div class="notifications">
-                      @for (notification of notifications(); track $index) {
-                        <app-notification [notification]="notification" (accept)="handleAcceptFriendship($event)"
-                                          (denied)="handleRejectFriendship($event)" class="notifications">
-                        </app-notification>
-                      }
-                    </div>
-                  </ng-template>
-
-                  <button nz-button class="button" nzType="primary" (click)="toggleTheme()" title="Changer le thème">
-                    <span class="icon" nz-icon [nzType]="isDarkTheme ? 'sun' : 'moon'" nzTheme="outline"></span>
-                  </button>
+                  @for (notification of notifications(); track $index) {
+                  <app-notification [notification]="notification" (accept)="handleAcceptFriendship($event)"
+                    (denied)="handleRejectFriendship($event)" class="notifications">
+                  </app-notification>
+                  }
                 </div>
-                <nz-divider class="divider" nzType="vertical"></nz-divider>
-                @if(isUserLoggedIn()) {
-                  <button id="username-avatar" [routerLink]="'/profile'" title="Profil">
-                    <img [src]="'/assets/avatar/' + user().avatar.toLowerCase() + '.png'" [alt]="user().avatar" id="my-avatar" />
-                    <p id="username">{{ user().pseudo }}</p>
-                  </button>
-                } @else {
-                  <button nz-button class="button" nzType="primary" [routerLink]="'/login'" title="Connexion">
-                    <span class="icon" nz-icon nzType="login" nzTheme="outline"></span>
-                  </button>
-                }
+              </ng-template>
+
+              <button nz-button class="button" nzType="primary" (click)="toggleTheme()" title="Changer le thème">
+                <span class="icon" nz-icon [nzType]="isDarkTheme ? 'sun' : 'moon'" nzTheme="outline"></span>
+              </button>
+
+              <nz-divider class="divider" nzType="vertical"></nz-divider>
+              @if(isUserLoggedIn()) {
+              <button id="username-avatar" [routerLink]="'/profile'" title="Profil">
+                <img [src]="'/assets/avatar/' + user().avatar.toLowerCase() + '.png'" [alt]="user().avatar"
+                  id="my-avatar" />
+                <p id="username">{{ user().pseudo }}</p>
+              </button>
+              } @else {
+              <button nz-button class="button" nzType="primary" [routerLink]="'/login'" title="Connexion">
+                <span class="icon" nz-icon nzType="login" nzTheme="outline"></span>
+              </button>
+              }
+            </div>
           </div>
         </div>
-        <div nz-col  [nzXs]="{span:24, order:2}" [nzSm]="{span:24, order:2}" [nzLg]="{span:2,order:1}"   class="col-wrapper">
+        <!-- <div nz-col  [nzXs]="{span:24, order:2}" [nzSm]="{span:24, order:2}" [nzLg]="{span:2,order:1}"   class="col-wrapper">
           <div class="inner-box">
           </div>
-        </div>
-
+        </div> -->
       </div>
     </div>
   </div>
