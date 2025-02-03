@@ -1,0 +1,16 @@
+<div class="notification">
+    <div class="notif-content">
+        <div class="sender"><img [src]="'/assets/avatar/' + notification.sender.avatar.toLowerCase() + '.png'"
+                [alt]="notification.sender.avatar" class="sender-avatar" />
+            <p class="sender-username">{{ notification.sender.username }}</p>
+        </div>
+        <p class="message">{{ notification.message }}</p>
+    </div>
+    <div class="friends-notif-buttons">
+        <button nz-button class="green-button" nzType="primary" (click)="handleAccept()" title="accept">
+            <span nz-icon nzType="check" nzTheme="outline"></span>
+        </button>
+        <button nz-button class="red-button" nzType="primary" (click)="handleDenied()" title="accept">
+            <span nz-icon nzType="close" nzTheme="outline"></span>
+        </button>
+    </div>

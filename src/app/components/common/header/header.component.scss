@@ -4,23 +4,26 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background-color: red;
 }
 
-.row{
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
 }
 
-.inner-box{
+.inner-box {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  padding-left: 9%;
 }
 
-
-.inner-box-actions{
+.inner-box-actions {
   width: 100%;
   height: 100%;
   display: flex;
@@ -33,10 +36,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 4%;
+  padding-top: 3%;
   font-size: 50px;
+  background-color: green;
 }
-
 
 .actions {
   display: flex;
@@ -71,18 +74,20 @@ button {
   flex-direction: row;
   align-items: center;
   color: var(--primary-text-color);
-  padding: 8px;
+  padding: 10px;
   border-radius: 7.5px;
   background-color: var(--secondary-bg-color);
   border: none;
   outline: none;
+  margin-left: 0.8em;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: transform 0.3s ease, font-size 0.3s ease;
+  transform: scale(1.07);
 }
 
 #username-avatar:hover {
-  transform: scale(1.07);
+  transform: scale(1.09);
 }
 
 .button {
@@ -100,6 +105,45 @@ button {
 
 .button:hover {
   transform: scale(1.4);
+}
+
+::ng-deep .ant-badge-count {
+  background-color: red;
+  font-size: 0.8em;
+  box-shadow: none;
+}
+
+.notifications {
+  width: 350px;
+  margin: -1.5em -0.5em;
+}
+
+.no-notifications {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-top: 0.7em;
+  font-size: 1.2em;
+  font-family: "Luckiest Guy", cursive;
+  color: var(--primary-text-color);
+}
+
+::ng-deep .ant-popover-inner {
+  border-radius: 15px;
+  background-color: var(--secondary-bg-color);
+}
+
+::ng-deep .ant-popover-title {
+  font-size: 1.2em;
+  font-family: "Lilita One", serif;
+  color: var(--primary-text-color);
+  border: none;
+}
+
+::ng-deep .ant-popover-inner-content {
+  color: white;
 }
 
 ::ng-deep .ant-modal-mask {
@@ -204,16 +248,23 @@ button {
 // RESPONSIVE
 
 @media screen and (max-width: 992px) {
-  .title_header {
-    font-size: 30px;
+  #header {
+    height: 12vh;
+    background-color: blue;
   }
 
-  button{
+  .title_header {
+    margin-top: 5%;
+    font-size: 30px;
+    background-color: green;
+  }
+
+  button {
     width: 25px;
     height: 25px;
   }
 
-  span{
+  span {
     width: 10px;
     height: 10px;
   }
@@ -230,16 +281,15 @@ button {
     justify-content: center;
   }
 
-
   #my-avatar {
     width: 15px;
     margin: 0;
   }
 
   .inner-box-actions {
-    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    align-items: flex-end;
   }
-
-
 }
-
