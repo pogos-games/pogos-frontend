@@ -1,62 +1,67 @@
-import {Component, OnInit, signal, WritableSignal} from '@angular/core';
-import {NgOptimizedImage} from "@angular/common";
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {NzIconDirective} from "ng-zorro-antd/icon";
-import {BlackjackService} from "../../services/games/blackjack.service";
-import {BlackjackDeck} from "../../model/dto/request/black-jack-deck";
-import {Card} from "../../model/dto/request/card";
-import {BlackJackActions} from "../../model/enum/black-jack.actions.enum";
-import {NzBadgeComponent} from "ng-zorro-antd/badge";
-import {delay} from "rxjs";
-import {NzMessageService} from "ng-zorro-antd/message";
-import {BlackJackMessage} from "../../model/enum/black-jack.message.enum";
-import {NzDividerComponent} from "ng-zorro-antd/divider";
-import {ChatComponent} from "../../components/games/chat/chat.component";
-import {HeaderComponent} from "../../components/common/header/header.component";
-import {RankingComponent} from "../../components/pages/game-page/ranking/ranking.component";
-import {GameTableComponent} from "../../components/games/game-table/game-table.component";
-import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
-import {ActivatedRoute, Router} from "@angular/router";
-import {GameType} from "../../model/enum/game-type.enum";
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { NgOptimizedImage } from "@angular/common";
+import { NzButtonComponent } from "ng-zorro-antd/button";
+import { NzIconDirective } from "ng-zorro-antd/icon";
+import { BlackjackService } from "../../services/games/blackjack.service";
+import { BlackjackDeck } from "../../model/dto/request/black-jack-deck";
+import { Card } from "../../model/dto/request/card";
+import { GameActions } from "../../model/enum/game.actions.enum";
+import { GatewayEventEmitter } from "../../model/enum/gateway-event-emitter.enum";
+import { BlackJackActions } from "../../model/enum/black-jack.actions.enum";
+import { NzBadgeComponent } from "ng-zorro-antd/badge";
+import { delay } from "rxjs";
+import { NzMessageService } from "ng-zorro-antd/message";
+import { BlackJackMessage } from "../../model/enum/black-jack.message.enum";
+import { NzDividerComponent } from "ng-zorro-antd/divider";
+import { ChatComponent } from "../../components/games/chat/chat.component";
+import { HeaderComponent } from "../../components/common/header/header.component";
+import { RankingComponent } from "../../components/pages/game-page/ranking/ranking.component";
+import { GameTableComponent } from "../../components/games/game-table/game-table.component";
+import { NzModalComponent, NzModalModule } from "ng-zorro-antd/modal";
+import { ActivatedRoute, Router } from "@angular/router";
+import { GameType } from "../../model/enum/game-type.enum";
 
 @Component({
-    selector: 'app-blackjack-page',
-    imports: [
-        NgOptimizedImage,
-        NzButtonComponent,
-        NzIconDirective,
-        NzBadgeComponent,
-        NzDividerComponent,
-        ChatComponent,
-        HeaderComponent,
-        RankingComponent,
-        GameTableComponent,
-        NzModalComponent,
-        NzModalModule
-    ],
-    templateUrl: './blackjack-page.component.html',
-    styleUrl: './blackjack-page.component.scss'
+  selector: 'app-blackjack-page',
+  imports: [
+    NgOptimizedImage,
+    NzButtonComponent,
+    NzIconDirective,
+    NzBadgeComponent,
+    NzDividerComponent,
+    ChatComponent,
+    HeaderComponent,
+    RankingComponent,
+    GameTableComponent,
+    NzModalComponent,
+    NzModalModule
+  ],
+  templateUrl: './blackjack-page.component.html',
+  styleUrl: './blackjack-page.component.scss'
 })
 export class BlackjackPageComponent implements OnInit {
+  protected BlackJackAction: typeof BlackJackActions = BlackJackActions;
 
-  protected blackJackDeck : BlackjackDeck = { playerHand: new Set<Card>(), dealerHand: new Set<Card>(), playerTotal: 0, message: BlackJackMessage.CONTINUE };
-
-  protected BlackJackAction : typeof BlackJackActions = BlackJackActions;
-
-  protected isActionDisabled : boolean = false;
+  protected isActionDisabled: boolean = false;
 
   protected isChatVisible: WritableSignal<boolean> = signal(false);
 
   public isLeaveModalVisible: WritableSignal<boolean> = signal(false);
 
-  protected gameType: GameType|undefined;
+  protected gameType: GameType | undefined;
+
+  protected readonly GameType = GameType;
+
+  protected playerBalance: number = 0;
+
+  protected playerBet: number = 0; // Mise actuelle du joueur
 
   protected hands: {
-    player1Hand: Card[], 
-    player2Hand: Card[], 
-    player3Hand: Card[], 
-    dealerHand: Card[], 
-    selfHand: Card[] 
+    player1Hand: Card[],
+    player2Hand: Card[],
+    player3Hand: Card[],
+    dealerHand: Card[],
+    selfHand: Card[]
   } = {
     player1Hand: [
       { rank: 'back', suit: '', value: 0 },
@@ -71,71 +76,135 @@ export class BlackjackPageComponent implements OnInit {
       { rank: 'back', suit: '', value: 0 },
     ],
     selfHand: [
-      { rank: 'A', suit: 'H', value: 0 },
-      { rank: 'K', suit: 'H', value: 0 },
     ],
     dealerHand: [
-      { rank: 'A', suit: 'S', value: 0 },
-      { rank: 'A', suit: 'C', value: 0 },
-      { rank: 'A', suit: 'D', value: 0 },
     ],
   };
-  constructor(private blackJackService:BlackjackService,private message:NzMessageService,
-                       private readonly router: Router, private readonly route:ActivatedRoute) {
 
-    this.blackJackService.blackjackSubject.pipe(delay(1000)).subscribe((deck: BlackjackDeck|undefined) => {
-       if(deck) {
-         this.blackJackDeck.playerHand = new Set(deck.playerHand);
-          this.blackJackDeck.dealerHand = new Set(deck.dealerHand);
-          this.blackJackDeck.playerTotal = deck.playerTotal;
-          this.blackJackDeck.message = deck.message;
-         switch (deck.message) {
-            case BlackJackMessage.PLAYER_BUST:
-              this.message.create('error', 'You busted!');
-              break;
-            case BlackJackMessage.DEALER_BUST:
-              this.message.create('success', 'Dealer busted!');
-              break;
-            case BlackJackMessage.PLAYER_WIN:
-              this.message.create('success', 'You win!');
-              break;
-            case BlackJackMessage.DEALER_WIN:
-              this.message.create('error', 'Dealer wins!');
-              break;
-            case BlackJackMessage.TIE:
-              this.message.create('info', 'It\'s a tie!');
-              break;
-            default:
-              // do nothing when game continues
-              this.isActionDisabled = false;
-              break;
-         }
-    }});
-  }
+  private gameId: string | null = null; // Stocke l'ID de la partie
 
-  ngOnInit(): void {
+  constructor(
+    private blackJackService: BlackjackService,
+    private message: NzMessageService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
+  ) {
     this.route.queryParams.subscribe(params => {
-      this.gameType = params['gameType'];
+      this.gameType = params['gameType']?.toUpperCase();
     });
   }
 
-  executeAction(action : BlackJackActions) : void {
+  ngOnInit(): void {
+    this.createAndStartGame();
+    this.listenForGameUpdates();
+    this.listenForPlayerUpdates();
+  }
+
+  ngOnDestroy(): void {
+    this.blackJackService.sendMessage(GameActions.END_GAME, this.gameId);
+    // Déconnexion du WebSocket
+    this.blackJackService.disconnect();
+  }
+
+  private createAndStartGame(): void {
+    console.log("Game Type:", this.gameType);
+  
+    const createGameSubscription = this.blackJackService.listenGameUpdate()
+      .subscribe((data: any) => {
+        console.log("DATA : ", data);
+  
+        if (typeof data === 'string') {
+          console.warn("⚠️ ID reçu comme string brut :", data);
+          this.blackJackService.setGameId(data);
+        } else if (data?.gameId) {
+          console.log("Game created with ID:", data.gameId);
+          this.blackJackService.setGameId(data.gameId);
+        } else {
+          console.error("Erreur : ID de la partie non reçu.", data);
+          return;
+        }
+  
+        this.blackJackService.sendMessage(GameActions.START_GAME, { type: this.gameType });
+  
+        createGameSubscription.unsubscribe();
+      });
+  
+    this.blackJackService.sendMessage(GameActions.CREATE_GAME, this.gameType);
+  }  
+
+  private listenForGameUpdates(): void {
+    this.blackJackService.listenGameUpdate()
+      .subscribe((data: any) => {
+        console.log("Game update received:", data);
+  
+        if (data?.gameId && !this.gameId) {
+          this.gameId = data.gameId;
+          console.log("Game ID mis à jour :", this.gameId);
+        }
+  
+        if (data?.dealerHand) {
+          console.log("Main du dealer :", data.dealerHand);
+          this.hands.dealerHand = data.dealerHand;
+        }
+  
+        if (data?.players?.length > 0) {
+          const player = data.players.find((p: { playerId: string; }) => p.playerId === this.blackJackService.getPlayerId());
+          if (player) {
+            console.log("Main du joueur mise à jour :", player.hand);
+            console.log("Balance du joueur mise à jour :", player.balance);
+            
+            this.hands.selfHand = player.hand;
+            this.playerBalance = player.balance;
+          }
+        }
+    
+        this.isActionDisabled = false; // Réactiver les actions après la mise à jour
+      });
+  }
+
+  private listenForPlayerUpdates(): void {
+    this.blackJackService.listenPlayerUpdate()
+      .subscribe((data: any) => {
+        console.log("Player update received:", data);
+        // Traite les mises à jour des joueurs ici
+      });
+  }
+
+  executeAction(action: BlackJackActions): void {
+    if (!this.gameId) {
+      console.warn("Impossible d'envoyer l'action, gameId manquant !");
+      return;
+    }
+  
     this.isActionDisabled = true;
-    this.blackJackService.sendMessage(action);
+
+    if (action === BlackJackActions.STAND) {
+      this.blackJackService.sendMessage(action, { gameId: this.gameId, bet: this.playerBet });
+    } else {
+      this.blackJackService.sendMessage(action, { action: action, gameId: this.gameId });
+    }
   }
 
   open(): void {
     this.isChatVisible.set(true);
   }
 
-  handleCancelMiddle(){
-    this.isLeaveModalVisible.set(false)
+  handleCancelMiddle(): void {
+    this.isLeaveModalVisible.set(false);
   }
 
-  handleOkMiddle(){
-    this.isLeaveModalVisible.set(false)
-    return this.router.navigateByUrl("/games")
+  handleOkMiddle(): void {
+    this.isLeaveModalVisible.set(false);
+    this.router.navigateByUrl("/games");
   }
 
-  protected readonly GameType = GameType;
+  placeBet(amount: number): void {
+  if (this.playerBalance >= amount) {
+    this.playerBet += amount;
+    this.playerBalance -= amount;
+    console.log(`Mise: ${this.playerBet}, Balance restante: ${this.playerBalance}`);
+  } else {
+    console.warn("Solde insuffisant pour cette mise !");
+  }
+}
 }

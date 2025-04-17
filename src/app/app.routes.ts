@@ -15,6 +15,7 @@ import { PokerPageComponent } from './pages/poker-page/poker-page.component';
 export const routes: Routes = [
   { path: 'games', component: GamePageComponent },
   { path: 'games/blackjack', component: BlackjackPageComponent },
+  { path: 'games/poker', component: PokerPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent }, {
     path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard],

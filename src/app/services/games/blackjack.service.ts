@@ -1,29 +1,99 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {SocketService} from "../socket.service";
-import {BehaviorSubject} from "rxjs";
-import {BlackjackDeck} from "../../model/dto/request/black-jack-deck";
+import { Injectable } from '@angular/core';
+import { io, Socket } from 'socket.io-client';
+import { Observable, shareReplay } from 'rxjs';
+import { GameActions } from '../../model/enum/game.actions.enum';
+import { BlackJackActions } from '../../model/enum/black-jack.actions.enum';
+import { GatewayEventEmitter } from '../../model/enum/gateway-event-emitter.enum';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BlackjackService implements OnDestroy {
+export class BlackjackService {
+  private socket: Socket;
+  private gameId: string | null = null;
+  private playerId: string | null = null;
 
-  readonly blackjackSubject = new BehaviorSubject<BlackjackDeck | undefined>(undefined);
+  constructor() {
+    this.socket = io('http://localhost:3002/blackjack');
 
-  constructor(private readonly socketService:SocketService) {
-    this.socketService.connect();
-    this.socketService.listen<BlackjackDeck>('game_update').subscribe((message : BlackjackDeck) => {
-      console.log('Received message from server:', message);
-      this.blackjackSubject.next(message);
+    this.socket.on('connect', () => {
+      console.log('WebSocket connecté !', this.socket.id);
+      this.playerId = this.socket.id!;
+    });
+
+    this.socket.on('disconnect', () => {
+      console.log('WebSocket déconnecté !');
+      this.playerId = null;
     });
   }
 
-  sendMessage(topic : string): void {
-    const message = 'Hello from Angular!';
-    this.socketService.emit(topic, message);
+  getPlayerId(): string | null {
+    return this.playerId;
+  }  
+
+  setGameId(gameId: string): void {
+    this.gameId = gameId;
+    console.log("Game ID stocké dans le service :", this.gameId);
   }
 
-  ngOnDestroy(): void {
-    this.socketService.disconnect();
+  getGameId(): string | null {
+    return this.gameId;
+  }  
+
+  sendMessage(action: GameActions | BlackJackActions, payload: any = {}): void {
+    // Si on est en train de créer la partie (action CREATE_GAME), on permet d'envoyer sans gameId et playerId
+    if ((action === GameActions.CREATE_GAME) && !this.gameId && !this.playerId) {
+      const enrichedPayload = {
+        ...payload
+      };
+  
+      console.log(`Envoi WebSocket (CREATE_GAME): ${action}`, enrichedPayload);
+      this.socket.emit(action, enrichedPayload);
+      return;  // Ne pas vérifier gameId et playerId pour CREATE_GAME
+    }
+  
+    // Sinon, vérifier que gameId et playerId sont définis avant d'envoyer l'action
+    if (!this.gameId || !this.playerId) {
+      console.warn("Impossible d'envoyer l'action, gameId ou playerId manquant !");
+      return;
+    }
+  
+    const enrichedPayload = {
+      gameId: this.gameId,
+      //playerId: this.playerId,
+      ...payload
+    };
+  
+    console.log(`Envoi WebSocket : ${action}`, enrichedPayload);
+    this.socket.emit(action, enrichedPayload);
+  }
+  
+
+  listenGameUpdate(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on(GatewayEventEmitter.GAME_UPDATE, (data: any) => {
+        console.log("GAME_UPDATE reçu :", data);
+        observer.next(data);
+      });
+    }).pipe(shareReplay(1));
+  }
+
+  listenPlayerUpdate(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on(GatewayEventEmitter.PLAYER_UPDATE, (data: any) => {
+        console.log("PLAYER_UPDATE reçu :", data);
+        observer.next(data);
+      });
+    });
+  }
+
+  disconnect(): void {
+    console.log('Déconnexion WebSocket...');
+    this.socket.removeAllListeners(GatewayEventEmitter.GAME_UPDATE);
+    this.socket.removeAllListeners(GatewayEventEmitter.PLAYER_UPDATE);
+    this.socket.disconnect();
+    this.gameId = null;
+    this.playerId = null;
   }
 }
+
