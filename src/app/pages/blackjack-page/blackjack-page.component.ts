@@ -107,67 +107,71 @@ export class BlackjackPageComponent implements OnInit {
   }
 
   private createAndStartGame(): void {
-    console.log("Game Type:", this.gameType);
-  
+
     const createGameSubscription = this.blackJackService.listenGameUpdate()
       .subscribe((data: any) => {
-        console.log("DATA : ", data);
-  
+
         if (typeof data === 'string') {
           console.warn("⚠️ ID reçu comme string brut :", data);
           this.blackJackService.setGameId(data);
         } else if (data?.gameId) {
-          console.log("Game created with ID:", data.gameId);
           this.blackJackService.setGameId(data.gameId);
         } else {
           console.error("Erreur : ID de la partie non reçu.", data);
           return;
         }
-  
+
         this.blackJackService.sendMessage(GameActions.START_GAME, { type: this.gameType });
-  
+
         createGameSubscription.unsubscribe();
       });
-  
+
     this.blackJackService.sendMessage(GameActions.CREATE_GAME, this.gameType);
-  }  
+  }
 
   private listenForGameUpdates(): void {
     this.blackJackService.listenGameUpdate()
       .subscribe((data: any) => {
         console.log("Game update received:", data);
-  
+
         if (data?.gameId && !this.gameId) {
           this.gameId = data.gameId;
-          console.log("Game ID mis à jour :", this.gameId);
         }
-  
+
         if (data?.dealerHand) {
-          console.log("Main du dealer :", data.dealerHand);
           this.hands.dealerHand = data.dealerHand;
         }
-  
+
         if (data?.players?.length > 0) {
           const player = data.players.find((p: { playerId: string; }) => p.playerId === this.blackJackService.getPlayerId());
           if (player) {
-            console.log("Main du joueur mise à jour :", player.hand);
-            console.log("Balance du joueur mise à jour :", player.balance);
-            
-            this.hands.selfHand = player.hand;
-            this.playerBalance = player.balance;
+            this.updatePlayerInfos(player);
           }
         }
-    
+
         this.isActionDisabled = false; // Réactiver les actions après la mise à jour
       });
   }
 
   private listenForPlayerUpdates(): void {
     this.blackJackService.listenPlayerUpdate()
-      .subscribe((data: any) => {
-        console.log("Player update received:", data);
-        // Traite les mises à jour des joueurs ici
+      .subscribe((player: any) => {
+        console.log("Player update received:", player);
+        this.updatePlayerInfos(player);
       });
+  }
+
+  private updatePlayerInfos(player: any): void {
+    if (!player) {
+      console.warn("Aucun joueur trouvé !");
+      return;
+    }
+    if (!player.currentHandId) {
+      this.hands.selfHand = player.hand[0];
+    } else {
+      this.hands.selfHand = player.hand[player.currentHandId];
+    }
+    this.playerBalance  = player.balance;
   }
 
   executeAction(action: BlackJackActions): void {
@@ -175,14 +179,12 @@ export class BlackjackPageComponent implements OnInit {
       console.warn("Impossible d'envoyer l'action, gameId manquant !");
       return;
     }
-  
+
     this.isActionDisabled = true;
 
-    if (action === BlackJackActions.STAND) {
-      this.blackJackService.sendMessage(action, { gameId: this.gameId, bet: this.playerBet });
-    } else {
-      this.blackJackService.sendMessage(action, { action: action, gameId: this.gameId });
-    }
+    this.blackJackService.sendMessage(GameActions.ACTION, { action: action, gameId: this.gameId });
+
+    this.isActionDisabled = false;
   }
 
   open(): void {

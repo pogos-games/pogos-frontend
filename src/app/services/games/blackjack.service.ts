@@ -29,7 +29,7 @@ export class BlackjackService {
 
   getPlayerId(): string | null {
     return this.playerId;
-  }  
+  }
 
   setGameId(gameId: string): void {
     this.gameId = gameId;
@@ -38,7 +38,7 @@ export class BlackjackService {
 
   getGameId(): string | null {
     return this.gameId;
-  }  
+  }
 
   sendMessage(action: GameActions | BlackJackActions, payload: any = {}): void {
     // Si on est en train de créer la partie (action CREATE_GAME), on permet d'envoyer sans gameId et playerId
@@ -46,28 +46,28 @@ export class BlackjackService {
       const enrichedPayload = {
         ...payload
       };
-  
+
       console.log(`Envoi WebSocket (CREATE_GAME): ${action}`, enrichedPayload);
       this.socket.emit(action, enrichedPayload);
       return;  // Ne pas vérifier gameId et playerId pour CREATE_GAME
     }
-  
+
     // Sinon, vérifier que gameId et playerId sont définis avant d'envoyer l'action
     if (!this.gameId || !this.playerId) {
       console.warn("Impossible d'envoyer l'action, gameId ou playerId manquant !");
       return;
     }
-  
+
     const enrichedPayload = {
       gameId: this.gameId,
       //playerId: this.playerId,
       ...payload
     };
-  
+
     console.log(`Envoi WebSocket : ${action}`, enrichedPayload);
     this.socket.emit(action, enrichedPayload);
   }
-  
+
 
   listenGameUpdate(): Observable<any> {
     return new Observable(observer => {
@@ -81,7 +81,6 @@ export class BlackjackService {
   listenPlayerUpdate(): Observable<any> {
     return new Observable(observer => {
       this.socket.on(GatewayEventEmitter.PLAYER_UPDATE, (data: any) => {
-        console.log("PLAYER_UPDATE reçu :", data);
         observer.next(data);
       });
     });
