@@ -1,19 +1,66 @@
 .back-button {
-    color: var(--primary-text-color);
-    border-radius: 7.5px;
-    font-family: "Lilita One", cursive;
-    font-style: normal;
-    font-size: 22px;
-    background-color: var(--secondary-bg-color);
-    cursor: pointer;
-    transition: transform 0.3s ease, font-size 0.3s ease;
-    border: none;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-    width: 150px;
+  color: var(--primary-text-color);
+  border-radius: 7.5px;
+  font-family: "Lilita One", cursive;
+  font-style: normal;
+  font-size: 22px;
+  background-color: var(--secondary-bg-color);
+  cursor: pointer;
+  transition: transform 0.3s ease, font-size 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-  .back-button:hover {
-    background-color: var(--button-bg-hover);
-    font-size: 24px;
-    transform: rotate(-4deg) scale(1.5);
+.back-button:hover {
+  background-color: var(--button-bg-hover);
+  font-size: 24px;
+  transform: rotate(-4deg) scale(1.5);
+}
+
+.icon-left {
+  font-size: 20px;
+}
+
+/* === RESPONSIVE === */
+@media screen and (max-width: 992px) {
+  .back-button {
+    font-size: 16px;
+    width: 50px;
+    padding: 6px;
   }
+
+  .button-text {
+    display: none;
+  }
+
+  .icon-left {
+    font-size: 18px;
+  }
+
+  .back-button:hover {
+    font-size: 18px;
+    transform: rotate(-3deg) scale(1.2);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .back-button {
+    font-size: 14px;
+    width: 45px;
+    padding: 5px;
+  }
+
+  .icon-left {
+    font-size: 16px;
+  }
+
+  .back-button:hover {
+    font-size: 16px;
+    transform: rotate(-2deg) scale(1.1);
+  }
+}
