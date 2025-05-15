@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {RouterLink} from "@angular/router";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
@@ -16,6 +16,12 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 })
 export class GameButtonsComponent {
 
-  protected title:string = 'Blackjack';
+  @Output() showModalEvent = new EventEmitter<void>();
+
+  protected title: string = 'Blackjack';
+
+  protected showModal() {
+    this.showModalEvent.emit();
+  }
 
 }
