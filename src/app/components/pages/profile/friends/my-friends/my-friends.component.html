@@ -1,0 +1,18 @@
+<div class="main-content">
+    <div class="list-friends">
+        @for (friend of friends(); track $index) {
+        <div class="friend-card">
+            <div class="friend-card">
+                <img [src]="'/assets/avatar/' + friend.user.avatar.toLowerCase() + '.png'" [alt]="friend.user.avatar"
+                    class="friend-avatar" />
+                <p class="friend-username">{{ friend.user.username }}</p>
+            </div>
+            <div class="friends-actions">
+                <button nz-button class="delete-button" nzType="primary" title="accept">
+                    <span nz-icon nzType="delete" nzTheme="outline"></span>
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+</div>

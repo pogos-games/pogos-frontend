@@ -1,34 +1,21 @@
 #header {
-  width: 100%;
+  width: 96%;
   height: 15vh;
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: red;
+  margin: 0 auto;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-}
-
-.inner-box {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding-left: 9%;
-}
-
-.inner-box-actions {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: right;
-  align-items: center;
+.title-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  text-align: center;
+  z-index: 1;
 }
 
 .title_header {
@@ -37,15 +24,42 @@
   align-items: center;
   justify-content: center;
   padding-top: 3%;
-  font-size: 50px;
-  background-color: green;
+  font-size: 65px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.first-div,
+.col-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.inner-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.inner-box-actions {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .actions {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
   height: 100%;
 }
 
@@ -250,15 +264,14 @@ button {
 @media screen and (max-width: 992px) {
   #header {
     height: 12vh;
-    background-color: blue;
   }
 
   .title_header {
     margin-top: 5%;
     font-size: 30px;
-    background-color: green;
   }
 
+  /* Boutons (pas de classe ciblée volontairement pour ne pas interférer avec design custom) */
   button {
     width: 25px;
     height: 25px;
@@ -269,6 +282,7 @@ button {
     height: 10px;
   }
 
+  /* Avatar utilisateur */
   #username {
     display: none;
   }
@@ -287,9 +301,6 @@ button {
   }
 
   .inner-box-actions {
-    width: 100%;
-    height: 100%;
-    background-color: red;
     align-items: flex-end;
   }
 }

@@ -4,4 +4,5 @@ export interface UserResponseDto {
     id: string,
     username: string,
     avatar: Avatar
+    email?: string,
 }
