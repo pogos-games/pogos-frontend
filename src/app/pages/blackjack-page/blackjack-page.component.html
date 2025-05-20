@@ -46,9 +46,9 @@
           </div>
         </button>
       </div>
-    
+
       <nz-divider nzType="vertical"></nz-divider>
-    
+
       <div class="user-coins">
         Coins :
         <nz-badge
@@ -58,7 +58,7 @@
           [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
         ></nz-badge>
       </div>
-    
+
       <div class="user-bet">
         Mise :
         <nz-badge
@@ -69,7 +69,7 @@
         ></nz-badge>
       </div>
     </div>
-    
+
 
     <button nz-button nzType="primary" (click)="executeAction(BlackJackAction.HIT)" [disabled]="isActionDisabled">
       <span nz-icon nzType="plus"></span>
@@ -107,6 +107,19 @@
       <p>Est-tu sûr de vouloir quitter la partie ?</p>
     </ng-container>
   </nz-modal>
+
+  <app-waiting-room-modal
+    [isVisible]="isWaitingRoomModalVisible"
+    [title]="'Rejouer la partie'"
+    [okText]="'Relancer'"
+    [cancelText]="'Quitter'"
+    [gameId]="gameId ?? ''"
+    [players]="playerNames"
+    [betAmount]="playerBet"
+    (onOk)="handleWaitingRoomConfirm($event)"
+    (onCancel)="handleWaitingRoomLeave($event)"
+  ></app-waiting-room-modal>
+
 
 
 </div>

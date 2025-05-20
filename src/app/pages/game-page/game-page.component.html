@@ -22,14 +22,17 @@
       </div>
     </div>
 
-    <app-modal
+    <app-waiting-room-modal
       [isVisible]="isWaitingRoomModalVisible"
-      [title]="'Salle d\'attente️'"
-      [description]="getModalDescription()"
-      [okText]="'Oui'"
-      [cancelText]="'Non'"
-      (onOk)="handleOkMiddle()"
-    ></app-modal>
+      [title]="'Salle d\'attente'"
+      [okText]="'Lancer'"
+      [cancelText]="'Annuler'"
+      [gameId]="gameId"
+      [players]="playerNames"
+      [initialBet]="betAmount"
+      (onOk)="handleStartGame($event)"
+      (onCancel)="handleCancelModal()"
+    />
 
   </div>
 </div>

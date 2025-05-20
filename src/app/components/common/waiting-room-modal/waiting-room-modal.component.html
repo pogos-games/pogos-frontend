@@ -1,0 +1,32 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="title"
+  [nzOkText]="okText"
+  [nzCancelText]="cancelText"
+  nzClassName="custom-modal"
+  [nzClosable]="false"
+  (nzOnOk)="handleOk()"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-container *nzModalContent>
+    <div class="modal-body">
+      <p><strong>ID de la partie :</strong> {{ gameId }}</p>
+
+      <p><strong>Joueurs :</strong></p>
+      <ul>
+        <li *ngFor="let player of players">{{ player }}</li>
+      </ul>
+
+      <label for="bet"><strong>Mise :</strong></label>
+      <input
+        id="bet"
+        type="number"
+        [(ngModel)]="betAmount"
+        min="10"
+        max="1000"
+        step="10"
+        class="bet-input"
+      />
+    </div>
+  </ng-container>
+</nz-modal>

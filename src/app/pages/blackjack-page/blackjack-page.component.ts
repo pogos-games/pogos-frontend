@@ -20,6 +20,7 @@ import { GameTableComponent } from "../../components/games/game-table/game-table
 import { NzModalComponent, NzModalModule } from "ng-zorro-antd/modal";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GameType } from "../../model/enum/game-type.enum";
+import {WaitingRoomModalComponent} from "../../components/common/waiting-room-modal/waiting-room-modal.component";
 
 @Component({
   selector: 'app-blackjack-page',
@@ -34,7 +35,8 @@ import { GameType } from "../../model/enum/game-type.enum";
     RankingComponent,
     GameTableComponent,
     NzModalComponent,
-    NzModalModule
+    NzModalModule,
+    WaitingRoomModalComponent
   ],
   templateUrl: './blackjack-page.component.html',
   styleUrl: './blackjack-page.component.scss'
@@ -48,13 +50,17 @@ export class BlackjackPageComponent implements OnInit {
 
   public isLeaveModalVisible: WritableSignal<boolean> = signal(false);
 
+  public isWaitingRoomModalVisible: WritableSignal<boolean> = signal(false);
+
   protected gameType: GameType | undefined;
 
   protected readonly GameType = GameType;
 
-  protected playerBalance: number = 0;
+  protected playerBalance: number = 1000;
 
   protected playerBet: number = 0; // Mise actuelle du joueur
+
+  public playerNames: string[] = [];
 
   protected hands: {
     player1Hand: Card[],
@@ -81,7 +87,7 @@ export class BlackjackPageComponent implements OnInit {
     ],
   };
 
-  private gameId: string | null = null; // Stocke l'ID de la partie
+  protected gameId: string | null = null; // Stocke l'ID de la partie
 
   constructor(
     private blackJackService: BlackjackService,
@@ -98,6 +104,7 @@ export class BlackjackPageComponent implements OnInit {
     this.createAndStartGame();
     this.listenForGameUpdates();
     this.listenForPlayerUpdates();
+    this.listenForEndGame();
   }
 
   ngOnDestroy(): void {
@@ -107,26 +114,32 @@ export class BlackjackPageComponent implements OnInit {
   }
 
   private createAndStartGame(): void {
+    this.gameId = this.blackJackService.getGameId();
 
-    const createGameSubscription = this.blackJackService.listenGameUpdate()
-      .subscribe((data: any) => {
+    if (this.gameId === null) {
+      const createGameSubscription = this.blackJackService.listenGameUpdate()
+        .subscribe((data: any) => {
 
-        if (typeof data === 'string') {
-          console.warn("⚠️ ID reçu comme string brut :", data);
-          this.blackJackService.setGameId(data);
-        } else if (data?.gameId) {
-          this.blackJackService.setGameId(data.gameId);
-        } else {
-          console.error("Erreur : ID de la partie non reçu.", data);
-          return;
-        }
+          if (typeof data === 'string') {
+            console.warn("⚠️ ID reçu comme string brut :", data);
+            this.blackJackService.setGameId(data);
+          } else if (data?.gameId) {
+            this.blackJackService.setGameId(data.gameId);
+          } else {
+            console.error("Erreur : ID de la partie non reçu.", data);
+            return;
+          }
 
-        this.blackJackService.sendMessage(GameActions.START_GAME, { type: this.gameType });
+          this.blackJackService.sendMessage(GameActions.START_GAME, { type: this.gameType, bet: this.playerBalance });
 
-        createGameSubscription.unsubscribe();
-      });
+          createGameSubscription.unsubscribe();
+        });
 
-    this.blackJackService.sendMessage(GameActions.CREATE_GAME, this.gameType);
+      this.blackJackService.sendMessage(GameActions.CREATE_GAME, this.gameType);
+    } else {
+      // Si on a déjà l’ID, on peut démarrer directement
+      this.blackJackService.sendMessage(GameActions.START_GAME, { type: this.gameType, bet: this.playerBalance });
+    }
   }
 
   private listenForGameUpdates(): void {
@@ -142,22 +155,49 @@ export class BlackjackPageComponent implements OnInit {
           this.hands.dealerHand = data.dealerHand;
         }
 
+        this.blackJackService.setPlayers(data.players);
+
         if (data?.players?.length > 0) {
-          const player = data.players.find((p: { playerId: string; }) => p.playerId === this.blackJackService.getPlayerId());
+          this.playerNames = data.players.map((p: any) => p.playerId);
+          const player = data.players.find((p: { playerId: string; }) =>
+            p.playerId === this.blackJackService.getPlayerId());
           if (player) {
             this.updatePlayerInfos(player);
           }
         }
 
-        this.isActionDisabled = false; // Réactiver les actions après la mise à jour
+        this.isActionDisabled = false;
       });
   }
+
 
   private listenForPlayerUpdates(): void {
     this.blackJackService.listenPlayerUpdate()
       .subscribe((player: any) => {
         console.log("Player update received:", player);
         this.updatePlayerInfos(player);
+      });
+  }
+
+
+  private listenForEndGame(): void {
+    this.blackJackService.listenEndGame()
+      .subscribe((data: any) => {
+        console.log('🎯 FIN DE PARTIE');
+        if (data.player) {
+          let diff = data.player.balance - data.player.bet;
+          if (diff > 0) {
+            console.log('You won ', diff);
+          } else {
+            console.log('You lost ', diff);
+          }
+        }
+
+        // 2. Réaffiche la WaitingRoomModal
+        this.showWaitingRoomModal();
+
+        // 3. Réinitialisation partielle si besoin
+        this.isActionDisabled = true;
       });
   }
 
@@ -201,12 +241,39 @@ export class BlackjackPageComponent implements OnInit {
   }
 
   placeBet(amount: number): void {
-  if (this.playerBalance >= amount) {
-    this.playerBet += amount;
-    this.playerBalance -= amount;
-    console.log(`Mise: ${this.playerBet}, Balance restante: ${this.playerBalance}`);
-  } else {
-    console.warn("Solde insuffisant pour cette mise !");
+    if (this.playerBalance >= amount) {
+      this.playerBet += amount;
+      this.playerBalance -= amount;
+      console.log(`Mise: ${this.playerBet}, Balance restante: ${this.playerBalance}`);
+    } else {
+      console.warn("Solde insuffisant pour cette mise !");
+    }
   }
-}
+
+  public showWaitingRoomModal(): void {
+    this.isWaitingRoomModalVisible.set(true);
+  }
+
+  handleWaitingRoomConfirm(bet: number): void {
+    if (!this.gameType) {
+      console.warn("Type de jeu manquant !");
+      return;
+    }
+
+    this.playerBet = bet;
+    this.playerBalance -= bet;
+
+    console.log(`🎮 Rejouer avec mise : ${bet}, solde restant : ${this.playerBalance}`);
+
+    this.isWaitingRoomModalVisible.set(false);
+    this.blackJackService.sendMessage(GameActions.RESTART_GAME, {
+      type: this.gameType,
+      bet: bet
+    });
+  }
+
+  handleWaitingRoomLeave($event: void) {
+    this.isWaitingRoomModalVisible.set(false);
+    this.router.navigateByUrl("/games");
+  }
 }

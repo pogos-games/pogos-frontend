@@ -12,6 +12,25 @@ export class BlackjackService {
   private socket: Socket;
   private gameId: string | null = null;
   private playerId: string | null = null;
+  private players: any[] = [];
+  private playerBet: number = 0;
+
+  setPlayers(players: any[]): void {
+    this.players = players;
+  }
+
+  getPlayers(): any[] {
+    return this.players;
+  }
+
+  setPlayerBet(bet: number): void {
+    this.playerBet = bet;
+  }
+
+  getPlayerBet(): number {
+    return this.playerBet;
+  }
+
 
   constructor() {
     this.socket = io('http://localhost:3002/blackjack');
@@ -42,12 +61,11 @@ export class BlackjackService {
 
   sendMessage(action: GameActions | BlackJackActions, payload: any = {}): void {
     // Si on est en train de créer la partie (action CREATE_GAME), on permet d'envoyer sans gameId et playerId
-    if ((action === GameActions.CREATE_GAME) && !this.gameId && !this.playerId) {
+    if ((action === GameActions.CREATE_GAME) && !this.gameId) {
       const enrichedPayload = {
         ...payload
       };
 
-      console.log(`Envoi WebSocket (CREATE_GAME): ${action}`, enrichedPayload);
       this.socket.emit(action, enrichedPayload);
       return;  // Ne pas vérifier gameId et playerId pour CREATE_GAME
     }
@@ -76,6 +94,16 @@ export class BlackjackService {
         observer.next(data);
       });
     }).pipe(shareReplay(1));
+  }
+
+
+  listenEndGame(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on(GatewayEventEmitter.END_GAME, (data: any) => {
+        console.log("END_GAME reçu :", data);
+        observer.next(data);
+      });
+    })
   }
 
   listenPlayerUpdate(): Observable<any> {
