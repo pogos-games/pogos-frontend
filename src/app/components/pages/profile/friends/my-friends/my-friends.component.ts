@@ -40,4 +40,17 @@ export class MyFriendsComponent implements OnInit {
       }
     });
   }
+
+  // Supprimer un ami
+  rejectFriendship(friendshipId: string): void {
+    console.log('friends', this.friends());
+    this.friendshipService.rejectFriendship(friendshipId).subscribe({
+      next: () => {
+        this.friends.set(this.friends().filter(friend => friend.friendshipId !== friendshipId));
+      },
+      error: (error) => {
+        console.error('Error rejecting friendship:', error);
+      }
+    });
+  }
 }
