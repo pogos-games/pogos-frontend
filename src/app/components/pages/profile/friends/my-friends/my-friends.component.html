@@ -8,7 +8,8 @@
                 <p class="friend-username">{{ friend.user.username }}</p>
             </div>
             <div class="friends-actions">
-                <button nz-button class="delete-button" nzType="primary" title="accept">
+                <button nz-button class="delete-button" nzType="primary"
+                    (click)="rejectFriendship(friend.friendshipId)">
                     <span nz-icon nzType="delete" nzTheme="outline"></span>
                 </button>
             </div>

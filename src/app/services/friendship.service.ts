@@ -17,12 +17,12 @@ export class FriendshipService {
   }
 
   // accepter une demande d'ami
-  acceptFriendship(friendId: string): Observable<void> {
-    return this.http.post<void>(`${environment.coreURL}/friendship/ACCEPT/${friendId}`, {});
+  acceptFriendship(friendshipId: string): Observable<void> {
+    return this.http.post<void>(`${environment.coreURL}/friendship/ACCEPT/${friendshipId}`, {});
   }
 
   // refuser une demande d'ami
-  rejectFriendship(friendId: string): Observable<void> {
-    return this.http.post<void>(`${environment.coreURL}/friendship/REJECT/${friendId}`, {});
+  rejectFriendship(friendshipId: string): Observable<void> {
+    return this.http.post<void>(`${environment.coreURL}/friendship/REJECT/${friendshipId}`, {});
   }
 }
