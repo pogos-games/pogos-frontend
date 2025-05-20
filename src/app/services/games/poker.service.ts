@@ -4,7 +4,7 @@ import {GameService} from "./game.service";
 @Injectable({
   providedIn: 'root'
 })
-export class BlackjackService extends GameService{
-  protected gameUrl = "blackjack"
+export class PokerService extends GameService{
+  protected gameUrl = "poker"
 }
 
