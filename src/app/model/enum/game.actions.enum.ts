@@ -1,0 +1,9 @@
+
+export enum GameActions{
+  SURRENDER = "SURRENDER",
+  RESTART = "RESTART",
+  CREATE_GAME = "CREATE_GAME",
+  ACTION = "ACTION",
+  START_GAME = "START_GAME",
+  END_GAME = "END_GAME"
+}

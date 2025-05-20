@@ -5,6 +5,6 @@ import {GameService} from "./game.service";
   providedIn: 'root'
 })
 export class PokerService extends GameService{
-  protected gameUrl = "poker"
+  protected override gameUrl = "poker"
 }
 

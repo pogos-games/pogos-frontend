@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable, shareReplay } from 'rxjs';
 import { GameActions } from '../../model/enum/game.actions.enum';
-import { BlackJackActions } from '../../model/enum/black-jack.actions.enum';
-import { GatewayEventEmitter } from '../../model/enum/gateway-event-emitter.enum';
+import { GatewayEventEnum } from '../../model/enum/gateway.event.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +40,7 @@ export class GameService {
     return this.gameId;
   }
 
-  sendMessage(action: GameActions | BlackJackActions, payload: any = {}): void {
+  sendMessage(action: string, payload: any = {}): void {
     // Si on est en train de créer la partie (action CREATE_GAME), on permet d'envoyer sans gameId et playerId
     if ((action === GameActions.CREATE_GAME) && !this.gameId && !this.playerId) {
       const enrichedPayload = {
@@ -72,7 +71,7 @@ export class GameService {
 
   listenGameUpdate(): Observable<any> {
     return new Observable(observer => {
-      this.socket.on(GatewayEventEmitter.GAME_UPDATE, (data: any) => {
+      this.socket.on(GatewayEventEnum.GAME_UPDATE, (data: any) => {
         console.log("GAME_UPDATE reçu :", data);
         observer.next(data);
       });
@@ -81,7 +80,7 @@ export class GameService {
 
   listenPlayerUpdate(): Observable<any> {
     return new Observable(observer => {
-      this.socket.on(GatewayEventEmitter.PLAYER_UPDATE, (data: any) => {
+      this.socket.on(GatewayEventEnum.PLAYER_UPDATE, (data: any) => {
         observer.next(data);
       });
     });
@@ -89,8 +88,8 @@ export class GameService {
 
   disconnect(): void {
     console.log('Déconnexion WebSocket...');
-    this.socket.removeAllListeners(GatewayEventEmitter.GAME_UPDATE);
-    this.socket.removeAllListeners(GatewayEventEmitter.PLAYER_UPDATE);
+    this.socket.removeAllListeners(GatewayEventEnum.GAME_UPDATE);
+    this.socket.removeAllListeners(GatewayEventEnum.PLAYER_UPDATE);
     this.socket.disconnect();
     this.gameId = null;
     this.playerId = null;
