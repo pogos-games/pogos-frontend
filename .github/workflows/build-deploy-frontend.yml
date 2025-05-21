@@ -1,10 +1,13 @@
 name: Build and Deploy pogos-frontend
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Image tag'
+        description: 'Image tag for Docker'
         required: true
 
 env:
@@ -38,6 +41,7 @@ jobs:
 
   dockerize:
     name: Dockerize and Push
+    if: github.event_name == 'workflow_dispatch'
     needs: build
     runs-on: ubuntu-latest
 
