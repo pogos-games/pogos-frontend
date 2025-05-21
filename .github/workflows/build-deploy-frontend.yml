@@ -69,11 +69,11 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: Dockerfile_core
+          file: Dockerfile
           tags: |
             ${{ env.IMAGE_CORE }}:${{ github.event.inputs.tag }}
             ${{ env.IMAGE_CORE }}:${{ github.sha }}
             ${{ env.IMAGE_CORE }}:latest
           push: true
           build-args: |
-            APP_NAME=pogos-core
+            APP_NAME=pogos-frontend
