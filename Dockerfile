@@ -6,9 +6,11 @@ WORKDIR /usr/share/nginx/html
 COPY dist/pogos-frontend/browser .
 
 COPY envsubst.sh /tmp/envsubst.sh
-ENTRYPOINT ["/tmp/envsubst.sh"]
 RUN chmod +rx /tmp/envsubst.sh
 
-EXPOSE 80
+# Modifier l'utilisateur après avoir tout copié/configuré
+USER nginx
 
+ENTRYPOINT ["/tmp/envsubst.sh"]
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
