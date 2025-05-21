@@ -1,0 +1,4 @@
+{
+  "CORE_URL": "${CORE_URL}",
+  "GAMES_URL": "${GAMES_URL}"
+}
