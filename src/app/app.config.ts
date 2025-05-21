@@ -1,17 +1,18 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {ApplicationConfig, importProvidersFrom, provideAppInitializer} from '@angular/core';
+import {provideRouter} from '@angular/router';
 
-import { HTTP_INTERCEPTORS, withInterceptorsFromDi } from '@angular/common/http';
-import { routes } from './app.routes';
-import { fr_FR, provideNzI18n } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {routes} from './app.routes';
+import {fr_FR, provideNzI18n} from 'ng-zorro-antd/i18n';
+import {registerLocaleData} from '@angular/common';
 import fr from '@angular/common/locales/fr';
-import { FormsModule } from '@angular/forms';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
-import { provideNzIcons, provideNzIcons as provideNzIcons_alias } from 'ng-zorro-antd/icon';
-import { icons } from './icons-provider'
-import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
+import {FormsModule} from '@angular/forms';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
+import {provideNzIcons, provideNzIcons as provideNzIcons_alias} from 'ng-zorro-antd/icon';
+import {icons} from './icons-provider'
+import {AuthInterceptor} from './auth/interceptor/auth.interceptor';
+import {ConfigService} from "./services/config.service";
+import {appInit} from "./app.init";
 
 registerLocaleData(fr);
 
@@ -26,6 +27,8 @@ registerLocaleData(fr);
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    ConfigService,
+    provideAppInitializer(appInit),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
