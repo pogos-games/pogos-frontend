@@ -1,4 +1,4 @@
 {
-  "CORE_URL": "${CORE_URL}",
-  "GAMES_URL": "${GAMES_URL}"
+  "CORE_URL": "http://localhost:3001",
+  "GAMES_URL": "http://localhost:3002"
 }
