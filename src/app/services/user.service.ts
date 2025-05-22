@@ -1,18 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { UpdateUserRequestDto } from "../model/dto/request/update-user-request.dto";
 import { UpdateUserResponseDto } from "../model/dto/response/update-user-response.dto";
 import { SelfResponseDto } from '../model/dto/response/self-response.dto';
 import { ConfigService } from "./config.service";
-import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { HttpParams } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { environment } from "../../environments/environment.development";
-import { UpdateUserRequestDto } from "../model/dto/request/update-user-request.dto";
-import { UpdateUserResponseDto } from "../model/dto/response/update-user-response.dto";
-import { SelfResponseDto } from '../model/dto/response/self-response.dto';
 import { PageResponseDto } from '../model/dto/response/page-response.dto';
 
 @Injectable({
@@ -47,8 +40,8 @@ export class UserService {
       .set('page', page.toString())
       .set('take', take.toString());
 
-    return this.http.get<PageResponseDto<SelfResponseDto>>(
-      `${environment.coreURL}/users/username/${username}`,
+    return this.httpClient.get<PageResponseDto<SelfResponseDto>>(
+      `${this.CORE_URL}/users/username/${username}`,
       { params }
     );
   }
