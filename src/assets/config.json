@@ -1,0 +1,4 @@
+{
+  "CORE_URL": "http://localhost:3001",
+  "GAMES_URL": "http://localhost:3002"
+}

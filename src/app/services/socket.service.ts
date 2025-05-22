@@ -1,6 +1,7 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {io, Socket} from "socket.io-client";
+import {ConfigService} from "./config.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,10 @@ export class SocketService {
 
   private socket:Socket | undefined;
 
-  private readonly SOCKET_URL = 'http://localhost:3002/blackjack';
-
-  constructor() {}
+  private readonly configService = inject(ConfigService);
 
   connect(): void {
-    this.socket = io(this.SOCKET_URL);
+    this.socket = io(this.configService.config.GAMES_URL + '/blackjack');
   }
 
   disconnect(): void {
