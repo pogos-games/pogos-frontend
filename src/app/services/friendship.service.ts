@@ -25,4 +25,9 @@ export class FriendshipService {
   rejectFriendship(friendshipId: string): Observable<void> {
     return this.http.post<void>(`${environment.coreURL}/friendship/REJECT/${friendshipId}`, {});
   }
+
+  // Envoyer une demande d'ami
+  sendFriendship(userId: string): Observable<void> {
+    return this.http.post<void>(`${environment.coreURL}/friendship/send/${userId}`, {});
+  }
 }

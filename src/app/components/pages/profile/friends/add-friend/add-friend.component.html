@@ -1,1 +1,66 @@
-<p>add-friend works!</p>
+<div class="add-friend-wrapper">
+
+    <div class="form-section">
+
+        <form nz-form class="form" [formGroup]="addFriendForm">
+
+            <nz-form-control class="form-control" nzHasFeedback [nzErrorTip]="friendPseudoErrorTpl">
+                <nz-input-group class="input" [nzSuffix]="suffixTemplateUser">
+                    <input type="text" placeholder="Pseudo*" nz-input formControlName="friendPseudo" />
+                </nz-input-group>
+                <ng-template #suffixTemplateUser>
+                    <span nz-icon class="input-icon custom-icon-size" nzType="user"></span>
+                </ng-template>
+                <ng-template #friendPseudoErrorTpl let-control>
+                    @if (control.errors?.['minlength'] && control.touched) {
+                    Entrez un nom d'au moins 2 caractères
+                    }
+                </ng-template>
+            </nz-form-control>
+
+        </form>
+
+    </div>
+
+    <div class="friendList-section">
+        <div class="friendList">
+            @if (isLoading) {
+            <div class="loading">
+                <nz-spin nzSize="large"></nz-spin>
+            </div>
+            }
+
+            @if (users.length > 0 && !isLoading) {
+            <div class="list-friends">
+                @for (user of users; track $index) {
+                <div class="friend-card">
+                    <div class="friend-info">
+                        <img [src]="'/assets/avatar/' + user.avatar.toLowerCase() + '.png'" [alt]="user.avatar"
+                            class="friend-avatar" />
+                        <p class="friend-username">{{ user.username }}</p>
+                    </div>
+                    <div class="friends-actions">
+                        <button nz-button class="delete-button" nzType="primary" (click)="sendFriendRequest(user.id)">
+                            <span nz-icon nzType="user-add" nzTheme="outline"></span>
+                        </button>
+                    </div>
+                </div>
+                }
+            </div>
+            }
+            @if (shouldShowPagination) {
+            <div class="pagination">
+                <nz-pagination [nzPageSize]="pageSize" [nzTotal]="meta?.itemCount" [nzPageIndex]="currentPage"
+                    (nzPageIndexChange)="loadPage($event)">
+                </nz-pagination>
+            </div>
+            }
+            @if (!isLoading && users.length === 0 && addFriendForm.get('friendPseudo')?.value?.length >= 3) {
+            <div class="no-users">
+                Aucun utilisateur trouvé.
+            </div>
+            }
+        </div>
+    </div>
+
+</div>
