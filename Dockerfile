@@ -11,6 +11,6 @@ RUN chmod +x /tmp/envsubst.sh
 
 ENTRYPOINT ["/tmp/envsubst.sh"]
 
-EXPOSE 80
+EXPOSE 4200
 
 CMD ["nginx", "-g", "daemon off;"]
