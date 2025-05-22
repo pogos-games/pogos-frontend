@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {BlackJackActions} from "../../../model/enum/black-jack.actions.enum";
 import {BlackJackMessage} from "../../../model/enum/black-jack.message.enum";
 import {NgOptimizedImage} from "@angular/common";
@@ -24,16 +24,16 @@ export class GameTableComponent {
   protected readonly BlackJackAction = BlackJackActions;
   protected readonly BlackJackMessage = BlackJackMessage;
   protected blackJackDeck : BlackjackDeck = { playerHand: new Set<Card>(), dealerHand: new Set<Card>(), playerTotal: 0, message: BlackJackMessage.CONTINUE };
-
-  cards: Card[] = [
-    { rank: 'A', suit: 'H', value: 1 },
-    { rank: '2', suit: 'C', value: 2 },
-    { rank: '3', suit: 'S', value: 3 },
-    { rank: '4', suit: 'D', value: 4 },
-  ];
+  @Input()
+  public hands!: { 
+    player1Hand: Card[], 
+    player2Hand: Card[], 
+    player3Hand: Card[], 
+    dealerHand: Card[], 
+    selfHand: Card[] 
+  };
 
   executeAction(action : BlackJackActions) : void {
     console.log('action : ',action)
   }
-
 }
