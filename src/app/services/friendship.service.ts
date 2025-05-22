@@ -1,8 +1,8 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {FriendshipResponseDto} from "../model/dto/response/friendship-response.dto";
-import {ConfigService} from "./config.service";
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { FriendshipResponseDto } from "../model/dto/response/friendship-response.dto";
+import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,6 @@ export class FriendshipService {
 
   // Envoyer une demande d'ami
   sendFriendship(userId: string): Observable<void> {
-    return this.http.post<void>(`${environment.coreURL}/friendship/send/${userId}`, {});
+    return this.http.post<void>(`${this.CORE_URL}/friendship/send/${userId}`, {});
   }
 }
