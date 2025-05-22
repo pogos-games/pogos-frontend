@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable, shareReplay } from 'rxjs';
 import { GameActions } from '../../model/enum/game.actions.enum';
 import { BlackJackActions } from '../../model/enum/black-jack.actions.enum';
 import { GatewayEventEmitter } from '../../model/enum/gateway-event-emitter.enum';
+import { ConfigService } from "../config.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ export class BlackjackService {
   private playerId: string | null = null;
   private players: any[] = [];
   private playerBet: number = 0;
+
+  private configService: ConfigService = inject(ConfigService);
+  private readonly GAMES_URL = this.configService.config.GAMES_URL;
 
   setPlayers(players: any[]): void {
     this.players = players;
@@ -33,7 +37,7 @@ export class BlackjackService {
 
 
   constructor() {
-    this.socket = io('http://localhost:3002/blackjack');
+    this.socket = io(this.GAMES_URL);
 
     this.socket.on('connect', () => {
       console.log('WebSocket connecté !', this.socket.id);
