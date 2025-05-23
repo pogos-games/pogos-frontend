@@ -1,23 +1,24 @@
 import {inject, Injectable} from '@angular/core';
-import { io, Socket } from 'socket.io-client';
-import { Observable, shareReplay } from 'rxjs';
-import { GameActions } from '../../model/enum/game.actions.enum';
-import { BlackJackActions } from '../../model/enum/black-jack.actions.enum';
-import { GatewayEventEmitter } from '../../model/enum/gateway-event-emitter.enum';
-import { ConfigService } from "../config.service";
+import {io, Socket} from 'socket.io-client';
+import {Observable, shareReplay} from 'rxjs';
+import {GameActions} from '../../model/enum/game.actions.enum';
+import {BlackJackActions} from '../../model/enum/black-jack.actions.enum';
+import {GatewayEventEmitter} from '../../model/enum/gateway-event-emitter.enum';
+import {ConfigService} from "../config.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlackjackService {
-  private socket: Socket;
+
+  private readonly socket: Socket;
+  private readonly configService: ConfigService = inject(ConfigService);
+  private readonly GAMES_URL = this.configService.config.GAMES_URL;
+
   private gameId: string | null = null;
   private playerId: string | null = null;
   private players: any[] = [];
   private playerBet: number = 0;
-
-  private configService: ConfigService = inject(ConfigService);
-  private readonly GAMES_URL = this.configService.config.GAMES_URL;
 
   setPlayers(players: any[]): void {
     this.players = players;

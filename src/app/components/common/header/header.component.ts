@@ -12,9 +12,9 @@ import {LeaveButtonComponent} from "../leave-button/leave-button.component";
 import {User} from "../../../model/user.interface";
 import {NotificationsResponseDto} from "../../../model/dto/response/notifications-response.dto";
 import {UserAuthService} from "../../../services/auth/user-auth.service";
-import {LocalStorageService} from "../../../services/storage/local-storage.service";
 import {FriendshipService} from "../../../services/friendship.service";
 import {NotificationService} from "../../../services/notification.service";
+import {ThemeService} from "../../../services/theme.service";
 
 @Component({
   selector: 'app-header',
@@ -54,15 +54,13 @@ export class HeaderComponent implements OnInit {
 
   modalVisibility: Map<string, WritableSignal<boolean>> = new Map();
 
-  isDarkTheme: boolean = false
-
   user: Signal<User> = this.userAuthService.user;
 
   notifications: WritableSignal<NotificationsResponseDto[]> = signal([]);
 
   constructor(private readonly userAuthService: UserAuthService,
               private readonly router: Router,
-              private readonly localStorageService: LocalStorageService,
+              public readonly themeService:ThemeService,
               private readonly notificationService: NotificationService,
               private readonly friendshipService: FriendshipService) { }
 
@@ -81,7 +79,6 @@ export class HeaderComponent implements OnInit {
     this.showModal('leaveModal');
     this.router.navigateByUrl('/games');
   }
-
 
   handleDisconnect(): void {
     this.userAuthService.logout();
@@ -113,34 +110,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    // Theme management
-    const savedTheme = this.localStorageService.getItem('theme');
-
-    if (savedTheme !== null) {
-      this.isDarkTheme = JSON.parse(savedTheme);
-    } else {
-      this.isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-
-    document.body.classList.toggle('dark-theme', this.isDarkTheme);
-
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-      if (savedTheme === null) {
-        this.isDarkTheme = event.matches;
-        document.body.classList.toggle('dark-theme', this.isDarkTheme);
-      }
-    });
-
     // Notification management
     this.getNotifications();
-
-  }
-
-  toggleTheme(): void {
-    this.isDarkTheme = !this.isDarkTheme;
-    document.body.classList.toggle('dark-theme', this.isDarkTheme);
-    this.localStorageService.setItem('theme', JSON.stringify(this.isDarkTheme));
   }
 
   handleAcceptFriendship(friendId: string): void {

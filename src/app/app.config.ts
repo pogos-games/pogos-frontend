@@ -13,6 +13,7 @@ import {icons} from './icons-provider'
 import {AuthInterceptor} from './auth/interceptor/auth.interceptor';
 import {ConfigService} from "./services/config.service";
 import {appInit} from "./app.init";
+import {ThemeService} from "./services/theme.service";
 
 registerLocaleData(fr);
 
@@ -28,6 +29,7 @@ registerLocaleData(fr);
 export const appConfig: ApplicationConfig = {
   providers: [
     ConfigService,
+    ThemeService,
     provideAppInitializer(appInit),
     {
       provide: HTTP_INTERCEPTORS,

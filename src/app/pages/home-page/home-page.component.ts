@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {Router, RouterLink} from "@angular/router";
 import {UserAuthService} from "../../services/auth/user-auth.service";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
+import {ThemeButtonComponent} from "../../components/common/theme-button/theme-button.component";
 
 @Component({
     selector: 'app-home-page',
@@ -11,17 +12,19 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
     NzButtonComponent,
     RouterLink,
     NzColDirective,
-    NzRowDirective
+    NzRowDirective,
+    ThemeButtonComponent
   ],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private readonly userAuthService:UserAuthService, private readonly router:Router) {
-  }
+  private readonly userAuthService: UserAuthService = inject(UserAuthService);
+  private readonly router: Router = inject(Router);
 
   ngOnInit() {
+
     if(this.userAuthService.isUserLoggedIn()) {
       this.router.navigateByUrl('/games')
     }
