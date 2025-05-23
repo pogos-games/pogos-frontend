@@ -48,7 +48,8 @@
               }
               @for (notification of notifications(); track $index) {
               <app-notification [notification]="notification" (accept)="handleAcceptFriendship($event)"
-                (denied)="handleRejectFriendship($event)"></app-notification>
+                (denied)="handleRejectFriendship($event)"
+                (delete)="handleDeleteNotification($event)"></app-notification>
               }
             </div>
           </ng-template>

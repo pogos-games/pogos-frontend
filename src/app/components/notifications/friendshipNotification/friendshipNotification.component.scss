@@ -19,6 +19,15 @@
     height: 100%;
 }
 
+.notif-content-friend-accept {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    height: 100%;
+}
+
 .sender {
     display: flex;
     flex-direction: row;
@@ -55,6 +64,15 @@
     justify-content: space-evenly;
     align-items: center;
     width: 22%;
+    height: 100%;
+}
+
+.friends-notif-buttons-delete {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
     height: 100%;
 }
 

@@ -1,0 +1,187 @@
+.add-friend-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 98%;
+    height: 45vh;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: -0.75em;
+    margin-left: 1em;
+    flex-shrink: 0; // Empêche la compression du formulaire
+}
+
+.friendList-section {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 98%;
+    margin: 1.5em auto;
+    min-height: 0; // Important pour permettre le scroll
+    overflow: hidden; // Cache le débordement au niveau du conteneur
+}
+
+.friendList {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0; // Important pour le flex
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input {
+    width: 25em;
+    padding: 10px;
+    border-radius: 16px;
+    border: none;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-right: 10px;
+}
+
+.custom-icon-size {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 40px;
+    background-color: #4E7FBA;
+    color: white;
+    border-radius: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    font-family: "Lilita One", serif;
+
+    &:hover {
+        background-color: #214484;
+        color: white;
+    }
+}
+
+.form-error {
+    margin-bottom: -.5em;
+    color: red;
+    font-size: 14px;
+    align-self: center;
+}
+
+// Loading state
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+// Friends List - Version scrollable
+.list-friends {
+    flex: 1; // Prend tout l'espace disponible
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1em;
+    overflow-y: auto; // Scroll vertical
+    overflow-x: hidden; // Pas de scroll horizontal
+}
+
+.friend-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 80px; // Hauteur minimale fixe
+    border-radius: 17px;
+    background-color: rgb(255, 243, 227);
+    padding: 1em;
+    flex-shrink: 0; // Empêche la compression des cartes
+}
+
+.friend-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+    min-height: 80px; // Hauteur minimale fixe
+    border-radius: 17px;
+    background-color: rgb(255, 243, 227);
+    flex-shrink: 0; // Empêche la compression des cartes
+}
+
+.friend-avatar {
+    width: 4em;
+    height: 4em; // Hauteur fixe pour éviter la déformation
+    margin-right: 1.5em;
+    flex-shrink: 0; // Empêche la compression de l'avatar
+}
+
+.friend-username {
+    font-size: 1.8em;
+    font-family: "Lilita One", serif;
+    margin: 0; // Retire les marges par défaut
+    word-break: break-word; // Gère les longs noms d'utilisateur
+}
+
+// Pagination
+.pagination {
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0; // Empêche la compression de la pagination
+    border-top: 1px solid #eee;
+}
+
+// Message "aucun utilisateur"
+.no-users {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: #666;
+    font-size: 1.1em;
+    font-style: italic;
+}
+
+.delete-button {
+    margin: 0 1.25em;
+    width: 2.75em;
+    height: 2.75em;
+    border-radius: 7.5px;
+    color: white;
+    background-color: rgb(48, 121, 205);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    z-index: 1;
+    background-color: rgb(11, 97, 196);
+    transform: scale(1.1);
+}

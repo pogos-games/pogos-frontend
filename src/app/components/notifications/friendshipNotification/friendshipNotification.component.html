@@ -1,10 +1,27 @@
+@if (notification.type === notificationType.FRIENDSHIP_ACCEPTED) {
+<div class="notification">
+    <div class="notif-content-friend-accept">
+        <div class="sender"><img [src]="'/assets/avatar/' + notification.sender.avatar.toLowerCase() + '.png'"
+                [alt]="notification.sender.avatar" class="sender-avatar" />
+            <p class="sender-username">{{ notification.sender.username }}</p>
+        </div>
+        <p class="message">est votre nouveau copain !</p>
+    </div>
+    <div class="friends-notif-buttons-delete">
+        <button nz-button class="red-button" nzType="primary" (click)="handleDelete()" title="accept">
+            <span nz-icon nzType="close" nzTheme="outline"></span>
+        </button>
+    </div>
+</div>
+}
+@else if (notification.type === notificationType.FRIENDSHIP_REQUEST) {
 <div class="notification">
     <div class="notif-content">
         <div class="sender"><img [src]="'/assets/avatar/' + notification.sender.avatar.toLowerCase() + '.png'"
                 [alt]="notification.sender.avatar" class="sender-avatar" />
             <p class="sender-username">{{ notification.sender.username }}</p>
         </div>
-        <p class="message">{{ notification.message }}</p>
+        <p class="message">veut être votre copain !</p>
     </div>
     <div class="friends-notif-buttons">
         <button nz-button class="green-button" nzType="primary" (click)="handleAccept()" title="accept">
@@ -14,3 +31,5 @@
             <span nz-icon nzType="close" nzTheme="outline"></span>
         </button>
     </div>
+</div>
+}
