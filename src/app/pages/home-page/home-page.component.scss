@@ -17,6 +17,24 @@
 }
 
 
+.rotate-left {
+  transform: rotate(5deg) scale(0.9);
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: rotate(-5deg) scale(1);
+  }
+}
+
+.rotate-right {
+  transform: rotate(-5deg) scale(0.9);
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: rotate(5deg) scale(1); // Changed to rotate in opposite direction
+  }
+}
+
 
 .row{
   width: 100%;
@@ -45,13 +63,6 @@
   align-items: center;
 }
 
-.rotate-left {
-  transform: rotate(5deg) scale(0.9);
-}
-
-.rotate-right {
-  transform: rotate(-5deg) scale(0.9);
-}
 
 @media screen and (max-width: 992px) {
   .home-inner-box img {
@@ -73,4 +84,15 @@
     border-radius: 5px;
   }
 
+  .rotate-left {
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .rotate-right {
+    &:hover {
+      transform:none;
+    }
+    }
 }

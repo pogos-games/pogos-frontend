@@ -54,8 +54,8 @@
             </div>
           </ng-template>
 
-          <button nz-button class="button" nzType="primary" (click)="toggleTheme()" title="Changer le thème">
-            <span class="icon" nz-icon [nzType]="isDarkTheme ? 'sun' : 'moon'" nzTheme="outline"></span>
+          <button nz-button class="button" nzType="primary" (click)="themeService.toggleTheme()" title="Changer le thème">
+            <span class="icon" nz-icon [nzType]="themeService.isDarkTheme ? 'sun' : 'moon'" nzTheme="outline"></span>
           </button>
 
           <nz-divider class="divider" nzType="vertical"></nz-divider>
