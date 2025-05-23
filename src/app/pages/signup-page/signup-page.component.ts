@@ -14,6 +14,7 @@ import { UserService } from "../../services/user.service";
 import { NzFormControlComponent, NzFormDirective } from "ng-zorro-antd/form";
 import { CustomValidator } from "../../validator/custom.validator";
 import { LeaveButtonComponent } from '../../components/common/leave-button/leave-button.component';
+import {ThemeButtonComponent} from "../../components/common/theme-button/theme-button.component";
 
 @Component({
   selector: 'app-signup-page',
@@ -32,7 +33,8 @@ import { LeaveButtonComponent } from '../../components/common/leave-button/leave
     LeaveButtonComponent,
     RouterLink,
     NzFormDirective,
-    NzFormControlComponent
+    NzFormControlComponent,
+    ThemeButtonComponent
   ],
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.scss']
