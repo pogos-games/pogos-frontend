@@ -6,7 +6,7 @@ import {firstValueFrom} from "rxjs";
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
 
-  private _environmentConfig: EnvConfig  = { CORE_URL: '', GAMES_URL: '' };
+  private _environmentConfig: EnvConfig  = { CORE_URL: '',CORE_SOCKET:'', GAMES_URL: '', GAMES_SOCKET:''};
 
   private readonly http: HttpClient;
 
@@ -22,7 +22,6 @@ export class ConfigService {
       }
     );
   }
-
 
   get config(): EnvConfig {
     return this._environmentConfig;

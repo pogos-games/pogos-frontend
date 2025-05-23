@@ -38,7 +38,10 @@ export class BlackjackService {
 
 
   constructor() {
-    this.socket = io(this.GAMES_URL + '/blackjack');
+    this.socket = io(this.GAMES_URL + '/blackjack', {
+      path: '/api/games/socket.io',
+      transports: ['websocket'],
+    });
 
     this.socket.on('connect', () => {
       console.log('WebSocket connecté !', this.socket.id);
