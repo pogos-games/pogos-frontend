@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { NzFormControlComponent, NzFormDirective } from 'ng-zorro-antd/form';
@@ -9,6 +9,8 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { CommonModule } from '@angular/common';
 
+import { User } from '../../../../../model/user.interface';
+import { UserAuthService } from '../../../../../services/auth/user-auth.service';
 import { UserService } from '../../../../../services/user.service';
 import { FriendshipService } from '../../../../../services/friendship.service';
 import { PageResponseDto } from '../../../../../model/dto/response/page-response.dto';
@@ -41,6 +43,7 @@ export class AddFriendComponent implements OnInit, OnDestroy {
     })
   });
 
+  user: Signal<User> = this.userAuthService.user;
   users: UserResponseDto[] = [];
   meta: PageResponseDto<UserResponseDto>['meta'] | null = null;
 
@@ -50,7 +53,7 @@ export class AddFriendComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor(private readonly userService: UserService, private readonly FriendshipService: FriendshipService) { }
+  constructor(private readonly userService: UserService, private readonly FriendshipService: FriendshipService, private readonly userAuthService: UserAuthService) { }
 
   ngOnInit(): void {
     this.addFriendForm.get('friendPseudo')!.valueChanges
@@ -67,7 +70,7 @@ export class AddFriendComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (res) => {
-          this.users = res.data;
+          this.users = res.data.filter(user => user.id !== this.user().id);
           this.meta = res.meta;
           this.isLoading = false;
         },
@@ -88,7 +91,7 @@ export class AddFriendComponent implements OnInit, OnDestroy {
 
     this.userService.getUserByName(pseudo, this.currentPage, this.pageSize).subscribe({
       next: (res) => {
-        this.users = res.data;
+        this.users = res.data.filter(user => user.id !== this.user().id);
         this.meta = res.meta;
         this.isLoading = false;
       },
