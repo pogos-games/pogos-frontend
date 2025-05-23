@@ -5,10 +5,7 @@
   </div>
 
   <div id="game-buttons">
-    <app-pogos-button style="width: 100%;" [title]="'BlackJack'" ></app-pogos-button>
-    <app-pogos-button style="width: 100%;" [title]="'Uno'" ></app-pogos-button>
-    <app-pogos-button style="width: 100%;" [title]="'Tarot'" ></app-pogos-button>
-    <app-pogos-button style="width: 100%;" [title]="'Poker'" ></app-pogos-button>
+    <app-pogos-button *ngFor="let game of games" style="width: 100%;" [title]="game" (clicked)="emitGameName(game)"></app-pogos-button>
   </div>
 
 </div>

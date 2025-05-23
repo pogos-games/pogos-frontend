@@ -4,6 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'app-pogos-button',
   templateUrl: './pogos-button.component.html',
   styleUrls: ['./pogos-button.component.scss'],
+  standalone: true
 })
 export class PogosButton {
   @Input({ required: true }) title: string = '';

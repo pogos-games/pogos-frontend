@@ -17,16 +17,18 @@
         <li *ngFor="let player of players">{{ player }}</li>
       </ul>
 
-      <label for="bet"><strong>Mise :</strong></label>
-      <input
-        id="bet"
-        type="number"
-        [(ngModel)]="betAmount"
-        min="10"
-        max="1000"
-        step="10"
-        class="bet-input"
-      />
+      @if (initialBet() != -1){
+        <label for="bet"><strong>Mise :</strong></label>
+        <input
+          id="bet"
+          type="number"
+          [(ngModel)]="betAmount"
+          min="10"
+          max="1000"
+          step="10"
+          class="bet-input"
+        />
+      }
     </div>
   </ng-container>
 </nz-modal>
