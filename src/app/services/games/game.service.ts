@@ -12,7 +12,7 @@ export class GameService implements OnDestroy{
 
   private readonly socket: Socket;
   private readonly configService: ConfigService = inject(ConfigService);
-  private readonly GAMES_URL = this.configService.config.GAMES_URL;
+  private readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
   protected gameId: string | null = null;
   protected playerId: string | null = null;
   protected players: any[] = [];
@@ -27,7 +27,10 @@ export class GameService implements OnDestroy{
   }
 
   constructor() {
-    this.socket = io(this.GAMES_URL+this.gameUrl);
+    this.socket = io(this.GAMES_SOCKET + this.gameUrl, {
+      path: '/api/games/socket.io',
+      transports: ['websocket'],
+    });
 
     this.socket.on('connect', () => {
       console.log('WebSocket connecté !', this.socket.id);
