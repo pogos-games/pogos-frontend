@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {PogosButton} from "../../../common/pogos-button/pogos-button.component";
 
 @Component({
@@ -11,5 +11,10 @@ import {PogosButton} from "../../../common/pogos-button/pogos-button.component";
 })
 export class GameSelectorComponent {
 
+  @Output() gameSelected = new EventEmitter<string>();
+
+  onGameClick(title: string) {
+    this.gameSelected.emit(title);
+  }
 
 }

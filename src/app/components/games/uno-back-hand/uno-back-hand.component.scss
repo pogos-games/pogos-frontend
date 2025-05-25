@@ -1,0 +1,118 @@
+.uno-back-hand {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0;
+  padding: 20px;
+  perspective: 1000px;
+  position: relative;
+}
+
+/* Inclinaisons de base pour une main de 5 cartes (bas) */
+.uno-back-hand app-uno-card-back {
+  position: relative;
+  margin: 0 -25px;
+  transition: transform 0.3s ease;
+}
+
+/* Bas : éventail horizontal classique */
+.uno-hand-bottom app-uno-card-back:nth-child(1) { transform: rotate(-25deg) translateY(20px); z-index: 1; }
+.uno-hand-bottom app-uno-card-back:nth-child(2) { transform: rotate(-12deg) translateY(10px); z-index: 2; }
+.uno-hand-bottom app-uno-card-back:nth-child(3) { transform: rotate(0deg); z-index: 3; }
+.uno-hand-bottom app-uno-card-back:nth-child(4) { transform: rotate(12deg) translateY(10px); z-index: 4; }
+.uno-hand-bottom app-uno-card-back:nth-child(5) { transform: rotate(25deg) translateY(20px); z-index: 5; }
+
+/* Haut : effet miroir du bas */
+.uno-hand-top app-uno-card-back:nth-child(1) { transform: rotate(25deg) translateY(-20px); z-index: 1; }
+.uno-hand-top app-uno-card-back:nth-child(2) { transform: rotate(12deg) translateY(-10px); z-index: 2; }
+.uno-hand-top app-uno-card-back:nth-child(3) { transform: rotate(0deg); z-index: 3; }
+.uno-hand-top app-uno-card-back:nth-child(4) { transform: rotate(-12deg) translateY(-10px); z-index: 4; }
+.uno-hand-top app-uno-card-back:nth-child(5) { transform: rotate(-25deg) translateY(-20px); z-index: 5; }
+
+/* Main gauche : éventail vertical */
+.uno-hand-left {
+  position: relative;
+  width: 120px;
+  height: 300px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.uno-hand-left app-uno-card-back {
+  position: absolute;
+  transform-origin: center center;
+  margin: 0;
+}
+
+/* Éventail gauche : cartes tournées à 90° et inclinées */
+.uno-hand-left app-uno-card-back:nth-child(1) {
+  transform: rotate(90deg) rotate(-30deg) translateX(-15px);
+  top: -10px;
+  z-index: 1;
+}
+.uno-hand-left app-uno-card-back:nth-child(2) {
+  transform: rotate(90deg) rotate(-15deg) translateX(-8px);
+  top: 20px;
+  z-index: 2;
+}
+.uno-hand-left app-uno-card-back:nth-child(3) {
+  transform: rotate(90deg) rotate(0deg);
+  top: 50px;
+  z-index: 3;
+}
+.uno-hand-left app-uno-card-back:nth-child(4) {
+  transform: rotate(90deg) rotate(15deg) translateX(8px);
+  top: 80px;
+  z-index: 4;
+}
+.uno-hand-left app-uno-card-back:nth-child(5) {
+  transform: rotate(90deg) rotate(30deg) translateX(15px);
+  top: 110px;
+  z-index: 5;
+}
+
+/* Main droite : éventail vertical */
+.uno-hand-right {
+  position: relative;
+  width: 120px;
+  height: 300px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.uno-hand-right app-uno-card-back {
+  position: absolute;
+  transform-origin: center center;
+  margin: 0;
+}
+
+/* Éventail droite : cartes tournées à 90° et inclinées dans l'autre sens */
+.uno-hand-right app-uno-card-back:nth-child(1) {
+  transform: rotate(90deg) rotate(30deg) translateX(15px);
+  top: -10px;
+  z-index: 1;
+}
+.uno-hand-right app-uno-card-back:nth-child(2) {
+  transform: rotate(90deg) rotate(15deg) translateX(8px);
+  top: 20px;
+  z-index: 2;
+}
+.uno-hand-right app-uno-card-back:nth-child(3) {
+  transform: rotate(90deg) rotate(0deg);
+  top: 50px;
+  z-index: 3;
+}
+.uno-hand-right app-uno-card-back:nth-child(4) {
+  transform: rotate(90deg) rotate(-15deg) translateX(-8px);
+  top: 80px;
+  z-index: 4;
+}
+.uno-hand-right app-uno-card-back:nth-child(5) {
+  transform: rotate(90deg) rotate(-30deg) translateX(-15px);
+  top: 110px;
+  z-index: 5;
+}

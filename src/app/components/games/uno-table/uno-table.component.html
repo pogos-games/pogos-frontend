@@ -1,0 +1,29 @@
+<div class="uno-table">
+
+  <div class="left column">
+    <div class="left-player">
+      <app-uno-back-hand [direction]="'left'"></app-uno-back-hand>
+    </div>
+  </div>
+
+  <div class="center column">
+
+    <div class="top-player">
+      <app-uno-back-hand [direction]="'top'"></app-uno-back-hand>
+    </div>
+
+    <div class="game-hand">
+      <app-uno-card></app-uno-card>
+      <app-uno-card-back></app-uno-card-back>
+    </div>
+      <div class="bottom-player">
+        <app-uno-hand></app-uno-hand>
+      </div>
+    </div>
+
+  <div class="right column">
+    <div class="right-player">
+      <app-uno-back-hand [direction]="'right'"></app-uno-back-hand>
+    </div>
+  </div>
+</div>

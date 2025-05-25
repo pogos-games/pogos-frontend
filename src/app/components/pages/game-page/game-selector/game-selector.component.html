@@ -5,8 +5,8 @@
   </div>
 
   <div id="game-buttons">
-    <app-pogos-button style="width: 100%;" [title]="'BlackJack'" ></app-pogos-button>
-    <app-pogos-button style="width: 100%;" [title]="'Uno'" ></app-pogos-button>
+    <app-pogos-button style="width: 100%;" [title]="'BlackJack'" (click)="onGameClick('blackJack')"></app-pogos-button>
+    <app-pogos-button style="width: 100%;" [title]="'Uno'" (click)="onGameClick('uno')"></app-pogos-button>
     <app-pogos-button style="width: 100%;" [title]="'Tarot'" ></app-pogos-button>
     <app-pogos-button style="width: 100%;" [title]="'Poker'" ></app-pogos-button>
   </div>

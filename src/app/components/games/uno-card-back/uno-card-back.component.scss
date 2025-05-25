@@ -1,0 +1,64 @@
+// uno-card-back.component.scss
+.uno-card-back {
+  width: 80px;
+  height: 120px;
+  border-radius: 12px;
+  background-color: #000000;
+  border: 3px solid white;
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  .red-oval {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: #e53935;
+    transform: translate(-50%, -50%) rotate(-25deg);
+    width: 60px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .uno-text {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #ffd700;
+      letter-spacing: 2px;
+      transform: rotate(20deg);
+      text-shadow:
+        -2px -2px 0px #ffd700,
+        2px -2px 0px #000,
+        0px 0px 4px rgba(0, 0, 0, 0.8);
+
+      // Effet de relief doré
+      background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffc107 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      // Contour blanc pour plus de contraste
+      -webkit-text-stroke: 1px white;
+    }
+  }
+}
+
+// Animation optionnelle pour les cartes sélectionnées
+.uno-card-back.selected {
+  transform: translateY(-10px);
+}
+
+.uno-card-back.unplayable {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

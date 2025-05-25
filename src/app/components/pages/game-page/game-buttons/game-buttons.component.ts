@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {RouterLink} from "@angular/router";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
@@ -21,10 +21,9 @@ export class GameButtonsComponent {
 
   @Output() showModalEvent = new EventEmitter<void>();
 
-  protected title: string = 'Blackjack';
+  @Input({required:true}) title: string = 'Blackjack';
 
-  constructor(private blackJackService: BlackjackService) {
-  }
+  private readonly blackJackService: BlackjackService = inject(BlackjackService)
 
   protected showModal() {
     switch (this.title) {
