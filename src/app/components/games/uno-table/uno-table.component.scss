@@ -1,11 +1,18 @@
 .uno-table {
-  height: 50vh;
-  width: 60vw;
+  height: 70vh;
+  width: 80vw;
   display: flex;
   flex-direction: row;
   justify-content: center;
   background-color: var(--secondary-bg-color);
+  border-radius: 8px; /* optionnel, pour adoucir */
 }
+
+/* Lors d’un survol par exemple */
+.uno-table:hover {
+  border-color: var(--primary-color); /* ta couleur principale */
+}
+
 
 .column {
   width: 100%;
@@ -18,7 +25,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: cyan;
+
 }
 
 .game-hand{
@@ -27,4 +34,50 @@
   align-items: center;
   margin: 10px;
   gap: 10px;
+}
+
+.player-infos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.player-infos span{
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.player-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--pogos-button-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-player {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 250px;
+}
+
+.right-player {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 250px;
+}
+
+@media screen and (max-width: 992px) {
+
+  .uno-table {
+    width: 100vw;
+  }
 }
