@@ -25,7 +25,7 @@ export class GameButtonsComponent {
 
   @Input() gameName: string = "BlackJack";
 
-  constructor(private gameServiceFactory: GameServiceFactory) {
+  constructor(private readonly gameServiceFactory: GameServiceFactory) {
   }
 
   protected showModal() {

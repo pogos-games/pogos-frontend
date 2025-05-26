@@ -61,8 +61,11 @@ export class PokerPageComponent extends PlayGamePage {
 
   protected readonly PokerActions = PokerActions;
 
-  placeBet(_: number){}
+  placeBet(bet: number){
+    this.playerBet = bet
+  }
 
   protected gameFound() {
+    console.log("game found")
   }
 }

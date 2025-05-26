@@ -8,8 +8,8 @@ export class GameServiceFactory {
   private readonly serviceMap: { [key: string]: GameService };
 
   constructor(
-    private blackjackService: BlackjackService,
-    private pokerService: PokerService
+    private readonly blackjackService: BlackjackService,
+    private readonly pokerService: PokerService
   ) {
     this.serviceMap = {
       'BlackJack': this.blackjackService,

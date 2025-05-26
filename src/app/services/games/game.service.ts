@@ -121,7 +121,9 @@ export class GameService implements OnDestroy{
     this.playerId = null;
   }
 
-  setBet(bet: number){}
+  setBet(bet: number){
+    console.log("setBet: " + bet)
+  }
 
   getBet(): number {return -1}
 
