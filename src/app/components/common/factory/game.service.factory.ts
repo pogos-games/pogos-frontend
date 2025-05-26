@@ -1,11 +1,11 @@
 import {GameService} from "../../../services/games/game.service";
-import {PokerService} from "../../../services/poker.service";
+import {PokerService} from "../../../services/games/poker.service";
 import {BlackjackService} from "../../../services/games/blackjack.service";
 import {Injectable} from "@angular/core";
 
 @Injectable({ providedIn: 'root' })
 export class GameServiceFactory {
-  private serviceMap: { [key: string]: GameService };
+  private readonly serviceMap: { [key: string]: GameService };
 
   constructor(
     private blackjackService: BlackjackService,

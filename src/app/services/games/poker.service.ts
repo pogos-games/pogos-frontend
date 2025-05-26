@@ -5,6 +5,11 @@ import {GameService} from "./game.service";
   providedIn: 'root'
 })
 export class PokerService extends GameService{
-  protected override gameUrl : string = "poker"
+
+  constructor() {
+    super();
+    this.gameUrl = '/poker';
+    this.initializeSocket();
+  }
 }
 

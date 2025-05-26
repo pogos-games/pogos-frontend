@@ -10,9 +10,9 @@ import {ConfigService} from "../config.service";
 })
 export class GameService implements OnDestroy{
 
-  private readonly socket: Socket;
-  private readonly configService: ConfigService = inject(ConfigService);
-  private readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
+  protected socket!: Socket;
+  protected readonly configService: ConfigService = inject(ConfigService);
+  protected readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
   protected gameId: string | null = null;
   protected playerId: string | null = null;
   protected players: any[] = [];
@@ -25,10 +25,11 @@ export class GameService implements OnDestroy{
   getPlayers(): any[] {
     return this.players;
   }
+  constructor() {}
 
-  constructor() {
+  protected initializeSocket(): void {
     this.socket = io(this.GAMES_SOCKET + this.gameUrl, {
-      path: '/api/games/socket.io',
+      path: this.GAMES_SOCKET.startsWith('https') ? '/api/games/socket.io' : '',
       transports: ['websocket'],
     });
 

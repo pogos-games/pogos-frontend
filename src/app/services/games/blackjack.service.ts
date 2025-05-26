@@ -5,10 +5,12 @@ import {GameService} from "./game.service";
   providedIn: 'root'
 })
 export class BlackjackService extends GameService{
-  protected override gameUrl: string = 'blackjack'
   private playerBet: number = 0;
+
   constructor() {
     super();
+    this.gameUrl = '/blackjack';
+    this.initializeSocket();
   }
   override setBet(bet: number): void {
     this.playerBet = bet;

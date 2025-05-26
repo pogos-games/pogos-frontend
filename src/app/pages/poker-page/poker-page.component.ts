@@ -8,7 +8,7 @@ import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
 import {ActivatedRoute, Router} from "@angular/router";
 import { Card } from '../../model/dto/request/card';
 import {PokerActions} from '../../model/enum/poker.actions.enum';
-import { PokerService } from '../../services/poker.service';
+import { PokerService } from '../../services/games/poker.service';
 import {PlayGamePage} from "../../components/common/play-game-page/play-game-page.component";
 import {ActionRowComponent} from "../../components/common/actions-row/action-row.component";
 import {ActionDescriptor} from "../../components/common/play-game-page/action-descriptor";
