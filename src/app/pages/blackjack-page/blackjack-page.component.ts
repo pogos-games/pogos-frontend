@@ -55,33 +55,8 @@ export class BlackjackPageComponent extends PlayGamePage {
     super(gameService, message, router, route)
   }
 
-  protected override createGame(): void {
-    this.gameId = this.gameService.getGameId();
-
-    if (this.gameId === null) {
-      const createGameSubscription = this.gameService.listenGameUpdate()
-        .subscribe((data: any) => {
-
-          if (typeof data === 'string') {
-            console.warn("⚠️ ID reçu comme string brut :", data);
-            this.gameService.setGameId(data);
-          } else if (data?.gameId) {
-            this.gameService.setGameId(data.gameId);
-          } else {
-            console.error("Erreur : ID de la partie non reçu.", data);
-            return;
-          }
-
-          this.gameService.sendMessage(GameActions.START_GAME, { type: this.gameType, bet: this.playerBalance });
-
-          createGameSubscription.unsubscribe();
-        });
-
-      this.gameService.sendMessage(GameActions.CREATE_GAME, this.gameType);
-    } else {
-      // Si on a déjà l’ID, on peut démarrer directement
-      this.gameService.sendMessage(GameActions.START_GAME, { type: this.gameType, bet: this.playerBalance });
-    }
+  protected override gameFound(): void{
+    this.gameService.sendMessage(GameActions.START_GAME, { type: this.gameType, bet: this.playerBalance });
   }
 
   protected override updatePlayerInfos(player: any): void {

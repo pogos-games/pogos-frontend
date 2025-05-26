@@ -99,8 +99,12 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
         });
 
       this.gameService.sendMessage(GameActions.CREATE_GAME, this.gameType);
+    } else {
+      this.gameFound();
     }
   }
+
+  protected abstract gameFound(): void;
 
   protected listenForGameUpdates(): void {
     this.gameService.listenGameUpdate()

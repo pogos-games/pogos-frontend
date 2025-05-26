@@ -6,7 +6,6 @@ import { RankingComponent } from '../../components/pages/game-page/ranking/ranki
 import { GameTableComponent } from '../../components/games/game-table/game-table.component';
 import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
 import {ActivatedRoute, Router} from "@angular/router";
-import { Card } from '../../model/dto/request/card';
 import {PokerActions} from '../../model/enum/poker.actions.enum';
 import { PokerService } from '../../services/games/poker.service';
 import {PlayGamePage} from "../../components/common/play-game-page/play-game-page.component";
@@ -38,31 +37,6 @@ export class PokerPageComponent extends PlayGamePage {
 
   protected playerBet: number = 0; // Mise actuelle du joueur
 
-  protected override hands: {
-    player1Hand: Card[],
-    player2Hand: Card[],
-    player3Hand: Card[],
-    dealerHand: Card[],
-    selfHand: Card[]
-  } = {
-    player1Hand: [
-      { rank: 'back', suit: '', value: 0 },
-      { rank: 'back', suit: '', value: 0 },
-    ],
-    player2Hand: [
-      { rank: 'back', suit: '', value: 0 },
-      { rank: 'back', suit: '', value: 0 },
-    ],
-    player3Hand: [
-      { rank: 'back', suit: '', value: 0 },
-      { rank: 'back', suit: '', value: 0 },
-    ],
-    selfHand: [
-    ],
-    dealerHand: [
-    ],
-  };
-
   isPotEmpty = false;
 
   override actions = [
@@ -88,4 +62,7 @@ export class PokerPageComponent extends PlayGamePage {
   protected readonly PokerActions = PokerActions;
 
   placeBet(_: number){}
+
+  protected gameFound() {
+  }
 }
