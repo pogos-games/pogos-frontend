@@ -63,7 +63,6 @@ export class HeaderComponent implements OnInit {
     private readonly router: Router,
     public readonly themeService: ThemeService,
     private readonly notificationService: NotificationService,
-    private readonly localStorageService: LocalStorageService,
     private readonly friendshipService: FriendshipService) { }
 
   showModal(modalId: string): void {
