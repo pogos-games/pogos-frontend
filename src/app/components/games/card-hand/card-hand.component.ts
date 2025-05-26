@@ -4,14 +4,15 @@ import {Card} from "../../../model/dto/request/card";
 import {NzBadgeComponent} from "ng-zorro-antd/badge";
 
 @Component({
-    selector: 'app-card-hand',
-    imports: [
-        NgOptimizedImage,
-        NzBadgeComponent,
-        NgClass
-    ],
-    templateUrl: './card-hand.component.html',
-    styleUrl: './card-hand.component.scss'
+  selector: 'app-card-hand',
+  imports: [
+    NgOptimizedImage,
+    NzBadgeComponent,
+    NgClass
+  ],
+  templateUrl: './card-hand.component.html',
+  standalone: true,
+  styleUrl: './card-hand.component.scss'
 })
 export class CardHandComponent {
 
