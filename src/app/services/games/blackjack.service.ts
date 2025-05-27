@@ -13,7 +13,7 @@ export class BlackjackService {
 
   private readonly socket: Socket;
   private readonly configService: ConfigService = inject(ConfigService);
-  private readonly GAMES_URL = this.configService.config.GAMES_URL;
+  private readonly GAMES_SOCKET = this.configService.config.GAMES_SOCKET;
 
   private gameId: string | null = null;
   private playerId: string | null = null;
@@ -38,7 +38,10 @@ export class BlackjackService {
 
 
   constructor() {
-    this.socket = io(this.GAMES_URL + '/blackjack');
+    this.socket = io(this.GAMES_SOCKET + '/blackjack', {
+      path: '/api/games/socket.io',
+      transports: ['websocket'],
+    });
 
     this.socket.on('connect', () => {
       console.log('WebSocket connecté !', this.socket.id);
