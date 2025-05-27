@@ -1,10 +1,10 @@
 .uno-table {
   height: 70vh;
-  width: 80vw;
+  width: 70vw;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: var(--secondary-bg-color);
+//  background-color: var(--secondary-bg-color);
   border-radius: 8px; /* optionnel, pour adoucir */
 }
 
@@ -47,6 +47,12 @@
 .player-infos span{
   font-size: 1.2em;
   font-weight: bold;
+
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
 }
 
 .player-icon {
@@ -57,6 +63,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+}
+
+.left-cards, .right-cards {
+  margin-top: 40px;
 }
 
 .left-player {
