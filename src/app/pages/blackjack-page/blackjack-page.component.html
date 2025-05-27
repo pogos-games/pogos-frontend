@@ -23,6 +23,10 @@
       [cancelText]="'Quitter'" [gameId]="gameId ?? ''" [players]="playerNames" [initialBet]="playerBet"
       (onOk)="handleWaitingRoomConfirmClick($event)" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
 
-
-
   </div>
+
+  <div class="ranking-content">
+    <app-ranking></app-ranking>
+  </div>
+
+</div>
