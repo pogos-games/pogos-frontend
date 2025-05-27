@@ -1,27 +1,315 @@
-
+/* Container principal des jetons - Ultra compact */
 #coins {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px 16px;
+  margin: 2px;
+  max-height: 12vh;
+  height: fit-content;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
+/* Container des jetons */
 .chips {
   display: flex;
-}
-
-.chip-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  gap: 8px;
   align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-height: 100%;
 }
 
+/* Bouton de jeton - compact */
 .chip-button {
+  background: transparent;
   border: none;
-  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .chip-button:hover {
-  transform: scale(1.1);
+  transform: translateY(-1px) scale(1.04);
+  filter: brightness(1.05);
+}
+
+.chip-button:active {
+  transform: translateY(0px) scale(0.98);
+  transition: all 0.1s ease;
+}
+
+/* Container de chaque jeton avec badge */
+.chip-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Image du jeton - taille réduite */
+.chip-container img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  animation: chip-spin 0.5s ease-out;
+}
+
+/* Animation de rotation réduite */
+@keyframes chip-spin {
+  from {
+    transform: rotate(0deg) scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: rotate(180deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Délai d'animation réduit */
+.chip-button:nth-child(1) img {
+  animation-delay: 0.05s;
+}
+
+.chip-button:nth-child(2) img {
+  animation-delay: 0.1s;
+}
+
+.chip-button:nth-child(3) img {
+  animation-delay: 0.15s;
+}
+
+.chip-button:nth-child(4) img {
+  animation-delay: 0.2s;
+}
+
+.chip-button:nth-child(5) img {
+  animation-delay: 0.25s;
+}
+
+.chip-button:nth-child(6) img {
+  animation-delay: 0.3s;
+}
+
+.chip-button:nth-child(7) img {
+  animation-delay: 0.35s;
+}
+
+/* Divider vertical compact */
+nz-divider[nzType="vertical"] {
+  height: 30px;
+  border-color: var(--primary-text-color);
+  opacity: 0.3;
+  margin: 0 4px;
+}
+
+/* Informations utilisateur - compact */
+.user-coins,
+.user-bet {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: "Lilita One", serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--primary-text-color);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+/* Badge compact pour les coins utilisateur */
+.user-coins .ant-badge .ant-badge-count {
+  background-color: #fff !important;
+  color: #666 !important;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+  font-family: "Lilita One", serif;
+  font-weight: bold;
+  font-size: 10px;
+  min-width: 20px;
+  height: 20px;
+  line-height: 18px;
+  border-radius: 10px;
+  padding: 0 4px;
+}
+
+/* Badge compact pour la mise utilisateur */
+.user-bet .ant-badge .ant-badge-count {
+  background-color: #fff !important;
+  color: #FFD700 !important;
+  border: 1px solid #FFD700;
+  box-shadow: 0 1px 2px rgba(255, 215, 0, 0.3) !important;
+  font-family: "Lilita One", serif;
+  font-weight: bold;
+  font-size: 10px;
+  min-width: 20px;
+  height: 20px;
+  line-height: 18px;
+  border-radius: 10px;
+  padding: 0 4px;
+  animation: bet-glow 2s ease-in-out infinite alternate;
+}
+
+/* Animation de brillance réduite */
+@keyframes bet-glow {
+  from {
+    box-shadow: 0 1px 2px rgba(255, 215, 0, 0.3);
+  }
+
+  to {
+    box-shadow: 0 2px 4px rgba(255, 215, 0, 0.5);
+  }
+}
+
+/* Effet de sélection compact */
+.chip-button.selected {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.chip-button.selected::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid #FFD700;
+  border-radius: 50%;
+  animation: selected-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes selected-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.02);
+    opacity: 0.8;
+  }
+}
+
+/* Effet de désactivation */
+.chip-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+  filter: grayscale(60%);
+}
+
+.chip-button:disabled:hover {
+  transform: none;
+  filter: grayscale(60%);
+}
+
+/* Responsive design ultra-compact */
+@media (max-width: 768px) {
+  #coins {
+    gap: 6px;
+    padding: 4px 8px;
+    margin: 1px;
+    max-height: 10vh;
+  }
+
+  .chips {
+    gap: 3px;
+  }
+
+  .chip-container img {
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+  }
+
+  .user-coins,
+  .user-bet {
+    font-size: 10px;
+    gap: 3px;
+  }
+
+  .user-coins .ant-badge .ant-badge-count,
+  .user-bet .ant-badge .ant-badge-count {
+    font-size: 9px;
+    min-width: 18px;
+    height: 18px;
+    line-height: 16px;
+    border-radius: 9px;
+  }
+
+  nz-divider[nzType="vertical"] {
+    height: 25px;
+    margin: 0 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  #coins {
+    gap: 4px;
+    padding: 3px 6px;
+    max-height: 8vh;
+  }
+
+  .chips {
+    gap: 2px;
+  }
+
+  .chip-container img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .user-coins,
+  .user-bet {
+    font-size: 9px;
+    gap: 2px;
+  }
+
+  .user-coins .ant-badge .ant-badge-count,
+  .user-bet .ant-badge .ant-badge-count {
+    font-size: 8px;
+    min-width: 16px;
+    height: 16px;
+    line-height: 14px;
+    border-radius: 8px;
+  }
+
+  nz-divider[nzType="vertical"] {
+    height: 20px;
+    margin: 0 2px;
+  }
+}
+
+/* Adaptation pour très petites hauteurs */
+@media (max-height: 600px) {
+  #coins {
+    max-height: 10vh;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-height: 400px) {
+  #coins {
+    max-height: 8vh;
+    padding: 2px 4px;
+  }
+
+  .chip-container img {
+    width: 16px;
+    height: 16px;
+  }
 }

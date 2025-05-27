@@ -1,74 +1,195 @@
-.game-content {
-  width: 100vw;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.actions {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-evenly;
-  width: 100vw;
-}
-
-.game-actions {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: 1vw;
-}
-
-.other-actions {
-  display: flex;
-  flex-direction: row;
-  height: 35;
+/* Styles pour le bouton principal adaptés à votre thème */
+button[nz-button][nzType="primary"] {
+  background-color: var(--secondary-bg-color);
+  border: 2px solid var(--secondary-bg-color);
+  color: var(--primary-text-color);
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-family: "Lilita One", serif;
+  font-weight: 400;
+  line-height: 1.3;
+  min-height: 36px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 1vw;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  touch-action: manipulation;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
-#spinner-container {
+/* Effet de brillance au survol */
+button[nz-button][nzType="primary"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
 }
 
+/* État hover */
+button[nz-button][nzType="primary"]:hover:not(:disabled) {
+  background-color: var(--button-bg-hover);
+  border-color: var(--button-bg-hover);
+  color: #FFD78A;
+  transform: translateY(-2px);
+}
 
-@keyframes slideIn {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
+button[nz-button][nzType="primary"]:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+/* État focus */
+button[nz-button][nzType="primary"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-button), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* État active (clic) */
+button[nz-button][nzType="primary"]:active:not(:disabled) {
+  transform: translateY(0px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: var(--pogos-button-bg);
+  border-color: var(--pogos-button-bg);
+}
+
+/* État désactivé */
+button[nz-button][nzType="primary"]:disabled {
+  background-color: rgba(var(--secondary-bg-color), 0.5);
+  border-color: rgba(var(--secondary-bg-color), 0.5);
+  color: rgba(var(--primary-text-color), 0.4);
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
+  transform: none;
+}
+
+/* Styles pour l'icône */
+button[nz-button] span[nz-icon] {
+  font-size: 16px;
+  line-height: 1;
+  vertical-align: middle;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Variante bouton secondaire (style pogos) */
+button[nz-button].pogos-style {
+  background-color: var(--pogos-button-bg);
+  border-color: var(--pogos-button-bg);
+  font-family: "Luckiest Guy", cursive;
+  font-size: 18px;
+  border-radius: 15px;
+  padding: 10px 25px;
+}
+
+button[nz-button].pogos-style:hover:not(:disabled) {
+  background-color: var(--pogos-button-bg-hover);
+  border-color: var(--pogos-button-bg-hover);
+  color: var(--primary-text-color);
+}
+
+/* Style avec text-stroke comme vos styles de texte */
+button[nz-button].primary-text-button {
+  color: #FFD78A;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #B7B895;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+  font-family: "Luckiest Guy", cursive;
+  font-size: 20px;
+}
+
+/* Thème sombre - adaptation automatique */
+body.dark-theme button[nz-button][nzType="primary"].primary-text-button {
+  color: var(--primary-title-color);
+  -webkit-text-stroke-color: #70798a;
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.2);
+}
+
+/* Bouton large style main-button */
+button[nz-button].main-button-style {
+  width: 200px;
+  height: 60px;
+  font-size: 20px;
+  border-radius: 15px;
+  font-family: "Lilita One", serif;
+  background-color: var(--secondary-bg-color);
+  border-color: var(--secondary-bg-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+button[nz-button].main-button-style:hover:not(:disabled) {
+  background-color: var(--button-bg-hover);
+  color: #FFD78A;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation de pulsation pour les boutons importants */
+@keyframes button-pulse {
+  0% {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
-  to {
-    transform: translateY(0);
-    opacity: 1;
+  50% {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), 0 0 0 5px var(--focus-button);
+  }
+
+  100% {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 }
 
-
-#coins {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+button[nz-button].pulse-animation {
+  animation: button-pulse 2s infinite;
 }
 
-.chip-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* Bouton de sortie (leave-button style) */
+button[nz-button].leave-button-style {
+  position: absolute;
+  top: 35px;
+  left: 60px;
+  background-color: transparent;
+  border: 2px solid var(--primary-text-color);
+  color: var(--primary-text-color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  transition: all 0.3s ease;
 }
 
-.chip-button {
-  border: none;
-  transition: transform 0.3s ease-in-out;
+button[nz-button].leave-button-style:hover:not(:disabled) {
+  background-color: var(--pogos-button-bg);
+  border-color: var(--pogos-button-bg);
+  color: white;
+  transform: rotate(180deg);
 }
 
-.chip-button:hover {
-  transform: scale(1.1);
+/* Responsive */
+@media (max-width: 768px) {
+  button[nz-button][nzType="primary"] {
+    min-height: 40px;
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  button[nz-button].main-button-style {
+    width: 140px;
+    height: 45px;
+    font-size: 16px;
+  }
+
+  button[nz-button] span[nz-icon] {
+    font-size: 14px;
+  }
 }
