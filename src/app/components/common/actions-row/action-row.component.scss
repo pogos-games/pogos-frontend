@@ -5,6 +5,7 @@
   width: 70vw;
   height: fit-content;
   box-sizing: border-box;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .game-actions {
@@ -97,10 +98,6 @@ app-jeton-button:hover {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.actions {
-  animation: fadeIn 0.3s ease-out;
 }
 
 /* Responsive ultra-compact */
