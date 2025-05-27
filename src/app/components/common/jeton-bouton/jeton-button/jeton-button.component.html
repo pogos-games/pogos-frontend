@@ -1,0 +1,50 @@
+<div id="coins">
+  <div class="chips" *ngIf="coins">
+    <button class="chip-button" (click)="placeBet.emit(5)">
+      <div class="chip-container">
+        <img ngSrc="assets/chips/blue_chip.png" alt="blue_chip" height="35" width="35"/>
+        <nz-badge [nzCount]="5" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+      </div>
+    </button>
+    <button class="chip-button" (click)="placeBet.emit(10)">
+      <div class="chip-container">
+        <img ngSrc="assets/chips/green_chip.png" alt="green_chip" height="35" width="35"/>
+        <nz-badge [nzCount]="10" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+      </div>
+    </button>
+    <button class="chip-button" (click)="placeBet.emit(50)">
+      <div class="chip-container">
+        <img ngSrc="assets/chips/red_chip.png" alt="red_chip" height="35" width="35"/>
+        <nz-badge [nzCount]="50" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+      </div>
+    </button>
+    <button class="chip-button" (click)="placeBet.emit(100)">
+      <div class="chip-container">
+        <img ngSrc="assets/chips/yellow_chip.png" alt="yellow_chip" height="35" width="35"/>
+        <nz-badge [nzCount]="100" [nzOverflowCount]="100" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+      </div>
+    </button>
+  </div>
+
+  <nz-divider nzType="vertical"></nz-divider>
+
+  <div class="user-coins">
+    Coins :
+    <nz-badge
+      nzStandalone
+      [nzCount]="playerBalance"
+      [nzOverflowCount]="9999"
+      [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
+    ></nz-badge>
+  </div>
+
+  <div class="user-bet">
+    Mise :
+    <nz-badge
+      nzStandalone
+      [nzCount]="playerBet"
+      [nzOverflowCount]="9999"
+      [nzStyle]="{ backgroundColor: '#fff', color: '#FFD700', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
+    ></nz-badge>
+  </div>
+</div>

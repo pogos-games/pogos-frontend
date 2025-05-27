@@ -3,10 +3,11 @@ import {NzInputDirective} from "ng-zorro-antd/input";
 
 @Component({
   selector: 'app-box-join-code',
-    imports: [
-        NzInputDirective
-    ],
+  imports: [
+    NzInputDirective
+  ],
   templateUrl: './box-join-code.component.html',
+  standalone: true,
   styleUrl: './box-join-code.component.scss'
 })
 export class BoxJoinCodeComponent {

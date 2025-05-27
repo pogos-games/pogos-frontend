@@ -6,18 +6,19 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {FormsModule} from "@angular/forms";
 
 @Component({
-    selector: 'app-chat',
-    imports: [
-        NzDrawerComponent,
-        NzDrawerContentDirective,
-        NzInputGroupComponent,
-        NzInputDirective,
-        NzButtonComponent,
-        NzIconDirective,
-        FormsModule
-    ],
-    templateUrl: './chat.component.html',
-    styleUrl: './chat.component.scss'
+  selector: 'app-chat',
+  imports: [
+    NzDrawerComponent,
+    NzDrawerContentDirective,
+    NzInputGroupComponent,
+    NzInputDirective,
+    NzButtonComponent,
+    NzIconDirective,
+    FormsModule
+  ],
+  templateUrl: './chat.component.html',
+  standalone: true,
+  styleUrl: './chat.component.scss'
 })
 export class ChatComponent {
 

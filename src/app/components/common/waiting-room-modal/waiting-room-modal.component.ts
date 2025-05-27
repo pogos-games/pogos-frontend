@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output, WritableSignal, signal } from '@angular/core';
+import {Component, EventEmitter, Input, Output, WritableSignal, signal} from '@angular/core';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-waiting-room-modal',
@@ -10,18 +10,19 @@ import { NgIf, NgFor, NgClass } from '@angular/common';
   templateUrl: './waiting-room-modal.component.html',
   styleUrls: ['./waiting-room-modal.component.scss']
 })
-export class WaitingRoomModalComponent {
+export class WaitingRoomModalComponent{
   @Input({ required: true }) isVisible: WritableSignal<boolean> = signal(false);
   @Input({ required: true }) title: string = 'Salle d’attente';
   @Input({ required: true }) okText: string = 'Commencer';
   @Input({ required: true }) cancelText: string = 'Annuler';
   @Input() gameId: string | null = '';
   @Input() players: string[] = [];
-  @Input() initialBet: number = 0;
-  @Input() betAmount: number = 0;
+  @Input() initialBet: WritableSignal<number> = signal(-1);
 
   @Output() onOk: EventEmitter<number> = new EventEmitter<number>();
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
+
+  betAmount: number = 0;
 
   handleOk(): void {
     this.onOk.emit(this.betAmount);
@@ -33,6 +34,6 @@ export class WaitingRoomModalComponent {
   }
 
   ngOnChanges(): void {
-    this.betAmount = this.initialBet;
+    this.betAmount = this.initialBet();
   }
 }

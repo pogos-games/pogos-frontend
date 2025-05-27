@@ -1,13 +1,13 @@
-import {Component, signal, WritableSignal} from '@angular/core';
-import {HeaderComponent} from '../../components/common/header/header.component';
-import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
-import {GameSelectorComponent} from '../../components/pages/game-page/game-selector/game-selector.component';
-import {GameButtonsComponent} from '../../components/pages/game-page/game-buttons/game-buttons.component';
-import {RankingComponent} from '../../components/pages/game-page/ranking/ranking.component';
-import {BoxJoinCodeComponent} from '../../components/pages/game-page/box-join-code/box-join-code.component';
-import {WaitingRoomModalComponent} from '../../components/common/waiting-room-modal/waiting-room-modal.component';
-import {Router} from '@angular/router';
-import {BlackjackService} from '../../services/games/blackjack.service';
+import { Component, signal, WritableSignal } from '@angular/core';
+import { HeaderComponent } from '../../components/common/header/header.component';
+import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
+import { GameSelectorComponent } from '../../components/pages/game-page/game-selector/game-selector.component';
+import { GameButtonsComponent } from '../../components/pages/game-page/game-buttons/game-buttons.component';
+import { RankingComponent } from '../../components/pages/game-page/ranking/ranking.component';
+import { BoxJoinCodeComponent } from '../../components/pages/game-page/box-join-code/box-join-code.component';
+import { WaitingRoomModalComponent } from '../../components/common/waiting-room-modal/waiting-room-modal.component';
+import { Router } from '@angular/router';
+import {GameService} from "../../services/games/game.service";
 
 @Component({
   selector: 'app-game-page',
@@ -27,26 +27,27 @@ import {BlackjackService} from '../../services/games/blackjack.service';
 })
 export class GamePageComponent {
   public isWaitingRoomModalVisible: WritableSignal<boolean> = signal(false);
-  public betAmount: number = 0;
+  public gameBet: WritableSignal<number> = signal(-1);
   public playerNames: string[] = [];
-  protected title = signal('Blackjack');
+  protected title = 'BlackJack';
 
   constructor(
     private readonly router: Router,
-    protected blackJackService: BlackjackService
+    protected gameService: GameService
   ) {}
 
-  public showModal(): void {
-    const players = this.blackJackService.getPlayers();
+  public showModal(gameService: GameService): void {
+    this.gameService = gameService;
+    const players = this.gameService.getPlayers();
     this.playerNames = players?.map(p => p.name || p.playerId) ?? [];
+    this.gameBet.set(this.gameService.getBet());
     this.isWaitingRoomModalVisible.set(true);
   }
 
   public handleStartGame(bet: number): void {
-    this.betAmount = bet;
-    this.blackJackService.setPlayerBet(bet);
+    this.gameService.setBet(bet)
     this.isWaitingRoomModalVisible.set(false);
-    this.router.navigate(['/games', this.title().toLowerCase()], {
+    this.router.navigate(['/games', this.title.toLowerCase()], {
       queryParams: { gameType: 'solo' }
     });
   }
@@ -56,10 +57,10 @@ export class GamePageComponent {
   }
 
   public get gameId(): string {
-    return this.blackJackService.getGameId() ?? '';
+    return this.gameService.getGameId() ?? '';
   }
 
-  handleGameSelection(game: string) {
-    this.title.set(game);
+  gameName(name: string) {
+    this.title = name;
   }
 }

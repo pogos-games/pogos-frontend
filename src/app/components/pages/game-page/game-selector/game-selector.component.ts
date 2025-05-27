@@ -1,20 +1,22 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {PogosButton} from "../../../common/pogos-button/pogos-button.component";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-game-selector',
   imports: [
-    PogosButton
+    PogosButton,
+    NgForOf
   ],
   templateUrl: './game-selector.component.html',
+  standalone: true,
   styleUrl: './game-selector.component.scss'
 })
 export class GameSelectorComponent {
+  @Output() gameName= new EventEmitter<string>();
+  games : string[] = ['BlackJack', 'Uno', 'Tarot', 'Poker'];
 
-  @Output() gameSelected = new EventEmitter<string>();
-
-  onGameClick(title: string) {
-    this.gameSelected.emit(title);
+  emitGameName(game: string){
+    this.gameName.emit(game);
   }
-
 }
