@@ -98,7 +98,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
           createGameSubscription.unsubscribe();
         });
 
-      this.gameService.sendMessage(GameActions.CREATE_GAME, this.gameType);
+      this.gameService.sendMessage(GameActions.CREATE_GAME);
     } else {
       this.gameFound();
     }
