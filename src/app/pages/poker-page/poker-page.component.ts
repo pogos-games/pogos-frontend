@@ -1,16 +1,16 @@
-import {Component} from '@angular/core';
-import {NzMessageService} from 'ng-zorro-antd/message';
+import { Component } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { ChatComponent } from '../../components/games/chat/chat.component';
 import { HeaderComponent } from '../../components/common/header/header.component';
 import { RankingComponent } from '../../components/pages/game-page/ranking/ranking.component';
-import { GameTableComponent } from '../../components/games/game-table/game-table.component';
-import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
-import {ActivatedRoute, Router} from "@angular/router";
-import {PokerActions} from '../../model/enum/poker.actions.enum';
+import { GameTablePokerComponent } from '../../components/games/game-table/game-table-poker/game-table-poker.component';
+import { NzModalComponent, NzModalModule } from "ng-zorro-antd/modal";
+import { ActivatedRoute, Router } from "@angular/router";
+import { PokerActions } from '../../model/enum/poker.actions.enum';
 import { PokerService } from '../../services/games/poker.service';
-import {PlayGamePage} from "../../components/common/play-game-page/play-game-page.component";
-import {ActionRowComponent} from "../../components/common/actions-row/action-row.component";
-import {ActionDescriptor} from "../../components/common/play-game-page/action-descriptor";
+import { PlayGamePage } from "../../components/common/play-game-page/play-game-page.component";
+import { ActionRowComponent } from "../../components/common/actions-row/action-row.component";
+import { ActionDescriptor } from "../../components/common/play-game-page/action-descriptor";
 
 @Component({
   selector: 'app-poker-page',
@@ -19,7 +19,7 @@ import {ActionDescriptor} from "../../components/common/play-game-page/action-de
     ChatComponent,
     HeaderComponent,
     RankingComponent,
-    GameTableComponent,
+    GameTablePokerComponent,
     NzModalComponent,
     NzModalModule,
     ActionRowComponent,
@@ -29,7 +29,7 @@ import {ActionDescriptor} from "../../components/common/play-game-page/action-de
 })
 export class PokerPageComponent extends PlayGamePage {
 
-  protected override gameAction : typeof PokerActions = PokerActions;
+  protected override gameAction: typeof PokerActions = PokerActions;
 
   protected currentPotAmount: Number = 0;
 
@@ -41,7 +41,7 @@ export class PokerPageComponent extends PlayGamePage {
 
   override actions = [
     new ActionDescriptor("Miser", "check", PokerActions.BET, this.isPotEmpty),
-    new ActionDescriptor("Suivre", "check",PokerActions.CALL, !this.isPotEmpty),
+    new ActionDescriptor("Suivre", "check", PokerActions.CALL, !this.isPotEmpty),
     new ActionDescriptor("Relancer", "check", PokerActions.RAISE, !this.isPotEmpty)
   ]
 
@@ -51,17 +51,17 @@ export class PokerPageComponent extends PlayGamePage {
     new ActionDescriptor("Se coucher", "check", PokerActions.FOLD)
   ]
 
-  constructor(pokerService:PokerService, message:NzMessageService, router:Router, route:ActivatedRoute) {
-    super(pokerService,message,router,route);
+  constructor(pokerService: PokerService, message: NzMessageService, router: Router, route: ActivatedRoute) {
+    super(pokerService, message, router, route);
   }
 
-  endTurn() : void {
+  endTurn(): void {
     this.hands.dealerHand.push({ rank: '2', suit: 'D', value: 0 });
   }
 
   protected readonly PokerActions = PokerActions;
 
-  placeBet(bet: number){
+  placeBet(bet: number) {
     this.playerBet = bet
   }
 

@@ -1,0 +1,73 @@
+<div id="game-table">
+  <!-- Coin supérieur gauche - Coeur -->
+  <div class="symbol-top-left">
+    <div class="icon">
+      <img ngSrc="/assets/icons/coeur.png" alt="coeur" height="1024" width="1024" />
+    </div>
+  </div>
+
+  <!-- Coin supérieur droit - Pique -->
+  <div class="symbol-top-right">
+    <div class="icon">
+      <img ngSrc="/assets/icons/pique.png" alt="pique" height="512" width="512" />
+    </div>
+  </div>
+
+  <!-- Coin inférieur gauche - Trèfle -->
+  <div class="symbol-bottom-left">
+    <div class="icon">
+      <img ngSrc="/assets/icons/trefle.png" alt="trefle" height="800" width="900" />
+    </div>
+  </div>
+
+  <!-- Coin inférieur droit - Carreau -->
+  <div class="symbol-bottom-right">
+    <div class="icon">
+      <img ngSrc="/assets/icons/carreau.png" alt="carreau" height="410" width="410" />
+    </div>
+  </div>
+
+  @if (gameDeck) {
+  <div class="card-container">
+    <div class="dealer-container">
+      <app-card-hand class="player-slot" [handName]="'dealer'" [cards]="hands.dealerHand"
+        [currentUser]="false"></app-card-hand>
+    </div>
+
+    <div class="player-hands-container">
+      <!-- Texte "Blackjack Pay 3 to 2" en courbe -->
+      <div class="blackjack-curved-text">
+        <svg viewBox="0 0 400 100">
+          <defs>
+            <path id="curve" d="M 50 15 Q 200 150 350 15" />
+          </defs>
+          <text>
+            <textPath href="#curve" startOffset="50%">
+              BLACKJACK PAY 3 TO 2
+            </textPath>
+          </text>
+        </svg>
+      </div>
+
+      <!-- Ligne 1 (plus haute) -->
+      <div class="player-slot slot-1"></div>
+      <div class="player-slot slot-6"></div>
+
+      <!-- Ligne 2 (milieu) -->
+      <div class="player-slot slot-2"></div>
+      <div class="player-slot slot-5"></div>
+
+      <!-- Ligne 3 (bas) -->
+      <app-card-hand class="player-slot slot-3" [handName]="'3'" [cards]="hands.selfHand"
+        [currentUser]="false"></app-card-hand>
+      <div class="player-slot slot-4"></div>
+    </div>
+
+  </div>
+  }
+</div>
+
+
+<!-- <div class="table-container">
+      <app-card-hand [handName]="'table'" [cards]="hands.selfHand" [currentUser]="false"></app-card-hand>
+    </div> -->
