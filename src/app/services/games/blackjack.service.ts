@@ -19,5 +19,9 @@ export class BlackjackService extends GameService{
   override getBet(): number {
     return this.playerBet;
   }
+
+  override checkStartGame(): boolean {
+    return true;
+  }
 }
 

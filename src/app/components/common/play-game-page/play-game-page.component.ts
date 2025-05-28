@@ -98,7 +98,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
           createGameSubscription.unsubscribe();
         });
 
-      this.gameService.sendMessage(GameActions.CREATE_GAME, this.gameType);
+      this.gameService.sendMessage(GameActions.CREATE_GAME);
     } else {
       this.gameFound();
     }
@@ -220,6 +220,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   }
 
   handleWaitingRoomLeave() {
+    this.gameService.sendMessage(GameActions.QUIT_GAME)
     this.isWaitingRoomModalVisible.set(false);
     this.router.navigateByUrl("/games");
   }

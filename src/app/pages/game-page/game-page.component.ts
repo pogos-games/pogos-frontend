@@ -8,6 +8,7 @@ import { BoxJoinCodeComponent } from '../../components/pages/game-page/box-join-
 import { WaitingRoomModalComponent } from '../../components/common/waiting-room-modal/waiting-room-modal.component';
 import { Router } from '@angular/router';
 import {GameService} from "../../services/games/game.service";
+import {GameActions} from "../../model/enum/game.actions.enum";
 
 @Component({
   selector: 'app-game-page',
@@ -45,14 +46,18 @@ export class GamePageComponent {
   }
 
   public handleStartGame(bet: number): void {
-    this.gameService.setBet(bet)
-    this.isWaitingRoomModalVisible.set(false);
-    this.router.navigate(['/games', this.title.toLowerCase()], {
-      queryParams: { gameType: 'solo' }
-    });
+    if (this.gameService.checkStartGame()) {
+      this.gameService.setBet(bet);
+      this.gameService.sendMessage(GameActions.START_GAME, {type: this.gameService.getGameType(), bet: bet});
+      this.isWaitingRoomModalVisible.set(false);
+      this.router.navigate(['/games', this.title.toLowerCase()], {
+        queryParams: {gameType: 'solo'}
+      });
+    }
   }
 
   public handleCancelModal(): void {
+    this.gameService.sendMessage(GameActions.QUIT_GAME);
     this.isWaitingRoomModalVisible.set(false);
   }
 

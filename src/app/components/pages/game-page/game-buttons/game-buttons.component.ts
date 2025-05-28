@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
-import {RouterLink} from "@angular/router";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {GameActions} from "../../../../model/enum/game.actions.enum";
 import {GameType} from "../../../../model/enum/game-type.enum";
@@ -11,7 +10,6 @@ import {GameService} from "../../../../services/games/game.service";
   selector: 'app-game-buttons',
   imports: [
     NzButtonComponent,
-    RouterLink,
     NzColDirective,
     NzRowDirective
   ],
@@ -28,14 +26,16 @@ export class GameButtonsComponent {
   constructor(private readonly gameServiceFactory: GameServiceFactory) {
   }
 
-  protected showModal() {
+  protected showModal(type: GameType) {
     let gameService = this.gameServiceFactory.getService(this.gameName);
 
     if (!gameService) {
       console.error(`No service found for game title: ${this.gameName}`);
       return;
     }
-    gameService.sendMessage(GameActions.CREATE_GAME, GameType.MULTI);
+
+    gameService.setGameType(type);
+    gameService.sendMessage(GameActions.CREATE_GAME);
     const sub = gameService.listenGameUpdate()
       .subscribe((data: any) => {
       const gameId = typeof data === 'string' ? data : data?.gameId;
@@ -53,4 +53,6 @@ export class GameButtonsComponent {
 
     this.showModalEvent.emit(gameService);
   }
+
+  protected readonly GameType = GameType;
 }
