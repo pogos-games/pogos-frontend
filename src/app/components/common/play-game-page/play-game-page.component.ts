@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { GameType } from "../../../model/enum/game-type.enum";
 import {GameService} from "../../../services/games/game.service";
 import {ActionDescriptor} from "./action-descriptor";
+import {delay} from "rxjs";
 
 @Directive()
 export abstract class PlayGamePage implements OnInit, OnDestroy {
@@ -109,14 +110,16 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected listenForGameUpdates(): void {
     this.gameService.listenGameUpdate()
       .subscribe((data: any) => {
-        console.log("Game update received:", data);
-
         if (data?.gameId && !this.gameId) {
           this.gameId = data.gameId;
         }
 
         if (data?.dealerHand) {
           this.hands.dealerHand = data.dealerHand;
+        }
+
+        if (data.game && data.game._dealerHand) {
+          this.hands.dealerHand = data.game._dealerHand;
         }
 
         this.gameService.setPlayers(data.players);
@@ -138,7 +141,6 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected listenForPlayerUpdates(): void {
     this.gameService.listenPlayerUpdate()
       .subscribe((player: any) => {
-        console.log("Player update received:", player);
         this.updatePlayerInfos(player);
       });
   }
@@ -146,17 +148,17 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
 
   protected listenForEndGame(): void {
     this.gameService.listenEndGame()
-      .subscribe((data: any) => {
-        console.log('🎯 FIN DE PARTIE');
+      .subscribe(async (data: any) => {
+        this.isActionDisabled = true;
+        await this.sleep(3000);
         if (data.player) {
-          let diff = data.player.balance - data.player.bet;
-          if (diff > 0) {
-            console.log('You won ', diff);
-          } else {
-            console.log('You lost ', diff);
+          let coinBalance = data.player.balance - data.player.bet;
+          if (coinBalance) {
+            this.gameService.setCoinBalance(coinBalance)
           }
         }
 
+        console.log('listenForEndGame play-game-page');
         // 2. Réaffiche la WaitingRoomModal
         this.showWaitingRoomModal();
 
@@ -204,6 +206,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   }
 
   public showWaitingRoomModal(): void {
+    console.log(this.gameService.getCoinBalance())
     this.isWaitingRoomModalVisible.set(true);
   }
 
@@ -223,5 +226,9 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
     this.gameService.sendMessage(GameActions.QUIT_GAME)
     this.isWaitingRoomModalVisible.set(false);
     this.router.navigateByUrl("/games");
+  }
+
+  private sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
