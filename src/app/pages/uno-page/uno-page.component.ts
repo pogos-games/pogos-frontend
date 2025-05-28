@@ -1,8 +1,7 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {HeaderComponent} from "../../components/common/header/header.component";
 import {UnoTableComponent} from "../../components/games/uno-table/uno-table.component";
 import {RankingComponent} from "../../components/pages/game-page/ranking/ranking.component";
-import {UnoService} from "../../services/uno.service";
 
 @Component({
   selector: 'app-uno-page',
@@ -17,7 +16,7 @@ import {UnoService} from "../../services/uno.service";
 export class UnoPageComponent {
 
 
-  private readonly unoService = inject(UnoService);
+
 
 
 }

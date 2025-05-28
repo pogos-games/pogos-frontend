@@ -1,8 +1,8 @@
 import {inject, Injectable, OnDestroy} from '@angular/core';
-import { io, Socket } from 'socket.io-client';
-import { Observable, shareReplay } from 'rxjs';
-import { GameActions } from '../../model/enum/game.actions.enum';
-import { GatewayEventEmitter } from '../../model/enum/gateway-event-emitter.enum';
+import {io, Socket} from 'socket.io-client';
+import {Observable, shareReplay} from 'rxjs';
+import {GameActions} from '../../model/enum/game.actions.enum';
+import {GatewayEventEmitter} from '../../model/enum/gateway-event-emitter.enum';
 import {ConfigService} from "../config.service";
 
 @Injectable({
@@ -126,6 +126,15 @@ export class GameService implements OnDestroy{
   }
 
   getBet(): number {return -1}
+
+
+  listenToTopic<T>(topic: string): Observable<T> {
+    return new Observable(observer => {
+      this.socket.on(topic, (data: any) => {
+        observer.next(data);
+      });
+    });
+  }
 
   ngOnDestroy() {
     this.disconnect();

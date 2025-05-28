@@ -1,12 +1,12 @@
 import {Component, Input} from '@angular/core';
-import {UnoCardBackComponent} from "../uno-card-back/uno-card-back.component";
 import {NgClass} from "@angular/common";
+import {UnoCardBackComponent} from "../uno-card-back/uno-card-back.component";
 
 @Component({
   selector: 'app-uno-back-hand',
   imports: [
-    UnoCardBackComponent,
-    NgClass
+    NgClass,
+    UnoCardBackComponent
   ],
   templateUrl: './uno-back-hand.component.html',
   styleUrl: './uno-back-hand.component.scss'
@@ -16,4 +16,11 @@ export class UnoBackHandComponent {
 
   @Input({required:true}) direction: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
 
+  @Input({required: true}) handCount: number = 0;
+
+  protected readonly Array = Array;
+
+  get displayedCardCount(): number {
+    return this.handCount > 7 ? 4 : this.handCount;
+  }
 }

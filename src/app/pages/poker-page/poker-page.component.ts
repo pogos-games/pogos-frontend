@@ -1,28 +1,28 @@
 import {Component} from '@angular/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import { ChatComponent } from '../../components/games/chat/chat.component';
-import { HeaderComponent } from '../../components/common/header/header.component';
-import { RankingComponent } from '../../components/pages/game-page/ranking/ranking.component';
-import { GameTableComponent } from '../../components/games/game-table/game-table.component';
+import {HeaderComponent} from '../../components/common/header/header.component';
+import {RankingComponent} from '../../components/pages/game-page/ranking/ranking.component';
+import {GameTableComponent} from '../../components/games/game-table/game-table.component';
 import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PokerActions} from '../../model/enum/poker.actions.enum';
-import { PokerService } from '../../services/games/poker.service';
+import {PokerService} from '../../services/games/poker.service';
 import {PlayGamePage} from "../../components/common/play-game-page/play-game-page.component";
 import {ActionRowComponent} from "../../components/common/actions-row/action-row.component";
 import {ActionDescriptor} from "../../components/common/play-game-page/action-descriptor";
+import {ChatComponent} from "../../components/games/chat/chat.component";
 
 @Component({
   selector: 'app-poker-page',
   standalone: true,
   imports: [
-    ChatComponent,
     HeaderComponent,
     RankingComponent,
     GameTableComponent,
     NzModalComponent,
     NzModalModule,
     ActionRowComponent,
+    ChatComponent,
   ],
   templateUrl: './poker-page.component.html',
   styleUrl: './poker-page.component.scss'

@@ -2,40 +2,60 @@
 
   <div class="left column">
     <div class="left-player">
-      <div class="player-infos">
+      @if(this.unoGameState.players.length >0) {
+        <div class="player-infos">
+        <nz-badge [nzCount]="this.unoGameState.players[0].handCount ">
             <img src="assets/avatar/artist.png" alt="Avatar" class="avatar">
+        </nz-badge>
         <span class="player-name">Xtbmz</span>
       </div>
-      <app-uno-back-hand class="left-cards" [direction]="'left'"></app-uno-back-hand>
+        <app-uno-back-hand
+          [handCount]="this.unoGameState.players[0].handCount"
+          [direction]="'left'">
+        </app-uno-back-hand>
+      }
     </div>
   </div>
 
   <div class="center column">
 
     <div class="top-player">
-      <div class="player-infos">
+      @if(this.unoGameState.players.length >1) {
+        <div class="player-infos">
+          <nz-badge [nzCount]="this.unoGameState.players[1].handCount ">
             <img src="assets/avatar/bumblebee.png" alt="Avatar" class="avatar">
-        <span class="player-name">Clmzzz</span>
-      </div>
-      <app-uno-back-hand [direction]="'top'"></app-uno-back-hand>
+          </nz-badge>
+          <span class="player-name">Clmzz</span>
+        </div>
+        <app-uno-back-hand
+          [handCount]="this.unoGameState.players[1].handCount"
+          [direction]="'top'">
+        </app-uno-back-hand>
+      }
     </div>
 
     <div class="game-hand">
-      <app-uno-card></app-uno-card>
-      <app-uno-card-back></app-uno-card-back>
+      <app-uno-card [card]="this.unoGameState.topCard" ></app-uno-card>
+      <app-uno-card-back (click)="drawCard()"></app-uno-card-back>
     </div>
       <div class="bottom-player">
-        <app-uno-hand></app-uno-hand>
+        <app-uno-hand [cards]="playerCards()" (click)="drawCard()"></app-uno-hand>
       </div>
     </div>
 
   <div class="right column">
-    <div class="right-player">
-      <app-uno-back-hand class="right-cards" [direction]="'right'"></app-uno-back-hand>
-      <div class="player-infos">
-            <img src="assets/avatar/dragon.png" alt="Avatar" class="avatar">
-        <span class="player-name">UniSkf</span>
-      </div>
+    @if(this.unoGameState.players.length >0) {
+        <app-uno-back-hand
+          [handCount]="this.unoGameState.players[2].handCount"
+          [direction]="'right'">
+        </app-uno-back-hand>
+
+    <div class="player-infos">
+      <nz-badge [nzCount]="this.unoGameState.players[1].handCount ">
+        <img src="assets/avatar/chemist.png" alt="Avatar" class="avatar">
+      </nz-badge>
+      <span class="player-name">Uniskf</span>
     </div>
+    }
   </div>
 </div>

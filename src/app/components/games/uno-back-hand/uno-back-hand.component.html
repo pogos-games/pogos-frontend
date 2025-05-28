@@ -1,8 +1,21 @@
-<div class="uno-back-hand" [ngClass]="'uno-hand-' + direction">
-  <app-uno-card-back></app-uno-card-back>
-  <app-uno-card-back></app-uno-card-back>
-  <app-uno-card-back></app-uno-card-back>
-  <app-uno-card-back></app-uno-card-back>
-  <app-uno-card-back></app-uno-card-back>
-</div>
+<div class="uno-back-hand"
+     [ngClass]="'uno-hand-' + direction"
+     [class.has-many-cards]="handCount > 7"
+     [attr.data-card-count]="handCount">
 
+  <!-- Groupe empilé si plus de 7 cartes -->
+  @if(handCount > 7) {
+    <div class="stacked-cards">
+      @for(card of Array(3); track $index) {
+        <app-uno-card-back></app-uno-card-back>
+      }
+      <app-uno-card-back></app-uno-card-back>
+
+    </div>
+  }
+
+  <!-- Cartes visibles -->
+  @for(card of Array(displayedCardCount); track $index) {
+    <app-uno-card-back></app-uno-card-back>
+  }
+</div>
