@@ -75,8 +75,6 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.gameService.sendMessage(GameActions.END_GAME, this.gameId);
-    // Déconnexion du WebSocket
-    this.gameService.disconnect();
   }
 
   protected createGame(): void {
