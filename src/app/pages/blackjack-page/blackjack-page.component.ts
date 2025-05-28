@@ -6,7 +6,7 @@ import { NzMessageService } from "ng-zorro-antd/message";
 import { ChatComponent } from "../../components/games/chat/chat.component";
 import { HeaderComponent } from "../../components/common/header/header.component";
 import { RankingComponent } from "../../components/pages/game-page/ranking/ranking.component";
-import { GameTableComponent } from "../../components/games/game-table/game-table.component";
+import { GameTableBlackjackComponent } from "../../components/games/game-table/game-table-blackjack/game-table-blackjack.component";
 import { NzModalComponent, NzModalModule } from "ng-zorro-antd/modal";
 import { ActivatedRoute, Router } from "@angular/router";
 import { WaitingRoomModalComponent } from "../../components/common/waiting-room-modal/waiting-room-modal.component";
@@ -20,7 +20,7 @@ import { ActionRowComponent } from "../../components/common/actions-row/action-r
     ChatComponent,
     HeaderComponent,
     RankingComponent,
-    GameTableComponent,
+    GameTableBlackjackComponent,
     NzModalComponent,
     NzModalModule,
     WaitingRoomModalComponent,

@@ -1,30 +1,69 @@
-.card-hand img {
-  animation: slideIn 0.5s ease-in-out;
-}
-
 .card-hand {
   display: flex;
-  gap: 2px;
-  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
+.card-hand img {
+  animation: slideIn 0.5s ease-in-out;
+  position: absolute;
+  transition: transform 0.3s ease;
+  z-index: 1;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Gestion de l'affichage en ligne (horizontal) */
 .row-direction {
   flex-direction: row;
 }
 
+.row-direction img {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateX(calc(var(--card-index) * 10px)) translateY(calc(var(--card-index) * 8px));
+  z-index: calc(var(--card-index) + 1);
+}
+
+/* Gestion de l'affichage en colonne (vertical) */
 .column-direction {
   flex-direction: column;
 }
 
-@media (max-width: 480px) {
-  .card-hand img {
-    height: 6vh;
-    margin-left: 0;
+.column-direction img {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateX(calc(var(--card-index) * 8px)) translateY(calc(var(--card-index) * 10px));
+  z-index: calc(var(--card-index) + 1);
+}
+
+/* Animation d'apparition des cartes */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotate(-10deg);
   }
 
-  .card-hand {
-    flex-wrap: wrap;
-    gap: 2vw;
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
   }
+}
+
+/* Effet hover pour voir toutes les cartes */
+.card-hand:hover img {
+  transition: transform 0.3s ease;
+}
+
+.row-direction:hover img {
+  transform: translate(-50%, -50%) translateX(calc(var(--card-index) * 18px)) translateY(calc(var(--card-index) * 12px));
+}
+
+.column-direction:hover img {
+  transform: translate(-50%, -50%) translateX(calc(var(--card-index) * 15px)) translateY(calc(var(--card-index) * 18px));
 }

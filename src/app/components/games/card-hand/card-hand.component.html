@@ -1,20 +1,17 @@
 <div class="player1">
-  @if(!currentUser){
-    <h3 class="luckiest-guy-regular">{{handName}}</h3>
-  }
   <div class="card-hand" [ngClass]="{'column-direction': isColDirection, 'row-direction': !isColDirection}">
-    @for (card of cards; track $index) {
-      @if (currentUser && cards.length - 1 == $index) {
-        <nz-badge [nzCount]="getCardsSum()">
-          <img [ngSrc]=findCardImage(card) alt="OC" height="75" width="50"/>
-        </nz-badge>
-      } @else {
-        <img [ngSrc]=findCardImage(card) alt="OC" height="75" width="50"/>
-      }
+    @for (card of cards; let i = $index; track $index) {
+    @if (currentUser && cards.length - 1 == i) {
+    <nz-badge [nzCount]="getCardsSum()">
+      <img [ngSrc]="findCardImage(card)" alt="OC" height="85" width="60" [ngStyle]="{ '--card-index': i }" />
+    </nz-badge>
+    } @else {
+    <img [ngSrc]="findCardImage(card)" alt="OC" height="85" width="60" [ngStyle]="{ '--card-index': i }" />
+    }
     }
   </div>
-    @if(currentUser){
-      <h3 class="luckiest-guy-regular">{{handName}}</h3>
-    }
+  @if(currentUser){
+  <h3 class="luckiest-guy-regular">{{handName}}</h3>
+  }
 
 </div>
