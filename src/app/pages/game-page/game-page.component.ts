@@ -57,6 +57,7 @@ export class GamePageComponent {
   }
 
   public handleCancelModal(): void {
+    this.gameService.sendMessage(GameActions.QUIT_GAME);
     this.isWaitingRoomModalVisible.set(false);
   }
 

@@ -220,6 +220,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   }
 
   handleWaitingRoomLeave() {
+    this.gameService.sendMessage(GameActions.QUIT_GAME)
     this.isWaitingRoomModalVisible.set(false);
     this.router.navigateByUrl("/games");
   }
