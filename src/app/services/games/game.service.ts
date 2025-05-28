@@ -1,4 +1,4 @@
-import {inject, Injectable, OnDestroy} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {io, Socket} from 'socket.io-client';
 import {Observable, shareReplay} from 'rxjs';
 import {GameActions} from '../../model/enum/game.actions.enum';
@@ -9,7 +9,7 @@ import {GameType} from "../../model/enum/game-type.enum";
 @Injectable({
   providedIn: 'root'
 })
-export abstract class GameService implements OnDestroy{
+export abstract class GameService {
 
   protected socket!: Socket;
   protected readonly configService: ConfigService = inject(ConfigService);
@@ -139,8 +139,5 @@ export abstract class GameService implements OnDestroy{
   getBet(): number {return -1}
 
   abstract checkStartGame(): boolean;
-  ngOnDestroy() {
-    this.disconnect();
-  }
 }
 
