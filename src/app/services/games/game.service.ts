@@ -9,8 +9,9 @@ import {GameType} from "../../model/enum/game-type.enum";
 @Injectable({
   providedIn: 'root'
 })
-export class GameService implements OnDestroy{
 
+export class GameService implements OnDestroy{
+  
   protected socket!: Socket;
   protected readonly configService: ConfigService = inject(ConfigService);
   protected readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
@@ -129,8 +130,5 @@ export class GameService implements OnDestroy{
   getBet(): number {return -1}
 
   abstract checkStartGame(): boolean;
-  ngOnDestroy() {
-    this.disconnect();
-  }
 }
 
