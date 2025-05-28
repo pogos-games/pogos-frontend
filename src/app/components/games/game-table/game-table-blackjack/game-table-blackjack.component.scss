@@ -132,17 +132,14 @@
       inset 0 1px 0 rgba(255, 248, 220, 0.7),
       inset 1px 1px 2px rgba(255, 215, 0, 0.3),
 
-      /* Ombres pour la profondeur */
       inset 0 -3px 6px rgba(0, 0, 0, 0.4),
       inset 0 0 20px rgba(0, 0, 0, 0.3),
       inset -2px -2px 4px rgba(0, 0, 0, 0.2),
 
-      /* Ombre extérieure douce */
       0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1;
   }
 
-  /* Surface de jeu en feutre avec texture simplifiée */
   &::after {
     content: '';
     position: absolute;
@@ -152,20 +149,16 @@
     bottom: 30px;
     border-radius: 20px;
     background:
-      /* Texture feutre subtile */
       repeating-linear-gradient(45deg,
         rgba(0, 80, 0, 0.03) 0px,
         rgba(0, 100, 0, 0.02) 1px,
         rgba(0, 120, 0, 0.03) 2px),
 
-      /* Quelques variations légères */
       radial-gradient(circle at 20% 80%, rgba(0, 100, 0, 0.15) 0%, transparent 40%),
       radial-gradient(circle at 80% 20%, rgba(0, 120, 0, 0.1) 0%, transparent 35%),
 
-      /* Base verte du tapis */
       linear-gradient(135deg, #1a5d1a, #0d4d0d, #1a5d1a, #2d6b2d);
 
-    /* Ombres pour un effet enfoncé réaliste */
     box-shadow:
       /* Ombre intérieure profonde */
       inset 0 0 30px rgba(0, 0, 0, 0.6),
@@ -173,53 +166,12 @@
       inset 4px 4px 8px rgba(0, 0, 0, 0.5),
       inset -4px -4px 8px rgba(0, 80, 0, 0.2),
 
-      /* Bordure brillante subtile */
       inset 0 1px 0 rgba(0, 150, 0, 0.3),
 
-      /* Ombre extérieure pour la séparation */
       0 0 15px rgba(0, 0, 0, 0.4);
     z-index: 2;
   }
 }
-
-// .table {
-//   position: relative;
-//   width: 90%;
-//   height: 100%;
-//   margin: 50px auto;
-//   background: #1a5d1a;
-//   clip-path: ellipse(50% 75% at 50% 0%);
-//   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-//   overflow: hidden;
-// }
-
-// /* Tes styles ::after pour la texture ici */
-
-// .player-slot {
-//   position: absolute;
-//   bottom: 40px;
-//   width: 80px;
-//   height: 40px;
-//   border: 2px solid rgba(255, 255, 255, 0.5);
-//   border-top-left-radius: 100px;
-//   border-top-right-radius: 100px;
-//   border-bottom: none;
-//   transform: translateX(-50%);
-//   pointer-events: none;
-// }
-
-// .table-text {
-//   position: absolute;
-//   top: 30%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   color: white;
-//   font-weight: bold;
-//   font-family: serif;
-//   text-shadow: 1px 1px 1px black;
-//   font-size: 16px;
-// }
-
 
 .card-container {
   display: flex;

@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgClass, NgOptimizedImage, CommonModule } from "@angular/common";
 import { Card } from "../../../model/dto/request/card";
-import { NzBadgeComponent } from "ng-zorro-antd/badge";
-import { NzBadgeModule } from "ng-zorro-antd/badge";
+import { NzBadgeComponent, NzBadgeModule } from "ng-zorro-antd/badge";
 
 @Component({
   selector: 'app-card-hand',
