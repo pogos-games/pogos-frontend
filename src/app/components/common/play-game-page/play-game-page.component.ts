@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { GameType } from "../../../model/enum/game-type.enum";
 import {GameService} from "../../../services/games/game.service";
 import {ActionDescriptor} from "./action-descriptor";
-import {delay} from "rxjs";
 
 @Directive()
 export abstract class PlayGamePage implements OnInit, OnDestroy {
