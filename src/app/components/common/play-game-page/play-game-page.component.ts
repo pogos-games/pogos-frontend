@@ -115,7 +115,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
           this.hands.dealerHand = data.dealerHand;
         }
 
-        if (data.game && data.game._dealerHand) {
+        if (data.game?._dealerHand) {
           this.hands.dealerHand = data.game._dealerHand;
         }
 
