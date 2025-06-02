@@ -1,16 +1,17 @@
-import {inject, Injectable} from '@angular/core';
-import {io, Socket} from 'socket.io-client';
-import {Observable, shareReplay} from 'rxjs';
-import {GameActions} from '../../model/enum/game.actions.enum';
-import {GatewayEventEmitter} from '../../model/enum/gateway-event-emitter.enum';
+import {inject, Injectable, OnDestroy} from '@angular/core';
+import { io, Socket } from 'socket.io-client';
+import { Observable, shareReplay } from 'rxjs';
+import { GameActions } from '../../model/enum/game.actions.enum';
+import { GatewayEventEmitter } from '../../model/enum/gateway-event-emitter.enum';
 import {ConfigService} from "../config.service";
 import {GameType} from "../../model/enum/game-type.enum";
 
 @Injectable({
   providedIn: 'root'
 })
-export abstract class GameService {
 
+export class GameService implements OnDestroy{
+  
   protected socket!: Socket;
   protected readonly configService: ConfigService = inject(ConfigService);
   protected readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
@@ -37,12 +38,10 @@ export abstract class GameService {
     });
 
     this.socket.on('connect', () => {
-      console.log('WebSocket connecté !', this.socket.id);
       this.playerId = this.socket.id!;
     });
 
     this.socket.on('disconnect', () => {
-      console.log('WebSocket déconnecté !');
       this.playerId = null;
     });
   }
@@ -53,7 +52,6 @@ export abstract class GameService {
 
   setGameId(gameId: string): void {
     this.gameId = gameId;
-    console.log("Game ID stocké dans le service :", this.gameId);
   }
 
   getGameId(): string | null {
@@ -69,17 +67,15 @@ export abstract class GameService {
   }
 
   sendMessage(action: string, payload: any = {}): void {
-    // Si on est en train de créer la partie (action CREATE_GAME), on permet d'envoyer sans gameId et playerId
     if ((action === GameActions.CREATE_GAME) && !this.gameId) {
       const enrichedPayload = {
         ...payload
       };
 
       this.socket.emit(action, enrichedPayload);
-      return;  // Ne pas vérifier gameId et playerId pour CREATE_GAME
+      return;
     }
 
-    // Sinon, vérifier que gameId et playerId sont définis avant d'envoyer l'action
     if (!this.gameId || !this.playerId) {
       console.warn("Impossible d'envoyer l'action, gameId ou playerId manquant !");
       return;
@@ -87,32 +83,26 @@ export abstract class GameService {
 
     const enrichedPayload = {
       gameId: this.gameId,
-      //playerId: this.playerId,
       ...payload
     };
 
-    console.log(`Envoi WebSocket : ${action}`, enrichedPayload);
     this.socket.emit(action, enrichedPayload);
   }
-
 
   listenGameUpdate(): Observable<any> {
     return new Observable(observer => {
       this.socket.on(GatewayEventEmitter.GAME_UPDATE, (data: any) => {
-        console.log("GAME_UPDATE reçu :", data);
         observer.next(data);
       });
     }).pipe(shareReplay(1));
   }
 
-
   listenEndGame(): Observable<any> {
     return new Observable(observer => {
       this.socket.on(GatewayEventEmitter.END_GAME, (data: any) => {
-        console.log("END_GAME reçu :", data);
         observer.next(data);
       });
-    })
+    });
   }
 
   listenPlayerUpdate(): Observable<any> {
@@ -127,6 +117,7 @@ export abstract class GameService {
     console.log('Déconnexion WebSocket...');
     this.socket.removeAllListeners(GatewayEventEmitter.GAME_UPDATE);
     this.socket.removeAllListeners(GatewayEventEmitter.PLAYER_UPDATE);
+    this.socket.removeAllListeners(GatewayEventEmitter.END_GAME);
     this.socket.disconnect();
     this.gameId = null;
     this.playerId = null;
