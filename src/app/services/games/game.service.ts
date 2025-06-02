@@ -1,20 +1,20 @@
-import {inject, Injectable, OnDestroy} from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable, shareReplay } from 'rxjs';
 import { GameActions } from '../../model/enum/game.actions.enum';
 import { GatewayEventEmitter } from '../../model/enum/gateway-event-emitter.enum';
-import {ConfigService} from "../config.service";
-import {GameType} from "../../model/enum/game-type.enum";
+import { ConfigService } from "../config.service";
+import { GameType } from "../../model/enum/game-type.enum";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class GameService implements OnDestroy{
-  
+export abstract class GameService implements OnDestroy {
+
   protected socket!: Socket;
   protected readonly configService: ConfigService = inject(ConfigService);
-  protected readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
+  protected readonly GAMES_SOCKET = this.configService.config.GAMES_SOCKET;
   protected gameId: string | null = null;
   protected playerId: string | null = null;
   protected players: any[] = [];
@@ -29,7 +29,10 @@ export class GameService implements OnDestroy{
     return this.players;
   }
 
-  constructor() {}
+  constructor() { }
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
 
   protected initializeSocket(): void {
     this.socket = io(this.GAMES_SOCKET + this.gameUrl, {
@@ -58,11 +61,11 @@ export class GameService implements OnDestroy{
     return this.gameId;
   }
 
-  setGameType(type: GameType){
+  setGameType(type: GameType) {
     this.gameType = type;
   }
 
-  getGameType(){
+  getGameType() {
     return this.gameType;
   }
 
@@ -123,11 +126,11 @@ export class GameService implements OnDestroy{
     this.playerId = null;
   }
 
-  setBet(bet: number){
+  setBet(bet: number) {
     console.log("setBet: " + bet)
   }
 
-  getBet(): number {return -1}
+  getBet(): number { return -1 }
 
   abstract checkStartGame(): boolean;
 }
