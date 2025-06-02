@@ -8,7 +8,8 @@
 
     <action-row [actions]="actions" [isActionsDisabled]="false" [secondaryActions]="secondaryActions"
                 [isSecondaryActionsDisabled]="false" [playerBalance]="playerBalance" [playerBet]="playerBet"
-                [showCoins]="true" (placeBet)="placeBet($event)" [gameType]="gameType" (openChat)="open()"
+                (placeBet)="placeBet($event)" [gameType]="gameType" (openChat)="open()"
+                [showCoins]="true"
                 (executeAction)="executeAction($event)" />
 
     <nz-modal [nzVisible]="isLeaveModalVisible()" nzTitle="Déconnexion" nzCentered (nzOnCancel)="handleCancelMiddle()"
