@@ -19,9 +19,10 @@
       </ng-container>
     </nz-modal>
 
-    <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'" [okText]="'Relancer'"
-                            [cancelText]="'Quitter'" [gameId]="gameId ?? ''" [players]="playerNames" [initialBet]="playerBet"
-                            (onOk)="handleWaitingRoomConfirmClick($event)" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
+    <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'"
+                            [gameId]="gameId ?? ''" [players]="playerNames" [initialBet]="playerBet"
+                            [okText]="'Relancer'" (onOk)="handleWaitingRoomConfirmClick($event)"
+                            [cancelText]="'Quitter'" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
 
   </div>
 
