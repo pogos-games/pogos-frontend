@@ -8,8 +8,7 @@
 
     <action-row [actions]="actions" [isActionsDisabled]="false" [secondaryActions]="secondaryActions"
                 [isSecondaryActionsDisabled]="false" [playerBalance]="playerBalance" [playerBet]="playerBet"
-                (placeBet)="placeBet($event)" [gameType]="gameType" (openChat)="open()"
-                [showCoins]="true"
+                [showCoins]="true" (placeBet)="placeBet($event)" [gameType]="gameType" (openChat)="open()"
                 (executeAction)="executeAction($event)" />
 
     <nz-modal [nzVisible]="isLeaveModalVisible()" nzTitle="Déconnexion" nzCentered (nzOnCancel)="handleCancelMiddle()"
@@ -19,10 +18,9 @@
       </ng-container>
     </nz-modal>
 
-    <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'"
-                            [gameId]="gameId ?? ''" [players]="playerNames" [initialBet]="playerBet"
-                            [okText]="'Relancer'" (onOk)="handleWaitingRoomConfirmClick($event)"
-                            [cancelText]="'Quitter'" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
+    <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'" [okText]="'Relancer'"
+                            [cancelText]="'Quitter'" [gameId]="gameId ?? ''" [players]="playerNames" [initialBet]="playerBet"
+                            (onOk)="handleWaitingRoomConfirmClick($event)" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
 
   </div>
 
