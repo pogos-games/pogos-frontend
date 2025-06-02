@@ -1,44 +1,31 @@
-
 <app-header [title]="'Blackjack'" [canLeave]="true" [leaveSignal]="isLeaveModalVisible"></app-header>
 <div class="main-content">
 
   <div class="game-content">
-    <app-game-table [hands]="hands"></app-game-table>
-    <app-ranking></app-ranking>
+    <div class="game-content-table">
+      <app-game-table [hands]="hands"></app-game-table>
+    </div>
+
+    <action-row [actions]="actions" [isActionsDisabled]="false" [secondaryActions]="secondaryActions"
+      [isSecondaryActionsDisabled]="false" [playerBalance]="playerBalance" [playerBet]="playerBet" [gameType]="gameType"
+      (openChat)="open()" (executeAction)="executeAction($event)" />
+
+
+    <nz-modal [nzVisible]="isLeaveModalVisible()" nzTitle="Déconnexion" nzCentered (nzOnCancel)="handleCancelMiddle()"
+      (nzOnOk)="handleOkMiddle()">
+      <ng-container *nzModalContent>
+        <p>Est-tu sûr de vouloir quitter la partie ?</p>
+      </ng-container>
+    </nz-modal>
+
+    <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [title]="'Rejouer la partie'" [okText]="'Relancer'"
+      [cancelText]="'Quitter'" [gameId]="gameId ?? ''" [players]="playerNames" [initialBet]="playerBet"
+      (onOk)="handleWaitingRoomConfirmClick($event)" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
+
   </div>
 
-  <action-row [actions]="actions" [isActionsDisabled]="false"
-              [secondaryActions]="secondaryActions" [isSecondaryActionsDisabled]="false"
-              [playerBalance]="playerBalance" [playerBet]="playerBet"
-              [gameType]="gameType" (openChat)="open()"
-              (executeAction)="executeAction($event)"
-  />
-
-
-  <nz-modal
-    [nzVisible]="isLeaveModalVisible()"
-    nzTitle="Déconnexion"
-    nzCentered
-    (nzOnCancel)="handleCancelMiddle()"
-    (nzOnOk)="handleOkMiddle()"
-  >
-    <ng-container *nzModalContent>
-      <p>Est-tu sûr de vouloir quitter la partie ?</p>
-    </ng-container>
-  </nz-modal>
-
-  <app-waiting-room-modal
-    [isVisible]="isWaitingRoomModalVisible"
-    [title]="'Rejouer la partie'"
-    [okText]="'Relancer'"
-    [cancelText]="'Quitter'"
-    [gameId]="gameId ?? ''"
-    [players]="playerNames"
-    [initialBet]="playerBet"
-    (onOk)="handleWaitingRoomConfirmClick($event)"
-    (onCancel)="handleWaitingRoomLeave()"
-  ></app-waiting-room-modal>
-
-
+  <div class="ranking-content">
+    <app-ranking></app-ranking>
+  </div>
 
 </div>

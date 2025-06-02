@@ -13,7 +13,6 @@ import { LeaveButtonComponent } from "../leave-button/leave-button.component";
 import { User } from "../../../model/user.interface";
 import { NotificationsResponseDto } from "../../../model/dto/response/notifications-response.dto";
 import { UserAuthService } from "../../../services/auth/user-auth.service";
-import { LocalStorageService } from "../../../services/storage/local-storage.service";
 import { FriendshipService } from "../../../services/friendship.service";
 import { NotificationService } from "../../../services/notification.service";
 
@@ -63,7 +62,6 @@ export class HeaderComponent implements OnInit {
     private readonly router: Router,
     public readonly themeService: ThemeService,
     private readonly notificationService: NotificationService,
-    private readonly localStorageService: LocalStorageService,
     private readonly friendshipService: FriendshipService) { }
 
   showModal(modalId: string): void {

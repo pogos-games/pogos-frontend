@@ -1,50 +1,68 @@
 <div id="coins">
   <div class="chips" *ngIf="coins">
+
+    <!-- Jeton 1 -->
+    <button class="chip-button" (click)="placeBet.emit(1)">
+      <div class="chip-container">
+        <img ngSrc="assets/chips/1_chip.png" alt="1_chip" height="35" width="35" />
+      </div>
+    </button>
+
+    <!-- Jeton 5 -->
     <button class="chip-button" (click)="placeBet.emit(5)">
       <div class="chip-container">
-        <img ngSrc="assets/chips/blue_chip.png" alt="blue_chip" height="35" width="35"/>
-        <nz-badge [nzCount]="5" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+        <img ngSrc="assets/chips/5_chip.png" alt="5_chip" height="35" width="35" />
       </div>
     </button>
+
+    <!-- Jeton 10 -->
     <button class="chip-button" (click)="placeBet.emit(10)">
       <div class="chip-container">
-        <img ngSrc="assets/chips/green_chip.png" alt="green_chip" height="35" width="35"/>
-        <nz-badge [nzCount]="10" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+        <img ngSrc="assets/chips/10_chip.png" alt="10_chip" height="35" width="35" />
       </div>
     </button>
+
+    <!-- Jeton 25 -->
+    <button class="chip-button" (click)="placeBet.emit(25)">
+      <div class="chip-container">
+        <img ngSrc="assets/chips/25_chip.png" alt="25_chip" height="35" width="35" />
+      </div>
+    </button>
+
+    <!-- Jeton 50 -->
     <button class="chip-button" (click)="placeBet.emit(50)">
       <div class="chip-container">
-        <img ngSrc="assets/chips/red_chip.png" alt="red_chip" height="35" width="35"/>
-        <nz-badge [nzCount]="50" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+        <img ngSrc="assets/chips/50_chip.png" alt="50_chip" height="35" width="35" />
       </div>
     </button>
+
+    <!-- Jeton 100 -->
     <button class="chip-button" (click)="placeBet.emit(100)">
       <div class="chip-container">
-        <img ngSrc="assets/chips/yellow_chip.png" alt="yellow_chip" height="35" width="35"/>
-        <nz-badge [nzCount]="100" [nzOverflowCount]="100" nzStandalone [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"/>
+        <img ngSrc="assets/chips/100_chip.png" alt="100_chip" height="35" width="35" />
       </div>
     </button>
+
+    <!-- Jeton 500 -->
+    <button class="chip-button" (click)="placeBet.emit(500)">
+      <div class="chip-container">
+        <img ngSrc="assets/chips/500_chip.png" alt="500_chip" height="35" width="35" />
+      </div>
+    </button>
+
   </div>
 
   <nz-divider nzType="vertical"></nz-divider>
 
   <div class="user-coins">
     Coins :
-    <nz-badge
-      nzStandalone
-      [nzCount]="playerBalance"
-      [nzOverflowCount]="9999"
-      [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
-    ></nz-badge>
+    <nz-badge nzStandalone [nzCount]="playerBalance" [nzOverflowCount]="9999"
+      [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"></nz-badge>
   </div>
 
   <div class="user-bet">
     Mise :
-    <nz-badge
-      nzStandalone
-      [nzCount]="playerBet"
-      [nzOverflowCount]="9999"
-      [nzStyle]="{ backgroundColor: '#fff', color: '#FFD700', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
-    ></nz-badge>
+    <nz-badge nzStandalone [nzCount]="playerBet" [nzOverflowCount]="9999"
+      [nzStyle]="{ backgroundColor: '#fff', color: '#FFD700', boxShadow: '0 0 0 1px #d9d9d9 inset' }"></nz-badge>
   </div>
 </div>
