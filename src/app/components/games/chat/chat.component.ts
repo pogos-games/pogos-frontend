@@ -1,20 +1,22 @@
-import {Component, Input, signal, WritableSignal} from '@angular/core';
-import {NzDrawerComponent, NzDrawerContentDirective} from "ng-zorro-antd/drawer";
-import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
-import {NzButtonComponent} from "ng-zorro-antd/button";
+import {Component, ElementRef, inject, signal, ViewChild, WritableSignal} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ChatMessage} from "../../../model/dto/chat-message.dto";
 import {NzIconDirective} from "ng-zorro-antd/icon";
-import {FormsModule} from "@angular/forms";
+import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective} from "ng-zorro-antd/input";
+import {NgClass} from "@angular/common";
+import {UnoService} from "../../../services/uno.service";
+import {UserAuthService} from "../../../services/auth/user-auth.service";
 
 @Component({
   selector: 'app-chat',
   imports: [
-    NzDrawerComponent,
-    NzDrawerContentDirective,
-    NzInputGroupComponent,
-    NzInputDirective,
-    NzButtonComponent,
+    FormsModule,
     NzIconDirective,
-    FormsModule
+    NzInputDirective,
+    NzInputGroupComponent,
+    NzInputGroupWhitSuffixOrPrefixDirective,
+    ReactiveFormsModule,
+    NgClass
   ],
   templateUrl: './chat.component.html',
   standalone: true,
@@ -22,18 +24,48 @@ import {FormsModule} from "@angular/forms";
 })
 export class ChatComponent {
 
-  @Input({required: true}) visible: WritableSignal<boolean> = signal(false);
+  @ViewChild('messagesContainer') messagesContainer!: ElementRef;
 
-  protected message:string = '';
+  protected unoService : UnoService = inject(UnoService);
 
-  close(): void {
-    this.visible.set(false);
+  protected userAuthService : UserAuthService = inject(UserAuthService);
+
+  messages: WritableSignal<ChatMessage[]> = signal([]);
+
+  username: string = this.userAuthService.user().pseudo;
+
+  currentMessage = ''
+
+  constructor() {
+    this.unoService.listenToTopic<ChatMessage>('CHAT').subscribe((message : ChatMessage) => {
+      console.log('chat received : ',message)
+      this.messages().push(message);
+      this.scrollToBottom();
+    })
   }
 
   sendMessage() {
-    console.log(this.message);
-    this.message = '';
+    if(!this.currentMessage.trim()){
+      return;
+    }
+    const chatMessage: ChatMessage = {gameId: this.unoService.getGameId()!, username: this.username, text: this.currentMessage};
+    this.unoService.sendMessage('CHAT', chatMessage);
+    this.currentMessage = '';
   }
+
+  onKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.sendMessage();
+    }
+  }
+
+  scrollToBottom(): void {
+    setTimeout(() => {
+      const el = this.messagesContainer?.nativeElement;
+      el.scrollTop = el.scrollHeight;
+    }, 0);
+  }
+
 
 
 }

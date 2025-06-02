@@ -14,7 +14,7 @@ export class GameService implements OnDestroy{
   protected readonly configService: ConfigService = inject(ConfigService);
   protected readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
   protected gameId: string | null = null;
-  protected playerId: string | null = null;
+  protected playerId: string  = '';
   protected players: any[] = [];
   protected gameUrl: string = "";
 
@@ -40,11 +40,11 @@ export class GameService implements OnDestroy{
 
     this.socket.on('disconnect', () => {
       console.log('WebSocket déconnecté !');
-      this.playerId = null;
+      this.playerId = '';
     });
   }
 
-  getPlayerId(): string | null {
+  getPlayerId(): string  {
     return this.playerId;
   }
 
@@ -118,7 +118,7 @@ export class GameService implements OnDestroy{
     this.socket.removeAllListeners(GatewayEventEmitter.PLAYER_UPDATE);
     this.socket.disconnect();
     this.gameId = null;
-    this.playerId = null;
+    this.playerId = '';
   }
 
   setBet(bet: number){
@@ -139,5 +139,6 @@ export class GameService implements OnDestroy{
   ngOnDestroy() {
     this.disconnect();
   }
+
 }
 

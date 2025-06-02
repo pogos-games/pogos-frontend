@@ -1,5 +1,105 @@
-.messages {
-  height: 95%;
-  overflow: scroll;
+.chat {
+  height: 75vh;
+  width: 300px;
+  //background-color: rebeccapurple;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
+
+.input {
+  padding: 10px;
+  border-radius: 7.5px;
+  border: none;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-icon-size {
+  font-size: 18px;
+  line-height: 1;
+}
+
+#messages-container {
+  height: 85%;
+  width: 100%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+#input {
+  width: 100%;
+  height: 5%;
+}
+
+.message-base {
+  max-width: 60%;
+  border-radius: 15px;
+  margin: 5px;
+  padding: 10px 15px;
+  position: relative;
+  word-wrap: break-word;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.self-message {
+  background-color: var(--pogos-button-bg-hover);
+  align-self: flex-end;
+  text-align: right;
+}
+
+.self-message::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: 10px;
+  border-width: 10px 0 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--pogos-button-bg-hover);
+}
+
+.other-message {
+  background-color: var(--secondary-bg-color);
+  align-self: flex-start;
+  text-align: left;
+}
+
+.other-message::after {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 10px;
+  border-width: 10px 10px 10px 0;
+  border-style: solid;
+  border-color: transparent var(--secondary-bg-color) transparent transparent;
+}
+
+// animation for messages fade in
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.message-enter {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+
+.message-enter {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+
+
 

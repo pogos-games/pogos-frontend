@@ -1,22 +1,22 @@
-import {Component} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {HeaderComponent} from "../../components/common/header/header.component";
 import {UnoTableComponent} from "../../components/games/uno-table/uno-table.component";
-import {RankingComponent} from "../../components/pages/game-page/ranking/ranking.component";
+import {ChatComponent} from "../../components/games/chat/chat.component";
+import {NzDividerComponent} from "ng-zorro-antd/divider";
 
 @Component({
   selector: 'app-uno-page',
   imports: [
     HeaderComponent,
     UnoTableComponent,
-    RankingComponent
+    ChatComponent,
+    NzDividerComponent
   ],
   templateUrl: './uno-page.component.html',
   styleUrl: './uno-page.component.scss'
 })
 export class UnoPageComponent {
 
-
-
-
+  protected readonly signal = signal;
 
 }

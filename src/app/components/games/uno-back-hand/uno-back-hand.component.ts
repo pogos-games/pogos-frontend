@@ -21,6 +21,6 @@ export class UnoBackHandComponent {
   protected readonly Array = Array;
 
   get displayedCardCount(): number {
-    return this.handCount > 7 ? 4 : this.handCount;
+    return this.handCount > 7 ? 7 : this.handCount;
   }
 }

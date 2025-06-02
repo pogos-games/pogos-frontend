@@ -10,7 +10,6 @@ import {PokerService} from '../../services/games/poker.service';
 import {PlayGamePage} from "../../components/common/play-game-page/play-game-page.component";
 import {ActionRowComponent} from "../../components/common/actions-row/action-row.component";
 import {ActionDescriptor} from "../../components/common/play-game-page/action-descriptor";
-import {ChatComponent} from "../../components/games/chat/chat.component";
 
 @Component({
   selector: 'app-poker-page',
@@ -22,7 +21,7 @@ import {ChatComponent} from "../../components/games/chat/chat.component";
     NzModalComponent,
     NzModalModule,
     ActionRowComponent,
-    ChatComponent,
+
   ],
   templateUrl: './poker-page.component.html',
   styleUrl: './poker-page.component.scss'

@@ -76,6 +76,22 @@
   width: 250px;
 }
 
+.game-infos{
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+}
+
+.info{
+  border-radius: 5px;
+  padding: 10px;
+  background-color: var(--secondary-bg-color);
+  font-weight: bold;
+  font-family: 'Lilita One', cursive;
+  margin-left: 10px;
+  height: 40px;
+}
+
 @media screen and (max-width: 992px) {
 
   .uno-table {

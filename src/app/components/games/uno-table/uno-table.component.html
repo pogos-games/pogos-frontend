@@ -1,16 +1,26 @@
+<div class="game-infos">
+  <button class="info" (click)="copyGameId()">
+  <span nz-icon
+        nzType="copy"
+        style="cursor: pointer;">
+  </span>
+    {{ this.unoService.getGameId() }}
+  </button>
+  <p class="info">{{this.gameType.toUpperCase()}}
+  </p>
+</div>
 <div class="uno-table">
-
   <div class="left column">
     <div class="left-player">
-      @if(this.unoGameState.players.length >0) {
+      @if(this.unoService.unoGameState().players.length >0) {
         <div class="player-infos">
-        <nz-badge [nzCount]="this.unoGameState.players[0].handCount ">
+        <nz-badge [nzCount]="this.unoService.unoGameState().players[0].handCount ">
             <img src="assets/avatar/artist.png" alt="Avatar" class="avatar">
         </nz-badge>
         <span class="player-name">Xtbmz</span>
       </div>
         <app-uno-back-hand
-          [handCount]="this.unoGameState.players[0].handCount"
+          [handCount]="this.unoService.unoGameState().players[0].handCount"
           [direction]="'left'">
         </app-uno-back-hand>
       }
@@ -20,38 +30,38 @@
   <div class="center column">
 
     <div class="top-player">
-      @if(this.unoGameState.players.length >1) {
+      @if(this.unoService.unoGameState().players.length >1) {
         <div class="player-infos">
-          <nz-badge [nzCount]="this.unoGameState.players[1].handCount ">
+          <nz-badge [nzCount]="this.unoService.unoGameState().players[1].handCount ">
             <img src="assets/avatar/bumblebee.png" alt="Avatar" class="avatar">
           </nz-badge>
           <span class="player-name">Clmzz</span>
         </div>
         <app-uno-back-hand
-          [handCount]="this.unoGameState.players[1].handCount"
+          [handCount]="this.unoService.unoGameState().players[1].handCount"
           [direction]="'top'">
         </app-uno-back-hand>
       }
     </div>
 
     <div class="game-hand">
-      <app-uno-card [card]="this.unoGameState.topCard" ></app-uno-card>
+      <app-uno-card [card]="this.unoService.unoGameState().topCard" ></app-uno-card>
       <app-uno-card-back (click)="drawCard()"></app-uno-card-back>
     </div>
       <div class="bottom-player">
-        <app-uno-hand [cards]="playerCards()" (click)="drawCard()"></app-uno-hand>
+        <app-uno-hand [cards]="this.unoService.playerCards()" (click)="drawCard()"></app-uno-hand>
       </div>
     </div>
 
   <div class="right column">
-    @if(this.unoGameState.players.length >0) {
+    @if(this.unoService.unoGameState().players.length >0) {
         <app-uno-back-hand
-          [handCount]="this.unoGameState.players[2].handCount"
+          [handCount]="this.unoService.unoGameState().players[2].handCount"
           [direction]="'right'">
         </app-uno-back-hand>
 
     <div class="player-infos">
-      <nz-badge [nzCount]="this.unoGameState.players[1].handCount ">
+      <nz-badge [nzCount]="this.unoService.unoGameState().players[1].handCount ">
         <img src="assets/avatar/chemist.png" alt="Avatar" class="avatar">
       </nz-badge>
       <span class="player-name">Uniskf</span>
