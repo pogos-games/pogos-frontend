@@ -1,7 +1,6 @@
 .chat {
   height: 75vh;
   width: 300px;
-  //background-color: rebeccapurple;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -90,11 +89,6 @@
     transform: scale(1);
   }
 }
-
-.message-enter {
-  animation: fadeInScale 0.3s ease-out;
-}
-
 
 .message-enter {
   animation: fadeInScale 0.3s ease-out;
