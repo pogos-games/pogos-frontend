@@ -1,0 +1,9 @@
+<div class="uno-back-hand"
+     [ngClass]="'uno-hand-' + direction"
+     [attr.data-card-count]="handCount">
+
+  <!-- Cartes visibles -->
+  @for(card of Array(displayedCardCount); track $index) {
+    <app-uno-card-back></app-uno-card-back>
+  }
+</div>

@@ -1,22 +1,21 @@
-import {inject, Injectable, OnDestroy} from '@angular/core';
-import { io, Socket } from 'socket.io-client';
-import { Observable, shareReplay } from 'rxjs';
-import { GameActions } from '../../model/enum/game.actions.enum';
-import { GatewayEventEmitter } from '../../model/enum/gateway-event-emitter.enum';
+import {inject, Injectable} from '@angular/core';
+import {io, Socket} from 'socket.io-client';
+import {Observable, shareReplay} from 'rxjs';
+import {GameActions} from '../../model/enum/game.actions.enum';
+import {GatewayEventEmitter} from '../../model/enum/gateway-event-emitter.enum';
 import {ConfigService} from "../config.service";
 import {GameType} from "../../model/enum/game-type.enum";
 
 @Injectable({
   providedIn: 'root'
 })
+export abstract class GameService {
 
-export class GameService implements OnDestroy{
-  
   protected socket!: Socket;
   protected readonly configService: ConfigService = inject(ConfigService);
   protected readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
-  protected gameId: string | null = null;
-  protected playerId: string | null = null;
+  protected gameId: string  = '';
+  protected playerId: string  = '';
   protected players: any[] = [];
   protected gameUrl: string = "";
   protected gameType: string = GameType.SOLO;
@@ -42,19 +41,21 @@ export class GameService implements OnDestroy{
     });
 
     this.socket.on('disconnect', () => {
-      this.playerId = null;
+      console.log('WebSocket déconnecté !');
+      this.playerId = '';
     });
   }
 
-  getPlayerId(): string | null {
+  getPlayerId(): string  {
     return this.playerId;
   }
 
   setGameId(gameId: string): void {
     this.gameId = gameId;
+    console.log("Game ID stocké dans le service :", this.gameId);
   }
 
-  getGameId(): string | null {
+  getGameId(): string  {
     return this.gameId;
   }
 
@@ -67,6 +68,7 @@ export class GameService implements OnDestroy{
   }
 
   sendMessage(action: string, payload: any = {}): void {
+    // Si on est en train de créer la partie (action CREATE_GAME), on permet d'envoyer sans gameId et playerId
     if ((action === GameActions.CREATE_GAME) && !this.gameId) {
       const enrichedPayload = {
         ...payload
@@ -119,8 +121,8 @@ export class GameService implements OnDestroy{
     this.socket.removeAllListeners(GatewayEventEmitter.PLAYER_UPDATE);
     this.socket.removeAllListeners(GatewayEventEmitter.END_GAME);
     this.socket.disconnect();
-    this.gameId = null;
-    this.playerId = null;
+    this.gameId = '';
+    this.playerId = '';
   }
 
   setBet(bet: number){
@@ -128,6 +130,16 @@ export class GameService implements OnDestroy{
   }
 
   getBet(): number {return -1}
+
+
+  listenToTopic<T>(topic: string): Observable<T> {
+    return new Observable(observer => {
+      this.socket.on(topic, (data: any) => {
+        observer.next(data);
+      });
+    });
+  }
+
 
   abstract checkStartGame(): boolean;
 }

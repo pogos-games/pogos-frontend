@@ -1,0 +1,48 @@
+
+<div [ngClass]="card.color.toLowerCase()" class="uno-card">
+  <div class="card-content">
+    @if(card.type === UnoCardType.Reverse) {
+      <div class="corner-value top-left">🔄</div>
+    } @else if (card.type === UnoCardType.Skip) {
+      <div class="corner-value top-left">⛔︎</div>
+    } @else if (card.type === UnoCardType.DrawTwo) {
+      <div class="corner-value top-left">+2</div>
+    } @else if (card.type === UnoCardType.WildDrawFour) {
+      <div class="corner-value top-left">🎨+4</div>
+    } @else if (card.type === UnoCardType.Wild) {
+      <div class="corner-value top-left">🎨</div>
+    } @else {
+      <div class="corner-value top-left">{{card.value}}</div>
+    }
+    <div class="center-oval">
+      @if(card.type === UnoCardType.Reverse) {
+        <div class="center-value">🔄</div>
+      } @else if (card.type === UnoCardType.Skip) {
+        <div class="center-value">⛔︎</div>
+      } @else if (card.type === UnoCardType.DrawTwo) {
+        <div class="center-value">+2</div>
+      }
+      @else if (card.type === UnoCardType.WildDrawFour) {
+        <div class="center-value">🎨</div>
+      } @else if (card.type === UnoCardType.Wild) {
+        <div class="center-value">🎨</div>
+      }
+      @else {
+      <span class="center-value">{{card.value}}</span>
+      }
+    </div>
+    @if(card.type === UnoCardType.Reverse) {
+      <div class="corner-value bottom-right">🔄</div>
+    } @else if (card.type === UnoCardType.Skip) {
+        <div class="corner-value bottom-right">⛔︎</div>
+    } @else if (card.type === UnoCardType.DrawTwo) {
+      <div class="corner-value bottom-right">+2</div>
+    } @else if (card.type === UnoCardType.WildDrawFour) {
+        <div class="corner-value bottom-right">🎨+4</div>
+    } @else if (card.type === UnoCardType.Wild) {
+      <div class="corner-value bottom-right">🎨</div>
+    } @else {
+      <div class="corner-value bottom-right">{{card.value}}</div>
+    }
+  </div>
+</div>

@@ -1,25 +1,29 @@
-<nz-drawer
-  class="drawer"
-  [nzClosable]="true"
-  [nzVisible]="visible()"
-  nzPlacement="right"
-  nzTitle="Discussion en ligne"
-  (nzOnClose)="close()">
+<div class="chat">
+  <div id="messages-container" #messagesContainer>
+    @for (message of messages(); let i = $index; track message) {
+      <div
+        class="message-base"
+        [ngClass]="[
+          message.username === username ? 'self-message' : 'other-message',
+          i === messages().length - 1 ? 'message-enter' : ''
+        ]"
+      >
+        <p><strong>{{ message.username }}</strong> : {{ message.text }}</p>
+      </div>
+    }
+  </div>
 
-  <ng-container *nzDrawerContent    class="drawer"
-  >
-    <div class="messages">
+<div id="input">
+    <nz-input-group class="input" [nzSuffix]="suffixTemplate">
+      <input type="text"
+             nz-input
+             [(ngModel)]="currentMessage"
+             (keyup)="onKeyPress($event)"
+             placeholder="Écris un message..." />
+    </nz-input-group>
+    <ng-template #suffixTemplate>
+      <span nz-icon nzType="send" class="input-icon custom-icon-size" (click)="sendMessage()"></span>
+    </ng-template>
+  </div>
 
-    </div>
-    <div class="input">
-      <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-        <input type="text" nz-input placeholder="Écris un message" [(ngModel)]="message"  (keydown.enter)="sendMessage()"/>
-      </nz-input-group>
-      <ng-template #suffixIconButton>
-        <button nz-button nzType="primary" nzSearch (click)="sendMessage()">
-          <span nz-icon nzType="send" ></span></button>
-      </ng-template>
-
-    </div>
-  </ng-container>
-</nz-drawer>
+</div>

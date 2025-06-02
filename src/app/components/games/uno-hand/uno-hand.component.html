@@ -1,0 +1,16 @@
+<!-- uno-hand.component.html -->
+<div class="uno-hand">
+
+  <!-- Badge pour afficher le nombre de cartes quand il y en a beaucoup -->
+  @if(hasManyCCards) {
+    <div class="card-count-badge">
+      {{ cardCount }}
+    </div>
+  }
+
+  @for(card of cards; track card; let i = $index) {
+    <app-uno-card
+      [card]="card">
+    </app-uno-card>
+  }
+</div>

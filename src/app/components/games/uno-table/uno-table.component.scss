@@ -1,0 +1,98 @@
+.uno-table {
+  height: 70vh;
+  width: 70vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.uno-table:hover {
+  border-color: var(--primary-color);
+}
+
+
+.column {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items:  center;
+}
+
+.column.center{
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.game-hand{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  gap: 10px;
+}
+
+.player-infos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.player-infos span{
+  font-size: 1.2em;
+  font-weight: bold;
+
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+}
+
+
+.left-cards, .right-cards {
+  margin-top: 40px;
+}
+
+.left-player {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 250px;
+}
+
+.right-player {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 250px;
+}
+
+.game-infos{
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+}
+
+.info{
+  border-radius: 5px;
+  padding: 10px;
+  background-color: var(--secondary-bg-color);
+  font-weight: bold;
+  font-family: 'Lilita One', cursive;
+  margin-left: 10px;
+  height: 40px;
+}
+
+@media screen and (max-width: 992px) {
+
+  .uno-table {
+    width: 100vw;
+  }
+}

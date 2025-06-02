@@ -1,0 +1,20 @@
+.main-content {
+  height: 80vh;
+}
+
+.game-content{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+nz-divider {
+  height: 75vh;
+  border: 2px solid;
+  border-radius: 5px;
+  border-color: var(--secondary-bg-color) !important;
+  margin-left: 20px;
+}
