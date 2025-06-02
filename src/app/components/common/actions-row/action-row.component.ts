@@ -29,7 +29,7 @@ export class ActionRowComponent {
   @Input() isSecondaryActionsDisabled: boolean = false;
   @Input() playerBalance: number = 0;
   @Input({transform: numberAttribute}) playerBet: number = 0;
-  @Input({required: true}) gameType: GameType | undefined;
+  @Input({required: true}) gameType: string = "";
   @Input() showCoins: boolean = false;
 
   @Output() placeBet= new EventEmitter<number>();

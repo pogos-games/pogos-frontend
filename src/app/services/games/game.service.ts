@@ -1,10 +1,11 @@
-import {inject, Injectable} from '@angular/core';
-import {io, Socket} from 'socket.io-client';
-import {Observable, shareReplay} from 'rxjs';
-import {GameActions} from '../../model/enum/game.actions.enum';
-import {GatewayEventEmitter} from '../../model/enum/gateway-event-emitter.enum';
+import {inject, Injectable, signal, WritableSignal} from '@angular/core';
+import { io, Socket } from 'socket.io-client';
+import {Observable, shareReplay, Subject} from 'rxjs';
+import { GameActions } from '../../model/enum/game.actions.enum';
+import { GatewayEventEmitter } from '../../model/enum/gateway-event-emitter.enum';
 import {ConfigService} from "../config.service";
 import {GameType} from "../../model/enum/game-type.enum";
+import {isNonEmptyString} from "ng-zorro-antd/core/util";
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +17,16 @@ export abstract class GameService {
   protected readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
   protected gameId: string  = '';
   protected playerId: string  = '';
-  protected players: any[] = [];
+  protected players: WritableSignal<any[]> = signal([]);
   protected gameUrl: string = "";
   protected gameType: string = GameType.SOLO;
+  protected errorStartGame: string = "";
 
   setPlayers(players: any[]): void {
-    this.players = players;
+    this.players.set(players);
   }
 
-  getPlayers(): any[] {
+  getPlayers(): WritableSignal<any[]> {
     return this.players;
   }
 
@@ -52,7 +54,6 @@ export abstract class GameService {
 
   setGameId(gameId: string): void {
     this.gameId = gameId;
-    console.log("Game ID stocké dans le service :", this.gameId);
   }
 
   getGameId(): string  {
@@ -99,6 +100,23 @@ export abstract class GameService {
     }).pipe(shareReplay(1));
   }
 
+  listenStartGameUpdate(): Observable<void> {
+    const checkStartGame = new Subject<void>();
+    this.listenGameUpdate().subscribe((data) => {
+      if (isNonEmptyString(data) && data.startsWith('#') && data.length == 5) {
+        this.players.set([this.playerId])
+      } else {
+        if (data.players) {
+          this.players.set(data.players.map((p: any) => p.playerId));
+        } else {
+          this.players.update(players => [...players, data]);
+        }
+        checkStartGame.next();
+      }
+    });
+    return checkStartGame.asObservable();
+  }
+
   listenEndGame(): Observable<any> {
     return new Observable(observer => {
       this.socket.on(GatewayEventEmitter.END_GAME, (data: any) => {
@@ -142,5 +160,11 @@ export abstract class GameService {
 
 
   abstract checkStartGame(): boolean;
+
+  getErrorStartGame() {
+    const error = this.errorStartGame;
+    this.errorStartGame = "";
+    return error
+  }
 }
 

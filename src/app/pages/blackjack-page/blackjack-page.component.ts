@@ -3,7 +3,6 @@ import { BlackjackService } from "../../services/games/blackjack.service";
 import { GameActions } from "../../model/enum/game.actions.enum";
 import { BlackJackActions } from "../../model/enum/black-jack.actions.enum";
 import { NzMessageService } from "ng-zorro-antd/message";
-import { ChatComponent } from "../../components/games/chat/chat.component";
 import { HeaderComponent } from "../../components/common/header/header.component";
 import { RankingComponent } from "../../components/pages/game-page/ranking/ranking.component";
 import { GameTableBlackjackComponent } from "../../components/games/game-table/game-table-blackjack/game-table-blackjack.component";
@@ -17,7 +16,6 @@ import { ActionRowComponent } from "../../components/common/actions-row/action-r
 @Component({
   selector: 'app-blackjack-page',
   imports: [
-    ChatComponent,
     HeaderComponent,
     RankingComponent,
     GameTableBlackjackComponent,

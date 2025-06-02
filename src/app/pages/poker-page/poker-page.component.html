@@ -7,16 +7,20 @@
     </div>
 
     <action-row [actions]="actions" [isActionsDisabled]="false" [secondaryActions]="secondaryActions"
-      [isSecondaryActionsDisabled]="currentPotAmount == 0" [playerBalance]="playerBalance" [playerBet]="playerBet"
-      [showCoins]="true" (placeBet)="placeBet($event)" [gameType]="gameType" (openChat)="open()"
-      (executeAction)="executeAction($event)" />
+                [isSecondaryActionsDisabled]="false" [playerBalance]="playerBalance" [playerBet]="playerBet"
+                [showCoins]="true" (placeBet)="placeBet($event)" [gameType]="gameType" (openChat)="open()"
+                (executeAction)="executeAction($event)" />
 
     <nz-modal [nzVisible]="isLeaveModalVisible()" nzTitle="Déconnexion" nzCentered (nzOnCancel)="handleCancelMiddle()"
-      (nzOnOk)="handleOkMiddle()">
+              (nzOnOk)="handleOkMiddle()">
       <ng-container *nzModalContent>
         <p>Est-tu sûr de vouloir quitter la partie ?</p>
       </ng-container>
     </nz-modal>
+
+    <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'" [okText]="'Relancer'"
+                            [cancelText]="'Quitter'" [gameId]="gameId ?? ''" [players]="playerNames" [initialBet]="playerBet"
+                            (onOk)="handleWaitingRoomConfirmClick($event)" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
 
   </div>
 
