@@ -19,11 +19,13 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
 
   public isWaitingRoomModalVisible: WritableSignal<boolean> = signal(false);
 
-  protected gameType: GameType | undefined;
+  public errorWaitingRoom: WritableSignal<string> = signal("");
+
+  protected gameType: string = "";
 
   protected readonly GameType = GameType;
 
-  public playerNames: string[] = [];
+  public playerNames: WritableSignal<any[]> = signal([]);
 
   protected hands: {
     player1Hand: Card[],
@@ -122,7 +124,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
         this.gameService.setPlayers(data.players);
 
         if (data?.players?.length > 0) {
-          this.playerNames = data.players.map((p: any) => p.playerId);
+          this.playerNames.set(data.players.map((p: any) => p.playerId));
           const player = data.players.find((p: { playerId: string; }) =>
             p.playerId === this.gameService.getPlayerId());
           if (player) {
@@ -145,15 +147,9 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
 
   protected listenForEndGame(): void {
     this.gameService.listenEndGame()
-      .subscribe(async (data: any) => {
+      .subscribe(async () => {
         this.isActionDisabled = true;
         await this.sleep(3000);
-        if (data.player) {
-          let coinBalance = data.player.balance - data.player.bet;
-          if (coinBalance) {
-            this.gameService.setCoinBalance(coinBalance)
-          }
-        }
 
         console.log('listenForEndGame play-game-page');
         // 2. Réaffiche la WaitingRoomModal
@@ -203,7 +199,6 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   }
 
   public showWaitingRoomModal(): void {
-    console.log(this.gameService.getCoinBalance())
     this.isWaitingRoomModalVisible.set(true);
   }
 

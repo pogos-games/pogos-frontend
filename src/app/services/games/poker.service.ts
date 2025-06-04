@@ -17,7 +17,8 @@ export class PokerService extends GameService{
   }
 
   checkStartGame(): boolean {
-    return this.players.length > 1;
+    this.errorStartGame = "Insufficient players to start the game."
+    return this.players().length > 1;
   }
 }
 

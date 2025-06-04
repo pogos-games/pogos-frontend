@@ -14,7 +14,9 @@
 
       <p><strong>Joueurs :</strong></p>
       <ul>
-        <li *ngFor="let player of players">{{ player }}</li>
+        @for (player of players(); track $index){
+          <li>{{ player }}</li>
+        }
       </ul>
 
       @if (initialBet() != -1){
@@ -30,5 +32,6 @@
         />
       }
     </div>
+    {{errorMessage()}}
   </ng-container>
 </nz-modal>
