@@ -32,6 +32,8 @@ export class PokerPageComponent extends PlayGamePage {
 
   protected override gameAction: typeof PokerActions = PokerActions;
 
+  protected isSecondaryActionsDisabled: WritableSignal<boolean> = signal(false);
+
   protected currentPotAmount: Number = 0;
 
   protected playerBalance: number = 1000;
@@ -57,10 +59,6 @@ export class PokerPageComponent extends PlayGamePage {
     this.gameType = "HOLDEM";
   }
 
-  endTurn(): void {
-    this.hands.dealerHand.push({ rank: '2', suit: 'D', value: 0 });
-  }
-
   protected readonly PokerActions = PokerActions;
 
   placeBet(bet: number){
@@ -73,7 +71,8 @@ export class PokerPageComponent extends PlayGamePage {
       return;
     }
 
-    this.isActionDisabled = true;
+    this.isActionDisabled.set(true);
+    this.isSecondaryActionsDisabled.set(true)
 
     this.gameService.sendMessage(GameActions.ACTION, { action: action, bet:this.playerBet, gameId: this.gameId });
     this.playerBet.set(0);
@@ -81,6 +80,17 @@ export class PokerPageComponent extends PlayGamePage {
 
   protected gameFound() {
     console.log("game found")
+  }
+
+  protected override setActionDisabled(data){
+      this.isActionDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
+      this.isSecondaryActionsDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
+  }
+
+  protected override updatePlayerInfos(player: any): void {
+    this.hands.selfHand = player.hand;
+    this.playerBet.set(player.bet)
+    this.playerBalance = player.balance;
   }
 
   handleWaitingRoomConfirmClick(bet: number): void {

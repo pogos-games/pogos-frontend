@@ -6,8 +6,8 @@
       <app-game-table [hands]="hands"></app-game-table>
     </div>
 
-    <action-row [actions]="actions" [isActionsDisabled]="false" [secondaryActions]="secondaryActions"
-                [isSecondaryActionsDisabled]="false" [playerBalance]="playerBalance" [playerBet]="playerBet"
+    <action-row [actions]="actions" [isActionsDisabled]="isActionDisabled" [secondaryActions]="secondaryActions"
+                [isSecondaryActionsDisabled]="isSecondaryActionsDisabled" [playerBalance]="playerBalance" [playerBet]="playerBet"
                 (placeBet)="placeBet($event)" [gameType]="gameType" (openChat)="open()"
                 [showCoins]="true"
                 (executeAction)="executeAction($event)" />

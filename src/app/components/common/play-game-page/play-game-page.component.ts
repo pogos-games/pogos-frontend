@@ -11,7 +11,7 @@ import {ActionDescriptor} from "./action-descriptor";
 export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected gameAction: Record<string, string | number> = GameActions;
 
-  protected isActionDisabled: boolean = false;
+  protected isActionDisabled: WritableSignal<boolean> = signal(false);
 
   protected isChatVisible: WritableSignal<boolean> = signal(false);
 
@@ -109,33 +109,37 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected listenForGameUpdates(): void {
     this.gameService.listenGameUpdate()
       .subscribe((data: any) => {
-        if (data?.gameId && !this.gameId) {
-          this.gameId = data.gameId;
-        }
-
-        if (data?.dealerHand) {
-          this.hands.dealerHand = data.dealerHand;
-        }
-
-        if (data.game?._dealerHand) {
-          this.hands.dealerHand = data.game._dealerHand;
-        }
-
-        this.gameService.setPlayers(data.players);
-
+        this.updateGameInfo(data)
         if (data?.players?.length > 0) {
           this.playerNames.set(data.players.map((p: any) => p.playerId));
           const player = data.players.find((p: { playerId: string; }) =>
             p.playerId === this.gameService.getPlayerId());
           if (player) {
             this.updatePlayerInfos(player);
+            this.setActionDisabled(data);
           }
         }
-
-        this.isActionDisabled = false;
       });
   }
 
+  protected setActionDisabled(data){
+    this.isActionDisabled.set(false);
+  }
+  protected updateGameInfo(data){
+    if (data?.gameId && !this.gameId) {
+      this.gameId = data.gameId;
+    }
+
+    if (data?.dealerHand) {
+      this.hands.dealerHand = data.dealerHand;
+    }
+
+    if (data.game?._dealerHand) {
+      this.hands.dealerHand = data.game._dealerHand;
+    }
+
+    this.gameService.setPlayers(data.players);
+  }
 
   protected listenForPlayerUpdates(): void {
     this.gameService.listenPlayerUpdate()
@@ -148,7 +152,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected listenForEndGame(): void {
     this.gameService.listenEndGame()
       .subscribe(async () => {
-        this.isActionDisabled = true;
+        this.isActionDisabled.set(true);
         await this.sleep(3000);
 
         console.log('listenForEndGame play-game-page');
@@ -156,7 +160,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
         this.showWaitingRoomModal();
 
         // 3. Réinitialisation partielle si besoin
-        this.isActionDisabled = true;
+        this.isActionDisabled.set(true);
       });
   }
 
@@ -178,11 +182,11 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
       return;
     }
 
-    this.isActionDisabled = true;
+    this.isActionDisabled.set(true);
 
     this.gameService.sendMessage(GameActions.ACTION, { action: action, gameId: this.gameId });
 
-    this.isActionDisabled = false;
+    this.isActionDisabled.set(false);
   }
 
   open(): void {

@@ -44,5 +44,9 @@ export class UnoService extends GameService{
 
   }
 
+  checkStartGame(): boolean {
+    return false;
+  }
+
 
 }

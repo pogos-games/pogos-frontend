@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, numberAttribute, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, signal, WritableSignal} from '@angular/core';
 import {ActionButtonComponent} from "../action-button/action-button.component";
 import {JetonButtonComponent} from "../jeton-bouton/jeton-button/jeton-button.component";
 import {NgForOf} from "@angular/common";
@@ -25,10 +25,10 @@ import {GameType} from "../../../model/enum/game-type.enum";
 export class ActionRowComponent {
   @Input({required: true}) actions: ActionDescriptor[] = [];
   @Input() secondaryActions: ActionDescriptor[] = [];
-  @Input() isActionsDisabled: boolean = false;
-  @Input() isSecondaryActionsDisabled: boolean = false;
+  @Input() isActionsDisabled: WritableSignal<boolean> = signal(false);
+  @Input() isSecondaryActionsDisabled: WritableSignal<boolean> = signal(false);
   @Input() playerBalance: number = 0;
-  @Input({transform: numberAttribute}) playerBet: number = 0;
+  @Input() playerBet: WritableSignal<number> = signal(0);
   @Input({required: true}) gameType: string = "";
   @Input() showCoins: boolean = false;
 
