@@ -1,9 +1,9 @@
 import {Directive, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
-import { Card } from "../../../model/dto/request/card";
-import { GameActions } from "../../../model/enum/game.actions.enum";
-import { NzMessageService } from "ng-zorro-antd/message";
-import { ActivatedRoute, Router } from "@angular/router";
-import { GameType } from "../../../model/enum/game-type.enum";
+import {Card} from "../../../model/dto/request/card";
+import {GameActions} from "../../../model/enum/game.actions.enum";
+import {NzMessageService} from "ng-zorro-antd/message";
+import {ActivatedRoute, Router} from "@angular/router";
+import {GameType} from "../../../model/enum/game-type.enum";
 import {GameService} from "../../../services/games/game.service";
 import {ActionDescriptor} from "./action-descriptor";
 
@@ -148,12 +148,6 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
       .subscribe(async (data: any) => {
         this.isActionDisabled = true;
         await this.sleep(3000);
-        if (data.player) {
-          let coinBalance = data.player.balance - data.player.bet;
-          if (coinBalance) {
-            this.gameService.setCoinBalance(coinBalance)
-          }
-        }
 
         console.log('listenForEndGame play-game-page');
         // 2. Réaffiche la WaitingRoomModal
@@ -203,7 +197,6 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   }
 
   public showWaitingRoomModal(): void {
-    console.log(this.gameService.getCoinBalance())
     this.isWaitingRoomModalVisible.set(true);
   }
 
