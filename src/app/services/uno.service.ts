@@ -41,10 +41,11 @@ export class UnoService extends GameService{
       this.playerCards.set(data.hand);
       console.log('Received private state:', data);
     })
+
   }
 
   checkStartGame(): boolean {
-    return this.players.length > 1;
+    return false;
   }
 
 }

@@ -1,10 +1,10 @@
 <div class="actions">
   <div class="game-actions">
-    <game-action-button *ngFor="let action of secondaryActions" (onCLick)="emitAction(action.gameAction)" [text]="action.text" [icon]="action.icon" [isActionDisabled]="isSecondaryActionsDisabled" [condition]="action.condition"/>
+    <game-action-button *ngFor="let action of secondaryActions" (onCLick)="emitAction(action.gameAction)" [text]="action.text" [icon]="action.icon" [isActionDisabled]="isSecondaryActionsDisabled" [showButton]="action.condition"/>
 
     <app-jeton-button [playerBalance]="playerBalance" [playerBet]="playerBet" [coins]="showCoins" (placeBet)="emitPlaceBet($event)"></app-jeton-button>
 
-    <game-action-button *ngFor="let action of actions" (onCLick)="emitAction(action.gameAction)" [text]="action.text" [icon]="action.icon" [isActionDisabled]="isActionsDisabled" [condition]="action.condition"/>
+    <game-action-button *ngFor="let action of actions" (onCLick)="emitAction(action.gameAction)" [text]="action.text" [icon]="action.icon" [isActionDisabled]="isActionsDisabled" [showButton]="action.condition"/>
 
 
   </div>

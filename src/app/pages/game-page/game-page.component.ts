@@ -9,6 +9,7 @@ import { WaitingRoomModalComponent } from '../../components/common/waiting-room-
 import { Router } from '@angular/router';
 import {GameService} from "../../services/games/game.service";
 import {GameActions} from "../../model/enum/game.actions.enum";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-game-page',
@@ -28,9 +29,11 @@ import {GameActions} from "../../model/enum/game.actions.enum";
 })
 export class GamePageComponent {
   public isWaitingRoomModalVisible: WritableSignal<boolean> = signal(false);
+  public errorWaitingRoom: WritableSignal<string> = signal("");
   public gameBet: WritableSignal<number> = signal(-1);
-  public playerNames: string[] = [];
+  public playerNames: WritableSignal<any[]> = signal([]);
   protected title = 'BlackJack';
+  protected subStartGame: Subscription = new Subscription();
 
   constructor(
     private readonly router: Router,
@@ -39,25 +42,32 @@ export class GamePageComponent {
 
   public showModal(gameService: GameService): void {
     this.gameService = gameService;
-    const players = this.gameService.getPlayers();
-    this.playerNames = players?.map(p => p.name || p.playerId) ?? [];
+    this.playerNames = this.gameService.getPlayers();
     this.gameBet.set(this.gameService.getBet());
     this.isWaitingRoomModalVisible.set(true);
+    this.subStartGame = this.gameService.listenStartGameUpdate().subscribe();
   }
 
   public handleStartGame(bet: number): void {
     if (this.gameService.checkStartGame()) {
+      this.subStartGame.unsubscribe()
+      this.errorWaitingRoom.set("")
       this.gameService.setBet(bet);
       this.gameService.sendMessage(GameActions.START_GAME, {type: this.gameService.getGameType(), bet: bet});
       this.isWaitingRoomModalVisible.set(false);
       this.router.navigate(['/games', this.title.toLowerCase()], {
         queryParams: {gameType: 'solo'}
       });
+    } else {
+      this.errorWaitingRoom.set(this.gameService.getErrorStartGame());
     }
   }
 
   public handleCancelModal(): void {
     this.gameService.sendMessage(GameActions.QUIT_GAME);
+    this.errorWaitingRoom.set("")
+    this.playerNames.set([]);
+    this.subStartGame.unsubscribe()
     this.isWaitingRoomModalVisible.set(false);
   }
 
