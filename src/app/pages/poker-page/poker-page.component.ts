@@ -82,38 +82,11 @@ export class PokerPageComponent extends PlayGamePage {
     console.log("game found")
   }
 
-  protected override listenForGameUpdates(): void {
-    this.gameService.listenGameUpdate()
-      .subscribe((data: any) => {
-        if (data?.gameId && !this.gameId) {
-          this.gameId = data.gameId;
-        }
-
-        if (data?.dealerHand) {
-          this.hands.dealerHand = data.dealerHand;
-        }
-
-        if (data.game?._dealerHand) {
-          this.hands.dealerHand = data.game._dealerHand;
-        }
-
-        this.gameService.setPlayers(data.players);
-
-        if (data?.players?.length > 0) {
-          this.playerNames.set(data.players.map((p: any) => p.playerId));
-          const player = data.players.find((p: { playerId: string; }) =>
-            p.playerId === this.gameService.getPlayerId());
-          if (player) {
-            this.updatePlayerInfos(player);
-            console.log(this.gameService.getPlayerId())
-            console.log(data.nextPlayerId)
-            console.log(this.gameService.getPlayerId() != data.nextPlayerId)
-            this.isActionDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
-            this.isSecondaryActionsDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
-          }
-        }
-      });
+  protected override setActionDisabled(data){
+      this.isActionDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
+      this.isSecondaryActionsDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
   }
+
   protected override updatePlayerInfos(player: any): void {
     this.hands.selfHand = player.hand;
     this.playerBet.set(player.bet)

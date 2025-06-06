@@ -109,34 +109,37 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected listenForGameUpdates(): void {
     this.gameService.listenGameUpdate()
       .subscribe((data: any) => {
-        console.log(data)
-        if (data?.gameId && !this.gameId) {
-          this.gameId = data.gameId;
-        }
-
-        if (data?.dealerHand) {
-          this.hands.dealerHand = data.dealerHand;
-        }
-
-        if (data.game?._dealerHand) {
-          this.hands.dealerHand = data.game._dealerHand;
-        }
-
-        this.gameService.setPlayers(data.players);
-
+        this.updateGameInfo(data)
         if (data?.players?.length > 0) {
           this.playerNames.set(data.players.map((p: any) => p.playerId));
           const player = data.players.find((p: { playerId: string; }) =>
             p.playerId === this.gameService.getPlayerId());
           if (player) {
             this.updatePlayerInfos(player);
+            this.setActionDisabled(data);
           }
         }
-
-        this.isActionDisabled.set(false);
       });
   }
 
+  protected setActionDisabled(data){
+    this.isActionDisabled.set(false);
+  }
+  protected updateGameInfo(data){
+    if (data?.gameId && !this.gameId) {
+      this.gameId = data.gameId;
+    }
+
+    if (data?.dealerHand) {
+      this.hands.dealerHand = data.dealerHand;
+    }
+
+    if (data.game?._dealerHand) {
+      this.hands.dealerHand = data.game._dealerHand;
+    }
+
+    this.gameService.setPlayers(data.players);
+  }
 
   protected listenForPlayerUpdates(): void {
     this.gameService.listenPlayerUpdate()
