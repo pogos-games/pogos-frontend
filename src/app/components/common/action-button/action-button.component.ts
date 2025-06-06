@@ -18,7 +18,7 @@ export class ActionButtonComponent {
   @Input({required: true}) text: string = "";
   @Input({required: true}) icon: string = "";
   @Input({required: true}) isActionDisabled: WritableSignal<boolean> = signal(false);
-  @Input() condition: boolean = true;
+  @Input() showButton: boolean = true;
   @Output() onCLick = new EventEmitter();
 
   executeAction(){
