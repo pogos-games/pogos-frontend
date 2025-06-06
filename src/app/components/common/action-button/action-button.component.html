@@ -1,4 +1,4 @@
-<button nz-button nzType="primary" *ngIf="condition" (click)="executeAction()" [disabled]="isActionDisabled">
+<button nz-button nzType="primary" *ngIf="condition" (click)="executeAction()" [disabled]="isActionDisabled()">
   <span nz-icon nzType="{{ icon }}"></span>
   {{ text }}
 </button>

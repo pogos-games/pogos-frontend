@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, signal, WritableSignal} from '@angular/core';
 import {NzBadgeComponent} from "ng-zorro-antd/badge";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {NgIf, NgOptimizedImage} from "@angular/common";
@@ -18,6 +18,6 @@ import {NgIf, NgOptimizedImage} from "@angular/common";
 export class JetonButtonComponent {
     @Output() placeBet = new EventEmitter<number>();
     @Input({required : true}) playerBalance: number = 0;
-    @Input({required : true}) playerBet: number = 0;
+    @Input({required : true}) playerBet: WritableSignal<number> = signal(0);
     @Input() coins: boolean = true;
 }

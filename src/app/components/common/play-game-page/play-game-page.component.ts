@@ -11,7 +11,7 @@ import {ActionDescriptor} from "./action-descriptor";
 export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected gameAction: Record<string, string | number> = GameActions;
 
-  protected isActionDisabled: boolean = false;
+  protected isActionDisabled: WritableSignal<boolean> = signal(false);
 
   protected isChatVisible: WritableSignal<boolean> = signal(false);
 
@@ -109,6 +109,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected listenForGameUpdates(): void {
     this.gameService.listenGameUpdate()
       .subscribe((data: any) => {
+        console.log(data)
         if (data?.gameId && !this.gameId) {
           this.gameId = data.gameId;
         }
@@ -132,7 +133,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
           }
         }
 
-        this.isActionDisabled = false;
+        this.isActionDisabled.set(false);
       });
   }
 
@@ -148,7 +149,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected listenForEndGame(): void {
     this.gameService.listenEndGame()
       .subscribe(async () => {
-        this.isActionDisabled = true;
+        this.isActionDisabled.set(true);
         await this.sleep(3000);
 
         console.log('listenForEndGame play-game-page');
@@ -156,7 +157,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
         this.showWaitingRoomModal();
 
         // 3. Réinitialisation partielle si besoin
-        this.isActionDisabled = true;
+        this.isActionDisabled.set(true);
       });
   }
 
@@ -178,11 +179,11 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
       return;
     }
 
-    this.isActionDisabled = true;
+    this.isActionDisabled.set(true);
 
     this.gameService.sendMessage(GameActions.ACTION, { action: action, gameId: this.gameId });
 
-    this.isActionDisabled = false;
+    this.isActionDisabled.set(false);
   }
 
   open(): void {
