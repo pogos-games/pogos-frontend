@@ -1,14 +1,12 @@
 import {Component, EventEmitter, Input, Output, signal, WritableSignal} from '@angular/core';
-import {NgIf} from "@angular/common";
 import {NzIconDirective} from "ng-zorro-antd/icon";
-import { NzButtonComponent } from "ng-zorro-antd/button";
+import {NzButtonComponent} from "ng-zorro-antd/button";
 
 @Component({
   selector: 'game-action-button',
   templateUrl: './action-button.component.html',
   standalone: true,
   imports: [
-    NgIf,
     NzIconDirective,
     NzButtonComponent
   ],

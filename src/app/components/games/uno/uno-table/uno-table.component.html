@@ -15,7 +15,7 @@
       @if(this.unoService.unoGameState().players.length >0) {
         <div class="player-infos">
         <nz-badge [nzCount]="this.unoService.unoGameState().players[0].handCount ">
-            <img src="assets/avatar/artist.png" alt="Avatar" class="avatar">
+            <img src="../../../../../assets/avatar/artist.png" alt="Avatar" class="avatar">
         </nz-badge>
         <span class="player-name">Xtbmz</span>
       </div>
@@ -31,9 +31,9 @@
 
     <div class="top-player">
       @if(this.unoService.unoGameState().players.length >1) {
-        <div class="player-infos">
+        <div class="player-infos active">
           <nz-badge [nzCount]="this.unoService.unoGameState().players[1].handCount ">
-            <img src="assets/avatar/bumblebee.png" alt="Avatar" class="avatar">
+            <img src="../../../../../assets/avatar/bumblebee.png" alt="Avatar" class="avatar">
           </nz-badge>
           <span class="player-name">Clmzz</span>
         </div>
@@ -47,6 +47,7 @@
     <div class="game-hand">
       <app-uno-card [card]="this.unoService.unoGameState().topCard" ></app-uno-card>
       <app-uno-card-back (click)="drawCard()"></app-uno-card-back>
+      <div id="current-card-color" [ngStyle]="{'background-color': this.unoService.unoGameState().topCard.color}"></div>
     </div>
       <div class="bottom-player">
         <app-uno-hand [cards]="this.unoService.playerCards()" (click)="drawCard()"></app-uno-hand>
@@ -62,10 +63,13 @@
 
     <div class="player-infos">
       <nz-badge [nzCount]="this.unoService.unoGameState().players[1].handCount ">
-        <img src="assets/avatar/chemist.png" alt="Avatar" class="avatar">
+        <img src="../../../../../assets/avatar/chemist.png" alt="Avatar" class="avatar">
       </nz-badge>
       <span class="player-name">Uniskf</span>
     </div>
     }
   </div>
 </div>
+
+<app-uno-color-picker-modal [isVisible]="isSelectColorModalVisible"></app-uno-color-picker-modal>
+

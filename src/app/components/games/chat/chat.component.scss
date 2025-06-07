@@ -27,6 +27,24 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
+
+  // Styles pour la scrollbar
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  // Pour Firefox
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
 
 #input {
@@ -93,6 +111,8 @@
 .message-enter {
   animation: fadeInScale 0.3s ease-out;
 }
+
+
 
 
 

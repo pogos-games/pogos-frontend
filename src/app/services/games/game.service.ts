@@ -1,8 +1,8 @@
 import {inject, Injectable, signal, WritableSignal} from '@angular/core';
-import { io, Socket } from 'socket.io-client';
+import {io, Socket} from 'socket.io-client';
 import {Observable, shareReplay, Subject} from 'rxjs';
-import { GameActions } from '../../model/enum/game.actions.enum';
-import { GatewayEventEmitter } from '../../model/enum/gateway-event-emitter.enum';
+import {GameActions} from '../../model/enum/game.actions.enum';
+import {GatewayEventEmitter} from '../../model/enum/gateway-event-emitter.enum';
 import {ConfigService} from "../config.service";
 import {GameType} from "../../model/enum/game-type.enum";
 import {isNonEmptyString} from "ng-zorro-antd/core/util";
@@ -19,7 +19,7 @@ export abstract class GameService {
   protected playerId: string  = '';
   protected players: WritableSignal<any[]> = signal([]);
   protected gameUrl: string = "";
-  protected gameType: string = GameType.SOLO;
+  public gameType: string = GameType.SOLO;
   protected errorStartGame: string = "";
 
   setPlayers(players: any[]): void {

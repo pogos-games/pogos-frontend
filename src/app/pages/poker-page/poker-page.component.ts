@@ -1,12 +1,12 @@
 import {Component, signal, WritableSignal} from '@angular/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import { HeaderComponent } from '../../components/common/header/header.component';
-import { RankingComponent } from '../../components/pages/game-page/ranking/ranking.component';
-import { GameTablePokerComponent } from '../../components/games/game-table/game-table-poker/game-table-poker.component';
-import { NzModalComponent, NzModalModule } from "ng-zorro-antd/modal";
-import { ActivatedRoute, Router } from "@angular/router";
-import { PokerActions } from '../../model/enum/poker.actions.enum';
-import { PokerService } from '../../services/games/poker.service';
+import {HeaderComponent} from '../../components/common/header/header.component';
+import {RankingComponent} from '../../components/pages/game-page/ranking/ranking.component';
+import {GameTablePokerComponent} from '../../components/games/game-table/game-table-poker/game-table-poker.component';
+import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
+import {ActivatedRoute, Router} from "@angular/router";
+import {PokerActions} from '../../model/enum/poker.actions.enum';
+import {PokerService} from '../../services/games/poker.service';
 import {PlayGamePage} from "../../components/common/play-game-page/play-game-page.component";
 import {ActionRowComponent} from "../../components/common/actions-row/action-row.component";
 import {ActionDescriptor} from "../../components/common/play-game-page/action-descriptor";
@@ -82,7 +82,7 @@ export class PokerPageComponent extends PlayGamePage {
     console.log("game found")
   }
 
-  protected override setActionDisabled(data){
+  protected override setActionDisabled(data : any){
       this.isActionDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
       this.isSecondaryActionsDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
   }

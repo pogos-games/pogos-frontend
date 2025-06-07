@@ -10,13 +10,12 @@ import {UnoGameCreated} from "../model/dto/uno/uno-game-created.interface";
 export class UnoService extends GameService{
 
   public unoGameState: WritableSignal<UnoGameState> = signal({ 'players': [], 'topCard': {
-      'color': UnoCardColor.Red,
-      'type': UnoCardType.Number,
+      'color': UnoCardColor.RED,
+      'type': UnoCardType.NUMBER,
       'value': 0
     }, 'currentTurnPlayerId': '', 'direction': Direction.CLOCKWISE });
 
   public playerCards : WritableSignal<UnoCard[]> = signal([]);
-
 
   constructor() {
     super();
@@ -41,11 +40,10 @@ export class UnoService extends GameService{
       this.playerCards.set(data.hand);
       console.log('Received private state:', data);
     })
-
   }
 
   checkStartGame(): boolean {
-    return false;
+    return true;
   }
 
 }

@@ -1,6 +1,6 @@
 // uno-hand.component.ts
 import {Component, Input} from '@angular/core';
-import {UnoCard, UnoCardColor} from "../../../model/dto/uno/uno-card.interface";
+import {UnoCard, UnoCardColor} from "../../../../model/dto/uno/uno-card.interface";
 import {UnoCardComponent} from "../uno-card/uno-card.component";
 
 @Component({
@@ -29,11 +29,11 @@ export class UnoHandComponent {
 
   private sortCards(): void {
     const colorOrder = {
-      [UnoCardColor.Red]: 0,
-      [UnoCardColor.Yellow]: 1,
-      [UnoCardColor.Green]: 2,
-      [UnoCardColor.Blue]: 3,
-      [UnoCardColor.Wild]: 4
+      [UnoCardColor.RED]: 0,
+      [UnoCardColor.YELLOW]: 1,
+      [UnoCardColor.GREEN]: 2,
+      [UnoCardColor.BLUE]: 3,
+      [UnoCardColor.WILD]: 4
     };
 
     this.cards.sort((a, b) => {

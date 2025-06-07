@@ -1,45 +1,45 @@
 
 <div [ngClass]="card.color.toLowerCase()" class="uno-card">
   <div class="card-content">
-    @if(card.type === UnoCardType.Reverse) {
+    @if(card.type === UnoCardType.REVERSE) {
       <div class="corner-value top-left">🔄</div>
-    } @else if (card.type === UnoCardType.Skip) {
+    } @else if (card.type === UnoCardType.SKIP) {
       <div class="corner-value top-left">⛔︎</div>
-    } @else if (card.type === UnoCardType.DrawTwo) {
+    } @else if (card.type === UnoCardType.DRAW_TWO) {
       <div class="corner-value top-left">+2</div>
-    } @else if (card.type === UnoCardType.WildDrawFour) {
+    } @else if (card.type === UnoCardType.WILD_DRAW_FOUR) {
       <div class="corner-value top-left">🎨+4</div>
-    } @else if (card.type === UnoCardType.Wild) {
+    } @else if (card.type === UnoCardType.WILD) {
       <div class="corner-value top-left">🎨</div>
     } @else {
       <div class="corner-value top-left">{{card.value}}</div>
     }
     <div class="center-oval">
-      @if(card.type === UnoCardType.Reverse) {
+      @if(card.type === UnoCardType.REVERSE) {
         <div class="center-value">🔄</div>
-      } @else if (card.type === UnoCardType.Skip) {
+      } @else if (card.type === UnoCardType.SKIP) {
         <div class="center-value">⛔︎</div>
-      } @else if (card.type === UnoCardType.DrawTwo) {
+      } @else if (card.type === UnoCardType.DRAW_TWO) {
         <div class="center-value">+2</div>
       }
-      @else if (card.type === UnoCardType.WildDrawFour) {
+      @else if (card.type === UnoCardType.WILD_DRAW_FOUR) {
         <div class="center-value">🎨</div>
-      } @else if (card.type === UnoCardType.Wild) {
+      } @else if (card.type === UnoCardType.WILD) {
         <div class="center-value">🎨</div>
       }
       @else {
       <span class="center-value">{{card.value}}</span>
       }
     </div>
-    @if(card.type === UnoCardType.Reverse) {
+    @if(card.type === UnoCardType.REVERSE) {
       <div class="corner-value bottom-right">🔄</div>
-    } @else if (card.type === UnoCardType.Skip) {
+    } @else if (card.type === UnoCardType.SKIP) {
         <div class="corner-value bottom-right">⛔︎</div>
-    } @else if (card.type === UnoCardType.DrawTwo) {
+    } @else if (card.type === UnoCardType.DRAW_TWO) {
       <div class="corner-value bottom-right">+2</div>
-    } @else if (card.type === UnoCardType.WildDrawFour) {
+    } @else if (card.type === UnoCardType.WILD_DRAW_FOUR) {
         <div class="corner-value bottom-right">🎨+4</div>
-    } @else if (card.type === UnoCardType.Wild) {
+    } @else if (card.type === UnoCardType.WILD) {
       <div class="corner-value bottom-right">🎨</div>
     } @else {
       <div class="corner-value bottom-right">{{card.value}}</div>

@@ -3,14 +3,16 @@ import {UnoHandComponent} from "../uno-hand/uno-hand.component";
 import {UnoCardComponent} from "../uno-card/uno-card.component";
 import {UnoCardBackComponent} from "../uno-card-back/uno-card-back.component";
 import {UnoBackHandComponent} from "../uno-back-hand/uno-back-hand.component";
-import {UnoService} from "../../../services/uno.service";
+import {UnoService} from "../../../../services/uno.service";
 import {ActivatedRoute} from "@angular/router";
-import {UserAuthService} from "../../../services/auth/user-auth.service";
-import {GameActions} from "../../../model/enum/game.actions.enum";
+import {UserAuthService} from "../../../../services/auth/user-auth.service";
+import {GameActions} from "../../../../model/enum/game.actions.enum";
 import {NzBadgeComponent} from "ng-zorro-antd/badge";
-import {UnoAction, UnoActionType} from "../../../model/dto/uno/uno-actions.interface";
+import {UnoAction, UnoActionType} from "../../../../model/dto/uno/uno-actions.interface";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {Clipboard} from '@angular/cdk/clipboard';
+import {UnoColorPickerModalComponent} from "../uno-color-picker-modal/uno-color-picker-modal.component";
+import {NgStyle} from "@angular/common";
 
 @Component({
   selector: 'app-uno-table',
@@ -20,7 +22,9 @@ import {Clipboard} from '@angular/cdk/clipboard';
     UnoCardBackComponent,
     UnoBackHandComponent,
     NzBadgeComponent,
-    NzIconDirective
+    NzIconDirective,
+    UnoColorPickerModalComponent,
+    NgStyle
   ],
   templateUrl: './uno-table.component.html',
   styleUrl: './uno-table.component.scss'
@@ -38,6 +42,8 @@ export class UnoTableComponent {
   protected readonly gameType = this.route.snapshot.queryParams['gameType'];
 
   protected readonly clipBoard: Clipboard = inject(Clipboard);
+
+  protected isSelectColorModalVisible: boolean = false;
 
   constructor() {
     if(this.gameType === 'solo') {

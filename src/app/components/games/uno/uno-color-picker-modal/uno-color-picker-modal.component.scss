@@ -1,0 +1,41 @@
+.uno-color-picker {
+  display: grid;
+  grid-template-columns: repeat(2, 80px);
+  grid-template-rows: repeat(2, 80px);
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.color-option {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid black;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Couleurs spécifiques
+.red {
+  background-color: #e74c3c;
+}
+
+.yellow {
+  background-color: #f1c40f;
+}
+
+.green {
+  background-color: #2ecc71;
+}
+
+.blue {
+  background-color: #3498db;
+}
+

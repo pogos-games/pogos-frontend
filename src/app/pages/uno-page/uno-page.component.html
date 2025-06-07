@@ -3,8 +3,10 @@
 
   <div class="game-content">
     <app-uno-table></app-uno-table>
-    <nz-divider  nzPlain nzType="vertical"></nz-divider>
-    <app-chat ></app-chat>
+    @if(unoService.gameType === GameType.MULTI) {
+      <nz-divider  nzPlain nzType="vertical"></nz-divider>
+      <app-chat ></app-chat>
+    }
 
   </div>
 
