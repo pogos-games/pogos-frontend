@@ -17,7 +17,6 @@ export class UnoColorPickerModalComponent {
 
   @Input() isVisible = false;
   @Output() colorSelected = new EventEmitter<UnoCardColor>();
-  @Output() cancelled = new EventEmitter<void>();
 
   // array of colors excluding 'WILD'
   colors: UnoCardColor[] = (Object.values(UnoCardColor) as UnoCardColor[]).filter(
@@ -26,15 +25,6 @@ export class UnoColorPickerModalComponent {
 
   selectColor(color: UnoCardColor) {
     this.colorSelected.emit(color);
-  }
-
-  cancel() {
-    this.cancelled.emit();
-  }
-
-  onOverlayClick(event: Event) {
-
-    this.cancel();
   }
 
 }

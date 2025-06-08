@@ -1,6 +1,6 @@
 import {Injectable, signal, WritableSignal} from '@angular/core';
 import {GameService} from "./games/game.service";
-import {Direction, PlayerPrivateState, UnoGame, UnoGameState} from "../model/dto/uno/uno-game.interface";
+import {UnoDirection, PlayerPrivateState, UnoGame, UnoGameState, UnoPlayer} from "../model/dto/uno/uno-game.interface";
 import {UnoCard, UnoCardColor, UnoCardType} from "../model/dto/uno/uno-card.interface";
 import {UnoGameCreated} from "../model/dto/uno/uno-game-created.interface";
 
@@ -13,9 +13,11 @@ export class UnoService extends GameService{
       'color': UnoCardColor.RED,
       'type': UnoCardType.NUMBER,
       'value': 0
-    }, 'currentTurnPlayerId': '', 'direction': Direction.CLOCKWISE });
+    }, 'currentTurnPlayerId': '', 'direction': UnoDirection.CLOCKWISE });
 
   public playerCards : WritableSignal<UnoCard[]> = signal([]);
+
+  orderedPlayers = signal<UnoPlayer[]>([]);
 
   constructor() {
     super();
@@ -42,8 +44,28 @@ export class UnoService extends GameService{
     })
   }
 
+  isPlayerTurn() {
+    return this.unoGameState().currentTurnPlayerId === this.playerId;
+  }
+
   checkStartGame(): boolean {
     return true;
   }
+
+  getOrderedPlayers(): UnoPlayer[] {
+    const state = this.unoGameState();
+    const players = state.players;
+    const myId = this.getPlayerId();
+    const myIndex = players.findIndex(p => p.id === myId);
+
+    if (myIndex === -1) return players; // fallback
+
+    return [
+      ...players.slice(myIndex),
+      ...players.slice(0, myIndex)
+    ];
+  }
+
+
 
 }

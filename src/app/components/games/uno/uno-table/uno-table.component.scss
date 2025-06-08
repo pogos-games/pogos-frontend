@@ -339,3 +339,20 @@
     border-color: #ff6b35;
   }
 }
+
+.bottom-player {
+  &.active {
+    position: relative;
+  }
+
+  &.active::before {
+    content: '▼';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff6b35;
+    font-size: 1.5em;
+    animation: arrow-bounce 1s infinite;
+  }
+}

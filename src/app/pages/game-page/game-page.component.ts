@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import {GameService} from "../../services/games/game.service";
 import {GameActions} from "../../model/enum/game.actions.enum";
 import {Subscription} from "rxjs";
+import {GameType} from "../../model/enum/game-type.enum";
 
 @Component({
   selector: 'app-game-page',
@@ -53,7 +54,11 @@ export class GamePageComponent {
       this.subStartGame.unsubscribe()
       this.errorWaitingRoom.set("")
       this.gameService.setBet(bet);
-      this.gameService.sendMessage(GameActions.START_GAME, {type: this.gameService.getGameType(), bet: bet});
+      // to improve
+      if(this.title !== 'Uno') {
+        console.log('game type difft from uno', this.gameService.getGameType());
+        this.gameService.sendMessage(GameActions.START_GAME, {type: this.gameService.getGameType(), bet: bet});
+      }
       this.isWaitingRoomModalVisible.set(false);
       this.router.navigate(['/games', this.title.toLowerCase()], {
         queryParams: {gameType: 'solo'}

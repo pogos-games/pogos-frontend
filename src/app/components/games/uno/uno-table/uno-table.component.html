@@ -1,26 +1,23 @@
 <div class="game-infos">
   <button class="info" (click)="copyGameId()">
-  <span nz-icon
-        nzType="copy"
-        style="cursor: pointer;">
-  </span>
-    {{ this.unoService.getGameId() }}
+    <span nz-icon nzType="copy" style="cursor: pointer;"></span>
+    {{ unoService.getGameId() }}
   </button>
-  <p class="info">{{this.gameType.toUpperCase()}}
-  </p>
+  <p class="info">{{ gameType.toUpperCase() }}</p>
 </div>
+
 <div class="uno-table">
   <div class="left column">
     <div class="left-player">
-      @if(this.unoService.unoGameState().players.length >0) {
-        <div class="player-infos">
-        <nz-badge [nzCount]="this.unoService.unoGameState().players[0].handCount ">
-            <img src="../../../../../assets/avatar/artist.png" alt="Avatar" class="avatar">
-        </nz-badge>
-        <span class="player-name">Xtbmz</span>
-      </div>
+      @if (orderedPlayers().length > 1) {
+        <div class="player-infos" [class.active]="isPlayerTurn(orderedPlayers()[1].id)">
+          <nz-badge [nzCount]="orderedPlayers()[1].handCount">
+            <img ngSrc="../../../../../assets/avatar/{{orderedPlayers()[1].avatar.toLowerCase()}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
+          </nz-badge>
+          <span class="player-name">{{ orderedPlayers()[1].name }}</span>
+        </div>
         <app-uno-back-hand
-          [handCount]="this.unoService.unoGameState().players[0].handCount"
+          [handCount]="orderedPlayers()[1].handCount"
           [direction]="'left'">
         </app-uno-back-hand>
       }
@@ -28,48 +25,51 @@
   </div>
 
   <div class="center column">
-
     <div class="top-player">
-      @if(this.unoService.unoGameState().players.length >1) {
-        <div class="player-infos active">
-          <nz-badge [nzCount]="this.unoService.unoGameState().players[1].handCount ">
-            <img src="../../../../../assets/avatar/bumblebee.png" alt="Avatar" class="avatar">
+      @if (orderedPlayers().length > 2) {
+        <div class="player-infos" [class.active]="isPlayerTurn(orderedPlayers()[2].id)">
+          <nz-badge [nzCount]="orderedPlayers()[2].handCount">
+            <img ngSrc="../../../../../assets/avatar/{{orderedPlayers()[2].avatar.toLowerCase()}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
           </nz-badge>
-          <span class="player-name">Clmzz</span>
+          <span class="player-name">{{ orderedPlayers()[2].name }}</span>
         </div>
         <app-uno-back-hand
-          [handCount]="this.unoService.unoGameState().players[1].handCount"
+          [handCount]="orderedPlayers()[2].handCount"
           [direction]="'top'">
         </app-uno-back-hand>
       }
     </div>
 
     <div class="game-hand">
-      <app-uno-card [card]="this.unoService.unoGameState().topCard" ></app-uno-card>
+
+      <app-direction-wheel
+        [direction]="unoService.unoGameState().direction">
+      </app-direction-wheel>
+
+      <app-uno-card [card]="unoService.unoGameState().topCard"></app-uno-card>
       <app-uno-card-back (click)="drawCard()"></app-uno-card-back>
-      <div id="current-card-color" [ngStyle]="{'background-color': this.unoService.unoGameState().topCard.color}"></div>
-    </div>
-      <div class="bottom-player">
-        <app-uno-hand [cards]="this.unoService.playerCards()" (click)="drawCard()"></app-uno-hand>
+      <div id="current-card-color"
+           [ngStyle]="{'background-color': unoService.unoGameState().topCard.color}">
       </div>
     </div>
 
-  <div class="right column">
-    @if(this.unoService.unoGameState().players.length >0) {
-        <app-uno-back-hand
-          [handCount]="this.unoService.unoGameState().players[2].handCount"
-          [direction]="'right'">
-        </app-uno-back-hand>
-
-    <div class="player-infos">
-      <nz-badge [nzCount]="this.unoService.unoGameState().players[1].handCount ">
-        <img src="../../../../../assets/avatar/chemist.png" alt="Avatar" class="avatar">
-      </nz-badge>
-      <span class="player-name">Uniskf</span>
+    <div class="bottom-player" [class.active]="unoService.isPlayerTurn()">
+      <app-uno-hand></app-uno-hand>
     </div>
+  </div>
+
+  <div class="right column">
+    @if (orderedPlayers().length > 3) {
+      <app-uno-back-hand
+        [handCount]="orderedPlayers()[3].handCount"
+        [direction]="'right'">
+      </app-uno-back-hand>
+      <div class="player-infos" [class.active]="isPlayerTurn(orderedPlayers()[3].id)">
+        <nz-badge [nzCount]="orderedPlayers()[3].handCount">
+          <img ngSrc="../../../../../assets/avatar/{{orderedPlayers()[3].avatar.toLowerCase()}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
+        </nz-badge>
+        <span class="player-name">{{ orderedPlayers()[3].name }}</span>
+      </div>
     }
   </div>
 </div>
-
-<app-uno-color-picker-modal [isVisible]="isSelectColorModalVisible"></app-uno-color-picker-modal>
-

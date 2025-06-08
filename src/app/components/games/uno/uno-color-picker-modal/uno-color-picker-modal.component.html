@@ -8,7 +8,7 @@
   <ng-container *nzModalContent>
     <div class="uno-color-picker">
       @for (color of colors; track color) {
-        <div class="color-option" [ngClass]="color.toLowerCase()"></div>
+        <div class="color-option" [ngClass]="color.toLowerCase()" (click)="selectColor(color)"></div>
       }
     </div>
   </ng-container>
