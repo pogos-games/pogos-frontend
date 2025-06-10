@@ -56,7 +56,6 @@ export class PokerPageComponent extends PlayGamePage {
 
   constructor(pokerService:PokerService, message:NzMessageService, router:Router, route:ActivatedRoute) {
     super(pokerService,message,router,route);
-    this.gameType = "HOLDEM";
   }
 
   protected readonly PokerActions = PokerActions;
@@ -82,7 +81,7 @@ export class PokerPageComponent extends PlayGamePage {
     console.log("game found")
   }
 
-  protected override setActionDisabled(data){
+  protected override setActionDisabled(data: any){
       this.isActionDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
       this.isSecondaryActionsDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
   }
