@@ -53,6 +53,18 @@
       <div class="player-slot slot-1"></div>
       <div class="player-slot slot-6"></div>
 
+      <div cdkDropList [cdkDropListData]="slot1" class="drop-zone" (cdkDropListDropped)="onDrop($event)">
+        <div *ngFor="let token of slot1" cdkDrag class="token">
+          <img src="assets/chips/1_chip.png" alt="chip" height="35" width="35" />
+        </div>
+      </div>
+
+      <div cdkDropList [cdkDropListData]="slot2" class="drop-zone" (cdkDropListDropped)="onDrop($event)">
+        <div *ngFor="let token of slot2" cdkDrag class="token">
+          <img src="assets/chips/1_chip.png" alt="chip" height="35" width="35" />
+        </div>
+      </div>
+
       <!-- Ligne 2 (milieu) -->
       <div class="player-slot slot-2"></div>
       <div class="player-slot slot-5"></div>

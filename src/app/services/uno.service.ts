@@ -1,21 +1,23 @@
-import {Injectable, signal, WritableSignal} from '@angular/core';
-import {GameService} from "./games/game.service";
-import {Direction, PlayerPrivateState, UnoGame, UnoGameState} from "../model/dto/uno/uno-game.interface";
-import {UnoCard, UnoCardColor, UnoCardType} from "../model/dto/uno/uno-card.interface";
-import {UnoGameCreated} from "../model/dto/uno/uno-game-created.interface";
+import { Injectable, signal, WritableSignal } from '@angular/core';
+import { GameService } from "./games/game.service";
+import { Direction, PlayerPrivateState, UnoGame, UnoGameState } from "../model/dto/uno/uno-game.interface";
+import { UnoCard, UnoCardColor, UnoCardType } from "../model/dto/uno/uno-card.interface";
+import { UnoGameCreated } from "../model/dto/uno/uno-game-created.interface";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UnoService extends GameService{
+export class UnoService extends GameService {
 
-  public unoGameState: WritableSignal<UnoGameState> = signal({ 'players': [], 'topCard': {
+  public unoGameState: WritableSignal<UnoGameState> = signal({
+    'players': [], 'topCard': {
       'color': UnoCardColor.Red,
       'type': UnoCardType.Number,
       'value': 0
-    }, 'currentTurnPlayerId': '', 'direction': Direction.CLOCKWISE });
+    }, 'currentTurnPlayerId': '', 'direction': Direction.CLOCKWISE
+  });
 
-  public playerCards : WritableSignal<UnoCard[]> = signal([]);
+  public playerCards: WritableSignal<UnoCard[]> = signal([]);
 
 
   constructor() {
@@ -44,5 +46,7 @@ export class UnoService extends GameService{
 
   }
 
-
+  checkStartGame(): boolean {
+    return this.unoGameState().players.length >= 2;
+  }
 }

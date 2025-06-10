@@ -41,18 +41,6 @@ game-action-button:active {
   transform: scale(0.98);
 }
 
-/* Bouton jeton compact */
-app-jeton-button {
-  margin: 0 2px;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-app-jeton-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
-}
-
 /* Bouton de chat ultra-compact */
 .other-actions button {
   background: linear-gradient(45deg, #4f46e5, #7c3aed) !important;

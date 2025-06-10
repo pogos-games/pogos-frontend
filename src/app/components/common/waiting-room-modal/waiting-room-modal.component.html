@@ -1,13 +1,5 @@
-<nz-modal
-  [(nzVisible)]="isVisible"
-  [nzTitle]="title"
-  [nzOkText]="okText"
-  [nzCancelText]="cancelText"
-  nzClassName="custom-modal"
-  [nzClosable]="false"
-  (nzOnOk)="handleOk()"
-  (nzOnCancel)="handleCancel()"
->
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="title" [nzOkText]="okText" [nzCancelText]="cancelText"
+  nzClassName="custom-modal" [nzClosable]="false" (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()">
   <ng-container *nzModalContent>
     <div class="modal-body">
       <p><strong>ID de la partie :</strong> {{ gameId }}</p>
@@ -15,22 +7,9 @@
       <p><strong>Joueurs :</strong></p>
       <ul>
         @for (player of players(); track $index){
-          <li>{{ player }}</li>
+        <li>{{ player }}</li>
         }
       </ul>
-
-      @if (initialBet() != -1){
-        <label for="bet"><strong>Mise :</strong></label>
-        <input
-          id="bet"
-          type="number"
-          [(ngModel)]="betAmount"
-          min="10"
-          max="1000"
-          step="10"
-          class="bet-input"
-        />
-      }
     </div>
     {{errorMessage()}}
   </ng-container>

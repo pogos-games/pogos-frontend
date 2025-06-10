@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, WritableSignal, signal} from '@angular/core';
+import { Component, EventEmitter, Input, Output, WritableSignal, signal } from '@angular/core';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FormsModule } from '@angular/forms';
 
@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './waiting-room-modal.component.html',
   styleUrls: ['./waiting-room-modal.component.scss']
 })
-export class WaitingRoomModalComponent{
+export class WaitingRoomModalComponent {
   @Input({ required: true }) isVisible: WritableSignal<boolean> = signal(false);
   @Input({ required: true }) errorMessage: WritableSignal<string> = signal("");
   @Input({ required: true }) title: string = 'Salle d’attente';
