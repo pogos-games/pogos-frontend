@@ -1,9 +1,9 @@
 import {Directive, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
-import { Card } from "../../../model/dto/request/card";
-import { GameActions } from "../../../model/enum/game.actions.enum";
-import { NzMessageService } from "ng-zorro-antd/message";
-import { ActivatedRoute, Router } from "@angular/router";
-import { GameType } from "../../../model/enum/game-type.enum";
+import {Card} from "../../../model/dto/request/card";
+import {GameActions} from "../../../model/enum/game.actions.enum";
+import {NzMessageService} from "ng-zorro-antd/message";
+import {ActivatedRoute, Router} from "@angular/router";
+import {GameType} from "../../../model/enum/game-type.enum";
 import {GameService} from "../../../services/games/game.service";
 import {ActionDescriptor} from "./action-descriptor";
 

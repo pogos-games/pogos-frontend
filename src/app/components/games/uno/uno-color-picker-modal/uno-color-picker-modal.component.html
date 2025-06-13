@@ -1,0 +1,15 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="'Choisis une Couleur'"
+  [nzFooter]="null"
+  nzClassName="custom-modal"
+  [nzClosable]="false"
+>
+  <ng-container *nzModalContent>
+    <div class="uno-color-picker">
+      @for (color of colors; track color) {
+        <div class="color-option" [ngClass]="color.toLowerCase()" (click)="selectColor(color)"></div>
+      }
+    </div>
+  </ng-container>
+</nz-modal>

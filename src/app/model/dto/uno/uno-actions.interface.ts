@@ -1,4 +1,4 @@
-import {UnoCard} from "./uno-card.interface";
+import {UnoCard, UnoCardColor} from "./uno-card.interface";
 
 export enum UnoActionType{
   DRAW_CARD = 'DRAW_CARD',
@@ -10,4 +10,5 @@ export interface UnoAction {
   type: UnoActionType;
   playerId: string; // Optional, depending on the action
   card?: UnoCard;
+  declaredColor?: UnoCardColor; // For declaring color in WILD actions
 }

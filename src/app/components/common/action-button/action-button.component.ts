@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, signal, WritableSignal} from '@angular/core';
 import {NzIconDirective} from "ng-zorro-antd/icon";
-import { NzButtonComponent } from "ng-zorro-antd/button";
+import {NzButtonComponent} from "ng-zorro-antd/button";
 
 @Component({
   selector: 'game-action-button',

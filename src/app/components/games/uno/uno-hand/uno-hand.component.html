@@ -1,0 +1,9 @@
+<div class="uno-hand">
+
+  @for(card of cards; track card; let i = $index) {
+    <app-uno-card [card]="card"  (click)="playCard(card)"></app-uno-card>
+  }
+</div>
+
+<app-uno-color-picker-modal (colorSelected)="handleColorSelected($event)" [isVisible]="isSelectColorModalVisible"></app-uno-color-picker-modal>
+

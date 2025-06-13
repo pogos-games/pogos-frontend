@@ -11,10 +11,10 @@ import {NzModalModule} from 'ng-zorro-antd/modal';
 })
 export class ModalComponent {
   @Input({ required: true }) isVisible: WritableSignal<boolean> = signal(false);
-  @Input({ required: true }) title: string = 'Titre de la modal'; // Titre de la modal
-  @Input({ required: true }) description: string = 'Description ici...'; // Description de la modal
-  @Input({ required: true }) okText: string = 'Oui'; // Texte du bouton "OK"
-  @Input({ required: true }) cancelText: string = 'Non'; // Texte du bouton "Annuler"
+  @Input({ required: true }) title: string = ''; // Titre de la modal
+  @Input({ required: true }) description: string = '';
+  @Input({ required: true }) okText: string = '';
+  @Input({ required: true }) cancelText: string = ''
 
   @Output() onOk: EventEmitter<void> = new EventEmitter<void>(); // Événement pour le bouton "OK"
 

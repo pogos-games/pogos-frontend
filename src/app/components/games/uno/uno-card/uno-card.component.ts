@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {UnoCard, UnoCardColor, UnoCardType} from "../../../model/dto/uno/uno-card.interface";
+import {UnoCard, UnoCardColor, UnoCardType} from "../../../../model/dto/uno/uno-card.interface";
 import {NgClass} from "@angular/common";
 
 
@@ -14,7 +14,7 @@ import {NgClass} from "@angular/common";
 })
 export class UnoCardComponent {
 
-  @Input({required:true}) card: UnoCard = {'color': UnoCardColor.Blue, 'type': UnoCardType.Number, 'value': 0};
+  @Input({required:true}) card: UnoCard = {'color': UnoCardColor.BLUE, 'type': UnoCardType.NUMBER, 'value': 0};
 
   protected readonly UnoCardType = UnoCardType;
 }

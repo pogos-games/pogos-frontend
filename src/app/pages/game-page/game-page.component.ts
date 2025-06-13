@@ -1,12 +1,12 @@
-import { Component, signal, WritableSignal } from '@angular/core';
-import { HeaderComponent } from '../../components/common/header/header.component';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import { GameSelectorComponent } from '../../components/pages/game-page/game-selector/game-selector.component';
-import { GameButtonsComponent } from '../../components/pages/game-page/game-buttons/game-buttons.component';
-import { RankingComponent } from '../../components/pages/game-page/ranking/ranking.component';
-import { BoxJoinCodeComponent } from '../../components/pages/game-page/box-join-code/box-join-code.component';
-import { WaitingRoomModalComponent } from '../../components/common/waiting-room-modal/waiting-room-modal.component';
-import { Router } from '@angular/router';
+import {Component, signal, WritableSignal} from '@angular/core';
+import {HeaderComponent} from '../../components/common/header/header.component';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {GameSelectorComponent} from '../../components/pages/game-page/game-selector/game-selector.component';
+import {GameButtonsComponent} from '../../components/pages/game-page/game-buttons/game-buttons.component';
+import {RankingComponent} from '../../components/pages/game-page/ranking/ranking.component';
+import {BoxJoinCodeComponent} from '../../components/pages/game-page/box-join-code/box-join-code.component';
+import {WaitingRoomModalComponent} from '../../components/common/waiting-room-modal/waiting-room-modal.component';
+import {Router} from '@angular/router';
 import {GameService} from "../../services/games/game.service";
 import {GameActions} from "../../model/enum/game.actions.enum";
 import {Subscription} from "rxjs";
@@ -53,7 +53,11 @@ export class GamePageComponent {
       this.subStartGame.unsubscribe()
       this.errorWaitingRoom.set("")
       this.gameService.setBet(bet);
-      this.gameService.sendMessage(GameActions.START_GAME, {type: this.gameService.getGameType(), bet: bet});
+      // to improve
+      if(this.title !== 'Uno') {
+        console.log('game type difft from uno', this.gameService.getGameType());
+        this.gameService.sendMessage(GameActions.START_GAME, {type: this.gameService.getGameType(), bet: bet});
+      }
       this.isWaitingRoomModalVisible.set(false);
       this.router.navigate(['/games', this.title.toLowerCase()], {
         queryParams: {gameType: 'solo'}
