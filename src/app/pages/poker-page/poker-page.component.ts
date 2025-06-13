@@ -56,7 +56,6 @@ export class PokerPageComponent extends PlayGamePage {
 
   constructor(pokerService:PokerService, message:NzMessageService, router:Router, route:ActivatedRoute) {
     super(pokerService,message,router,route);
-    this.gameType = "HOLDEM";
   }
 
   protected readonly PokerActions = PokerActions;

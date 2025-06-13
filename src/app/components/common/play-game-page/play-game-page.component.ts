@@ -122,10 +122,10 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
       });
   }
 
-  protected setActionDisabled(data : any){
+  protected setActionDisabled(data: any){
     this.isActionDisabled.set(false);
   }
-  protected updateGameInfo(data : any){
+  protected updateGameInfo(data: any){
     if (data?.gameId && !this.gameId) {
       this.gameId = data.gameId;
     }
