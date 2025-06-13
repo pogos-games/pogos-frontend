@@ -7,6 +7,7 @@ import {NzModalModule} from 'ng-zorro-antd/modal';
     NzModalModule
   ],
   templateUrl: './modal.component.html',
+  standalone: true,
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {

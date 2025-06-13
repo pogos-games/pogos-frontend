@@ -4,8 +4,8 @@ import {ChatMessage} from "../../../model/dto/chat-message.dto";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective} from "ng-zorro-antd/input";
 import {NgClass} from "@angular/common";
-import {UnoService} from "../../../services/uno.service";
 import {UserAuthService} from "../../../services/auth/user-auth.service";
+import {GameService} from "../../../services/games/game.service";
 
 @Component({
   selector: 'app-chat',
@@ -26,7 +26,7 @@ export class ChatComponent {
 
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
 
-  protected unoService : UnoService = inject(UnoService);
+  protected gameService : GameService = inject(GameService);
 
   protected userAuthService : UserAuthService = inject(UserAuthService);
 
@@ -37,7 +37,7 @@ export class ChatComponent {
   currentMessage = ''
 
   constructor() {
-    this.unoService.listenToTopic<ChatMessage>('CHAT').subscribe((message : ChatMessage) => {
+    this.gameService.listenToTopic<ChatMessage>('CHAT').subscribe((message : ChatMessage) => {
       console.log('chat received : ',message)
       this.messages().push(message);
       this.scrollToBottom();
@@ -48,8 +48,8 @@ export class ChatComponent {
     if(!this.currentMessage.trim()){
       return;
     }
-    const chatMessage: ChatMessage = {gameId: this.unoService.getGameId()!, username: this.username, text: this.currentMessage};
-    this.unoService.sendMessage('CHAT', chatMessage);
+    const chatMessage: ChatMessage = {gameId: this.gameService.getGameId()!, username: this.username, text: this.currentMessage};
+    this.gameService.sendMessage('CHAT', chatMessage);
     this.currentMessage = '';
   }
 
