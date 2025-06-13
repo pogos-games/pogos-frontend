@@ -9,6 +9,7 @@ import {UnoCardBackComponent} from "../uno-card-back/uno-card-back.component";
     UnoCardBackComponent
   ],
   templateUrl: './uno-back-hand.component.html',
+  standalone: true,
   styleUrl: './uno-back-hand.component.scss'
 })
 export class UnoBackHandComponent {
