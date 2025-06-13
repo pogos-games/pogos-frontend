@@ -20,6 +20,7 @@ export interface UnoGameState {
   topCard: UnoCard;
   currentTurnPlayerId: string;
   direction: UnoDirection;
+  gameWinner: string;
 }
 
 export interface UnoGame {

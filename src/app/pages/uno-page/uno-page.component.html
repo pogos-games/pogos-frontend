@@ -11,3 +11,8 @@
   </div>
 
 </div>
+
+<app-modal [title]="'Fin de Partie'" [description]="unoService.unoGameState().gameWinner + ' à gagné la partie !'"
+                      [okText]="'Relancer'" [cancelText]="'Quitter'"
+                      [isVisible]="unoService.isGameEnded">
+</app-modal>

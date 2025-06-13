@@ -5,6 +5,7 @@ import {UnoService} from "../../services/uno.service";
 import {GameType} from "../../model/enum/game-type.enum";
 import {ChatComponent} from "../../components/games/chat/chat.component";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
+import {ModalComponent} from "../../components/common/modal/modal.component";
 
 @Component({
   selector: 'app-uno-page',
@@ -12,7 +13,8 @@ import {NzDividerComponent} from "ng-zorro-antd/divider";
     HeaderComponent,
     UnoTableComponent,
     ChatComponent,
-    NzDividerComponent
+    NzDividerComponent,
+    ModalComponent
   ],
   templateUrl: './uno-page.component.html',
   styleUrl: './uno-page.component.scss'
@@ -24,4 +26,5 @@ export class UnoPageComponent {
   protected readonly signal = signal;
 
   protected readonly GameType = GameType;
+
 }
