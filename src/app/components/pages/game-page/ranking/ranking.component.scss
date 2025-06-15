@@ -8,3 +8,30 @@
   background-color: var(--secondary-bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.users{
+  height: 85%;
+}
+
+.title{
+  font-size: 1.5em;
+}
+
+@media screen and (max-width: 992px) {
+  #ranking {
+    width: 95vw;
+    height: 40vh;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+  }
+
+  .title {
+    font-size: 1.2em;
+  }
+
+  .users {
+    height: 80%;
+  }
+
+}

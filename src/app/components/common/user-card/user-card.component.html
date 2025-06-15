@@ -1,0 +1,13 @@
+<div class="user-card">
+  <div class="left">
+    <img ngSrc="../../../../../assets/avatar/{{user.avatar.toLowerCase()}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
+    <span class="username">{{ user.username}}</span>
+  </div>
+
+  <div class="right">
+    <span>Points : {{user.points}}</span>
+    <nz-divider nzType="vertical"></nz-divider>
+    <span>{{rank}}</span>
+  </div>
+
+</div>

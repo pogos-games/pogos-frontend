@@ -1,3 +1,11 @@
 <div id="ranking">
   <p class="title luckiest-guy-regular secondary-text-style">Classement</p>
+  <div class="users">
+  @for (user of  users(); track $index) {
+    <app-user-card [user]="user" [rank]="pageSize * (currentPage -1) + $index + 1"></app-user-card>
+  }
+  </div>
+  <nz-pagination [nzPageIndex]="currentPage" [nzPageSize]="pageSize" [nzTotal]="itemCount" (nzPageIndexChange)="onPageChange($event)" nzSimple></nz-pagination>
+
 </div>
+

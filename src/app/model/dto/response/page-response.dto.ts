@@ -1,8 +1,8 @@
 export interface PageResponseDto<T> {
     data: T[];
     meta: {
-        page: string;
-        take: string;
+        page: number;
+        take: number;
         itemCount: number;
         pageCount: number;
         hasPreviousPage: boolean;
