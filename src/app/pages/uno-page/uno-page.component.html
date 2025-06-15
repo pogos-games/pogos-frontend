@@ -3,7 +3,7 @@
 
   <div class="game-content">
     <app-uno-table></app-uno-table>
-    @if(unoService.gameType === GameType.MULTIPLAYER) {
+    @if(gameService.gameType === GameType.MULTIPLAYER) {
       <nz-divider  nzPlain nzType="vertical"></nz-divider>
       <app-chat ></app-chat>
     }
@@ -12,7 +12,7 @@
 
 </div>
 
-<app-modal [title]="'Fin de Partie'" [description]="unoService.unoGameState().gameWinner + ' à gagné la partie !'"
+<app-modal [title]="'Fin de Partie'" [description]="gameService.unoGameState().gameWinner + ' à gagné la partie !'"
                       [okText]="'Relancer'" [cancelText]="'Quitter'"
-                      [isVisible]="unoService.isGameEnded">
+                      [isVisible]="gameService.isGameEnded">
 </app-modal>

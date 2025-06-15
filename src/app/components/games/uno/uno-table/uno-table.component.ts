@@ -29,6 +29,7 @@ import {DirectionWheelComponent} from "../direction-wheel/direction-wheel.compon
     DirectionWheelComponent
   ],
   templateUrl: './uno-table.component.html',
+  standalone: true,
   styleUrl: './uno-table.component.scss'
 })
 export class UnoTableComponent {
