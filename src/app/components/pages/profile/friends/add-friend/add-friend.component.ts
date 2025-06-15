@@ -1,20 +1,20 @@
-import { Component, OnDestroy, OnInit, Signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, Subject, switchMap, takeUntil } from 'rxjs';
-import { NzFormControlComponent, NzFormDirective } from 'ng-zorro-antd/form';
-import { NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective } from 'ng-zorro-antd/input';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzPaginationModule } from 'ng-zorro-antd/pagination';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { CommonModule } from '@angular/common';
+import {Component, OnDestroy, OnInit, Signal} from '@angular/core';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {debounceTime, distinctUntilChanged, filter, Subject, switchMap, takeUntil} from 'rxjs';
+import {NzFormControlComponent, NzFormDirective} from 'ng-zorro-antd/form';
+import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixDirective} from 'ng-zorro-antd/input';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {NzPaginationModule} from 'ng-zorro-antd/pagination';
+import {NzSpinModule} from 'ng-zorro-antd/spin';
+import {CommonModule} from '@angular/common';
 
-import { User } from '../../../../../model/user.interface';
-import { UserAuthService } from '../../../../../services/auth/user-auth.service';
-import { UserService } from '../../../../../services/user.service';
-import { FriendshipService } from '../../../../../services/friendship.service';
-import { PageResponseDto } from '../../../../../model/dto/response/page-response.dto';
-import { UserResponseDto } from '../../../../../model/dto/response/user-response.dto';
+import {User} from '../../../../../model/user.interface';
+import {UserAuthService} from '../../../../../services/auth/user-auth.service';
+import {UserService} from '../../../../../services/user.service';
+import {FriendshipService} from '../../../../../services/friendship.service';
+import {PageResponseDto} from '../../../../../model/dto/response/page-response.dto';
+import {UserResponseDto} from '../../../../../model/dto/response/user-response.dto';
 
 @Component({
   selector: 'app-add-friend',
@@ -51,7 +51,7 @@ export class AddFriendComponent implements OnInit, OnDestroy {
   pageSize = 10;
   isLoading = false;
 
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(private readonly userService: UserService, private readonly FriendshipService: FriendshipService, private readonly userAuthService: UserAuthService) { }
 

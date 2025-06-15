@@ -5,4 +5,5 @@ export interface SelfResponseDto {
     username: string;
     avatar: Avatar;
     nbNotifications: number;
+    points: number;
 }

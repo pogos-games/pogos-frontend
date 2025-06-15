@@ -1,0 +1,34 @@
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: var(--pogos-button-bg);
+  align-items: center;
+  height: 50px;
+  font-family: 'Lilita One', sans-serif;
+}
+
+.username {
+  margin-left:5px;
+}
+
+.left{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 60%;
+}
+
+.avatar{
+  width: 30px;
+  height: 30px ;
+}
+
+
+@media screen and (max-width: 992px) {
+  .user-card {
+    width: 90vw;
+  }
+}
