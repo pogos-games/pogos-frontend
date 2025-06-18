@@ -1,4 +1,5 @@
 <nz-modal [(nzVisible)]="isVisible" [nzTitle]="title" [nzOkText]="okText" [nzCancelText]="cancelText"
+          (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()"
     nzClassName="custom-modal" [nzClosable]="false" >
     <ng-container *nzModalContent>
         <p class="description">{{ description }}</p>

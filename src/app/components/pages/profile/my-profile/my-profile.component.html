@@ -20,9 +20,8 @@
       </div>
     </div>
 
-    <div nz-col [nzXs]="24"  [nzSm]="24"  [nzMd]="24" [nzLg]="12">
+    <div nz-col [nzXs]="24"  [nzSm]="24"  [nzMd]="24" [nzLg]="12" id="update-col">
       <div id="profile-updater" [formGroup]="updateProfileForm">
-
                     <div class="inputs">
                         <div class="pseudo-mail-div">
                             <p class="pseudo-mail-title">Mail :</p>
@@ -45,6 +44,7 @@
                                         Ce nom d'utilisateur est déjà pris
                                         }
                                     </ng-template>
+
                                 </nz-form-control>
                                 }
                                 <button nz-button class="button-update-pseudo" nzType="primary" title="Amis"
@@ -53,13 +53,55 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <button nz-button class="submit-update-button" nzType="primary" nzBlock type="submit"
-                        [disabled]="!hasChanges || updateProfileForm.invalid" (click)="updateProfile()">
+                      <button nz-button class="submit-update-button"  style="margin-top: 15px" nzType="primary" nzBlock type="submit"
+                              [disabled]="!hasChanges || updateProfileForm.invalid" (click)="updateProfile()">
                         Modifier
-                    </button>
+                      </button>
+                    </div>
       </div>
-    </div>
 
+        <div id="password-updater" [formGroup]="passwordForm">
+          <div class="inputs">
+          <div class="pseudo-mail-div">
+            <p class="pseudo-mail-title">Mot de passe actuel :</p>
+            <nz-form-control  nzHasFeedback [nzErrorTip]="currentPwdErrorTpl">
+              <nz-input-group class="input-update-profile">
+                <input type="password" placeholder="Mot de passe actuel*" nz-input formControlName="currentPassword" />
+              </nz-input-group>
+              <ng-template #currentPwdErrorTpl let-control>
+                @if (control.errors?.['required']) {
+                  Mot de passe actuel requis
+                }
+              </ng-template>
+            </nz-form-control>
+          </div>
+
+          <div class="pseudo-mail-div">
+            <p class="pseudo-mail-title">Nouveau mot de passe :</p>
+            <nz-form-control class="form-control" nzHasFeedback [nzErrorTip]="newPwdErrorTpl">
+              <nz-input-group class="input-update-profile">
+                <input type="password" placeholder="Nouveau mot de passe*" nz-input formControlName="newPassword" />
+              </nz-input-group>
+              <ng-template #newPwdErrorTpl let-control>
+                @if (control.errors?.['required']) {
+                  Nouveau mot de passe requis
+                } @else if (control.errors?.['minlength']) {
+                  6 caractères minimum
+                }
+              </ng-template>
+            </nz-form-control>
+          </div>
+
+          <button nz-button class="submit-update-button" style="margin-top: 20px" nzType="primary" nzBlock type="submit" [disabled]="passwordForm.invalid" (click)="updatePassword()">
+            Mettre à jour le mot de passe
+          </button>
+            <button nz-button class="submit-update-button" style="margin-top: 10px; background-color: var(--pogos-button-danger);"  nzType="primary" nzBlock type="submit" (click)="this.isDeleteAccountModalVisible.set(true)">
+              Supprimer mon compte
+            </button>
+          </div>
+        </div>
+        </div>
+    </div>
   </div>
-</div>
+
+<app-modal-delete-account [isVisible]="isDeleteAccountModalVisible" (onCancel)="handleCancelDeletingAccount()" (onOk)="handleDeleteAccount()"></app-modal-delete-account>

@@ -30,6 +30,7 @@ body {
   --button-bg-hover: #FFFFFF; // BACKGROUND BUTTON HOVER
   --pogos-button-bg: #f7d58c; // MENU POGOS BACKGROUND BUTTON
   --pogos-button-bg-hover: #ffe3a8; // MENU POGOS BACKGROUND BUTTON HOVER
+  --pogos-button-danger: #da413f;
 
   --input-code-bg-color: white;
 
@@ -59,6 +60,7 @@ body {
     --button-bg-hover: #4A4E57; // BACKGROUND BUTTON HOVER
     --pogos-button-bg: #214484; // MENU POGOS BACKGROUND BUTTON
     --pogos-button-bg-hover: #365286; // MENU POGOS BACKGROUND BUTTON HOVER
+    --pogos-button-danger: #c62828;
 
     --input-code-bg-color: rgb(217, 217, 231);
 
@@ -131,6 +133,12 @@ body {
     position: absolute;
     top: 35px;
     left: 60px;
+}
+
+.custom-notification {
+  background-color: var(--secondary-bg-color);
+  font-family: "Lilita One", sans-serif;
+  border-radius: 10px;
 }
 
 
