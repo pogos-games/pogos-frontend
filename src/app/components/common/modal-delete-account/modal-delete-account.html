@@ -1,0 +1,39 @@
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="'Supprimer Mon Compte'" [nzOkText]="'Supprimer'" [nzCancelText]="'Annuler'"
+          (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()"
+          nzClassName="modal-delete-account" [nzClosable]="false" >
+  <ng-container *nzModalContent>
+    <form [formGroup]="form">
+    <div class="inputs">
+      <div class="pseudo-mail-div">
+        <p class="pseudo-mail-title">Mot de passe</p>
+        <nz-form-control class="form-control" nzHasFeedback [nzErrorTip]="currentPwdErrorTpl">
+          <nz-input-group class="input-update-profile">
+            <input type="password" placeholder="Mot de passe actuel*" nz-input formControlName="password" />
+          </nz-input-group>
+          <ng-template #currentPwdErrorTpl let-control>
+            @if (control.errors?.['required']) {
+              Mot de passe actuel requis
+            }
+          </ng-template>
+        </nz-form-control>
+      </div>
+    </div>
+
+    <div class="pseudo-mail-div">
+      <p class="pseudo-mail-title">Confirmer</p>
+      <nz-form-control class="form-control" nzHasFeedback [nzErrorTip]="newPwdErrorTpl">
+        <nz-input-group class="input-update-profile">
+          <input type="password" placeholder="Confirmer le mot de passe" nz-input formControlName="confirmPassword" />
+        </nz-input-group>
+        <ng-template #newPwdErrorTpl let-control>
+          @if (control.errors?.['required']) {
+            Confirmer le mot de passe
+          } @else if (control.errors?.['mismatch']) {
+            Les mots de passe ne correspondent pas
+          }
+        </ng-template>
+      </nz-form-control>
+    </div>
+    </form>
+  </ng-container>
+</nz-modal>
