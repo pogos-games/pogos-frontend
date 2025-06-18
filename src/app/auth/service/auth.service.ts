@@ -33,4 +33,8 @@ export class AuthService {
   updatePassword(passwordUpdateRequest: PasswordUpdateRequest) : Observable<void> {
     return this.httpClient.post<void>(`${this.CORE_URL}/auth/password`, passwordUpdateRequest);
   }
+
+  deleteAccount(): Observable<void> {
+    return this.httpClient.delete<void>(`${this.CORE_URL}/auth/account`);
+  }
 }

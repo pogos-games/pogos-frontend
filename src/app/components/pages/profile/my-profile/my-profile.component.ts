@@ -14,9 +14,10 @@ import {NzFormControlComponent} from "ng-zorro-antd/form";
 import {AuthService} from "../../../../auth/service/auth.service";
 import {PasswordUpdateRequest} from "../../../../model/dto/request/password-update-request.interface";
 import {NzNotificationService} from "ng-zorro-antd/notification";
-import {catchError, of, tap} from "rxjs";
+import {catchError, firstValueFrom, of, tap} from "rxjs";
 import {HttpStatusCode} from "@angular/common/http";
 import {ModalComponent} from "../../../common/modal-delete-account/modal-delete-account";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-my-profile',
@@ -42,6 +43,7 @@ export class MyProfileComponent {
   private readonly userAuthService: UserAuthService = inject(UserAuthService);
   private readonly authService = inject(AuthService);
   private readonly notificationService:  NzNotificationService = inject(NzNotificationService);
+  private readonly router:Router = inject(Router);
 
   user : Signal<User> = this.userAuthService.user;
 
@@ -140,4 +142,18 @@ export class MyProfileComponent {
   handleCancelDeletingAccount() {
     this.isDeleteAccountModalVisible.set(false);
   }
+
+  async handleDeleteAccount() {
+    try {
+      await firstValueFrom(this.authService.deleteAccount());
+      this.userAuthService.logout();
+      this.isDeleteAccountModalVisible.set(false);
+      this.router.navigate(['/']);
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      this.isDeleteAccountModalVisible.set(false);
+      this.createNotification('error', 'Erreur de suppression de compte', 'Une erreur est survenue lors de la suppression de votre compte. Veuillez réessayer.');
+    }
+  }
+
 }
