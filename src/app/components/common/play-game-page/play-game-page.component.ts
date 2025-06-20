@@ -1,14 +1,27 @@
 import {Directive, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
 import {Card} from "../../../model/dto/request/card";
-import {GameActions} from "../../../model/enum/game.actions.enum";
+import {GameActions} from "../../../model/dto/game/enum/gateway/game.actions.enum";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {ActivatedRoute, Router} from "@angular/router";
-import {GameType} from "../../../model/enum/game-type.enum";
+import {GameType} from "../../../model/dto/game/enum/game-type.enum";
 import {GameService} from "../../../services/games/game.service";
 import {ActionDescriptor} from "./action-descriptor";
+import {HttpClient} from "@angular/common/http";
+import {ConfigService} from "../../../services/config.service";
+import {UserAuthService} from "../../../services/auth/user-auth.service";
+import {GameResponse} from "../../../model/dto/game/response/game-response.interface";
+import {Player} from "../../../model/dto/game/player.interface";
+import {GamePlayerResponse} from "../../../model/dto/game/response/game-player-response.interface";
+import {BaseCard} from "../../../model/dto/game/card.interface";
 
 @Directive()
-export abstract class PlayGamePage implements OnInit, OnDestroy {
+export abstract class PlayGamePage<
+  TService extends GameService<TResponse, TPlayer, TPlayerResponse, TCard>,
+  TResponse extends GameResponse<TPlayerResponse>,
+  TPlayer extends Player,
+  TPlayerResponse extends GamePlayerResponse,
+  TCard extends BaseCard
+> implements OnInit, OnDestroy {
   protected gameAction: Record<string, string | number> = GameActions;
 
   protected isActionDisabled: WritableSignal<boolean> = signal(false);
@@ -55,13 +68,16 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected actions: ActionDescriptor[] = [];
   protected secondaryActions: ActionDescriptor[] = [];
 
-  protected gameId: string | null = null; // Stocke l'ID de la partie
+  protected gameId: string = ""; // Stocke l'ID de la partie
 
   protected constructor(
-    protected gameService: GameService,
+    private http: HttpClient,
+    private readonly configService: ConfigService,
+    protected gameService: TService,
     protected message: NzMessageService,
     protected readonly router: Router,
-    protected readonly route: ActivatedRoute
+    protected readonly route: ActivatedRoute,
+    protected readonly userAuthService: UserAuthService,
   ) {
     this.route.queryParams.subscribe(params => {
       this.gameType = params['gameType']?.toUpperCase();
@@ -76,7 +92,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.gameService.sendMessage(GameActions.END_GAME, this.gameId);
+    this.gameService.sendMessage(GameActions.QUIT_GAME, {gameId: this.gameId});
   }
 
   protected createGame(): void {
@@ -98,7 +114,8 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
           createGameSubscription.unsubscribe();
         });
 
-      this.gameService.sendMessage(GameActions.CREATE_GAME);
+      const user = this.userAuthService.user()
+      this.gameService.sendMessage(GameActions.CREATE_GAME,{playerName: user.pseudo, avatar: user.avatar, type: this.gameType});
     } else {
       this.gameFound();
     }
@@ -108,10 +125,10 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
 
   protected listenForGameUpdates(): void {
     this.gameService.listenGameUpdate()
-      .subscribe((data: any) => {
+      .subscribe((data: TResponse) => {
         this.updateGameInfo(data)
         if (data?.players?.length > 0) {
-          this.playerNames.set(data.players.map((p: any) => p.playerId));
+          this.playerNames.set(data.players.map((p: TPlayerResponse) => p.playerId));
           const player = data.players.find((p: { playerId: string; }) =>
             p.playerId === this.gameService.getPlayerId());
           if (player) {
@@ -125,20 +142,10 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
   protected setActionDisabled(data: any){
     this.isActionDisabled.set(false);
   }
-  protected updateGameInfo(data: any){
+  protected updateGameInfo(data: TResponse){
     if (data?.gameId && !this.gameId) {
       this.gameId = data.gameId;
     }
-
-    if (data?.dealerHand) {
-      this.hands.dealerHand = data.dealerHand;
-    }
-
-    if (data.game?._dealerHand) {
-      this.hands.dealerHand = data.game._dealerHand;
-    }
-
-    this.gameService.setPlayers(data.players);
   }
 
   protected listenForPlayerUpdates(): void {
@@ -199,6 +206,7 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
 
   handleOkMiddle(): void {
     this.isLeaveModalVisible.set(false);
+    this.gameService.sendMessage(GameActions.QUIT_GAME, { gameId: this.gameId })
     this.router.navigateByUrl("/games");
   }
 
@@ -226,5 +234,12 @@ export abstract class PlayGamePage implements OnInit, OnDestroy {
 
   private sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  public changePrivacy() {
+    const gameId = this.gameId
+    const clientId = this.gameService.getPlayerId();
+    console.log('GAMES_URL', this.configService.config.GAMES_URL);
+    this.http.post<{ success: boolean }>(this.configService.config.GAMES_URL +"/game/private-mode", { gameId:gameId, clientId:clientId }).subscribe();
   }
 }

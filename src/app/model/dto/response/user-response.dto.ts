@@ -1,4 +1,4 @@
-import {Avatar} from '../../enum/avatar.enum';
+import {Avatar} from '../game/enum/avatar.enum';
 
 export interface UserResponseDto {
     id: string,

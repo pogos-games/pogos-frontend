@@ -1,4 +1,4 @@
-import { Avatar } from './enum/avatar.enum';
+import { Avatar } from './dto/game/enum/avatar.enum';
 
 export interface User {
     id: string,

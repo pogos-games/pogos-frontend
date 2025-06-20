@@ -1,37 +1,74 @@
-<nz-modal
-  [(nzVisible)]="isVisible"
-  [nzTitle]="title"
-  [nzOkText]="okText"
-  [nzCancelText]="cancelText"
-  nzClassName="custom-modal"
-  [nzClosable]="false"
-  (nzOnOk)="handleOk()"
-  (nzOnCancel)="handleCancel()"
->
-  <ng-container *nzModalContent>
-    <div class="modal-body">
-      <p><strong>ID de la partie :</strong> {{ gameId }}</p>
+@if (showPrivacy) {
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    [nzTitle]="title"
+    [nzOkText]="okText"
+    [nzCancelText]="cancelText"
+    nzClassName="custom-modal"
+    [nzClosable]="false"
+    (nzOnOk)="handleOk()"
+    (nzOnCancel)="handleCancel()"
+  >
+    <ng-container *nzModalContent>
+      <div class="modal-body">
+        <p><strong>ID de la partie :</strong> {{ gameId }}</p>
 
-      <p><strong>Joueurs :</strong></p>
-      <ul>
-        @for (player of players(); track $index){
-          <li>{{ player }}</li>
+        <p><strong>Joueurs :</strong></p>
+        <ul>
+          @for (player of playersNames(); track $index){
+            <li>{{ player }}</li>
+          }
+        </ul>
+          <div>
+            <p><strong>Partie privé :</strong></p>
+            <label class="switch">
+              <input type="checkbox" (change)="changePrivate()">
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+        @if (initialBet() != -1){
+          <label for="bet"><strong>Mise :</strong></label>
+          <input
+            id="bet"
+            type="number"
+            [(ngModel)]="betAmount"
+            min="10"
+            max="1000"
+            step="10"
+            class="bet-input"
+          />
         }
-      </ul>
+      </div>
+      {{errorMessage()}}
+    </ng-container>
+  </nz-modal>
+} @else {
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    [nzTitle]="title"
+    nzCancelText="Quitter"
+    [nzOkDisabled]="true"
+    nzClassName="custom-modal"
+    [nzFooter]="modalFooter"
+    [nzClosable]="false"
+    (nzOnCancel)="handleCancel()"
+  >
+    <ng-template #modalFooter>
+      <button nz-button style="background-color: #ff7875" (click)="handleCancel()">Quitter</button>
+    </ng-template>
+    <ng-container *nzModalContent>
+      <div class="modal-body">
+        <p><strong>ID de la partie :</strong> {{ gameId }}</p>
 
-      @if (initialBet() != -1){
-        <label for="bet"><strong>Mise :</strong></label>
-        <input
-          id="bet"
-          type="number"
-          [(ngModel)]="betAmount"
-          min="10"
-          max="1000"
-          step="10"
-          class="bet-input"
-        />
-      }
-    </div>
-    {{errorMessage()}}
-  </ng-container>
-</nz-modal>
+        <p><strong>Joueurs :</strong></p>
+        <ul>
+          @for (player of playersNames(); track $index){
+            <li>{{ player }}</li>
+          }
+        </ul>
+      </div>
+      {{errorMessage()}}
+    </ng-container>
+  </nz-modal>
+}

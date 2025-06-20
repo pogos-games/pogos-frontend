@@ -20,7 +20,7 @@
     </nz-modal>
 
     <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'"
-                            [gameId]="gameId ?? ''" [players]="playerNames" [initialBet]="playerBet"
+                            [gameId]="gameId" [playersNames]="playerNames" [initialBet]="playerBet"
                             [okText]="'Relancer'" (onOk)="handleWaitingRoomConfirmClick($event)"
                             [cancelText]="'Quitter'" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
 

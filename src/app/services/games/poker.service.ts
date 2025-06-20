@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import {GameService} from "./game.service";
+import {PokerPlayerResponse} from "../../model/dto/poker/response/poker-player-response.interface";
+import {PokerPlayer} from "../../model/dto/poker/poker-player.interface";
+import {PokerResponse} from "../../model/dto/poker/response/poker-response.interface";
+import {Card} from "../../model/dto/request/card";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PokerService extends GameService{
+export class PokerService extends GameService<PokerResponse,PokerPlayer,PokerPlayerResponse,Card>{
 
   constructor() {
     super();
@@ -14,7 +18,7 @@ export class PokerService extends GameService{
 
   checkStartGame(): boolean {
     this.errorStartGame = "Insufficient players to start the game."
-    return this.players().length > 1;
+    return this.playersList().length > 1;
   }
 }
 

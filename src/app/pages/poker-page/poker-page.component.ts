@@ -5,13 +5,20 @@ import {RankingComponent} from '../../components/pages/game-page/ranking/ranking
 import {GameTablePokerComponent} from '../../components/games/game-table/game-table-poker/game-table-poker.component';
 import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
 import {ActivatedRoute, Router} from "@angular/router";
-import {PokerActions} from '../../model/enum/poker.actions.enum';
+import {PokerActions} from '../../model/dto/poker/enum/poker.actions.enum';
 import {PokerService} from '../../services/games/poker.service';
 import {PlayGamePage} from "../../components/common/play-game-page/play-game-page.component";
 import {ActionRowComponent} from "../../components/common/actions-row/action-row.component";
 import {ActionDescriptor} from "../../components/common/play-game-page/action-descriptor";
 import {WaitingRoomModalComponent} from "../../components/common/waiting-room-modal/waiting-room-modal.component";
-import {GameActions} from "../../model/enum/game.actions.enum";
+import {GameActions} from "../../model/dto/game/enum/gateway/game.actions.enum";
+import {HttpClient} from "@angular/common/http";
+import {ConfigService} from "../../services/config.service";
+import {UserAuthService} from "../../services/auth/user-auth.service";
+import {PokerPlayer} from "../../model/dto/poker/poker-player.interface";
+import {PokerResponse} from "../../model/dto/poker/response/poker-response.interface";
+import {Card} from "../../model/dto/request/card";
+import {PokerPlayerResponse} from "../../model/dto/poker/response/poker-player-response.interface";
 
 @Component({
   selector: 'app-poker-page',
@@ -28,7 +35,7 @@ import {GameActions} from "../../model/enum/game.actions.enum";
   templateUrl: './poker-page.component.html',
   styleUrl: './poker-page.component.scss'
 })
-export class PokerPageComponent extends PlayGamePage {
+export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,PokerPlayer,PokerPlayerResponse,Card> {
 
   protected override gameAction: typeof PokerActions = PokerActions;
 
@@ -54,8 +61,8 @@ export class PokerPageComponent extends PlayGamePage {
     new ActionDescriptor("Se coucher", "check", PokerActions.FOLD)
   ]
 
-  constructor(pokerService:PokerService, message:NzMessageService, router:Router, route:ActivatedRoute) {
-    super(pokerService,message,router,route);
+  constructor(configService: ConfigService, pokerService:PokerService, message:NzMessageService, router:Router, route:ActivatedRoute, http: HttpClient, userAuthService: UserAuthService) {
+    super(http,configService,pokerService,message,router,route, userAuthService);
   }
 
   protected readonly PokerActions = PokerActions;
@@ -99,5 +106,15 @@ export class PokerPageComponent extends PlayGamePage {
     this.playerBalance -= bet;
 
     console.log(`🎮 Rejouer avec mise : ${bet}, solde restant : ${this.playerBalance}`);
+  }
+
+
+  protected override updateGameInfo(data: PokerResponse) {
+    super.updateGameInfo(data);
+    if (data?.dealerHand) {
+      this.hands.dealerHand = data.dealerHand;
+    }
+
+    this.gameService.playersList.set(data.players.map((p) => (p as PokerPlayer)))
   }
 }

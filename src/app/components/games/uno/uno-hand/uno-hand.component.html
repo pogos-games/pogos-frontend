@@ -1,6 +1,6 @@
 <div class="uno-hand">
 
-  @for(card of cards; track card; let i = $index) {
+  @for(card of playerCards(); track card; let i = $index) {
     <app-uno-card [card]="card"  (click)="playCard(card)"></app-uno-card>
   }
 </div>

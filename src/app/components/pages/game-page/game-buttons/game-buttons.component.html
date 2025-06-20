@@ -8,7 +8,7 @@
     </div>
 
     <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="12" [nzXl]="12"  class="col-wrapper">
-          <button nz-button class="game-button" (click)="showModal(GameType.MULTIPLAYER)">
+          <button nz-button class="game-button" (click)="joinRandom()">
             Jouer en multijoueur
           </button>
       <!-- [routerLink]="['/games', title.toLowerCase()]"
@@ -16,7 +16,9 @@
     </div>
 
     <div nz-col nzXs="24" nzSm="24" nzMd="24" [nzLg]="24" [nzXl]="24" class="col-wrapper">
-          <button nz-button class="game-button">Créer une partie privée</button>
+          <button nz-button class="game-button" (click)="showModal(GameType.MULTIPLAYER)">
+            Créer une partie privée
+          </button>
     </div>
 
   </div>

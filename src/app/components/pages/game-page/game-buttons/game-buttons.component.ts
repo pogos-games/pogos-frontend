@@ -1,10 +1,15 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
-import {GameActions} from "../../../../model/enum/game.actions.enum";
-import {GameType} from "../../../../model/enum/game-type.enum";
+import {GameActions} from "../../../../model/dto/game/enum/gateway/game.actions.enum";
+import {GameType} from "../../../../model/dto/game/enum/game-type.enum";
 import {GameServiceFactory} from "../../../common/factory/game.service.factory";
 import {GameService} from "../../../../services/games/game.service";
+import {ConfigService} from "../../../../services/config.service";
+import {HttpClient} from "@angular/common/http";
+import {catchError, expand, of, take, takeWhile, timer} from "rxjs";
+import {switchMap} from "rxjs/operators";
+import {UserAuthService} from "../../../../services/auth/user-auth.service";
 
 @Component({
   selector: 'app-game-buttons',
@@ -19,12 +24,16 @@ import {GameService} from "../../../../services/games/game.service";
 })
 export class GameButtonsComponent {
 
-  @Output() showModalEvent = new EventEmitter<GameService>();
+  @Output() showModalEvent = new EventEmitter<{ gameService: GameService<any, any, any, any>, showPrivacy: boolean, unsubscribe: () => void}>();
+  @Output() joinRandomGame = new EventEmitter<void>();
 
   @Input() gameName: string = "BlackJack";
 
-  constructor(private readonly gameServiceFactory: GameServiceFactory) {
-  }
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly userAuthService: UserAuthService,
+    private http: HttpClient,
+    private readonly gameServiceFactory: GameServiceFactory) {}
 
   protected showModal(type: GameType) {
     let gameService = this.gameServiceFactory.getService(this.gameName);
@@ -35,24 +44,85 @@ export class GameButtonsComponent {
     }
 
     gameService.setGameType(type);
-    gameService.sendMessage(GameActions.CREATE_GAME);
-    const sub = gameService.listenGameUpdate()
-      .subscribe((data: any) => {
-      const gameId = typeof data === 'string' ? data : data?.gameId;
-
-      if (gameId) {
-        if (gameService instanceof GameService) {
-          gameService.setGameId(gameId);
-        }
-      } else {
-        console.error("Erreur : ID de la partie non reçu.", data);
-      }
-
-      sub.unsubscribe();
-    });
-
-    this.showModalEvent.emit(gameService);
+    const user = this.userAuthService.user()
+    gameService.sendMessage(GameActions.CREATE_GAME,{playerName: user.pseudo, avatar: user.avatar, type: type});
+    this.subToGame(gameService, true);
   }
 
+  protected joinRandom() {
+    let gameService = this.gameServiceFactory.getService(this.gameName);
+
+    if (!gameService) {
+      console.error(`No service found for game title: ${this.gameName}`);
+      return;
+    }
+    const clientId = gameService.getPlayerId()
+    let lastResult: { success: boolean; gameId: string } | null = null;
+
+    of(null).pipe(
+      switchMap(() =>
+        this.http.get<{ success: boolean; gameId: string }>(
+          `${this.configService.config.GAMES_URL}/game/join-random`,
+          {
+            params: {
+              gamePrefix: this.gameName.toLowerCase(),
+              clientId: clientId
+            }
+          }
+        )
+      ),
+      expand((res, i) => {
+        if (res.success || i >= 9) return of(res); // Stop retrying if success or 10th attempt
+        return timer(600).pipe(
+          switchMap(() =>
+            this.http.get<{ success: boolean; gameId: string }>(
+              `${this.configService.config.GAMES_URL}/game/join-random`,
+              {
+                params: {
+                  gamePrefix: this.gameName.toLowerCase(),
+                  clientId: clientId
+                }
+              }
+            )
+          )
+        );
+      }),
+      takeWhile(res => !res.success, true), // Continue until success or final failure
+      take(10), // Max 10 attempts
+      catchError(err => {
+        console.error('Error during game join retries:', err);
+        return of(null);
+      })
+    ).subscribe({
+      next: (res: { success: boolean; gameId: string } |null) => {
+        if (res?.success) {
+          gameService!.sendMessage(GameActions.JOIN_GAME, { gameId: res.gameId });
+          this.subToGame(gameService!, false);
+        }
+        lastResult = res;
+      },
+      complete: () => {
+        if (!lastResult?.success) {
+          console.warn('Unable to join a game after 10 attempts.');
+        }
+      }
+    });
+  }
+
+  private subToGame(gameService: GameService<any, any, any, any>, showPrivacy: boolean) {
+    const sub = gameService.listenGameUpdate()
+      .subscribe((data: any) => {
+        const gameId = typeof data === 'string' ? data : data?.gameId;
+
+        if (gameId) {
+          gameService.setGameId(gameId);
+        } else {
+          console.error("Erreur : ID de la partie non reçu.", data);
+        }
+
+        gameService.playersList.set(data.players)
+        this.showModalEvent.emit({gameService: gameService, showPrivacy: showPrivacy, unsubscribe: () => sub.unsubscribe() });
+      });
+  }
   protected readonly GameType = GameType;
 }

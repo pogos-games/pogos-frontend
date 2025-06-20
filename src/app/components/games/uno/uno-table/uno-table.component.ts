@@ -1,4 +1,4 @@
-import {Component, effect, inject, signal} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output, signal} from '@angular/core';
 import {UnoHandComponent} from "../uno-hand/uno-hand.component";
 import {UnoCardComponent} from "../uno-card/uno-card.component";
 import {UnoCardBackComponent} from "../uno-card-back/uno-card-back.component";
@@ -6,14 +6,14 @@ import {UnoBackHandComponent} from "../uno-back-hand/uno-back-hand.component";
 import {UnoService} from "../../../../services/uno.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserAuthService} from "../../../../services/auth/user-auth.service";
-import {GameActions} from "../../../../model/enum/game.actions.enum";
 import {NzBadgeComponent} from "ng-zorro-antd/badge";
-import {UnoAction, UnoActionType} from "../../../../model/dto/uno/uno-actions.interface";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {Clipboard} from '@angular/cdk/clipboard';
 import {NgOptimizedImage, NgStyle} from "@angular/common";
-import {UnoPlayer} from "../../../../model/dto/uno/uno-game.interface";
 import {DirectionWheelComponent} from "../direction-wheel/direction-wheel.component";
+import {UnoGameDirection} from "../../../../model/dto/uno/enum/uno-game-direction.enum";
+import {UnoCard, UnoCardColor, UnoCardType} from "../../../../model/dto/uno/entities/uno-card.interface";
+import {UnoPlayer} from "../../../../model/dto/uno/entities/uno-player.interface";
 
 @Component({
   selector: 'app-uno-table',
@@ -35,53 +35,51 @@ import {DirectionWheelComponent} from "../direction-wheel/direction-wheel.compon
 export class UnoTableComponent {
 
 
+  @Input()
+  currentPlayerId = signal<string>("")
+  @Input()
+  orderedPlayers = signal<UnoPlayer[]>([]);
+  @Input()
+  topCard = signal<UnoCard>({color: UnoCardColor.RED, type: UnoCardType.NUMBER})
+  @Input()
+  direction= signal<UnoGameDirection>(UnoGameDirection.CLOCKWISE);
+  @Input()
+  playerCards = signal<UnoCard[]>([])
+  @Input()
+  playerId = signal<string>("")
+  @Input()
+  gameId = ""
+
+  @Output()
+  drawCardEvent: EventEmitter<void> = new EventEmitter<void>();
+  @Output()
+  playCardEvent: EventEmitter<UnoCard> = new EventEmitter<UnoCard>();
+
   protected readonly unoService : UnoService = inject(UnoService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly userAuthService: UserAuthService = inject(UserAuthService);
   protected username : string = this.userAuthService.user().pseudo;
   // current player id
 
-  orderedPlayers = signal<UnoPlayer[]>([]);
-
   protected readonly gameType = this.route.snapshot.queryParams['gameType'];
 
   protected readonly clipBoard: Clipboard = inject(Clipboard);
 
-  constructor() {
-    if(this.gameType === 'solo') {
-      console.log('game type is solo');
-      this.unoService.sendMessage(GameActions.CREATE_GAME, {
-        playerName: this.username,
-        mode: this.gameType.toUpperCase(),
-        avatar: this.userAuthService.user().avatar
-      })
-    }
-    effect(() => {
-      this.orderedPlayers.set(this.unoService.getOrderedPlayers());
-    });
-  }
+  constructor() {}
 
   drawCard() {
-    console.log('Draw card action triggered');
-    if((this.unoService.isPlayerTurn())) {
-      const unoAction: UnoAction = {
-        roomId: this.unoService.getGameId(),
-        type: UnoActionType.DRAW_CARD,
-        card: undefined,
-        playerId: this.unoService.getPlayerId()
-      }
-      this.unoService.sendMessage('ACTION', unoAction)
-      console.log('Draw card action sent:', unoAction);
+    if(this.isPlayerTurn(this.playerId())) {
+      this.drawCardEvent.emit()
     }
   }
 
   isPlayerTurn(playerId: string) : boolean {
-    return this.unoService.unoGameState().currentTurnPlayerId  === playerId;
+    return this.currentPlayerId()  === playerId;
   }
 
   protected copyGameId(): void {
-    const gameId = this.unoService.getGameId();
-    if (gameId) {
+    const gameId = this.gameId;
+    if (gameId != "") {
       this.clipBoard.copy(gameId);
     }
   }

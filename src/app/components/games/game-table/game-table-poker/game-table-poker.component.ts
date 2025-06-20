@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
-import { NzButtonComponent } from "ng-zorro-antd/button";
-import { NzSpinComponent } from "ng-zorro-antd/spin";
 import { CardHandComponent } from "../../card-hand/card-hand.component";
 import { GameTableComponent } from '../game-table.component';
 
@@ -9,8 +7,6 @@ import { GameTableComponent } from '../game-table.component';
     selector: 'app-game-table',
     imports: [
         NgOptimizedImage,
-        NzButtonComponent,
-        NzSpinComponent,
         CardHandComponent
     ],
     templateUrl: './game-table-poker.component.html',

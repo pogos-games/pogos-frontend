@@ -1,16 +1,10 @@
+import { BaseCard } from "../../game/card.interface";
 
-export interface UnoCard {
+export interface UnoCard extends BaseCard{
   color: UnoCardColor;
   type: UnoCardType;
   value?: number; // Only if type is Number
-}
-
-export enum UnoCardColor {
-  RED = 'RED',
-  YELLOW = 'YELLOW',
-  GREEN = 'GREEN',
-  BLUE = 'BLUE',
-  WILD = 'WILD',
+  declaredColor?: UnoCardColor;
 }
 
 export enum UnoCardType {
@@ -22,3 +16,11 @@ export enum UnoCardType {
   WILD_DRAW_FOUR = 'WILD_DRAW_FOUR',
 }
 
+
+export enum UnoCardColor {
+  RED = 'RED',
+  YELLOW = 'YELLOW',
+  GREEN = 'GREEN',
+  BLUE = 'BLUE',
+  WILD = 'WILD',
+}
