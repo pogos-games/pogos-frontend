@@ -84,10 +84,6 @@ export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,
     this.playerBet.set(0);
   }
 
-  protected gameFound() {
-    console.log("game found")
-  }
-
   protected override setActionDisabled(data : any){
       this.isActionDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
       this.isSecondaryActionsDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)

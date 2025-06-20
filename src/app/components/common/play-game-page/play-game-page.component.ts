@@ -71,7 +71,7 @@ export abstract class PlayGamePage<
   protected gameId: string = ""; // Stocke l'ID de la partie
 
   protected constructor(
-    private http: HttpClient,
+    private readonly http: HttpClient,
     private readonly configService: ConfigService,
     protected gameService: TService,
     protected message: NzMessageService,
@@ -121,7 +121,9 @@ export abstract class PlayGamePage<
     }
   }
 
-  protected abstract gameFound(): void;
+  protected gameFound() {
+    console.log("game found")
+  }
 
   protected listenForGameUpdates(): void {
     this.gameService.listenGameUpdate()

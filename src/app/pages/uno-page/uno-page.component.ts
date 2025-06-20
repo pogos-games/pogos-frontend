@@ -49,11 +49,6 @@ export class UnoPageComponent extends PlayGamePage<UnoService,UnoResponse,UnoPla
     super(http,configService,unoService,message,router,route,userAuthService);
   }
 
-  protected gameFound() {
-  }
-
-
-
   drawCard(): void {
     if (this.gameId == "") {
       console.warn("Impossible d'envoyer l'action, gameId manquant !");

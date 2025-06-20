@@ -43,7 +43,7 @@ export class GamePageComponent {
 
   constructor(
     private readonly configService: ConfigService,
-    private http: HttpClient,
+    private readonly http: HttpClient,
     private readonly router: Router,
     protected gameService: GameService<any, any, any, any>,
     private readonly gameServiceFactory: GameServiceFactory
@@ -51,7 +51,7 @@ export class GamePageComponent {
 
   public showModal(res: { unsubscribe: () => void; showPrivacy: boolean; gameService: GameService<any, any, any, any> }): void {
     this.gameService = res.gameService;
-    this.playerNames.set(this.gameService.playersList().map((p) => p.username || p.playerId));
+    this.playerNames.set(this.gameService.playersList().map((p) => p.username ?? p.playerId));
     this.gameBet.set(this.gameService.getBet());
     this.isWaitingRoomModalVisible.set(true);
     if (this.gameService.getBet() == -1 && this.gameService.gameType === GameType.SOLO) {
@@ -122,19 +122,19 @@ export class GamePageComponent {
         let gameService = this.gameServiceFactory.getService(res.gameName);
         console.log(res)
         if (!(gameService instanceof GameService)) return;
-        gameService!.sendMessage(GameActions.JOIN_GAME, {gameId: `#${code}`});
-        const sub = gameService!.listenGameUpdate().subscribe((data: any) => {
+        gameService.sendMessage(GameActions.JOIN_GAME, {gameId: `#${code}`});
+        const sub = gameService.listenGameUpdate().subscribe((data: any) => {
           const gameId = typeof data === 'string' ? data : data?.gameId;
 
-          if (gameId) {
-            gameService!.setGameId(gameId);
+          if (gameId && gameService) {
+            gameService.setGameId(gameId);
           } else {
             console.error("Erreur : ID de la partie non reçu.", data);
           }
 
           sub.unsubscribe();
         });
-        this.showModal({gameService: gameService!, showPrivacy: false, unsubscribe: () => {}});
+        this.showModal({gameService: gameService, showPrivacy: false, unsubscribe: () => {}});
       });
   }
 }

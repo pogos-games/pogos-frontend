@@ -32,7 +32,7 @@ export class GameButtonsComponent {
   constructor(
     private readonly configService: ConfigService,
     private readonly userAuthService: UserAuthService,
-    private http: HttpClient,
+    private readonly http: HttpClient,
     private readonly gameServiceFactory: GameServiceFactory) {}
 
   protected showModal(type: GameType) {
@@ -95,9 +95,9 @@ export class GameButtonsComponent {
       })
     ).subscribe({
       next: (res: { success: boolean; gameId: string } |null) => {
-        if (res?.success) {
-          gameService!.sendMessage(GameActions.JOIN_GAME, { gameId: res.gameId });
-          this.subToGame(gameService!, false);
+        if (res?.success && gameService) {
+          gameService.sendMessage(GameActions.JOIN_GAME, { gameId: res.gameId });
+          this.subToGame(gameService, false);
         }
         lastResult = res;
       },
