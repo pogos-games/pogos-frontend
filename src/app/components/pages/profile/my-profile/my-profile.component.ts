@@ -1,4 +1,3 @@
-import {Component, Signal} from '@angular/core';
 import {Avatar} from '../../../../model/dto/game/enum/avatar.enum';
 import {Component, inject, signal, Signal, WritableSignal} from '@angular/core';
 import {User} from '../../../../model/user.interface';
@@ -17,7 +16,8 @@ import {NzNotificationService} from "ng-zorro-antd/notification";
 import {catchError, firstValueFrom, of, tap} from "rxjs";
 import {HttpStatusCode} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {ModalComponent} from "../../../common/modal/modal.component";
+import {PasswordUpdateRequest} from "../../../../model/dto/request/password-update-request.interface";
+import {ModalComponent} from "../../../common/modal-delete-account/modal-delete-account";
 
 @Component({
   selector: 'app-my-profile',
@@ -32,6 +32,7 @@ import {ModalComponent} from "../../../common/modal/modal.component";
     NzIconDirective,
     NzInputDirective,
     NzFormControlComponent,
+    ModalComponent,
     ModalComponent
   ],
   templateUrl: './my-profile.component.html',
