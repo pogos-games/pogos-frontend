@@ -37,7 +37,7 @@ export abstract class PlayGamePage<
 
   protected readonly GameMode = GameMode;
 
-  public playerNames: WritableSignal<any[]> = signal([]);
+  public players: WritableSignal<Player[]> = signal([]);
 
   protected hands: {
     player1Hand: TCard[],
@@ -118,7 +118,7 @@ export abstract class PlayGamePage<
       .subscribe((data: TResponse) => {
         this.updateGameInfo(data)
         if (data?.players?.length > 0) {
-          this.playerNames.set(data.players.map((p: TPlayerResponse) => p.playerId));
+          this.players.set(data.players.map((p: TPlayerResponse) => p as Player));
           const player = data.players.find((p: { playerId: string; }) =>
             p.playerId === this.gameService.getPlayerId());
           if (player) {

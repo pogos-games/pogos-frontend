@@ -1,4 +1,4 @@
-import {Injectable, signal, WritableSignal} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {GameService} from "./game.service";
 import {BlackJackPlayer} from "../../model/dto/blackjack/blackjack-player.interface";
 import {BlackJackResponse} from "../../model/dto/blackjack/response/blackjack-response.interface";
@@ -10,7 +10,6 @@ import {Card} from "../../model/dto/game/card.interface";
 })
 export class BlackjackService extends GameService<BlackJackResponse,BlackJackPlayer,BlackJackPlayerResponse,Card>{
   private playerBet: number = 0;
-  public override playersList: WritableSignal<BlackJackPlayer[]> = signal([]);
 
   constructor() {
     super();

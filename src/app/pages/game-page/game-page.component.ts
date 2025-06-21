@@ -14,6 +14,8 @@ import {HttpClient} from "@angular/common/http";
 import {ConfigService} from "../../services/config.service";
 import {GameServiceFactory} from "../../components/common/factory/game.service.factory";
 import {GameMode} from "../../model/dto/game/enum/game-mode.enum";
+import {UserAuthService} from "../../services/auth/user-auth.service";
+import {Player} from "../../model/dto/game/player.interface";
 
 @Component({
   selector: 'app-game-page',
@@ -35,7 +37,7 @@ export class GamePageComponent {
   public isWaitingRoomModalVisible: WritableSignal<boolean> = signal(false);
   public errorWaitingRoom: WritableSignal<string> = signal("");
   public gameBet: WritableSignal<number> = signal(-1);
-  public playerNames: WritableSignal<string[]> = signal([]);
+  public players: WritableSignal<Player[]> = signal([]);
   protected title = 'BlackJack';
   protected subStartGamePlayerUpdate: Subscription = new Subscription();
   protected subStartGame: Subscription = new Subscription();
@@ -45,13 +47,14 @@ export class GamePageComponent {
     private readonly configService: ConfigService,
     private readonly http: HttpClient,
     private readonly router: Router,
+    private readonly userAuthService: UserAuthService,
     protected gameService: GameService<any, any, any, any>,
     private readonly gameServiceFactory: GameServiceFactory
   ) {}
 
   public showModal(res: { unsubscribe: () => void; showPrivacy: boolean; gameService: GameService<any, any, any, any> }): void {
     this.gameService = res.gameService;
-    this.playerNames.set(this.gameService.playersList().map((p) => p.username ?? p.playerId));
+    this.players.set(this.gameService.playersList().map((p) => p as Player));
     this.gameBet.set(this.gameService.getBet());
     this.isWaitingRoomModalVisible.set(true);
     if (this.gameService.getBet() == -1 && this.gameService.gameMode === GameMode.SOLO) {
@@ -92,7 +95,7 @@ export class GamePageComponent {
   public handleCancelModal(): void {
     this.gameService.sendMessage(GameActions.QUIT_GAME);
     this.errorWaitingRoom.set("")
-    this.playerNames.set([]);
+    this.players.set([]);
     this.subStartGamePlayerUpdate.unsubscribe()
     this.subStartGame.unsubscribe()
     this.isWaitingRoomModalVisible.set(false);
@@ -114,6 +117,7 @@ export class GamePageComponent {
 
   public searchGame(code: string){
     const clientId = this.gameService.getPlayerId()
+    code = code.replace('#',"")
     this.http.get<{ success: string, gameName: string }>(
       `${this.configService.config.GAMES_URL}/game/find`,
       { params:{ gameId: code, clientId: clientId }
@@ -122,7 +126,9 @@ export class GamePageComponent {
         let gameService = this.gameServiceFactory.getService(res.gameName);
         console.log(res)
         if (!(gameService instanceof GameService)) return;
-        gameService.sendMessage(GameActions.JOIN_GAME, {gameId: `#${code}`});
+
+        const user = this.userAuthService.user()
+        gameService.sendMessage(GameActions.JOIN_GAME, {gameId: `#${code}`, playerName:user.pseudo, avatar:user.avatar});
         const sub = gameService.listenGameUpdate().subscribe((data: any) => {
           const gameId = typeof data === 'string' ? data : data?.gameId;
 

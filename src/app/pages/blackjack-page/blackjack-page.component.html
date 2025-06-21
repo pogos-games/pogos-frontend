@@ -25,8 +25,8 @@
     </nz-modal>
 
     <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'" [okText]="'Relancer'"
-      [cancelText]="'Quitter'" [gameId]="gameId" [playersNames]="playerNames" [initialBet]="playerBet"
-      (onOk)="handleWaitingRoomConfirmClick($event)" (onCancel)="handleWaitingRoomLeave()" (changePrivacy)="changePrivacy()"></app-waiting-room-modal>
+                            [cancelText]="'Quitter'" [gameId]="gameId" [players]="players" [initialBet]="playerBet"
+                            (onOk)="handleWaitingRoomConfirmClick($event)" (onCancel)="handleWaitingRoomLeave()" (changePrivacy)="changePrivacy()"></app-waiting-room-modal>
 
   </div>
 

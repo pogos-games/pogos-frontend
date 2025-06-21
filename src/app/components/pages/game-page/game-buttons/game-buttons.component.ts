@@ -96,7 +96,8 @@ export class GameButtonsComponent {
     ).subscribe({
       next: (res: { success: boolean; gameId: string } |null) => {
         if (res?.success && gameService) {
-          gameService.sendMessage(GameActions.JOIN_GAME, { gameId: res.gameId });
+          const user = this.userAuthService.user()
+          gameService.sendMessage(GameActions.JOIN_GAME, { gameId: res.gameId, playerName:user.pseudo, avatar:user.avatar });
           this.subToGame(gameService, false);
         }
         lastResult = res;
@@ -119,7 +120,6 @@ export class GameButtonsComponent {
         } else {
           console.error("Erreur : ID de la partie non reçu.", data);
         }
-
         gameService.playersList.set(data.players)
         this.showModalEvent.emit({gameService: gameService, showPrivacy: showPrivacy, unsubscribe: () => sub.unsubscribe() });
       });

@@ -37,7 +37,7 @@ import {UnoActionType} from "../../model/dto/uno/enum/uno-action.enum";
 })
 export class UnoPageComponent extends PlayGamePage<UnoService,UnoResponse,UnoPlayer,UnoPlayerResponse,UnoCard>{
 
-  protected playerBet: WritableSignal<number> = signal(-10);
+  protected playerBet: WritableSignal<number> = signal(-1);
 
   currentPlayerId = signal<string>("")
   orderedPlayers = signal<UnoPlayer[]>([]);
@@ -88,8 +88,7 @@ export class UnoPageComponent extends PlayGamePage<UnoService,UnoResponse,UnoPla
     )
   }
 
-  handleWaitingRoomConfirmClick(bet: number): void {
+  handleWaitingRoomConfirmClick(): void {
     this.handleWaitingRoomConfirm();
-    this.playerBet.set(bet);
   }
 }

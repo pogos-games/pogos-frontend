@@ -26,7 +26,7 @@ export abstract class GameService<
   protected readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
   protected gameId: string  = '';
   protected playerId: string  = '';
-  public playersList: WritableSignal<any[]> = signal([]);
+  public playersList: WritableSignal<TPlayer[]> = signal([]);
   public players: TPlayer[] = [];
   protected gameUrl: string = "";
   public gameMode: string = GameMode.SOLO;
@@ -114,7 +114,7 @@ export abstract class GameService<
       if (data.players) {
         this.playersList.set(data.players.map((p: any) => p.playerId));
       } else {
-        this.playersList.update(players => [...players, data]);
+        this.playersList.update(players => [...players]);
       }
       checkStartGame.next();
     });
