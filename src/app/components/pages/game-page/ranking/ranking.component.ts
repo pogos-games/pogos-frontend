@@ -41,7 +41,6 @@ export class RankingComponent implements OnInit {
       const sortedUsers = [...page.data].sort((a: UserResponseDto, b: UserResponseDto) => b.points - a.points);
       this.currentPage = page.meta.page;
       this.itemCount = page.meta.itemCount;
-      console.log('Users triés:', sortedUsers.map(u => u.points));
       this.users.set(sortedUsers);
     });
   }

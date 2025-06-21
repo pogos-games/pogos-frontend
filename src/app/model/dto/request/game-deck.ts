@@ -1,4 +1,4 @@
-import {Card} from "./card";
+import {Card} from "../game/card.interface";
 
 export interface GameDeck {
   playerHand: Set<Card>;

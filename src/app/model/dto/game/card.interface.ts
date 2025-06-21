@@ -1,7 +1,6 @@
-export interface Card {
+export interface Card extends BaseCard{
   rank: string;
   suit: string;
-  value: number;
 }
 
 export interface BaseCard {

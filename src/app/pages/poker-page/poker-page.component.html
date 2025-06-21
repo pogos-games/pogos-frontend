@@ -2,15 +2,21 @@
 <div class="main-content">
 
   <div class="game-content">
-    <div class="game-content-table">
-      <app-game-table [hands]="hands"></app-game-table>
-    </div>
+    <div>
+        <div class="game-content-table">
+          <app-game-table [currentPlayerId]="currentPlayerId" [orderedPlayers]="orderedPlayers" [playerCards]="playerCards" [playerId]="playerId" [river]="river"></app-game-table>
+        </div>
 
-    <action-row [actions]="actions" [isActionsDisabled]="isActionDisabled" [secondaryActions]="secondaryActions"
-                [isSecondaryActionsDisabled]="isSecondaryActionsDisabled" [playerBalance]="playerBalance" [playerBet]="playerBet"
-                (placeBet)="placeBet($event)" [gameType]="gameType" (openChat)="open()"
-                [showCoins]="true"
-                (executeAction)="executeAction($event)" />
+        <action-row [actions]="actions" [isActionsDisabled]="isActionDisabled" [secondaryActions]="secondaryActions"
+                    [isSecondaryActionsDisabled]="isSecondaryActionsDisabled" [playerBalance]="playerBalance()" [playerBet]="playerBet"
+                    (placeBet)="placeBet($event)" [gameMode]="gameMode" (openChat)="open()"
+                    [showCoins]="true"
+                    (executeAction)="executeAction($event)" />
+      @if(gameService.gameMode === GameMode.MULTIPLAYER) {
+        <nz-divider  nzPlain nzType="vertical"></nz-divider>
+        <app-chat [gameService]="gameService"></app-chat>
+      }
+    </div>
 
     <nz-modal [nzVisible]="isLeaveModalVisible()" nzTitle="Déconnexion" nzCentered (nzOnCancel)="handleCancelMiddle()"
               (nzOnOk)="handleOkMiddle()">
@@ -25,9 +31,4 @@
                             [cancelText]="'Quitter'" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
 
   </div>
-
-  <div class="ranking-content">
-    <app-ranking></app-ranking>
-  </div>
-
 </div>

@@ -3,7 +3,6 @@ import {UnoHandComponent} from "../uno-hand/uno-hand.component";
 import {UnoCardComponent} from "../uno-card/uno-card.component";
 import {UnoCardBackComponent} from "../uno-card-back/uno-card-back.component";
 import {UnoBackHandComponent} from "../uno-back-hand/uno-back-hand.component";
-import {UnoService} from "../../../../services/uno.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserAuthService} from "../../../../services/auth/user-auth.service";
 import {NzBadgeComponent} from "ng-zorro-antd/badge";
@@ -55,13 +54,12 @@ export class UnoTableComponent {
   @Output()
   playCardEvent: EventEmitter<UnoCard> = new EventEmitter<UnoCard>();
 
-  protected readonly unoService : UnoService = inject(UnoService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly userAuthService: UserAuthService = inject(UserAuthService);
   protected username : string = this.userAuthService.user().pseudo;
   // current player id
 
-  protected readonly gameType = this.route.snapshot.queryParams['gameType'];
+  protected readonly gameMode = this.route.snapshot.queryParams['gameMode'];
 
   protected readonly clipBoard: Clipboard = inject(Clipboard);
 

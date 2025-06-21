@@ -1,7 +1,6 @@
 import {Component, signal, WritableSignal} from '@angular/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {HeaderComponent} from '../../components/common/header/header.component';
-import {RankingComponent} from '../../components/pages/game-page/ranking/ranking.component';
 import {GameTablePokerComponent} from '../../components/games/game-table/game-table-poker/game-table-poker.component';
 import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -17,35 +16,42 @@ import {ConfigService} from "../../services/config.service";
 import {UserAuthService} from "../../services/auth/user-auth.service";
 import {PokerPlayer} from "../../model/dto/poker/poker-player.interface";
 import {PokerResponse} from "../../model/dto/poker/response/poker-response.interface";
-import {Card} from "../../model/dto/request/card";
 import {PokerPlayerResponse} from "../../model/dto/poker/response/poker-player-response.interface";
+import {ChatComponent} from "../../components/games/chat/chat.component";
+import {NzDividerComponent} from "ng-zorro-antd/divider";
+import {Card} from "../../model/dto/game/card.interface";
 
 @Component({
   selector: 'app-poker-page',
   standalone: true,
-  imports: [
-    HeaderComponent,
-    RankingComponent,
-    GameTablePokerComponent,
-    NzModalComponent,
-    NzModalModule,
-    ActionRowComponent,
-    WaitingRoomModalComponent,
-  ],
+    imports: [
+        HeaderComponent,
+        GameTablePokerComponent,
+        NzModalComponent,
+        NzModalModule,
+        ActionRowComponent,
+        WaitingRoomModalComponent,
+        ChatComponent,
+        NzDividerComponent,
+    ],
   templateUrl: './poker-page.component.html',
   styleUrl: './poker-page.component.scss'
 })
 export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,PokerPlayer,PokerPlayerResponse,Card> {
+  river = signal<Card[]>([])
+  currentPlayerId = signal<string>("")
+  orderedPlayers = signal<PokerPlayer[]>([]);
+  playerCards = signal<Card[]>([])
+  playerId = signal<string>("")
 
   protected override gameAction: typeof PokerActions = PokerActions;
 
   protected isSecondaryActionsDisabled: WritableSignal<boolean> = signal(false);
 
-  protected currentPotAmount: Number = 0;
-
-  protected playerBalance: number = 1000;
+  protected currentPotAmount = signal(0);
 
   protected playerBet: WritableSignal<number> = signal(-10); // Mise actuelle du joueur
+  protected playerBalance: WritableSignal<number> = signal(-10); // Mise actuelle du joueur
 
   isPotEmpty = false;
 
@@ -89,27 +95,33 @@ export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,
       this.isSecondaryActionsDisabled.set(this.gameService.getPlayerId() != data.nextPlayerId)
   }
 
-  protected override updatePlayerInfos(player: any): void {
+  protected override updatePlayerInfos(player: PokerPlayerResponse): void {
     this.hands.selfHand = player.hand;
     this.playerBet.set(player.bet)
-    this.playerBalance = player.balance;
+    this.playerBalance.set(player.balance);
   }
 
   handleWaitingRoomConfirmClick(bet: number): void {
     this.handleWaitingRoomConfirm();
-
     this.playerBet.set(bet);
-    this.playerBalance -= bet;
-
-    console.log(`🎮 Rejouer avec mise : ${bet}, solde restant : ${this.playerBalance}`);
   }
 
 
   protected override updateGameInfo(data: PokerResponse) {
     super.updateGameInfo(data);
-    if (data?.dealerHand) {
-      this.hands.dealerHand = data.dealerHand;
-    }
+    const player = data.players.find((p) => p.playerId == this.gameService.getPlayerId())
+
+    console.log(player)
+    console.log(data)
+    this.river.set(data.dealerHand)
+    this.currentPlayerId.set(data.nextPlayerId)
+    this.playerCards.set(player?.hand ?? [])
+    this.playerBet.set(player?.bet ?? 0)
+    this.playerBalance.set(player?.balance ?? 0)
+    this.playerId.set(this.gameService.getPlayerId())
+    this.orderedPlayers.set(
+      data.players.map((player: PokerPlayerResponse) => (player) as PokerPlayer)
+    );
 
     this.gameService.playersList.set(data.players.map((p) => (p as PokerPlayer)))
   }

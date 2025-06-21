@@ -4,11 +4,12 @@ import {Observable, shareReplay, Subject} from 'rxjs';
 import {GameActions} from '../../model/dto/game/enum/gateway/game.actions.enum';
 import {GatewayEventEmitter} from '../../model/dto/game/enum/gateway/gateway-event-emitter.enum';
 import {ConfigService} from "../config.service";
-import {GameType} from "../../model/dto/game/enum/game-type.enum";
+import {GameMode} from "../../model/dto/game/enum/game-mode.enum";
 import {GameResponse} from "../../model/dto/game/response/game-response.interface";
 import {GamePlayerResponse} from "../../model/dto/game/response/game-player-response.interface";
 import {Player} from "../../model/dto/game/player.interface";
 import {BaseCard} from "../../model/dto/game/card.interface";
+import {ChatMessage} from "../../model/dto/chat-message.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export abstract class GameService<
   public playersList: WritableSignal<any[]> = signal([]);
   public players: TPlayer[] = [];
   protected gameUrl: string = "";
-  public gameType: string = GameType.SOLO;
+  public gameMode: string = GameMode.SOLO;
   protected errorStartGame: string = "";
 
   protected initializeSocket(): void {
@@ -59,12 +60,12 @@ export abstract class GameService<
     return this.gameId;
   }
 
-  setGameType(type: GameType){
-    this.gameType = type;
+  setGameMode(mode: GameMode){
+    this.gameMode = mode;
   }
 
-  getGameType(){
-    return this.gameType;
+  getGameMode(){
+    return this.gameMode;
   }
 
   sendMessage(action: string, payload: any = {}): void {
@@ -136,6 +137,14 @@ export abstract class GameService<
     });
   }
 
+  listenChatUpdate(): Observable<ChatMessage> {
+    return new Observable<ChatMessage>(observer => {
+      this.socket.on(GatewayEventEmitter.CHAT, (data: ChatMessage) => {
+        observer.next(data)
+      })
+    })
+  }
+
   disconnect(): void {
     console.log('Déconnexion WebSocket...');
     this.socket.removeAllListeners(GatewayEventEmitter.GAME_UPDATE);
@@ -151,16 +160,6 @@ export abstract class GameService<
   }
 
   getBet(): number {return -1}
-
-
-  listenToTopic<T>(topic: string): Observable<T> {
-    return new Observable(observer => {
-      this.socket.on(topic, (data: any) => {
-        observer.next(data);
-      });
-    });
-  }
-
 
   abstract checkStartGame(): boolean;
 

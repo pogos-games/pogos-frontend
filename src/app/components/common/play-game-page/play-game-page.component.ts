@@ -1,9 +1,8 @@
 import {Directive, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
-import {Card} from "../../../model/dto/request/card";
 import {GameActions} from "../../../model/dto/game/enum/gateway/game.actions.enum";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {ActivatedRoute, Router} from "@angular/router";
-import {GameType} from "../../../model/dto/game/enum/game-type.enum";
+import {GameMode} from "../../../model/dto/game/enum/game-mode.enum";
 import {GameService} from "../../../services/games/game.service";
 import {ActionDescriptor} from "./action-descriptor";
 import {HttpClient} from "@angular/common/http";
@@ -34,35 +33,24 @@ export abstract class PlayGamePage<
 
   public errorWaitingRoom: WritableSignal<string> = signal("");
 
-  protected gameType: string = "";
+  protected gameMode: string = "";
 
-  protected readonly GameType = GameType;
+  protected readonly GameMode = GameMode;
 
   public playerNames: WritableSignal<any[]> = signal([]);
 
   protected hands: {
-    player1Hand: Card[],
-    player2Hand: Card[],
-    player3Hand: Card[],
-    dealerHand: Card[],
-    selfHand: Card[]
+    player1Hand: TCard[],
+    player2Hand: TCard[],
+    player3Hand: TCard[],
+    dealerHand: TCard[],
+    selfHand: TCard[]
   } = {
-    player1Hand: [
-      { rank: 'back', suit: '', value: 0 },
-      { rank: 'back', suit: '', value: 0 },
-    ],
-    player2Hand: [
-      { rank: 'back', suit: '', value: 0 },
-      { rank: 'back', suit: '', value: 0 },
-    ],
-    player3Hand: [
-      { rank: 'back', suit: '', value: 0 },
-      { rank: 'back', suit: '', value: 0 },
-    ],
-    selfHand: [
-    ],
-    dealerHand: [
-    ],
+    player1Hand: [],
+    player2Hand: [],
+    player3Hand: [],
+    selfHand: [],
+    dealerHand: [],
   };
 
   protected actions: ActionDescriptor[] = [];
@@ -80,7 +68,7 @@ export abstract class PlayGamePage<
     protected readonly userAuthService: UserAuthService,
   ) {
     this.route.queryParams.subscribe(params => {
-      this.gameType = params['gameType']?.toUpperCase();
+      this.gameMode = params['gameMode']?.toUpperCase();
     });
   }
 
@@ -115,7 +103,7 @@ export abstract class PlayGamePage<
         });
 
       const user = this.userAuthService.user()
-      this.gameService.sendMessage(GameActions.CREATE_GAME,{playerName: user.pseudo, avatar: user.avatar, type: this.gameType});
+      this.gameService.sendMessage(GameActions.CREATE_GAME,{playerName: user.pseudo, avatar: user.avatar, mode: this.gameMode});
     } else {
       this.gameFound();
     }
@@ -217,14 +205,14 @@ export abstract class PlayGamePage<
   }
 
   handleWaitingRoomConfirm(): void {
-    if (!this.gameType) {
+    if (!this.gameMode) {
       console.warn("Type de jeu manquant !");
       return;
     }
 
     this.isWaitingRoomModalVisible.set(false);
     this.gameService.sendMessage(GameActions.RESTART_GAME, {
-      type: this.gameType
+      mode: this.gameMode
     });
   }
 

@@ -1,5 +1,5 @@
-import {Card} from "../request/card";
 import {Player} from "../game/player.interface";
+import {Card} from "../game/card.interface";
 
 export interface BlackJackPlayer extends Player {
   hand: Card[][];

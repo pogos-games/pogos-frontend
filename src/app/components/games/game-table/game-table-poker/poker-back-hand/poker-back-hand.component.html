@@ -1,0 +1,10 @@
+<div class="poker-back-hand"
+     [ngClass]="'poker-hand-' + direction">
+
+  <!-- Cartes visibles -->
+  @for(card of Array(handCount); track $index) {
+    <div class="poker-card-back">
+      <img ngSrc="assets/cards/back.png" alt="OC" height="85" width="60" />
+    </div>
+  }
+</div>
