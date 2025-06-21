@@ -71,5 +71,7 @@
         <span class="player-name">{{ orderedPlayers()[3].username }}</span>
       </div>
     }
+    <uno-declare-button [players]="orderedPlayers" [playerId]="playerId()" (declareEvent)="declareEvent.emit($event)"
+                        [gameId]="gameId"></uno-declare-button>
   </div>
 </div>
