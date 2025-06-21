@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {UnoCardColor} from "../../../../model/dto/uno/uno-card.interface";
 import {NzModalComponent, NzModalContentDirective} from "ng-zorro-antd/modal";
 import {NgClass} from "@angular/common";
+import {UnoCardColor} from "../../../../model/dto/uno/entities/uno-card.interface";
 
 @Component({
   selector: 'app-uno-color-picker-modal',
@@ -11,6 +11,7 @@ import {NgClass} from "@angular/common";
     NgClass
   ],
   templateUrl: './uno-color-picker-modal.component.html',
+  standalone: true,
   styleUrl: './uno-color-picker-modal.component.scss'
 })
 export class UnoColorPickerModalComponent {

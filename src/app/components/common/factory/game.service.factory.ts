@@ -6,7 +6,7 @@ import {UnoService} from "../../../services/uno.service";
 
 @Injectable({ providedIn: 'root' })
 export class GameServiceFactory {
-  private readonly serviceMap: { [key: string]: GameService };
+  private readonly serviceMap: { [key: string]: GameService<any, any, any, any> };
 
   constructor(
     private readonly blackjackService: BlackjackService,
@@ -14,13 +14,13 @@ export class GameServiceFactory {
     private readonly unoService: UnoService
   ) {
     this.serviceMap = {
-      'BlackJack': this.blackjackService,
-      'Poker': this.pokerService,
-      'Uno': this.unoService
+      'blackjack': this.blackjackService,
+      'poker': this.pokerService,
+      'uno': this.unoService
     };
   }
 
-  getService(title: string): GameService | undefined {
-    return this.serviceMap[title];
+  getService(title: string): GameService<any, any, any, any> | undefined {
+    return this.serviceMap[title.toLowerCase()];
   }
 }

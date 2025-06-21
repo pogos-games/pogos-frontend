@@ -1,7 +1,7 @@
 import { Directive, Input } from '@angular/core';
 import { GameDeck } from '../../../model/dto/request/game-deck';
 import { Card } from '../../../model/dto/request/card';
-import { GameActions } from '../../../model/enum/game.actions.enum';
+import { GameActions } from '../../../model/dto/game/enum/gateway/game.actions.enum';
 
 @Directive()
 export class GameTableComponent {

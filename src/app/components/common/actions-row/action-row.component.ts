@@ -6,7 +6,7 @@ import {ActionDescriptor} from "../play-game-page/action-descriptor";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzWaveDirective} from "ng-zorro-antd/core/wave";
-import {GameType} from "../../../model/enum/game-type.enum";
+import {GameType} from "../../../model/dto/game/enum/game-type.enum";
 
 @Component({
   selector: 'action-row',

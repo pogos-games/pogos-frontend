@@ -1,5 +1,5 @@
+import {Avatar} from '../../../../model/dto/game/enum/avatar.enum';
 import {Component, inject, signal, Signal, WritableSignal} from '@angular/core';
-import {Avatar} from '../../../../model/enum/avatar.enum';
 import {User} from '../../../../model/user.interface';
 import {UserAuthService} from '../../../../services/auth/user-auth.service';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
@@ -12,12 +12,12 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzFormControlComponent} from "ng-zorro-antd/form";
 import {AuthService} from "../../../../auth/service/auth.service";
-import {PasswordUpdateRequest} from "../../../../model/dto/request/password-update-request.interface";
 import {NzNotificationService} from "ng-zorro-antd/notification";
 import {catchError, firstValueFrom, of, tap} from "rxjs";
 import {HttpStatusCode} from "@angular/common/http";
-import {ModalComponent} from "../../../common/modal-delete-account/modal-delete-account";
 import {Router} from "@angular/router";
+import {PasswordUpdateRequest} from "../../../../model/dto/request/password-update-request.interface";
+import {ModalComponent} from "../../../common/modal-delete-account/modal-delete-account";
 
 @Component({
   selector: 'app-my-profile',
@@ -32,10 +32,12 @@ import {Router} from "@angular/router";
     NzIconDirective,
     NzInputDirective,
     NzFormControlComponent,
+    ModalComponent,
     ModalComponent
   ],
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.scss'],
+  standalone: true
 })
 export class MyProfileComponent {
 
@@ -52,7 +54,7 @@ export class MyProfileComponent {
 
   selectedAvatar: Avatar = this.user().avatar || Avatar.DEFAULT;
 
-  readonly avatars: Avatar[] = Object.values(Avatar);
+  readonly avatars: Avatar[] = Object.values(Avatar) as Avatar[]
 
   protected isDeleteAccountModalVisible : WritableSignal<boolean> = signal(false)
 

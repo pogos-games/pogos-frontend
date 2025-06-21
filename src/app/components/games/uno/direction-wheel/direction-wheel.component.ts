@@ -1,12 +1,12 @@
 import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {UnoDirection} from '../../../../model/dto/uno/uno-game.interface';
+import {UnoGameDirection} from "../../../../model/dto/uno/enum/uno-game-direction.enum";
 
 @Component({
   selector: 'app-direction-wheel',
   standalone: true,
   imports: [CommonModule],
-  template: `<span class="loader" [ngClass]="{'counterclockwise': direction === UnoDirection.COUNTERCLOCKWISE}"></span>`,
+  template: `<span class="loader" [ngClass]="{'counterclockwise': direction === UnoGameDirection.COUNTERCLOCKWISE}"></span>`,
   styles: [`
     .loader {
       width: 48px;
@@ -65,6 +65,6 @@ import {UnoDirection} from '../../../../model/dto/uno/uno-game.interface';
   `]
 })
 export class DirectionWheelComponent {
-  @Input({}) direction: UnoDirection = UnoDirection.CLOCKWISE;
-  UnoDirection = UnoDirection; // used by the template for ngClass
+  @Input({}) direction: UnoGameDirection = UnoGameDirection.CLOCKWISE;
+  UnoGameDirection = UnoGameDirection; // used by the template for ngClass
 }

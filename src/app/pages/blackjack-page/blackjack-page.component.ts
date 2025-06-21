@@ -1,7 +1,7 @@
 import { Component, signal, WritableSignal } from '@angular/core';
 import { BlackjackService } from "../../services/games/blackjack.service";
-import { GameActions } from "../../model/enum/game.actions.enum";
-import { BlackJackActions } from "../../model/enum/black-jack.actions.enum";
+import { GameActions } from "../../model/dto/game/enum/gateway/game.actions.enum";
+import { BlackJackActions } from "../../model/dto/blackjack/enum/black-jack.actions.enum";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { HeaderComponent } from "../../components/common/header/header.component";
 import { RankingComponent } from "../../components/pages/game-page/ranking/ranking.component";
@@ -12,6 +12,13 @@ import { WaitingRoomModalComponent } from "../../components/common/waiting-room-
 import { PlayGamePage } from "../../components/common/play-game-page/play-game-page.component";
 import { ActionDescriptor } from "../../components/common/play-game-page/action-descriptor";
 import { ActionRowComponent } from "../../components/common/actions-row/action-row.component";
+import {HttpClient} from "@angular/common/http";
+import {ConfigService} from "../../services/config.service";
+import {UserAuthService} from "../../services/auth/user-auth.service";
+import {BlackJackResponse} from "../../model/dto/blackjack/response/blackjack-response.interface";
+import {BlackJackPlayerResponse} from "../../model/dto/blackjack/response/blackjack-player-response.interface";
+import {Card} from "../../model/dto/request/card";
+import {BlackJackPlayer} from "../../model/dto/blackjack/blackjack-player.interface";
 
 @Component({
   selector: 'app-blackjack-page',
@@ -28,7 +35,7 @@ import { ActionRowComponent } from "../../components/common/actions-row/action-r
   standalone: true,
   styleUrl: './blackjack-page.component.scss'
 })
-export class BlackjackPageComponent extends PlayGamePage {
+export class BlackjackPageComponent extends PlayGamePage<BlackjackService,BlackJackResponse,BlackJackPlayer,BlackJackPlayerResponse,Card> {
   protected override gameAction: typeof BlackJackActions = BlackJackActions;
 
   protected playerBalance: number = 1000;
@@ -46,11 +53,14 @@ export class BlackjackPageComponent extends PlayGamePage {
   ]
   constructor(
     gameService: BlackjackService,
+    configService: ConfigService,
     message: NzMessageService,
     router: Router,
-    route: ActivatedRoute
+    route: ActivatedRoute,
+    http: HttpClient,
+    userAuthService: UserAuthService
   ) {
-    super(gameService, message, router, route)
+    super(http,configService,gameService, message, router, route, userAuthService)
   }
 
   protected override gameFound(): void {
@@ -69,5 +79,15 @@ export class BlackjackPageComponent extends PlayGamePage {
     this.playerBalance -= bet;
 
     console.log(`🎮 Rejouer avec mise : ${bet}, solde restant : ${this.playerBalance}`);
+  }
+
+  protected override updateGameInfo(data: BlackJackResponse) {
+    super.updateGameInfo(data);
+
+    if (data?.dealerHand) {
+      this.hands.dealerHand = data.dealerHand;
+    }
+
+    this.gameService.playersList.set(data.players.map((p) => (p as BlackJackPlayer)))
   }
 }
