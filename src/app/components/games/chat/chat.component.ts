@@ -1,4 +1,14 @@
-import {Component, ElementRef, inject, Input, signal, ViewChild, WritableSignal} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  signal,
+  ViewChild,
+  WritableSignal
+} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ChatMessage} from "../../../model/dto/chat-message.dto";
 import {NzIconDirective} from "ng-zorro-antd/icon";
@@ -7,6 +17,7 @@ import {NgClass} from "@angular/common";
 import {UserAuthService} from "../../../services/auth/user-auth.service";
 import {GameService} from "../../../services/games/game.service";
 import {GatewayEventEmitter} from "../../../model/dto/game/enum/gateway/gateway-event-emitter.enum";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-chat',
@@ -23,27 +34,29 @@ import {GatewayEventEmitter} from "../../../model/dto/game/enum/gateway/gateway-
   standalone: true,
   styleUrl: './chat.component.scss'
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit, OnDestroy{
 
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
 
   @Input({required: true})
-  gameService : GameService<any, any, any, any> = inject(GameService);
-
+  gameService!: GameService<any, any, any, any>;
   protected userAuthService : UserAuthService = inject(UserAuthService);
-
   messages: WritableSignal<ChatMessage[]> = signal([]);
-
   username: string = this.userAuthService.user().pseudo;
-
   currentMessage = ''
+  sub = new Subscription();
 
-  constructor() {
-    this.gameService.listenToTopic<ChatMessage>(GatewayEventEmitter.CHAT).subscribe((message : ChatMessage) => {
+
+  ngOnInit() {
+    this.sub = this.gameService.listenChatUpdate().subscribe((message : ChatMessage) => {
       console.log('chat received : ',message)
       this.messages().push(message);
       this.scrollToBottom();
     })
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe()
   }
 
   sendMessage() {
@@ -67,7 +80,4 @@ export class ChatComponent {
       el.scrollTop = el.scrollHeight;
     }, 0);
   }
-
-
-
 }

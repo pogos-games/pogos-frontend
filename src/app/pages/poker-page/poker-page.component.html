@@ -9,10 +9,10 @@
 
         <action-row [actions]="actions" [isActionsDisabled]="isActionDisabled" [secondaryActions]="secondaryActions"
                     [isSecondaryActionsDisabled]="isSecondaryActionsDisabled" [playerBalance]="playerBalance()" [playerBet]="playerBet"
-                    (placeBet)="placeBet($event)" [gameType]="gameType" (openChat)="open()"
+                    (placeBet)="placeBet($event)" [gameMode]="gameMode" (openChat)="open()"
                     [showCoins]="true"
                     (executeAction)="executeAction($event)" />
-      @if(gameService.gameType === GameType.MULTIPLAYER) {
+      @if(gameService.gameMode === GameMode.MULTIPLAYER) {
         <nz-divider  nzPlain nzType="vertical"></nz-divider>
         <app-chat [gameService]="gameService"></app-chat>
       }

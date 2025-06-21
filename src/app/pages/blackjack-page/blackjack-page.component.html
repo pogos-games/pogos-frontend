@@ -8,9 +8,9 @@
       </div>
 
       <action-row [actions]="actions" [isActionsDisabled]="isActionDisabled" [secondaryActions]="secondaryActions"
-        [isSecondaryActionsDisabled]="isActionDisabled" [playerBalance]="playerBalance" [playerBet]="playerBet" [gameType]="gameType"
+        [isSecondaryActionsDisabled]="isActionDisabled" [playerBalance]="playerBalance" [playerBet]="playerBet" [gameMode]="gameMode"
         (openChat)="open()" (executeAction)="executeAction($event)" />
-      @if(gameService.gameType === GameType.MULTIPLAYER) {
+      @if(gameService.gameMode === GameMode.MULTIPLAYER) {
         <nz-divider  nzPlain nzType="vertical"></nz-divider>
         <app-chat [gameService]="gameService"></app-chat>
       }

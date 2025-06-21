@@ -1,5 +1,5 @@
 
-export enum GameType {
+export enum GameMode {
   SOLO = "SOLO",
   MULTIPLAYER = "MULTIPLAYER"
 }

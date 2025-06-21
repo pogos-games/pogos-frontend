@@ -10,7 +10,7 @@
   </div>
 
   <div class="other-actions">
-    @if(gameType == GameType.MULTIPLAYER) {
+    @if(gameMode == GameMode.MULTIPLAYER) {
       <button nz-button nzType="primary" (click)="emitOpenChat()">
         Tchat
         <span nz-icon nzType="message"></span>

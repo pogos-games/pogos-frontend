@@ -6,7 +6,7 @@ import {ActionDescriptor} from "../play-game-page/action-descriptor";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzWaveDirective} from "ng-zorro-antd/core/wave";
-import {GameType} from "../../../model/dto/game/enum/game-type.enum";
+import {GameMode} from "../../../model/dto/game/enum/game-mode.enum";
 
 @Component({
   selector: 'action-row',
@@ -29,7 +29,7 @@ export class ActionRowComponent {
   @Input() isSecondaryActionsDisabled: WritableSignal<boolean> = signal(false);
   @Input() playerBalance: number = 0;
   @Input() playerBet: WritableSignal<number> = signal(0);
-  @Input({required: true}) gameType: string = "";
+  @Input({required: true}) gameMode: string = "";
   @Input() showCoins: boolean = false;
 
   @Output() placeBet= new EventEmitter<number>();
@@ -48,5 +48,5 @@ export class ActionRowComponent {
     this.placeBet.emit(bet);
   }
 
-  protected readonly GameType = GameType;
+  protected readonly GameMode = GameMode;
 }
