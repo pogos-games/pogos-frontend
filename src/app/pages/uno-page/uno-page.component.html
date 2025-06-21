@@ -2,7 +2,7 @@
 <div class="main-content">
 
   <div class="game-content">
-    <app-uno-table [gameId]="gameId" [currentPlayerId]="currentPlayerId" [orderedPlayers]="orderedPlayers" [topCard]="topCard" [direction]="direction" [playerCards]="playerCards" [playerId]="playerId" (drawCardEvent)="drawCard()" (playCardEvent)="playCard($event)"></app-uno-table>
+    <app-uno-table [gameId]="gameId" [currentPlayerId]="currentPlayerId" [orderedPlayers]="orderedPlayers" [topCard]="topCard" [direction]="direction" [playerCards]="playerCards" [playerId]="playerId" (drawCardEvent)="drawCard()" (playCardEvent)="playCard($event)" (declareEvent)="declare($event)"></app-uno-table>
     @if(gameService.gameMode === GameMode.MULTIPLAYER) {
       <nz-divider  nzPlain nzType="vertical"></nz-divider>
       <app-chat [gameService]="gameService"></app-chat>
