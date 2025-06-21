@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {GameActions} from "../../../../model/dto/game/enum/gateway/game.actions.enum";
-import {GameType} from "../../../../model/dto/game/enum/game-type.enum";
+import {GameMode} from "../../../../model/dto/game/enum/game-mode.enum";
 import {GameServiceFactory} from "../../../common/factory/game.service.factory";
 import {GameService} from "../../../../services/games/game.service";
 import {ConfigService} from "../../../../services/config.service";
@@ -35,7 +35,7 @@ export class GameButtonsComponent {
     private readonly http: HttpClient,
     private readonly gameServiceFactory: GameServiceFactory) {}
 
-  protected showModal(type: GameType) {
+  protected showModal(mode: GameMode) {
     let gameService = this.gameServiceFactory.getService(this.gameName);
 
     if (!gameService) {
@@ -43,9 +43,9 @@ export class GameButtonsComponent {
       return;
     }
 
-    gameService.setGameType(type);
+    gameService.setGameMode(mode);
     const user = this.userAuthService.user()
-    gameService.sendMessage(GameActions.CREATE_GAME,{playerName: user.pseudo, avatar: user.avatar, type: type});
+    gameService.sendMessage(GameActions.CREATE_GAME,{playerName: user.pseudo, avatar: user.avatar, mode: mode});
     this.subToGame(gameService, true);
   }
 
@@ -124,5 +124,5 @@ export class GameButtonsComponent {
         this.showModalEvent.emit({gameService: gameService, showPrivacy: showPrivacy, unsubscribe: () => sub.unsubscribe() });
       });
   }
-  protected readonly GameType = GameType;
+  protected readonly GameMode = GameMode;
 }

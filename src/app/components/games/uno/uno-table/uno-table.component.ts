@@ -59,7 +59,7 @@ export class UnoTableComponent {
   protected username : string = this.userAuthService.user().pseudo;
   // current player id
 
-  protected readonly gameType = this.route.snapshot.queryParams['gameType'];
+  protected readonly gameMode = this.route.snapshot.queryParams['gameMode'];
 
   protected readonly clipBoard: Clipboard = inject(Clipboard);
 

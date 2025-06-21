@@ -13,7 +13,7 @@ import {Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {ConfigService} from "../../services/config.service";
 import {GameServiceFactory} from "../../components/common/factory/game.service.factory";
-import {GameType} from "../../model/dto/game/enum/game-type.enum";
+import {GameMode} from "../../model/dto/game/enum/game-mode.enum";
 
 @Component({
   selector: 'app-game-page',
@@ -54,10 +54,10 @@ export class GamePageComponent {
     this.playerNames.set(this.gameService.playersList().map((p) => p.username ?? p.playerId));
     this.gameBet.set(this.gameService.getBet());
     this.isWaitingRoomModalVisible.set(true);
-    if (this.gameService.getBet() == -1 && this.gameService.gameType === GameType.SOLO) {
+    if (this.gameService.getBet() == -1 && this.gameService.gameMode === GameMode.SOLO) {
       this.isWaitingRoomModalVisible.set(false);
       res.unsubscribe()
-      this.gameService.sendMessage(GameActions.START_GAME,{type: this.gameService.getGameType(), gameId: this.gameService.getGameId()});
+      this.gameService.sendMessage(GameActions.START_GAME,{mode: this.gameService.getGameMode(), gameId: this.gameService.getGameId()});
     }
     this.subStartGamePlayerUpdate = this.gameService.listenStartGamePlayerUpdate().subscribe();
     this.subStartGame = this.gameService.listenStartGame().subscribe(() => {
@@ -67,7 +67,7 @@ export class GamePageComponent {
         this.subStartGamePlayerUpdate.unsubscribe()
         this.isWaitingRoomModalVisible.set(false);
         this.router.navigate(['/games', this.title.toLowerCase()], {
-          queryParams: {gameType: this.gameService.gameType}
+          queryParams: {gameMode: this.gameService.gameMode}
         });
       }
     });
@@ -79,10 +79,10 @@ export class GamePageComponent {
       this.subStartGamePlayerUpdate.unsubscribe()
       this.errorWaitingRoom.set("")
       this.gameService.setBet(bet);
-      this.gameService.sendMessage(GameActions.START_GAME, {type: this.gameService.getGameType(), bet: bet});
+      this.gameService.sendMessage(GameActions.START_GAME, {mode: this.gameService.getGameMode(), bet: bet});
       this.isWaitingRoomModalVisible.set(false);
       this.router.navigate(['/games', this.title.toLowerCase()], {
-        queryParams: {gameType: this.gameService.gameType}
+        queryParams: {gameMode: this.gameService.gameMode}
       });
     } else {
       this.errorWaitingRoom.set(this.gameService.getErrorStartGame());

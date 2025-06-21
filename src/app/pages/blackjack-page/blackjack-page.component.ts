@@ -66,7 +66,7 @@ export class BlackjackPageComponent extends PlayGamePage<BlackjackService,BlackJ
   }
 
   protected override gameFound(): void {
-    this.gameService.sendMessage(GameActions.START_GAME, { type: this.gameType, bet: this.playerBalance });
+    this.gameService.sendMessage(GameActions.START_GAME, { mode: this.gameMode, bet: this.playerBalance });
   }
 
   protected override updatePlayerInfos(player: any): void {
