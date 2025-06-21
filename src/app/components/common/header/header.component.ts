@@ -1,20 +1,19 @@
-import { ThemeService } from "../../../services/theme.service";
-import { Component, Input, OnInit, Signal, signal, WritableSignal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { NzButtonComponent } from "ng-zorro-antd/button";
-import { NzIconDirective } from "ng-zorro-antd/icon";
-import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { ModalComponent } from '../modal/modal.component';
-import { NzPopoverModule } from "ng-zorro-antd/popover";
-import { NzColDirective, NzRowDirective } from "ng-zorro-antd/grid";
-import { NotificationComponent } from "../../notifications/friendshipNotification/friendshipNotification.component";
-import { NzBadgeModule } from "ng-zorro-antd/badge";
-import { LeaveButtonComponent } from "../leave-button/leave-button.component";
-import { User } from "../../../model/user.interface";
-import { NotificationsResponseDto } from "../../../model/dto/response/notifications-response.dto";
-import { UserAuthService } from "../../../services/auth/user-auth.service";
-import { FriendshipService } from "../../../services/friendship.service";
-import { NotificationService } from "../../../services/notification.service";
+import {Component, inject, Input, Signal, signal, WritableSignal} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzDividerModule} from 'ng-zorro-antd/divider';
+import {ModalComponent} from '../modal/modal.component';
+import {NzPopoverModule} from "ng-zorro-antd/popover";
+import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
+import {NotificationComponent} from "../../notifications/friendshipNotification/friendshipNotification.component";
+import {NzBadgeModule} from "ng-zorro-antd/badge";
+import {LeaveButtonComponent} from "../leave-button/leave-button.component";
+import {User} from "../../../model/user.interface";
+import {UserAuthService} from "../../../services/auth/user-auth.service";
+import {FriendshipService} from "../../../services/friendship.service";
+import {NotificationService} from "../../../services/notification.service";
+import {ThemeService} from "../../../services/theme.service";
 
 @Component({
   selector: 'app-header',
@@ -38,7 +37,7 @@ import { NotificationService } from "../../../services/notification.service";
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Input({ required: true })
   title: string = "";
@@ -54,15 +53,14 @@ export class HeaderComponent implements OnInit {
 
   modalVisibility: Map<string, WritableSignal<boolean>> = new Map();
 
+
+  private readonly userAuthService: UserAuthService = inject(UserAuthService);
+  private readonly router : Router = inject(Router);
+  protected readonly notificationService : NotificationService = inject(NotificationService);
+ private readonly friendshipService : FriendshipService = inject(FriendshipService);
+ protected readonly themeService : ThemeService = inject(ThemeService);
+
   user: Signal<User> = this.userAuthService.user;
-
-  notifications: WritableSignal<NotificationsResponseDto[]> = signal([]);
-
-  constructor(private readonly userAuthService: UserAuthService,
-    private readonly router: Router,
-    public readonly themeService: ThemeService,
-    private readonly notificationService: NotificationService,
-    private readonly friendshipService: FriendshipService) { }
 
   showModal(modalId: string): void {
     if (!this.modalVisibility.has(modalId)) {
@@ -97,47 +95,29 @@ export class HeaderComponent implements OnInit {
     return this.modalVisibility.get(modalId)!;
   }
 
-  getNotifications(): void {
-    this.notificationService.getNotifications(this.user().id).subscribe((response: NotificationsResponseDto[]) => {
-      // Mise à jour des notifications via le signal
-      this.notifications.set(response);
-
-      // Mise à jour du nombre de notifications
-      this.user().nbNotifications = response.length;
-
-      console.log('Notifications mises à jour :', this.notifications());
-    });
-  }
-
-  ngOnInit(): void {
-    // Notification management
-    this.getNotifications();
-  }
-
-  handleAcceptFriendship(friendId: string): void {
-    this.friendshipService.acceptFriendship(friendId).subscribe(() => {
-      this.getNotifications();
-    })
-  }
-
-  handleRejectFriendship(friendId: string): void {
-    this.friendshipService.rejectFriendship(friendId).subscribe(() => {
-      this.getNotifications();
-    })
-  }
-
-  handleDeleteNotification(notificationId: string): void {
-    this.notificationService.deleteNotification(notificationId).subscribe({
+  handleAcceptFriendship(friendId: string, notificationId: string): void {
+    this.friendshipService.acceptFriendship(friendId).subscribe({
       next: () => {
-        const updatedNotifications = this.notifications().filter(
-          notification => notification.id !== notificationId
-        );
-
-        this.notifications.set(updatedNotifications);
+        this.notificationService.deleteNotificationFromList(notificationId);
       },
       error: (err) => {
         console.error('Erreur lors de la suppression de la notification :', err);
       }
     });
+  }
+
+  handleRejectFriendship(friendId: string, notificationId: string): void {
+    this.friendshipService.rejectFriendship(friendId).subscribe({
+      next: () => {
+        this.notificationService.deleteNotificationFromList(notificationId);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la suppression de la notification :', err);
+      }
+    });
+  }
+
+  handleDeleteNotification(notificationId: string): void {
+    this.notificationService.deleteNotification(notificationId).subscribe()
   }
 }
