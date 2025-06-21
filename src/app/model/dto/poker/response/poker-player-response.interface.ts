@@ -1,5 +1,5 @@
 import {GamePlayerResponse} from "../../game/response/game-player-response.interface";
-import {Card} from "../../request/card";
+import {Card} from "../../game/card.interface";
 
 export interface PokerPlayerResponse extends GamePlayerResponse{
   hand:Card[];

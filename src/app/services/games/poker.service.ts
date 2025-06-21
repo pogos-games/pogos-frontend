@@ -3,7 +3,7 @@ import {GameService} from "./game.service";
 import {PokerPlayerResponse} from "../../model/dto/poker/response/poker-player-response.interface";
 import {PokerPlayer} from "../../model/dto/poker/poker-player.interface";
 import {PokerResponse} from "../../model/dto/poker/response/poker-response.interface";
-import {Card} from "../../model/dto/request/card";
+import {Card} from "../../model/dto/game/card.interface";
 
 @Injectable({
   providedIn: 'root'

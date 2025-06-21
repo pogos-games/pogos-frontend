@@ -1,9 +1,9 @@
 import {Injectable, signal, WritableSignal} from '@angular/core';
 import {GameService} from "./game.service";
-import {Card} from "../../model/dto/request/card";
 import {BlackJackPlayer} from "../../model/dto/blackjack/blackjack-player.interface";
 import {BlackJackResponse} from "../../model/dto/blackjack/response/blackjack-response.interface";
 import {BlackJackPlayerResponse} from "../../model/dto/blackjack/response/blackjack-player-response.interface";
+import {Card} from "../../model/dto/game/card.interface";
 
 @Injectable({
   providedIn: 'root'

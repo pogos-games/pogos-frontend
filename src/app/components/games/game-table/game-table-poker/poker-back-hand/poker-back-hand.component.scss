@@ -1,0 +1,12 @@
+.poker-back-hand {
+  display: flex;
+  gap: 5px;
+
+  .poker-card-back {
+    flex-direction: column;
+  }
+}
+
+.poker-hand-horizontal {
+  transform: rotate(90deg);
+}

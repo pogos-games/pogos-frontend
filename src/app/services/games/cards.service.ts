@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Card } from '../../model/dto/request/card';
+import {Card} from "../../model/dto/game/card.interface";
 
 @Injectable({
   providedIn: 'root'
