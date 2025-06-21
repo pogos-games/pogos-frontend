@@ -7,6 +7,7 @@ import { NzIconDirective } from "ng-zorro-antd/icon";
     NzIconDirective
   ],
   templateUrl: './leave-button.component.html',
+  standalone: true,
   styleUrl: './leave-button.component.scss'
 })
 export class LeaveButtonComponent {

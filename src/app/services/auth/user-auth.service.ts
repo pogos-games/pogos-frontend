@@ -9,7 +9,7 @@ import { catchError, map, Observable, of } from "rxjs";
 import { AuthResponseDto } from "../../model/dto/response/auth-response.dto";
 import { UpdateUserRequestDto } from '../../model/dto/request/update-user-request.dto';
 import { UpdateUserResponseDto } from '../../model/dto/response/update-user-response.dto';
-import { Avatar } from '../../model/enum/avatar.enum';
+import { Avatar } from '../../model/dto/game/enum/avatar.enum';
 import { SelfResponseDto } from '../../model/dto/response/self-response.dto';
 import { UserService } from "../user.service";
 

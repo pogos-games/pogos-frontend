@@ -1,8 +1,8 @@
-<app-header [title]="'Uno'" [canLeave]="true" [leaveLink]="'/games'"></app-header>
+<app-header [title]="'Uno'" [canLeave]="true" [leaveSignal]="isLeaveModalVisible"></app-header>
 <div class="main-content">
 
   <div class="game-content">
-    <app-uno-table></app-uno-table>
+    <app-uno-table [gameId]="gameId" [currentPlayerId]="currentPlayerId" [orderedPlayers]="orderedPlayers" [topCard]="topCard" [direction]="direction" [playerCards]="playerCards" [playerId]="playerId" (drawCardEvent)="drawCard()" (playCardEvent)="playCard($event)"></app-uno-table>
     @if(gameService.gameType === GameType.MULTIPLAYER) {
       <nz-divider  nzPlain nzType="vertical"></nz-divider>
       <app-chat ></app-chat>
@@ -10,9 +10,16 @@
 
   </div>
 
-</div>
+  <nz-modal [nzVisible]="isLeaveModalVisible()" nzTitle="Déconnexion" nzCentered (nzOnCancel)="handleCancelMiddle()"
+            (nzOnOk)="handleOkMiddle()">
+    <ng-container *nzModalContent>
+      <p>Est-tu sûr de vouloir quitter la partie ?</p>
+    </ng-container>
+  </nz-modal>
 
-<app-modal [title]="'Fin de Partie'" [description]="gameService.unoGameState().gameWinner + ' à gagné la partie !'"
-                      [okText]="'Relancer'" [cancelText]="'Quitter'"
-                      [isVisible]="gameService.isGameEnded">
-</app-modal>
+  <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'"
+                          [gameId]="gameId" [playersNames]="playerNames" [initialBet]="playerBet"
+                          [okText]="'Relancer'" (onOk)="handleWaitingRoomConfirmClick($event)"
+                          [cancelText]="'Quitter'" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
+
+</div>

@@ -8,45 +8,13 @@
         </div>
     </div>
 
-    @if (gameDeck) {
-
     <div class="card-container">
         <!-- player 1 on left of the display -->
         <div class="hand-container">
-            <app-card-hand [handName]="'player1'" [cards]="hands.player1Hand" [currentUser]="false"
-                [isColDirection]="true"></app-card-hand>
+            <app-card-hand [handName]="'player1'" [cards]="hands.selfHand" [currentUser]="true"
+                [isColDirection]="false"></app-card-hand>
         </div>
-
-        <div class="hand-container">
-            <!-- player 2 on top of the display -->
-            <app-card-hand [handName]="'player2'" [cards]="hands.player2Hand" [currentUser]="false"></app-card-hand>
-
-            <!-- player 2 on top of the display -->
-            <app-card-hand [handName]="'dealer'" [cards]="hands.dealerHand" [currentUser]="false"></app-card-hand>
-
-
-            <div class="self-player">
-                <app-card-hand [currentUser]="true" [cards]="hands.selfHand" [handName]="'Toi'"></app-card-hand>
-                @if (gameDeck.message !== "CONTINUE") {
-                <button nz-button nzType="primary" (click)="executeAction(GameActions.RESTART_GAME)">
-                    Rejouer
-                </button>
-                }
-            </div>
-        </div>
-        <div class="hand-container">
-            <app-card-hand [handName]="'Player 3'" [cards]="hands.player3Hand" [currentUser]="false"
-                [isColDirection]="true"></app-card-hand>
-
-        </div>
-
     </div>
-
-    } @else {
-    <div id="spinner-container">
-        <nz-spin nzSimple nzSize="large"></nz-spin>
-    </div>
-    }
 
     <div class="symbols">
         <div class="icon">

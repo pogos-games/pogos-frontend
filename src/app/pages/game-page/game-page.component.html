@@ -6,7 +6,7 @@
       <div class="game-selector-box">
         <app-game-selector (gameName)="gameName($event)"></app-game-selector>
         <br>
-        <app-box-join-code id="computer-join-code"></app-box-join-code>
+        <app-box-join-code id="computer-join-code" (searchGameEvent)="searchGame($event)"></app-box-join-code>
       </div>
     </div>
 
@@ -29,10 +29,12 @@
       [okText]="'Lancer'"
       [cancelText]="'Annuler'"
       [gameId]="gameId"
-      [players]="playerNames"
+      [playersNames]="playerNames"
       [initialBet]="gameBet"
       (onOk)="handleStartGame($event)"
       (onCancel)="handleCancelModal()"
+      (changePrivacy)="changePrivacy()"
+      [showPrivacy]="showPrivacy"
     />
 
   </div>

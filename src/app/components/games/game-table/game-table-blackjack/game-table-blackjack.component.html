@@ -50,17 +50,22 @@
       </div>
 
       <!-- Ligne 1 (plus haute) -->
-      <div class="player-slot slot-1"></div>
-      <div class="player-slot slot-6"></div>
+      <app-card-hand class="player-slot slot-1" [handName]="'1'" [cards]="hands.player1Hand"
+                     [currentUser]="false"></app-card-hand>
+      <app-card-hand class="player-slot slot-6" [handName]="'6'" [cards]="hands.player1Hand"
+                     [currentUser]="false"></app-card-hand>
 
       <!-- Ligne 2 (milieu) -->
-      <div class="player-slot slot-2"></div>
-      <div class="player-slot slot-5"></div>
+      <app-card-hand class="player-slot slot-2" [handName]="'2'" [cards]="hands.player1Hand"
+           [currentUser]="false"></app-card-hand>
+      <app-card-hand class="player-slot slot-5" [handName]="'5'" [cards]="hands.player1Hand"
+           [currentUser]="false"></app-card-hand>
 
       <!-- Ligne 3 (bas) -->
       <app-card-hand class="player-slot slot-3" [handName]="'3'" [cards]="hands.selfHand"
         [currentUser]="false"></app-card-hand>
-      <div class="player-slot slot-4"></div>
+      <app-card-hand class="player-slot slot-4" [handName]="'4'" [cards]="hands.player1Hand"
+           [currentUser]="false"></app-card-hand>
     </div>
 
   </div>

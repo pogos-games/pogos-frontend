@@ -26,7 +26,7 @@ export class ChatComponent {
 
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
 
-  protected gameService : GameService = inject(GameService);
+  protected gameService : GameService<any, any, any, any> = inject(GameService);
 
   protected userAuthService : UserAuthService = inject(UserAuthService);
 

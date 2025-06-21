@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {UserResponseDto} from "../../../model/dto/response/user-response.dto";
-import {Avatar} from "../../../model/enum/avatar.enum";
+import {Avatar} from "../../../model/dto/game/enum/avatar.enum";
 import {NgOptimizedImage} from "@angular/common";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 
@@ -11,6 +11,7 @@ import {NzDividerComponent} from "ng-zorro-antd/divider";
     NzDividerComponent
   ],
   templateUrl: './user-card.component.html',
+  standalone: true,
   styleUrl: './user-card.component.scss'
 })
 export class UserCardComponent {
