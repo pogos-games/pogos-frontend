@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, signal, ViewChild, WritableSignal} from '@angular/core';
+import {Component, ElementRef, inject, Input, signal, ViewChild, WritableSignal} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ChatMessage} from "../../../model/dto/chat-message.dto";
 import {NzIconDirective} from "ng-zorro-antd/icon";
@@ -6,6 +6,7 @@ import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixD
 import {NgClass} from "@angular/common";
 import {UserAuthService} from "../../../services/auth/user-auth.service";
 import {GameService} from "../../../services/games/game.service";
+import {GatewayEventEmitter} from "../../../model/dto/game/enum/gateway/gateway-event-emitter.enum";
 
 @Component({
   selector: 'app-chat',
@@ -26,7 +27,8 @@ export class ChatComponent {
 
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
 
-  protected gameService : GameService<any, any, any, any> = inject(GameService);
+  @Input({required: true})
+  gameService : GameService<any, any, any, any> = inject(GameService);
 
   protected userAuthService : UserAuthService = inject(UserAuthService);
 
@@ -37,7 +39,7 @@ export class ChatComponent {
   currentMessage = ''
 
   constructor() {
-    this.gameService.listenToTopic<ChatMessage>('CHAT').subscribe((message : ChatMessage) => {
+    this.gameService.listenToTopic<ChatMessage>(GatewayEventEmitter.CHAT).subscribe((message : ChatMessage) => {
       console.log('chat received : ',message)
       this.messages().push(message);
       this.scrollToBottom();
@@ -49,7 +51,7 @@ export class ChatComponent {
       return;
     }
     const chatMessage: ChatMessage = {gameId: this.gameService.getGameId()!, username: this.username, text: this.currentMessage};
-    this.gameService.sendMessage('CHAT', chatMessage);
+    this.gameService.sendMessage(GatewayEventEmitter.CHAT, chatMessage);
     this.currentMessage = '';
   }
 

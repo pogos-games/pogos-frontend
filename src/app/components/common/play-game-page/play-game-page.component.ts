@@ -1,5 +1,4 @@
 import {Directive, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
-import {Card} from "../../../model/dto/request/card";
 import {GameActions} from "../../../model/dto/game/enum/gateway/game.actions.enum";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -41,28 +40,17 @@ export abstract class PlayGamePage<
   public playerNames: WritableSignal<any[]> = signal([]);
 
   protected hands: {
-    player1Hand: Card[],
-    player2Hand: Card[],
-    player3Hand: Card[],
-    dealerHand: Card[],
-    selfHand: Card[]
+    player1Hand: TCard[],
+    player2Hand: TCard[],
+    player3Hand: TCard[],
+    dealerHand: TCard[],
+    selfHand: TCard[]
   } = {
-    player1Hand: [
-      { rank: 'back', suit: '', value: 0 },
-      { rank: 'back', suit: '', value: 0 },
-    ],
-    player2Hand: [
-      { rank: 'back', suit: '', value: 0 },
-      { rank: 'back', suit: '', value: 0 },
-    ],
-    player3Hand: [
-      { rank: 'back', suit: '', value: 0 },
-      { rank: 'back', suit: '', value: 0 },
-    ],
-    selfHand: [
-    ],
-    dealerHand: [
-    ],
+    player1Hand: [],
+    player2Hand: [],
+    player3Hand: [],
+    selfHand: [],
+    dealerHand: [],
   };
 
   protected actions: ActionDescriptor[] = [];

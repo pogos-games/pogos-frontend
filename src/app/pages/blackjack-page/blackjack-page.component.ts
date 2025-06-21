@@ -4,7 +4,6 @@ import { GameActions } from "../../model/dto/game/enum/gateway/game.actions.enum
 import { BlackJackActions } from "../../model/dto/blackjack/enum/black-jack.actions.enum";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { HeaderComponent } from "../../components/common/header/header.component";
-import { RankingComponent } from "../../components/pages/game-page/ranking/ranking.component";
 import { GameTableBlackjackComponent } from "../../components/games/game-table/game-table-blackjack/game-table-blackjack.component";
 import { NzModalComponent, NzModalModule } from "ng-zorro-antd/modal";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -17,19 +16,22 @@ import {ConfigService} from "../../services/config.service";
 import {UserAuthService} from "../../services/auth/user-auth.service";
 import {BlackJackResponse} from "../../model/dto/blackjack/response/blackjack-response.interface";
 import {BlackJackPlayerResponse} from "../../model/dto/blackjack/response/blackjack-player-response.interface";
-import {Card} from "../../model/dto/request/card";
 import {BlackJackPlayer} from "../../model/dto/blackjack/blackjack-player.interface";
+import {ChatComponent} from "../../components/games/chat/chat.component";
+import {NzDividerComponent} from "ng-zorro-antd/divider";
+import {Card} from "../../model/dto/game/card.interface";
 
 @Component({
   selector: 'app-blackjack-page',
   imports: [
     HeaderComponent,
-    RankingComponent,
     GameTableBlackjackComponent,
     NzModalComponent,
     NzModalModule,
     WaitingRoomModalComponent,
-    ActionRowComponent
+    ActionRowComponent,
+    ChatComponent,
+    NzDividerComponent
   ],
   templateUrl: './blackjack-page.component.html',
   standalone: true,

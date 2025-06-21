@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgClass, NgOptimizedImage, CommonModule } from "@angular/common";
-import { Card } from "../../../model/dto/request/card";
 import { NzBadgeComponent, NzBadgeModule } from "ng-zorro-antd/badge";
+import {Card} from "../../../model/dto/game/card.interface";
 
 @Component({
   selector: 'app-card-hand',
@@ -35,7 +35,7 @@ export class CardHandComponent {
   }
 
   getCardsSum(): number {
-    return this.cards.reduce((sum, card) => sum + card.value, 0);
+    return this.cards.reduce((sum, card) => sum + (card.value ?? 0), 0);
   }
 
 }
