@@ -4,7 +4,7 @@
   <div class="game-content">
     <div>
       <div class="game-content-table">
-        <app-game-table [hands]="hands"></app-game-table>
+        <app-game-table [hands]="hands" [gameEnded]="gameEnded()"></app-game-table>
       </div>
 
       <action-row [actions]="actions" [isActionsDisabled]="isActionDisabled" [secondaryActions]="secondaryActions"
@@ -16,7 +16,7 @@
       }
     </div>
 
-
+    <!-- Modal de déconnexion -->
     <nz-modal [nzVisible]="isLeaveModalVisible()" nzTitle="Déconnexion" nzCentered (nzOnCancel)="handleCancelMiddle()"
       (nzOnOk)="handleOkMiddle()">
       <ng-container *nzModalContent>
@@ -24,9 +24,18 @@
       </ng-container>
     </nz-modal>
 
+    <!-- Modal de salle d'attente -->
     <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'" [okText]="'Relancer'"
       [cancelText]="'Quitter'" [gameId]="gameId" [players]="players" [initialBet]="playerBet"
       (onOk)="handleWaitingRoomConfirmClick($event)" (onCancel)="handleWaitingRoomLeave()" (changePrivacy)="changePrivacy()"></app-waiting-room-modal>
+
+    <!-- Nouvelle modal de résultat de partie -->
+    <app-game-result-modal 
+      [isVisible]="isGameResultModalVisible" 
+      [gameResult]="gameResult"
+      (onReplay)="handleGameResultReplay()"
+      (onQuit)="handleGameResultQuit()">
+    </app-game-result-modal>
 
   </div>
 

@@ -31,7 +31,7 @@
   <div class="card-container">
     <div class="dealer-container">
       <app-card-hand class="player-slot" [handName]="'dealer'" [cards]="hands.dealerHand"
-        [currentUser]="false"></app-card-hand>
+        [currentUser]="false" [isDealer]="true" [gameEnded]="gameEnded"></app-card-hand>
     </div>
 
     <div class="player-hands-container">
@@ -51,21 +51,21 @@
 
       <!-- Ligne 1 (plus haute) -->
       <app-card-hand class="player-slot slot-1" [handName]="'1'" [cards]="hands.player1Hand"
-                     [currentUser]="false"></app-card-hand>
+                     [currentUser]="false" [gameEnded]="gameEnded"></app-card-hand>
       <app-card-hand class="player-slot slot-6" [handName]="'6'" [cards]="hands.player1Hand"
-                     [currentUser]="false"></app-card-hand>
+                     [currentUser]="false" [gameEnded]="gameEnded"></app-card-hand>
 
       <!-- Ligne 2 (milieu) -->
       <app-card-hand class="player-slot slot-2" [handName]="'2'" [cards]="hands.player1Hand"
-           [currentUser]="false"></app-card-hand>
+           [currentUser]="false" [gameEnded]="gameEnded"></app-card-hand>
       <app-card-hand class="player-slot slot-5" [handName]="'5'" [cards]="hands.player1Hand"
-           [currentUser]="false"></app-card-hand>
+           [currentUser]="false" [gameEnded]="gameEnded"></app-card-hand>
 
       <!-- Ligne 3 (bas) -->
       <app-card-hand class="player-slot slot-3" [handName]="'3'" [cards]="hands.selfHand"
-        [currentUser]="false"></app-card-hand>
+        [currentUser]="true" [gameEnded]="gameEnded"></app-card-hand>
       <app-card-hand class="player-slot slot-4" [handName]="'4'" [cards]="hands.player1Hand"
-           [currentUser]="false"></app-card-hand>
+           [currentUser]="false" [gameEnded]="gameEnded"></app-card-hand>
     </div>
 
   </div>
