@@ -1,5 +1,4 @@
 <div class="box-join-code">
-  <p class="title-join-code lilita-one-regular secondary-text-style">Rejoindre !</p>
   <div class="description-join-code">
     <p class="luckiest-guy-regular secondary-text-style">Code</p>
     <input
@@ -9,5 +8,6 @@
       [(ngModel)]="joinCode"
       (keydown.enter)="searchGame()"
     />
+    <button class="button" (click)="searchGame()">Rejoindre</button>
   </div>
 </div>

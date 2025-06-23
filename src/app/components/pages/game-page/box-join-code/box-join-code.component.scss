@@ -28,7 +28,7 @@
 }
 
 .input-join-code {
-  width: 100%;
+  width: 60%;
   height: 90%;
   padding: 5px;
   text-align: center;
@@ -39,4 +39,26 @@
   background-color: var(--input-code-bg-color);
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
   color: black;
+}
+.button {
+  all: unset; /* enlève tous les styles natifs du bouton */
+  background-color: var(--pogos-button-bg);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: "Lilita One", serif;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.button:hover {
+  background-color: var(--pogos-button-bg-hover, #333);
+  transform: scale(1.05);
+}
+
+.button:active {
+  transform: scale(0.97);
 }
