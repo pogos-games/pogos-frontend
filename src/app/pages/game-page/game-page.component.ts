@@ -14,6 +14,7 @@ import {HttpClient} from "@angular/common/http";
 import {ConfigService} from "../../services/config.service";
 import {GameServiceFactory} from "../../components/common/factory/game.service.factory";
 import {GameMode} from "../../model/dto/game/enum/game-mode.enum";
+import {Player} from "../../model/dto/game/player.interface";
 
 @Component({
   selector: 'app-game-page',
@@ -35,7 +36,7 @@ export class GamePageComponent {
   public isWaitingRoomModalVisible: WritableSignal<boolean> = signal(false);
   public errorWaitingRoom: WritableSignal<string> = signal("");
   public gameBet: WritableSignal<number> = signal(-1);
-  public playerNames: WritableSignal<string[]> = signal([]);
+  public players: WritableSignal<Player[]> = signal([]);
   protected title = 'BlackJack';
   protected subStartGamePlayerUpdate: Subscription = new Subscription();
   protected subStartGame: Subscription = new Subscription();
@@ -51,7 +52,7 @@ export class GamePageComponent {
 
   public showModal(res: { unsubscribe: () => void; showPrivacy: boolean; gameService: GameService<any, any, any, any> }): void {
     this.gameService = res.gameService;
-    this.playerNames.set(this.gameService.playersList().map((p) => p.username ?? p.playerId));
+    this.players.set(this.gameService.playersList());
     this.gameBet.set(this.gameService.getBet());
     this.isWaitingRoomModalVisible.set(true);
     if (this.gameService.getBet() == -1 && this.gameService.gameMode === GameMode.SOLO) {
@@ -92,7 +93,7 @@ export class GamePageComponent {
   public handleCancelModal(): void {
     this.gameService.sendMessage(GameActions.QUIT_GAME);
     this.errorWaitingRoom.set("")
-    this.playerNames.set([]);
+    this.players.set([]);
     this.subStartGamePlayerUpdate.unsubscribe()
     this.subStartGame.unsubscribe()
     this.isWaitingRoomModalVisible.set(false);
