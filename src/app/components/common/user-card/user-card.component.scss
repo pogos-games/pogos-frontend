@@ -8,27 +8,69 @@
   align-items: center;
   height: 50px;
   font-family: 'Lilita One', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.user-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--pogos-button-bg-hover, var(--pogos-button-bg));
+  filter: brightness(1.1);
+}
+
+.user-card:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .username {
-  margin-left:5px;
+  margin-left: 5px;
+  transition: color 0.3s ease;
 }
 
-.left{
+.user-card:hover .username {
+  color: var(--pogos-text-hover, inherit);
+}
+
+.left {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   width: 60%;
 }
 
-.avatar{
+.avatar {
   width: 30px;
-  height: 30px ;
+  height: 30px;
+  transition: transform 0.3s ease;
 }
 
+.user-card:hover .avatar {
+  transform: scale(1.05);
+}
 
 @media screen and (max-width: 992px) {
   .user-card {
     width: 90vw;
+  }
+
+  .user-card:hover {
+    transform: translateY(-1px);
+  }
+}
+
+/* Pour les écrans tactiles, réduire les effets hover */
+@media (hover: none) {
+  .user-card:hover {
+    transform: none;
+    box-shadow: none;
+    filter: none;
+  }
+
+  .user-card:hover .avatar {
+    transform: none;
   }
 }

@@ -1,0 +1,24 @@
+<app-header [canLeave]="true" [leaveLink]="'/games'" [title]="'Utilisateur'"></app-header>
+
+<div class="main-content">
+@if(user()){
+
+  <div id="user">
+
+  <div id="user-infos">
+    <div id="user-name">
+      <img id="user-avatar" [ngSrc]="'/assets/avatar/' + user()?.avatar?.toLowerCase() + '.png'" [alt]="user()?.avatar" class="user-avatar"  height="481" width="512"/>
+      <span id="user-pseudo">{{ user()?.username }}</span>
+    </div>
+      <span>Points :  <nz-badge [nzCount]="user()?.points" nzStandalone [nzOverflowCount]="1000000"/></span>
+  </div>
+  <div id="user-games">
+    <app-game-history-table [gamesHistory]="gamesHistory" (onPageChange)="onPageChange($event)"></app-game-history-table>
+  </div>
+  </div>
+
+} @else {
+  <p class="not-found-message">404</p>
+  <p class="not-found-message">Utilisateur non trouvé</p>
+}
+</div>

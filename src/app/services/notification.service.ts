@@ -44,6 +44,17 @@ export class NotificationService {
   }
 
   handleNotificationsSockets() {
+
+    if(this.userAuthService.isUserLoggedIn() && this.userAuthService.isTokenExpired()){
+      this.userAuthService.updateToken().subscribe(data => {
+        this.connectToNotificationsSockets();
+      })
+    } else {
+      this.connectToNotificationsSockets();
+    }
+  }
+
+  connectToNotificationsSockets(){
     const socket = io(this.CORE_SOCKET + '/notifications', {
       path: this.CORE_URL.startsWith('https') ? '/api/games/socket.io' : '',
       transports: ['websocket'],

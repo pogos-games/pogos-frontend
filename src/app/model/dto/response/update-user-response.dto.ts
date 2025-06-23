@@ -1,8 +1,9 @@
-import { Avatar } from '../game/enum/avatar.enum';
+import {Avatar} from '../game/enum/avatar.enum';
 
 export interface UpdateUserResponseDto {
     id: string;
     username: string;
     avatar: Avatar;
-    nbNotifications:number
+    nbNotifications:number,
+    points: number;
 }

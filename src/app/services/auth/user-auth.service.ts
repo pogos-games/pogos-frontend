@@ -90,6 +90,7 @@ export class UserAuthService {
           const user = this.user()
           user.pseudo = response.username;
           user.avatar = response.avatar;
+          user.points = response.points;
           this.storageService.setItem<User>(this.USER__SESSION_STORAGE_NAME, user);
           this._user.set(user);
           return true;
@@ -108,7 +109,7 @@ export class UserAuthService {
     this.userTokenExpirationDate = this.jwtService.getTokenExpirationDate(jwtResponse.exp);
     this.userAccessToken = accessToken;
 
-    const user: User = { pseudo: jwtResponse.username, mail: jwtResponse.email, accessToken: accessToken, id: jwtResponse.sub, avatar: Avatar.DEFAULT, nbNotifications: 0, points: 0  };
+    const user: User = { pseudo: jwtResponse.username, mail: jwtResponse.email, accessToken: accessToken, id: jwtResponse.sub, avatar: Avatar.DEFAULT, nbNotifications: this.user().nbNotifications, points: this.user().points  };
     this._user.set(user)
     this.storageService.setItem<User>(this.USER__SESSION_STORAGE_NAME, user);
 
@@ -143,6 +144,13 @@ export class UserAuthService {
     this.userTokenExpirationDate = undefined;
     this.storageService.removeItem(this.USER__SESSION_STORAGE_NAME);
     this.cookiesStorageService.deleteCookie(this.REFRESH_TOKEN_COOKIE_NAME);
+  }
+
+  isTokenExpired(): boolean {
+    if (!this.userTokenExpirationDate) {
+      return true; // return true if token is not set
+    }
+    return this.userTokenExpirationDate.getTime() < Date.now();
   }
 
 

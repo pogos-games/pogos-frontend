@@ -4,6 +4,7 @@ import {RankingService} from "../../../../services/ranking.service";
 import {UserCardComponent} from "../../../common/user-card/user-card.component";
 import {NzPaginationComponent} from "ng-zorro-antd/pagination";
 import {PageResponseDto} from "../../../../model/dto/response/page-response.dto";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-ranking',
@@ -12,7 +13,8 @@ import {PageResponseDto} from "../../../../model/dto/response/page-response.dto"
   styleUrl: './ranking.component.scss',
   imports: [
     UserCardComponent,
-    NzPaginationComponent
+    NzPaginationComponent,
+    RouterLink
   ]
 })
 export class RankingComponent implements OnInit {

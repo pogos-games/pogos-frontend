@@ -1,0 +1,80 @@
+.main-content{
+  height: 80vh;
+}
+
+
+.not-found-message{
+  font-family: "Luckiest Guy", cursive;
+  font-size: 2.5vw;
+  color: var(--primary-text-color);
+  text-align: center;
+}
+
+#user {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#user-infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 20%;
+  height: 80%;
+  border-radius: 15px;
+  background-color: var(--secondary-bg-color);
+}
+
+#user-name {
+  display: flex;
+  flex-direction: row;
+}
+
+#user-avatar{
+  height: 30px;
+  width: 30px;
+}
+
+h1{
+  font-family: "Lilita One", cursive;
+  font-size: x-large;
+  color: var(--primary-text-color);
+}
+
+h2, span{
+  font-family: "Lilita One", cursive;
+  font-size: 1.5vw;
+  color: var(--primary-text-color);
+}
+
+#user-pseudo{
+  margin-left: 10px;
+}
+
+#user-games{
+  border-radius: 15px;
+  height: 80%;
+  width: 75%;
+}
+
+@media screen and (max-width: 992px) {
+  #user{
+    flex-direction: column;
+    gap: 20px;
+  }
+  #user-infos{
+    width: 90%;
+    height: 80px;
+    flex-direction: row;
+  }
+  #user-games{
+    width: 90%;
+  }
+}
+
+
