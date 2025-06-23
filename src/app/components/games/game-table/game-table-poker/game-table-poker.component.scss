@@ -1,197 +1,381 @@
 #game-table {
-    padding: 25px;
-    width: 70vw;
-    height: 70vh;
-    background-color: var(--table-color);
-    /* Transparence pour afficher uniquement l'intérieur */
-    border-radius: 30px;
-    /* Angle arrondi pour le marron */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
+  padding: 0;
+  width: 70vw;
+  height: 70vh;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+
+  /* Style de table identique au blackjack */
+  background:
+    linear-gradient(20deg,
+      transparent 0%,
+      rgba(101, 67, 33, 0.7) 2%,
+      transparent 4%,
+      transparent 8%,
+      rgba(139, 69, 19, 0.6) 10%,
+      transparent 12%),
+    linear-gradient(160deg,
+      transparent 0%,
+      rgba(160, 82, 45, 0.5) 3%,
+      transparent 6%),
+    radial-gradient(ellipse at 30% 20%, #CD853F 0%, #A0522D 50%, #8B4513 100%),
+    radial-gradient(ellipse at 70% 80%, #DEB887 0%, #D2691E 40%, #A0522D 100%),
+    linear-gradient(145deg, #B8860B, #8B4513, #A0522D, #654321);
+
+  border-radius: 40px;
+
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    0 40px 80px rgba(0, 0, 0, 0.2),
+    0 60px 120px rgba(0, 0, 0, 0.1),
+    0 0 0 3px #654321,
+    0 0 0 6px rgba(139, 69, 19, 0.8),
+    0 0 0 9px #8B4513,
+    0 0 0 12px rgba(160, 82, 45, 0.6),
+    0 0 0 15px #A0522D,
+    0 0 0 18px rgba(101, 67, 33, 0.8),
+    0 0 0 21px #654321,
+    inset 0 4px 8px rgba(255, 248, 220, 0.3),
+    inset 0 1px 0 rgba(255, 248, 220, 0.6),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 0 40px rgba(0, 0, 0, 0.2),
+    inset 2px 2px 4px rgba(139, 69, 19, 0.5),
+    inset -2px -2px 4px rgba(205, 133, 63, 0.3);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 21px;
+    left: 21px;
+    right: 21px;
+    bottom: 21px;
+    border-radius: 25px;
+    background:
+      radial-gradient(circle at 8% 8%,
+        rgba(255, 215, 0, 0.9) 0%,
+        rgba(255, 215, 0, 0.6) 1%,
+        transparent 3%),
+      radial-gradient(circle at 92% 8%,
+        rgba(255, 215, 0, 0.9) 0%,
+        rgba(255, 215, 0, 0.6) 1%,
+        transparent 3%),
+      radial-gradient(circle at 8% 92%,
+        rgba(255, 215, 0, 0.9) 0%,
+        rgba(255, 215, 0, 0.6) 1%,
+        transparent 3%),
+      radial-gradient(circle at 92% 92%,
+        rgba(255, 215, 0, 0.9) 0%,
+        rgba(255, 215, 0, 0.6) 1%,
+        transparent 3%),
+      linear-gradient(90deg,
+        transparent 0%,
+        transparent 10%,
+        rgba(255, 215, 0, 0.4) 20%,
+        rgba(255, 248, 220, 0.8) 25%,
+        rgba(255, 215, 0, 0.4) 30%,
+        transparent 40%,
+        transparent 60%,
+        rgba(255, 215, 0, 0.4) 70%,
+        rgba(255, 248, 220, 0.8) 75%,
+        rgba(255, 215, 0, 0.4) 80%,
+        transparent 90%),
+      repeating-linear-gradient(25deg,
+        rgba(139, 69, 19, 0.2) 0px,
+        rgba(160, 82, 45, 0.1) 1px,
+        rgba(205, 133, 63, 0.15) 2px,
+        rgba(139, 69, 19, 0.2) 3px),
+      radial-gradient(ellipse at 25% 25%, #D2691E, #A0522D),
+      linear-gradient(135deg, #A0522D, #8B4513, #654321, #8B4513);
+
+    box-shadow:
+      inset 0 3px 6px rgba(255, 248, 220, 0.4),
+      inset 0 1px 0 rgba(255, 248, 220, 0.7),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.4),
+      0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    border-radius: 20px;
+    background:
+      repeating-linear-gradient(45deg,
+        rgba(0, 80, 0, 0.03) 0px,
+        rgba(0, 100, 0, 0.02) 1px,
+        rgba(0, 120, 0, 0.03) 2px),
+      radial-gradient(circle at 20% 80%, rgba(0, 100, 0, 0.15) 0%, transparent 40%),
+      linear-gradient(135deg, #1a5d1a, #0d4d0d, #1a5d1a, #2d6b2d);
+
+    box-shadow:
+      inset 0 0 30px rgba(0, 0, 0, 0.6),
+      inset 0 0 60px rgba(0, 30, 0, 0.4),
+      inset 4px 4px 8px rgba(0, 0, 0, 0.5),
+      inset -4px -4px 8px rgba(0, 80, 0, 0.2),
+      inset 0 1px 0 rgba(0, 150, 0, 0.3),
+      0 0 15px rgba(0, 0, 0, 0.4);
+    z-index: 2;
+  }
 }
 
-
-.game-content {
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+/* Symboles dans les coins */
+.symbol-top-left {
+  position: absolute;
+  top: 35px;
+  left: 35px;
+  z-index: 4;
+  margin: 5px;
 }
 
-.card-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
+.symbol-top-right {
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  z-index: 4;
+  margin: 5px;
 }
 
-.hand-container {
-    width: 30%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+.symbol-bottom-left {
+  position: absolute;
+  bottom: 35px;
+  left: 35px;
+  z-index: 4;
+  margin: 5px;
 }
 
-.symbols {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+.symbol-bottom-right {
+  position: absolute;
+  bottom: 35px;
+  right: 35px;
+  z-index: 4;
+  margin: 5px;
 }
 
-.icon img {
-    width: 4vw;
-    height: auto;
-    filter: drop-shadow(0 0 2px darkgreen);
+.icon {
+  position: relative;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255, 248, 220, 0.9) 0%,
+    rgba(255, 215, 0, 0.8) 30%,
+    rgba(218, 165, 32, 0.7) 70%,
+    rgba(184, 134, 11, 0.6) 100%);
+  border-radius: 50%;
+  padding: 8px;
+  border: 2px solid rgba(139, 125, 58, 0.8);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(139, 125, 58, 0.5);
+  transition: all 0.3s ease;
+
+  img {
+    width: 3vw;
+    height: 3vw;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+    transition: all 0.3s ease;
+  }
+
+  &:has(img[alt="coeur"]), 
+  &:has(img[alt="pique"]), 
+  &:has(img[alt="trefle"]), 
+  &:has(img[alt="carreau"]) {
+    background: radial-gradient(circle at 30% 30%,
+      rgba(144, 238, 144, 0.9) 0%,
+      rgba(34, 139, 34, 0.8) 30%,
+      rgba(0, 100, 0, 0.8) 70%,
+      rgba(0, 50, 0, 0.7) 100%);
+    border-color: rgba(0, 100, 0, 0.8);
+  }
 }
 
-
-#spinner-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-
-@media (max-width: 768px) {
-    #game-table {
-        width: 90vw;
-        height: 60vh;
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-
-@media (max-width: 480px) {
-
-    .game-actions {
-        flex-direction: column;
-        gap: 5px;
-    }
-}
-
-#current-card-color {
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-}
-
-.column {
+/* Contenu principal de la table */
+.poker-table-content {
+  position: relative;
   width: 100%;
+  height: 100%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px 40px;
+  box-sizing: border-box;
+}
+
+/* Zone du joueur du haut */
+.top-player-area {
   display: flex;
   justify-content: center;
-  align-items:  center;
+  align-items: flex-start;
+  height: 25%;
 }
 
-.column.center{
+.player-info-top {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-
-}
-
-.game-hand{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
   gap: 10px;
 }
 
-.player-infos {
+/* Zone centrale */
+.center-area {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.player-infos span{
-  font-size: 1.2em;
-  font-weight: bold;
-
-}
-
-.avatar {
-  width: 35px;
-  height: 35px;
-}
-
-
-.left-cards, .right-cards {
-  margin-top: 40px;
-}
-
-.left-player {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 250px;
-}
-
-.right-player {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 250px;
-}
-
-.game-infos{
-  display: flex;
-  justify-content: left;
-  flex-direction: row;
-}
-
-.info{
-  border-radius: 5px;
-  padding: 10px;
-  background-color: var(--secondary-bg-color);
-  font-weight: bold;
-  font-family: 'Lilita One', cursive;
-  margin-left: 10px;
-  height: 40px;
-}
-
-
-/// active animations :
-
-/* Style de base existant */
-
-/* OPTION 1: Flèche qui pointe vers le joueur */
-.player-infos.active {
+  height: 50%;
   position: relative;
 }
 
-.player-infos.active::before {
+.left-player-area, .right-player-area {
+  display: flex;
+  align-items: center;
+  width: 20%;
+}
+
+.player-info-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.player-info-right {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Zone river centrale */
+.river-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 60%;
+}
+
+.community-cards {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.community-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+  animation: cardDeal 0.8s ease-out;
+}
+
+@keyframes cardDeal {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.5) rotate(180deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(5px) scale(1.1) rotate(-5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+.pot-info {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 248, 220, 0.8));
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: 2px solid #FFD700;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+  font-family: "Luckiest Guy", cursive;
+  font-size: 18px;
+  color: #8B4513;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.pot-label {
+  margin-right: 10px;
+}
+
+.pot-amount {
+  font-weight: bold;
+  color: #654321;
+}
+
+/* Zone du joueur du bas */
+.bottom-player-area {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 25%;
+}
+
+.current-player-cards {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Styles des joueurs */
+.player-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.player-name {
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Lilita One", serif;
+  color: #FFD700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+/* Animations pour le joueur actif */
+.player-details.active {
+  position: relative;
+}
+
+.player-details.active::before {
   content: '▼';
   position: absolute;
   top: -25px;
   left: 50%;
   transform: translateX(-50%);
   color: #ff6b35;
-  font-size: 1.5em;
+  font-size: 20px;
+  animation: arrow-bounce 1s infinite;
+}
+
+.current-player-cards.active::before {
+  content: '▲';
+  position: absolute;
+  margin-bottom: -105px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ff6b35;
+  font-size: 20px;
   animation: arrow-bounce 1s infinite;
 }
 
@@ -204,227 +388,43 @@
   }
 }
 
-/* OPTION 2: Halo lumineux */
-.player-infos.active-glow {
-  position: relative;
+.player-details.active .avatar {
+  border-color: #ff6b35;
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.6);
 }
 
-.player-infos.active-glow .avatar {
-  box-shadow: 0 0 20px rgba(255, 107, 53, 0.8);
-  border-radius: 50%;
-  animation: glow-pulse 2s infinite;
-}
-
-.player-infos.active-glow span {
-  color: #ff6b35;
-  text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
-}
-
-@keyframes glow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.8);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 107, 53, 1);
-  }
-}
-
-/* OPTION 3: Zoom + rotation subtile */
-.player-infos.active-zoom .avatar {
-  transform: scale(1.2) rotate(5deg);
-  border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.player-infos.active-zoom span {
-  transform: scale(1.1);
-  color: #ff6b35;
-}
-
-/* OPTION 4: Badge "À TON TOUR" */
-.player-infos.active-badge {
-  position: relative;
-}
-
-.player-infos.active-badge::after {
-  content: 'À TON TOUR';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(45deg, #ff6b35, #f7931e);
-  color: white;
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.7em;
-  font-weight: bold;
-  animation: bounce-badge 1s infinite;
-  white-space: nowrap;
-}
-
-@keyframes bounce-badge {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  40% {
-    transform: translateX(-50%) translateY(-5px);
-  }
-  60% {
-    transform: translateX(-50%) translateY(-2px);
-  }
-}
-
-/* OPTION 5: Effet de rebond complet */
-.player-infos.active-bounce {
-  animation: player-bounce 1.5s infinite;
-}
-
-@keyframes player-bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-  60% {
-    transform: translateY(-5px);
-  }
-}
-
-/* OPTION 8: Soulignement animé sous le nom */
-.player-infos.active-underline span {
-  position: relative;
-  color: #ff6b35;
-}
-
-.player-infos.active-underline span::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, #ff6b35, #f7931e);
-  animation: underline-slide 1.5s infinite;
-}
-
-@keyframes underline-slide {
-  0%, 100% {
-    transform: scaleX(1);
-  }
-  50% {
-    transform: scaleX(1.2);
-  }
-}
-
-/* OPTION 9: Points clignotants autour */
-.player-infos.active-dots {
-  position: relative;
-}
-
-.player-infos.active-dots::before {
-  content: '● ● ●';
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ff6b35;
-  font-size: 0.8em;
-  letter-spacing: 3px;
-  animation: dots-blink 1.5s infinite;
-}
-
-@keyframes dots-blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0.3; }
-}
-
-/* OPTION 10: Effet néon subtil */
-.player-infos.active-neon {
-  background: rgba(255, 107, 53, 0.1);
-  border-radius: 12px;
-  padding: 8px;
-  border: 1px solid rgba(255, 107, 53, 0.3);
-  animation: neon-glow 2s infinite;
-}
-
-.player-infos.active-neon span {
-  color: #ff6b35;
-}
-
-@keyframes neon-glow {
-  0%, 100% {
-    border-color: rgba(255, 107, 53, 0.3);
-    background: rgba(255, 107, 53, 0.1);
-  }
-  50% {
-    border-color: rgba(255, 107, 53, 0.6);
-    background: rgba(255, 107, 53, 0.15);
-  }
-}
-
-/* OPTION 11: Badge élégant à côté */
-.player-infos.active-side-badge {
-  position: relative;
-}
-
-.player-infos.active-side-badge::after {
-  content: '●';
-  position: absolute;
-  top: 5px;
-  right: -15px;
-  color: #ff6b35;
-  font-size: 1.2em;
-  animation: side-pulse 1.5s infinite;
-}
-
-@keyframes side-pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.3);
-    opacity: 0.7;
-  }
-}
-
-/* OPTION 7: Effet minimal et élégant */
-.player-infos.active-minimal .avatar {
-  border: 3px solid #ff6b35;
-  border-radius: 50%;
-  animation: minimal-pulse 2s infinite;
-}
-
-.player-infos.active-minimal span {
-  color: #ff6b35;
-}
-
-@keyframes minimal-pulse {
-  0% {
-    border-color: #ff6b35;
-  }
-  50% {
-    border-color: #f7931e;
-  }
-  100% {
-    border-color: #ff6b35;
-  }
-}
-
-.bottom-player {
-  &.active {
-    position: relative;
+/* Responsive */
+@media (max-width: 768px) {
+  #game-table {
+    width: 90vw;
+    height: 60vh;
   }
 
-  &.active::before {
-    content: '▼';
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #ff6b35;
-    font-size: 1.5em;
-    animation: arrow-bounce 1s infinite;
+  .poker-table-content {
+    padding: 30px 20px;
+  }
+
+  .icon img {
+    width: 4vw;
+    height: 4vw;
+  }
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .player-name {
+    font-size: 12px;
+  }
+
+  .pot-info {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+
+  .community-card {
+    height: 70px;
+    width: 50px;
   }
 }
