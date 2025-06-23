@@ -4,7 +4,6 @@ import {JetonButtonComponent} from "../jeton-bouton/jeton-button/jeton-button.co
 import {NgForOf} from "@angular/common";
 import {ActionDescriptor} from "../play-game-page/action-descriptor";
 import {NzButtonComponent} from "ng-zorro-antd/button";
-import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzWaveDirective} from "ng-zorro-antd/core/wave";
 import {GameMode} from "../../../model/dto/game/enum/game-mode.enum";
 
@@ -17,7 +16,6 @@ import {GameMode} from "../../../model/dto/game/enum/game-mode.enum";
     JetonButtonComponent,
     NgForOf,
     NzButtonComponent,
-    NzIconDirective,
     NzWaveDirective
   ],
   styleUrl: './action-row.component.scss'
