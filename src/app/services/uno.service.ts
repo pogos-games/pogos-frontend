@@ -19,4 +19,8 @@ export class UnoService extends GameService<UnoResponse,UnoPlayer,UnoPlayerRespo
   checkStartGame(): boolean {
     return true;
   }
+
+  updatePlayers(players: UnoPlayerResponse[]) {
+    this.playersList.set(players as UnoPlayer[])
+  }
 }

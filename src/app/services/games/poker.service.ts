@@ -20,5 +20,9 @@ export class PokerService extends GameService<PokerResponse,PokerPlayer,PokerPla
     this.errorStartGame = "Insufficient players to start the game."
     return this.playersList().length > 1;
   }
+
+  updatePlayers(players: PokerPlayerResponse[]) {
+    this.playersList.set(players as PokerPlayer[])
+  }
 }
 

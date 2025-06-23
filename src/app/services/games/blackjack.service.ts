@@ -28,5 +28,9 @@ export class BlackjackService extends GameService<BlackJackResponse,BlackJackPla
   override checkStartGame(): boolean {
     return true;
   }
+
+  updatePlayers(players: BlackJackPlayerResponse[]) {
+    this.playersList.set(players as BlackJackPlayer[])
+  }
 }
 

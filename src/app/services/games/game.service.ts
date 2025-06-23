@@ -26,7 +26,7 @@ export abstract class GameService<
   protected readonly GAMES_SOCKET  = this.configService.config.GAMES_SOCKET ;
   protected gameId: string  = '';
   protected playerId: string  = '';
-  public playersList: WritableSignal<any[]> = signal([]);
+  public playersList: WritableSignal<TPlayer[]> = signal([]);
   public players: TPlayer[] = [];
   protected gameUrl: string = "";
   public gameMode: string = GameMode.SOLO;
@@ -112,9 +112,7 @@ export abstract class GameService<
     const checkStartGame = new Subject<void>();
     this.listenGameUpdate().subscribe((data) => {
       if (data.players) {
-        this.playersList.set(data.players.map((p: any) => p.playerId));
-      } else {
-        this.playersList.update(players => [...players, data]);
+        this.updatePlayers(data.players)
       }
       checkStartGame.next();
     });
@@ -168,5 +166,7 @@ export abstract class GameService<
     this.errorStartGame = "";
     return error
   }
+
+  abstract updatePlayers(players: TPlayerResponse[]): void;
 }
 
