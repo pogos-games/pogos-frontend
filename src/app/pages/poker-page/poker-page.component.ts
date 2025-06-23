@@ -41,6 +41,7 @@ export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,
   orderedPlayers = signal<PokerPlayer[]>([]);
   playerCards = signal<Card[]>([])
   playerId = signal<string>("")
+  totalPot = signal<number>(0)
 
   protected override gameAction: typeof PokerActions = PokerActions;
 
@@ -51,12 +52,12 @@ export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,
   protected playerBet: WritableSignal<number> = signal(-10); // Mise actuelle du joueur
   protected playerBalance: WritableSignal<number> = signal(-10); // Mise actuelle du joueur
 
-  isPotEmpty = false;
+  isPotEmpty: WritableSignal<boolean> = signal(false);
 
   override actions = [
-    new ActionDescriptor("Miser", "check", PokerActions.BET, this.isPotEmpty),
-    new ActionDescriptor("Suivre", "check", PokerActions.CALL, !this.isPotEmpty),
-    new ActionDescriptor("Relancer", "check", PokerActions.RAISE, !this.isPotEmpty)
+    new ActionDescriptor("Miser", "check", PokerActions.BET, this.isPotEmpty()),
+    new ActionDescriptor("Suivre", "check", PokerActions.CALL, !this.isPotEmpty()),
+    new ActionDescriptor("Relancer", "check", PokerActions.RAISE, !this.isPotEmpty())
   ]
 
   override secondaryActions = [
@@ -108,6 +109,8 @@ export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,
   protected override updateGameInfo(data: PokerResponse) {
     super.updateGameInfo(data);
     const player = data.players.find((p) => p.playerId == this.gameService.getPlayerId())
+    this.isPotEmpty.set(data.roundPot == 0)
+    this.totalPot.set(data.pot)
     this.river.set(data.dealerHand)
     this.currentPlayerId.set(data.nextPlayerId)
     this.playerCards.set(player?.hand ?? [])

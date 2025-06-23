@@ -5,10 +5,11 @@
     <div class="game-table-container">
         <app-game-table [currentPlayerId]="currentPlayerId" [orderedPlayers]="orderedPlayers" [playerCards]="playerCards" [playerId]="playerId" [river]="river"></app-game-table>
     </div>
-    
+
     <div class="actions-container">
         <action-row [actions]="actions" [isActionsDisabled]="isActionDisabled" [secondaryActions]="secondaryActions"
                     [isSecondaryActionsDisabled]="isSecondaryActionsDisabled" [playerBalance]="playerBalance()" [playerBet]="playerBet"
+                    [totalPot]="totalPot"
                     (placeBet)="placeBet($event)" [gameMode]="gameMode" (openChat)="open()"
                     [showCoins]="true"
                     (executeAction)="executeAction($event)" />
