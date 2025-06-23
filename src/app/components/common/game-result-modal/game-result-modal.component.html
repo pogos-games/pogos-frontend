@@ -1,0 +1,70 @@
+<nz-modal 
+  [(nzVisible)]="isVisible" 
+  [nzTitle]="'Résultat de la partie'" 
+  [nzOkText]="'Rejouer'" 
+  [nzCancelText]="'Quitter'"
+  nzClassName="game-result-modal" 
+  [nzClosable]="false"
+  (nzOnOk)="handleReplay()"
+  (nzOnCancel)="handleQuit()">
+  
+  <ng-container *nzModalContent>
+    <div class="result-content">
+      <!-- Résultat principal -->
+      <div class="result-header" [ngClass]="getResultClass()">
+        <div class="result-icon">
+          @if (gameResult?.isWin) {
+            🎉
+          } @else if (gameResult?.isTie) {
+            🤝
+          } @else {
+            😔
+          }
+        </div>
+        <h2 class="result-title">{{ getResultTitle() }}</h2>
+        <p class="result-message">{{ getResultMessage() }}</p>
+      </div>
+
+      <!-- Détails de la partie -->
+      <div class="game-details">
+        <div class="detail-row">
+          <span class="label">Mise:</span>
+          <span class="value">{{ gameResult?.bet || 0 }} points</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Gain/Perte:</span>
+          <span class="value" [ngClass]="{'positive': (gameResult?.winAmount || 0) > 0, 'negative': (gameResult?.winAmount || 0) < 0}">
+            {{ (gameResult?.winAmount || 0) > 0 ? '+' : '' }}{{ gameResult?.winAmount || 0 }} points
+          </span>
+        </div>
+      </div>
+
+      <!-- Détails des mains -->
+      @if (gameResult?.playerHands && gameResult?.dealerHand && (gameResult?.playerHands?.length || 0) > 0) {
+        <div class="hands-summary">
+          <div class="hand-detail">
+            <h4>Vos mains:</h4>
+            @for (hand of gameResult?.playerHands; track $index) {
+              <div class="hand-info">
+                <span>Main {{ $index + 1 }}: {{ hand.value }} points</span>
+                <span class="hand-status" [ngClass]="getHandStatusClass(hand.status)">
+                  {{ getHandStatusText(hand.status) }}
+                </span>
+              </div>
+            }
+          </div>
+          
+          <div class="hand-detail">
+            <h4>Main du croupier:</h4>
+            <div class="hand-info">
+              <span>{{ gameResult?.dealerHand?.value || 0 }} points</span>
+              <span class="hand-status" [ngClass]="getHandStatusClass(gameResult?.dealerHand?.status || '')">
+                {{ getHandStatusText(gameResult?.dealerHand?.status || '') }}
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </ng-container>
+</nz-modal>
