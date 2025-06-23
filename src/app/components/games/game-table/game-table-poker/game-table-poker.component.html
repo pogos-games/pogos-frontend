@@ -1,78 +1,109 @@
 <div id="game-table">
-    <div class="symbols">
-        <div class="icon">
-            <img ngSrc="/assets/icons/coeur.png" alt="coeur" height="1024" width="1024" />
-        </div>
-        <div class="icon">
-            <img ngSrc="/assets/icons/pique.png" alt="pique" height="512" width="512" />
-        </div>
-    </div>
-    <!-- Main du haut -->
-  <div class="left column">
-    <div class="left-player">
-      @if (orderedPlayers().length > 1) {
-        <div class="player-infos" [class.active]="isPlayerTurn(orderedPlayers()[1].playerId)">
-          <nz-badge [nzCount]="orderedPlayers()[1].balance">
-            <img ngSrc="../../../../../assets/avatar/{{orderedPlayers()[1].avatar?.toLowerCase() || 'default'}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
-          </nz-badge>
-          <span class="player-name">{{ orderedPlayers()[1].username }}</span>
-        </div>
-        <app-poker-back-hand
-          [handCount]="orderedPlayers()[1].hand.length"
-          [direction]="'horizontal'">
-        </app-poker-back-hand>
-      }
+  <!-- Coin supérieur gauche - Coeur -->
+  <div class="symbol-top-left">
+    <div class="icon">
+      <img ngSrc="/assets/icons/coeur.png" alt="coeur" height="1024" width="1024" />
     </div>
   </div>
 
-  <div class="center column">
-    <div class="top-player">
+  <!-- Coin supérieur droit - Pique -->
+  <div class="symbol-top-right">
+    <div class="icon">
+      <img ngSrc="/assets/icons/pique.png" alt="pique" height="512" width="512" />
+    </div>
+  </div>
+
+  <!-- Coin inférieur gauche - Trèfle -->
+  <div class="symbol-bottom-left">
+    <div class="icon">
+      <img ngSrc="/assets/icons/trefle.png" alt="trefle" height="800" width="900" />
+    </div>
+  </div>
+
+  <!-- Coin inférieur droit - Carreau -->
+  <div class="symbol-bottom-right">
+    <div class="icon">
+      <img ngSrc="/assets/icons/carreau.png" alt="carreau" height="410" width="410" />
+    </div>
+  </div>
+
+  <div class="poker-table-content">
+    <!-- Joueur du haut -->
+    <div class="top-player-area">
       @if (orderedPlayers().length > 2) {
-        <div class="player-infos" [class.active]="isPlayerTurn(orderedPlayers()[2].playerId)">
-          <nz-badge [nzCount]="orderedPlayers()[2].balance">
-            <img ngSrc="../../../../../assets/avatar/{{orderedPlayers()[2].avatar?.toLowerCase() || 'default'}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
-          </nz-badge>
-          <span class="player-name">{{ orderedPlayers()[2].username }}</span>
+        <div class="player-info-top">
+          <div class="player-details" [class.active]="isPlayerTurn(orderedPlayers()[2].playerId)">
+            <nz-badge [nzCount]="orderedPlayers()[2].balance">
+              <img ngSrc="../../../../../assets/avatar/{{orderedPlayers()[2].avatar?.toLowerCase() || 'default'}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
+            </nz-badge>
+            <span class="player-name">{{ orderedPlayers()[2].username }}</span>
+          </div>
+          <app-poker-back-hand
+            [handCount]="orderedPlayers()[2].hand.length"
+            [direction]="'vertical'">
+          </app-poker-back-hand>
         </div>
-        <app-poker-back-hand
-          [handCount]="orderedPlayers()[2].hand.length">
-        </app-poker-back-hand>
       }
     </div>
 
-    <div class="game-hand">
-      @for (card of river(); let i = $index; track $index) {
-        <img [ngSrc]="findCardImage(card)" alt="OC" height="85" width="60" [ngStyle]="{ '--card-index': i }" />
-      }
-    </div>
-
-    <div class="bottom-player" [class.active]="isPlayerTurn(playerId())">
-      <app-card-hand class="player-slot" [handName]="'player'" [cards]="playerCards()"
-                     [currentUser]="false"></app-card-hand>
-    </div>
-  </div>
-
-  <div class="right column">
-    @if (orderedPlayers().length > 3) {
-      <app-poker-back-hand
-        [handCount]="orderedPlayers()[3].hand.length" [direction]="'horizontal'">
-      </app-poker-back-hand>
-      <div class="player-infos" [class.active]="isPlayerTurn(orderedPlayers()[3].playerId)">
-        <nz-badge [nzCount]="orderedPlayers()[3].balance">
-          <img ngSrc="../../../../../assets/avatar/{{ orderedPlayers()[3].avatar?.toLowerCase() || 'default'}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
-        </nz-badge>
-        <span class="player-name">{{ orderedPlayers()[3].username }}</span>
+    <!-- Zone centrale avec river et pot -->
+    <div class="center-area">
+      <!-- Joueur de gauche -->
+      <div class="left-player-area">
+        @if (orderedPlayers().length > 1) {
+          <div class="player-info-left">
+            <div class="player-details" [class.active]="isPlayerTurn(orderedPlayers()[1].playerId)">
+              <nz-badge [nzCount]="orderedPlayers()[1].balance">
+                <img ngSrc="../../../../../assets/avatar/{{orderedPlayers()[1].avatar?.toLowerCase() || 'default'}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
+              </nz-badge>
+              <span class="player-name">{{ orderedPlayers()[1].username }}</span>
+            </div>
+            <app-poker-back-hand
+              [handCount]="orderedPlayers()[1].hand.length"
+              [direction]="'horizontal'">
+            </app-poker-back-hand>
+          </div>
+        }
       </div>
-    }
-  </div>
 
-    <div class="symbols">
-        <div class="icon">
-            <img ngSrc="/assets/icons/trefle.png" alt="trefle" height="800" width="900" />
+      <!-- River (cartes communes) -->
+      <div class="river-area">
+        <div class="community-cards">
+          @for (card of river(); let i = $index; track $index) {
+            <img [ngSrc]="findCardImage(card)" alt="Card" height="85" width="60" class="community-card" />
+          }
         </div>
-        <div class="icon">
-            <img ngSrc="/assets/icons/carreau.png" alt="carreau" height="410" width="410" />
-        </div>
+        <!-- <div class="pot-info">
+          <span class="pot-label">Pot:</span>
+          <span class="pot-amount"></span>
+        </div>-->
+      </div>
+
+      <!-- Joueur de droite -->
+      <div class="right-player-area">
+        @if (orderedPlayers().length > 3) {
+          <div class="player-info-right">
+            <app-poker-back-hand
+              [handCount]="orderedPlayers()[3].hand.length"
+              [direction]="'horizontal'">
+            </app-poker-back-hand>
+            <div class="player-details" [class.active]="isPlayerTurn(orderedPlayers()[3].playerId)">
+              <nz-badge [nzCount]="orderedPlayers()[3].balance">
+                <img ngSrc="../../../../../assets/avatar/{{ orderedPlayers()[3].avatar?.toLowerCase() || 'default'}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
+              </nz-badge>
+              <span class="player-name">{{ orderedPlayers()[3].username }}</span>
+            </div>
+          </div>
+        }
+      </div>
     </div>
 
+    <!-- Joueur du bas (joueur actuel) -->
+    <div class="bottom-player-area">
+      <div class="current-player-cards" [class.active]="isPlayerTurn(playerId())">
+        <app-card-hand class="player-slot" [handName]="' '" [cards]="playerCards()"
+                       [currentUser]="true"></app-card-hand>
+      </div>
+    </div>
+  </div>
 </div>

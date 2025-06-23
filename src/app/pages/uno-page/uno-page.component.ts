@@ -38,7 +38,7 @@ import {UnoEndAction} from "../../model/dto/uno/entities/uno-end-action.interfac
 })
 export class UnoPageComponent extends PlayGamePage<UnoService,UnoResponse,UnoPlayer,UnoPlayerResponse,UnoCard>{
 
-  protected playerBet: WritableSignal<number> = signal(-10);
+  protected playerBet: WritableSignal<number> = signal(-1);
 
   currentPlayerId = signal<string>("")
   orderedPlayers = signal<UnoPlayer[]>([]);
@@ -70,9 +70,14 @@ export class UnoPageComponent extends PlayGamePage<UnoService,UnoResponse,UnoPla
     this.currentPlayerId.set(data.currentTurnPlayerId)
     this.topCard.set(data.discardPile.at(-1)!)
     this.direction.set(data.direction)
-    this.orderedPlayers.set(
-      data.players.map((player: UnoPlayerResponse) => (player) as UnoPlayer)
-    );
+    const playerIndex = data.players.findIndex(p => p.playerId === this.playerId());
+
+    if (playerIndex !== -1) {
+      const rotated = [...data.players.slice(playerIndex), ...data.players.slice(0, playerIndex)];
+      this.orderedPlayers.set(rotated.map((player: UnoPlayerResponse) => (player) as UnoPlayer));
+    } else {
+      this.orderedPlayers.set(data.players.map((player: UnoPlayerResponse) => (player) as UnoPlayer))
+    }
   }
 
   protected override updatePlayerInfos(player: any): void {
