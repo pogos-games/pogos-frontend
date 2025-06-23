@@ -19,6 +19,7 @@ import {UnoPlayerResponse} from "../../model/dto/uno/dto/response/uno-player-res
 import {UnoCard, UnoCardColor, UnoCardType} from "../../model/dto/uno/entities/uno-card.interface";
 import {UnoGameDirection} from "../../model/dto/uno/enum/uno-game-direction.enum";
 import {UnoActionType} from "../../model/dto/uno/enum/uno-action.enum";
+import {UnoEndAction} from "../../model/dto/uno/entities/uno-end-action.interface";
 
 @Component({
   selector: 'app-uno-page',
@@ -91,5 +92,9 @@ export class UnoPageComponent extends PlayGamePage<UnoService,UnoResponse,UnoPla
   handleWaitingRoomConfirmClick(bet: number): void {
     this.handleWaitingRoomConfirm();
     this.playerBet.set(bet);
+  }
+
+  declare(action: UnoEndAction){
+    this.gameService.sendMessage("UNO_END_ACTION",action)
   }
 }

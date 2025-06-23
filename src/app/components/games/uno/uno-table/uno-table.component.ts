@@ -13,6 +13,8 @@ import {DirectionWheelComponent} from "../direction-wheel/direction-wheel.compon
 import {UnoGameDirection} from "../../../../model/dto/uno/enum/uno-game-direction.enum";
 import {UnoCard, UnoCardColor, UnoCardType} from "../../../../model/dto/uno/entities/uno-card.interface";
 import {UnoPlayer} from "../../../../model/dto/uno/entities/uno-player.interface";
+import {UnoDeclareButtonComponent} from "../uno-declare-button/uno-declare-button.component";
+import {UnoEndAction} from "../../../../model/dto/uno/entities/uno-end-action.interface";
 
 @Component({
   selector: 'app-uno-table',
@@ -25,7 +27,8 @@ import {UnoPlayer} from "../../../../model/dto/uno/entities/uno-player.interface
     NzIconDirective,
     NgStyle,
     NgOptimizedImage,
-    DirectionWheelComponent
+    DirectionWheelComponent,
+    UnoDeclareButtonComponent
   ],
   templateUrl: './uno-table.component.html',
   standalone: true,
@@ -53,6 +56,8 @@ export class UnoTableComponent {
   drawCardEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output()
   playCardEvent: EventEmitter<UnoCard> = new EventEmitter<UnoCard>();
+  @Output()
+  declareEvent: EventEmitter<UnoEndAction> = new EventEmitter<UnoEndAction>();
 
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly userAuthService: UserAuthService = inject(UserAuthService);
@@ -81,5 +86,4 @@ export class UnoTableComponent {
       this.clipBoard.copy(gameId);
     }
   }
-
 }
