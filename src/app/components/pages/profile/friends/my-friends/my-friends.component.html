@@ -1,8 +1,8 @@
 <div class="main-content">
     <div class="list-friends">
         @for (friend of friends(); track $index) {
-        <div class="friend-card" [routerLink]="'/user/' + friend.user.id">
-            <div class="friend-card">
+        <div class="friend-card" >
+            <div class="friend-card" [routerLink]="'/user/' + friend.user.id">
                 <img [src]="'/assets/avatar/' + friend.user.avatar.toLowerCase() + '.png'" [alt]="friend.user.avatar"
                     class="friend-avatar" />
                 <p class="friend-username">{{ friend.user.username }}</p>

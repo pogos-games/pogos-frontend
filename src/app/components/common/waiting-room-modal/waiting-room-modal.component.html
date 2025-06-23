@@ -46,7 +46,7 @@
       {{errorMessage()}}
     </ng-container>
   </nz-modal>
-} @else {
+} @else if(!showPrivacy) {
   <nz-modal
     [(nzVisible)]="isVisible"
     [nzTitle]="title"

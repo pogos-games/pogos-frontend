@@ -93,12 +93,12 @@ export class GamePageComponent {
   }
 
   public handleCancelModal(): void {
+    this.isWaitingRoomModalVisible.set(false);
     this.gameService.sendMessage(GameActions.QUIT_GAME);
     this.errorWaitingRoom.set("")
     this.players.set([]);
     this.subStartGamePlayerUpdate.unsubscribe()
     this.subStartGame.unsubscribe()
-    this.isWaitingRoomModalVisible.set(false);
   }
 
   public get gameId(): string {
