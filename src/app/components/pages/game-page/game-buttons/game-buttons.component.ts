@@ -96,7 +96,7 @@ export class GameButtonsComponent {
     ).subscribe({
       next: (res: { success: boolean; gameId: string } |null) => {
         if (res?.success && gameService) {
-          gameService.sendMessage(GameActions.JOIN_GAME, { gameId: res.gameId });
+          gameService.sendMessage(GameActions.JOIN_GAME, { gameId: res.gameId, playerName: this.userAuthService.user().pseudo, avatar: this.userAuthService.user().avatar });
           this.subToGame(gameService, false);
         }
         lastResult = res;
