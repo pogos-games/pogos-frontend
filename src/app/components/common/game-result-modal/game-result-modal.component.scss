@@ -1,0 +1,253 @@
+.hand-status.blackjack {
+  background-color: rgba(255, 215, 0, 0.3);
+  color: #ffd700;
+  font-weight: bold;
+}::ng-deep .game-result-modal .ant-modal-title {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 2em;
+  color: var(--primary-text-color);
+  text-align: center;
+}
+
+::ng-deep .game-result-modal .ant-modal-body {
+  background-color: var(--secondary-bg-color);
+  padding: 2em;
+  border-radius: 0 0 12px 12px;
+  color: var(--primary-text-color);
+}
+
+::ng-deep .game-result-modal .ant-modal-header {
+  background-color: var(--secondary-bg-color);
+  padding: 1em 2em;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 2px solid var(--pogos-button-bg);
+}
+
+::ng-deep .game-result-modal .ant-modal-content {
+  background-color: var(--secondary-bg-color);
+  border-radius: 12px;
+  padding: 0;
+}
+
+::ng-deep .game-result-modal .ant-modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-top: none;
+  background-color: var(--secondary-bg-color);
+  border-radius: 0 0 12px 12px;
+  padding: 1em 2em;
+}
+
+::ng-deep .game-result-modal .ant-modal-footer .ant-btn:first-child {
+  margin: 0 1em;
+  width: 140px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: var(--pogos-button-bg);
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: "Lilita One", cursive;
+  cursor: pointer;
+  font-size: 1.4em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+::ng-deep .game-result-modal .ant-modal-footer .ant-btn:first-child:hover {
+  background-color: var(--pogos-button-bg-hover);
+  transform: scale(1.05);
+}
+
+::ng-deep .game-result-modal .ant-modal-footer .ant-btn:last-child {
+  margin: 0 1em;
+  width: 140px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: #ff7875;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 1.4em;
+  font-family: "Lilita One", cursive;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+::ng-deep .game-result-modal .ant-modal-footer .ant-btn:last-child:hover {
+  background-color: #ff4d4f;
+  transform: scale(1.05);
+}
+
+.result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.result-header {
+  text-align: center;
+  padding: 1.5em;
+  border-radius: 12px;
+  margin-bottom: 1em;
+}
+
+.result-header.win {
+  background: linear-gradient(135deg, rgba(82, 196, 26, 0.2), rgba(135, 208, 104, 0.2));
+  border: 2px solid #52c41a;
+}
+
+.result-header.lose {
+  background: linear-gradient(135deg, rgba(255, 77, 79, 0.2), rgba(255, 120, 117, 0.2));
+  border: 2px solid #ff4d4f;
+}
+
+.result-header.tie {
+  background: linear-gradient(135deg, rgba(250, 173, 20, 0.2), rgba(255, 236, 179, 0.2));
+  border: 2px solid #faad14;
+}
+
+.result-icon {
+  font-size: 3em;
+  margin-bottom: 0.5em;
+}
+
+.result-title {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 2.2em;
+  margin: 0.5em 0;
+  color: var(--primary-text-color);
+}
+
+.result-message {
+  font-family: "Lilita One", serif;
+  font-size: 1.2em;
+  margin: 0;
+  color: var(--primary-text-color);
+  opacity: 0.9;
+}
+
+.game-details {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 1.5em;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8em;
+  font-family: "Lilita One", serif;
+  font-size: 1.1em;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+  padding-top: 0.8em;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.label {
+  color: var(--primary-text-color);
+  opacity: 0.8;
+}
+
+.value {
+  font-weight: bold;
+  color: var(--primary-text-color);
+}
+
+.value.positive {
+  color: #52c41a;
+}
+
+.value.negative {
+  color: #ff4d4f;
+}
+
+.hands-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5em;
+  margin-top: 1em;
+}
+
+.hand-detail {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 1em;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hand-detail h4 {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 1.2em;
+  margin: 0 0 0.8em 0;
+  color: var(--pogos-button-bg);
+}
+
+.hand-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5em;
+  font-family: "Lilita One", serif;
+  font-size: 0.95em;
+}
+
+.hand-info:last-child {
+  margin-bottom: 0;
+}
+
+.hand-status {
+  font-weight: bold;
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  font-size: 0.8em;
+}
+
+.hand-status.win {
+  background-color: rgba(82, 196, 26, 0.2);
+  color: #52c41a;
+}
+
+.hand-status.lose {
+  background-color: rgba(255, 77, 79, 0.2);
+  color: #ff4d4f;
+}
+
+.hand-status.tie {
+  background-color: rgba(250, 173, 20, 0.2);
+  color: #faad14;
+}
+
+.hand-status.bust {
+  background-color: rgba(255, 77, 79, 0.3);
+  color: #ff1f23;
+}
+
+@media (max-width: 768px) {
+  .hands-summary {
+    grid-template-columns: 1fr;
+    gap: 1em;
+  }
+  
+  .result-title {
+    font-size: 1.8em;
+  }
+  
+  .result-icon {
+    font-size: 2.5em;
+  }
+  
+  ::ng-deep .game-result-modal .ant-modal-footer .ant-btn:first-child,
+  ::ng-deep .game-result-modal .ant-modal-footer .ant-btn:last-child {
+    width: 120px;
+    height: 45px;
+    font-size: 1.2em;
+  }
+}

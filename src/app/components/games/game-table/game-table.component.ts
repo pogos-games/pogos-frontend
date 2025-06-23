@@ -6,6 +6,7 @@ import {Card} from "../../../model/dto/game/card.interface";
 @Directive()
 export class GameTableComponent {
   protected gameDeck: GameDeck = { playerHand: new Set<Card>(), dealerHand: new Set<Card>(), playerTotal: 0, message: "CONTINUE" };
+  
   @Input()
   public hands: {
     player1Hand: Card[],
@@ -20,6 +21,9 @@ export class GameTableComponent {
     selfHand: [],
     dealerHand: [],
   };
+
+  // Nouveau: pour indiquer si la partie est terminée
+  @Input() gameEnded: boolean = false;
 
   protected readonly GameActions = GameActions;
 }
