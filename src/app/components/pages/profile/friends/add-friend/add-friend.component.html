@@ -33,7 +33,7 @@
             @if (users.length > 0 && !isLoading) {
             <div class="list-friends">
                 @for (user of users; track $index) {
-                <div class="friend-card">
+                <div class="friend-card" [routerLink]="'/user/' + user.id">
                     <div class="friend-info">
                         <img [src]="'/assets/avatar/' + user.avatar.toLowerCase() + '.png'" [alt]="user.avatar"
                             class="friend-avatar" />

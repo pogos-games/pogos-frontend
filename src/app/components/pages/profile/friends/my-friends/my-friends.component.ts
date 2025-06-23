@@ -5,13 +5,15 @@ import { FriendshipService } from '../../../../../services/friendship.service';
 import { UserAuthService } from '../../../../../services/auth/user-auth.service';
 import { NzButtonComponent } from "ng-zorro-antd/button";
 import { NzIconDirective } from "ng-zorro-antd/icon";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-my-friends',
   standalone: true,
   imports: [
     NzButtonComponent,
-    NzIconDirective
+    NzIconDirective,
+    RouterLink
   ],
   templateUrl: './my-friends.component.html',
   styleUrl: './my-friends.component.scss'
