@@ -56,7 +56,7 @@ export class NotificationService {
 
   connectToNotificationsSockets(){
     const socket = io(this.CORE_SOCKET + '/notifications', {
-      path: this.CORE_URL.startsWith('https') ? '/api/games/socket.io' : '',
+      path: this.CORE_URL.startsWith('https') ? '/api/core/socket.io' : '',
       transports: ['websocket'],
       auth: {
         token: `Bearer ${this.userAuthService.getAccessToken()}`
