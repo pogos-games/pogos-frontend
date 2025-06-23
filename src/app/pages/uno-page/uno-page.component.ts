@@ -59,11 +59,16 @@ export class UnoPageComponent extends PlayGamePage<UnoService,UnoResponse,UnoPla
   }
 
   playCard(card: UnoCard){
+
     if (this.gameId == "") {
       console.warn("Impossible d'envoyer l'action, gameId manquant !");
       return;
     }
-    this.gameService.sendMessage(GameActions.ACTION, { action: UnoActionType.PLAY_CARD, gameId: this.gameId, card: card });
+
+    const topCard : UnoCard = this.topCard();
+    if(topCard.color === card.color || topCard.value === card.value || card.color === UnoCardColor.WILD){
+      this.gameService.sendMessage(GameActions.ACTION, { action: UnoActionType.PLAY_CARD, gameId: this.gameId, card: card });
+    }
   }
   protected override updateGameInfo(data: UnoResponse) {
     super.updateGameInfo(data);
