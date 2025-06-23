@@ -18,7 +18,6 @@ import {PokerPlayer} from "../../model/dto/poker/poker-player.interface";
 import {PokerResponse} from "../../model/dto/poker/response/poker-response.interface";
 import {PokerPlayerResponse} from "../../model/dto/poker/response/poker-player-response.interface";
 import {ChatComponent} from "../../components/games/chat/chat.component";
-import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {Card} from "../../model/dto/game/card.interface";
 
 @Component({
@@ -32,7 +31,6 @@ import {Card} from "../../model/dto/game/card.interface";
         ActionRowComponent,
         WaitingRoomModalComponent,
         ChatComponent,
-        NzDividerComponent,
     ],
   templateUrl: './poker-page.component.html',
   styleUrl: './poker-page.component.scss'
@@ -110,18 +108,20 @@ export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,
   protected override updateGameInfo(data: PokerResponse) {
     super.updateGameInfo(data);
     const player = data.players.find((p) => p.playerId == this.gameService.getPlayerId())
-
-    console.log(player)
-    console.log(data)
     this.river.set(data.dealerHand)
     this.currentPlayerId.set(data.nextPlayerId)
     this.playerCards.set(player?.hand ?? [])
     this.playerBet.set(player?.bet ?? 0)
     this.playerBalance.set(player?.balance ?? 0)
     this.playerId.set(this.gameService.getPlayerId())
-    this.orderedPlayers.set(
-      data.players.map((player: PokerPlayerResponse) => (player) as PokerPlayer)
-    );
+    const playerIndex = data.players.findIndex(p => p.playerId === this.playerId());
+
+    if (playerIndex !== -1) {
+      const rotated = [...data.players.slice(playerIndex), ...data.players.slice(0, playerIndex)];
+      this.orderedPlayers.set(rotated.map((player: PokerPlayerResponse) => (player) as PokerPlayer));
+    } else {
+      this.orderedPlayers.set(data.players.map((player: PokerPlayerResponse) => (player) as PokerPlayer))
+    }
 
     this.gameService.playersList.set(data.players.map((p) => (p as PokerPlayer)))
   }
