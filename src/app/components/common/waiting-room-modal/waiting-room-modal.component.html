@@ -17,7 +17,7 @@
         <ul>
           @for (player of players(); track $index){
             <li>
-              <img ngSrc="../../../../assets/avatar/{{player.avatar?.toLowerCase() || 'default'}}.png" alt="Avatar" class="avatar" height="48.1" width="51.2"/>
+              <img [ngSrc]="'/assets/avatar/' + (player.avatar?.toLowerCase() || 'default') + '.png'" alt="Avatar" class="avatar" height="48.1" width="51.2"/>
               {{ player.username ?? player.playerId }}
             </li>
           }
@@ -68,7 +68,7 @@
         <ul>
           @for (player of players(); track $index){
             <li>
-              <img ngSrc="'/assets/avatar/{{player.avatar?.toLowerCase() || 'default'}}'.png'" alt="Avatar" class="avatar" height="48,1" width="51,2"/>
+              <img [ngSrc]="'/assets/avatar/' + (player.avatar?.toLowerCase() || 'default') + '.png'" alt="Avatar" class="avatar" height="48,1" width="51,2"/>
               {{ player.username ?? player.playerId }}
             </li>
           }
