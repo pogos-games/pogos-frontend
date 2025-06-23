@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, signal, WritableSignal} from '@angular/core';
+import {Component, computed, EventEmitter, Input, Output, Signal, signal, WritableSignal} from '@angular/core';
 import {ActionButtonComponent} from "../action-button/action-button.component";
 import {JetonButtonComponent} from "../jeton-bouton/jeton-button/jeton-button.component";
 import {NgForOf} from "@angular/common";
@@ -30,12 +30,25 @@ export class ActionRowComponent {
   @Input({required: true}) gameMode: string = "";
   @Input() showCoins: boolean = false;
 
+
   @Output() placeBet= new EventEmitter<number>();
   @Output() openChat= new EventEmitter();
   @Output() executeAction= new EventEmitter<string>();
 
+  isBetSelected = false;
+
+
+  isActionDisabledFor(action: ActionDescriptor): Signal<boolean> {
+    return computed(() =>
+      this.isActionsDisabled() || (action.text === 'Relancer' && !this.isBetSelected)
+    );
+  }
+
+
+
   emitAction(action: string){
     this.executeAction.emit(action);
+    this.isBetSelected = false;
   }
 
   emitOpenChat(){
@@ -44,6 +57,7 @@ export class ActionRowComponent {
 
   emitPlaceBet(bet: number){
     this.placeBet.emit(bet);
+    this.isBetSelected = true;
   }
 
   protected readonly GameMode = GameMode;

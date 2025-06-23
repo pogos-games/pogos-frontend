@@ -1,19 +1,17 @@
 import {Component, Input, signal} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
-import { CardHandComponent } from "../../card-hand/card-hand.component";
-import { GameTableComponent } from '../game-table.component';
+import {CardHandComponent} from "../../card-hand/card-hand.component";
+import {GameTableComponent} from '../game-table.component';
 import {Card} from "../../../../model/dto/game/card.interface";
-import {NzBadgeComponent} from "ng-zorro-antd/badge";
 import {PokerPlayer} from "../../../../model/dto/poker/poker-player.interface";
-import {PokerBackHandComponent} from "./poker-back-hand/poker-back-hand.component";
+import {PokerPlayerComponent} from "../../poker/poker-player/poker-player.component";
 
 @Component({
     selector: 'app-game-table',
   imports: [
     NgOptimizedImage,
     CardHandComponent,
-    NzBadgeComponent,
-    PokerBackHandComponent,
+    PokerPlayerComponent,
   ],
     templateUrl: './game-table-poker.component.html',
     standalone: true,

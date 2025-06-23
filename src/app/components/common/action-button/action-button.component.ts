@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, signal, WritableSignal} from '@angular/core';
+import {Component, EventEmitter, Input, Output, Signal, signal} from '@angular/core';
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 
@@ -15,7 +15,7 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 export class ActionButtonComponent {
   @Input({required: true}) text: string = "";
   @Input({required: true}) icon: string = "";
-  @Input({required: true}) isActionDisabled: WritableSignal<boolean> = signal(false);
+  @Input({required: true}) isActionDisabled: Signal<boolean> = signal(false);
   @Input() showButton: boolean = true;
   @Output() onCLick = new EventEmitter();
 

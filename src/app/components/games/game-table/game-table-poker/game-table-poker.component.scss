@@ -181,9 +181,9 @@
     transition: all 0.3s ease;
   }
 
-  &:has(img[alt="coeur"]), 
-  &:has(img[alt="pique"]), 
-  &:has(img[alt="trefle"]), 
+  &:has(img[alt="coeur"]),
+  &:has(img[alt="pique"]),
+  &:has(img[alt="trefle"]),
   &:has(img[alt="carreau"]) {
     background: radial-gradient(circle at 30% 30%,
       rgba(144, 238, 144, 0.9) 0%,
@@ -215,13 +215,6 @@
   height: 25%;
 }
 
-.player-info-top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
 /* Zone centrale */
 .center-area {
   display: flex;
@@ -237,19 +230,6 @@
   width: 20%;
 }
 
-.player-info-left {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 15px;
-}
-
-.player-info-right {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  gap: 15px;
-}
 
 /* Zone river centrale */
 .river-area {
@@ -326,14 +306,7 @@
   position: relative;
 }
 
-/* Styles des joueurs */
-.player-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.3s ease;
-}
+
 
 .avatar {
   width: 40px;
@@ -343,30 +316,8 @@
   transition: all 0.3s ease;
 }
 
-.player-name {
-  font-size: 14px;
-  font-weight: bold;
-  font-family: "Lilita One", serif;
-  color: #FFD700;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  text-align: center;
-}
 
-/* Animations pour le joueur actif */
-.player-details.active {
-  position: relative;
-}
 
-.player-details.active::before {
-  content: '▼';
-  position: absolute;
-  top: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ff6b35;
-  font-size: 20px;
-  animation: arrow-bounce 1s infinite;
-}
 
 .current-player-cards.active::before {
   content: '▲';
@@ -386,11 +337,6 @@
   25% {
     transform: translateX(-50%) translateY(-3px);
   }
-}
-
-.player-details.active .avatar {
-  border-color: #ff6b35;
-  box-shadow: 0 0 15px rgba(255, 107, 53, 0.6);
 }
 
 /* Responsive */
@@ -414,9 +360,7 @@
     height: 30px;
   }
 
-  .player-name {
-    font-size: 12px;
-  }
+
 
   .pot-info {
     font-size: 14px;

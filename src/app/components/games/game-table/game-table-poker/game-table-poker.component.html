@@ -31,18 +31,8 @@
     <!-- Joueur du haut -->
     <div class="top-player-area">
       @if (orderedPlayers().length > 2) {
-        <div class="player-info-top">
-          <div class="player-details" [class.active]="isPlayerTurn(orderedPlayers()[2].playerId)">
-            <nz-badge [nzCount]="orderedPlayers()[2].balance">
-              <img ngSrc="../../../../../assets/avatar/{{orderedPlayers()[2].avatar?.toLowerCase() || 'default'}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
-            </nz-badge>
-            <span class="player-name">{{ orderedPlayers()[2].username }}</span>
-          </div>
-          <app-poker-back-hand
-            [handCount]="orderedPlayers()[2].hand.length"
-            [direction]="'vertical'">
-          </app-poker-back-hand>
-        </div>
+        <app-poker-player [pokerPlayer]="orderedPlayers()[2]" [isPlayerTurn]="isPlayerTurn(orderedPlayers()[2].playerId)"
+                          [direction]="'top'"></app-poker-player>
       }
     </div>
 
@@ -51,18 +41,8 @@
       <!-- Joueur de gauche -->
       <div class="left-player-area">
         @if (orderedPlayers().length > 1) {
-          <div class="player-info-left">
-            <div class="player-details" [class.active]="isPlayerTurn(orderedPlayers()[1].playerId)">
-              <nz-badge [nzCount]="orderedPlayers()[1].balance">
-                <img ngSrc="../../../../../assets/avatar/{{orderedPlayers()[1].avatar?.toLowerCase() || 'default'}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
-              </nz-badge>
-              <span class="player-name">{{ orderedPlayers()[1].username }}</span>
-            </div>
-            <app-poker-back-hand
-              [handCount]="orderedPlayers()[1].hand.length"
-              [direction]="'horizontal'">
-            </app-poker-back-hand>
-          </div>
+            <app-poker-player [pokerPlayer]="orderedPlayers()[1]" [isPlayerTurn]="isPlayerTurn(orderedPlayers()[1].playerId)"
+                              [direction]="'left'"></app-poker-player>
         }
       </div>
 
@@ -82,18 +62,9 @@
       <!-- Joueur de droite -->
       <div class="right-player-area">
         @if (orderedPlayers().length > 3) {
-          <div class="player-info-right">
-            <app-poker-back-hand
-              [handCount]="orderedPlayers()[3].hand.length"
-              [direction]="'horizontal'">
-            </app-poker-back-hand>
-            <div class="player-details" [class.active]="isPlayerTurn(orderedPlayers()[3].playerId)">
-              <nz-badge [nzCount]="orderedPlayers()[3].balance">
-                <img ngSrc="../../../../../assets/avatar/{{ orderedPlayers()[3].avatar?.toLowerCase() || 'default'}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
-              </nz-badge>
-              <span class="player-name">{{ orderedPlayers()[3].username }}</span>
-            </div>
-          </div>
+            <app-poker-player [pokerPlayer]="orderedPlayers()[3]" [isPlayerTurn]="isPlayerTurn(orderedPlayers()[3].playerId)"
+                              [direction]="'right'"></app-poker-player>
+
         }
       </div>
     </div>

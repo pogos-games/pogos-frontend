@@ -1,0 +1,82 @@
+.player-info-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.player-info-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.player-info-right {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Styles des joueurs */
+.player-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+
+/* Animations pour le joueur actif */
+.player-details.active {
+  position: relative;
+}
+
+.player-details.active::before {
+  content: '▼';
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ff6b35;
+  font-size: 20px;
+  animation: arrow-bounce 1s infinite;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.player-details.active .avatar {
+  border-color: #ff6b35;
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.6);
+}
+
+.player-name {
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Lilita One", serif;
+  color: #FFD700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .player-name {
+    font-size: 12px;
+  }
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+  }
+}
+

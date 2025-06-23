@@ -1,0 +1,14 @@
+<div [class]="'player-info-'+direction">
+  <div class="player-details" [class.active]="this.isPlayerTurn">
+    <nz-badge [nzOverflowCount]="5000000" [nzCount]="pokerPlayer.balance">
+      <img ngSrc="../../../../../assets/avatar/{{pokerPlayer.avatar?.toLowerCase || 'default'}}.png" alt="Avatar" class="avatar" height="481" width="512"/>
+    </nz-badge>
+    <nz-badge [nzStyle]="{ backgroundColor: '#52c41a'}" [nzOverflowCount]="5000000" [nzCount]="pokerPlayer.bet">
+    </nz-badge>
+    <span class="player-name">{{ pokerPlayer.username }}</span>
+  </div>
+  <app-poker-back-hand
+    [handCount]="pokerPlayer.hand.length"
+    [direction]="'horizontal'">
+  </app-poker-back-hand>
+</div>
