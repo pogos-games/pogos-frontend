@@ -4,7 +4,7 @@
     <div nz-col [nzXs]="24"  [nzSm]="24"  [nzMd]="24" [nzLg]="12" class="profile-col">
       <div id="profile-icon-selector">
         <p class="title-profile">Mon profil</p>
-            <div id="selected-avatar">
+        <div id="selected-avatar">
               <img [src]="'/assets/avatar/' + selectedAvatar.toLowerCase() + '.png'" [alt]="selectedAvatar"
                    id="selected-avatar-image" />
               <p id="selected-avatar-name">{{ formattedAvatarName }}</p>
@@ -17,6 +17,7 @@
                 </div>
               }
         </div>
+        <p id="user-points">Points <nz-badge [nzCount]="user().points" nzStandalone [nzOverflowCount]="1000000"/> </p>
       </div>
     </div>
 

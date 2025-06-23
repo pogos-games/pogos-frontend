@@ -18,6 +18,7 @@ import {HttpStatusCode} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {PasswordUpdateRequest} from "../../../../model/dto/request/password-update-request.interface";
 import {ModalComponent} from "../../../common/modal-delete-account/modal-delete-account";
+import {NzBadgeComponent} from "ng-zorro-antd/badge";
 
 @Component({
   selector: 'app-my-profile',
@@ -33,7 +34,8 @@ import {ModalComponent} from "../../../common/modal-delete-account/modal-delete-
     NzInputDirective,
     NzFormControlComponent,
     ModalComponent,
-    ModalComponent
+    ModalComponent,
+    NzBadgeComponent
   ],
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.scss'],

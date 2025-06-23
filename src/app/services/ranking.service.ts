@@ -20,7 +20,7 @@ export class RankingService {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('take', take.toString());
-    return this.httpClient.get<PageResponseDto<UserResponseDto>>(`${this.CORE_URL}/ranking/users`, {params})
+    return this.httpClient.get<PageResponseDto<UserResponseDto>>(`${this.CORE_URL}/ranking/users?order=DESC`, {params})
   }
 
 }
