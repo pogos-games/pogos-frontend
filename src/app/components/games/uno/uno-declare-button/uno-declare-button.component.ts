@@ -1,4 +1,4 @@
-import {Component, computed, EventEmitter, Input, Output, signal} from '@angular/core';
+import {Component, computed, EventEmitter, HostListener, Input, Output, signal} from '@angular/core';
 import {UnoPlayer} from "../../../../model/dto/uno/entities/uno-player.interface";
 import {UnoEndAction} from "../../../../model/dto/uno/entities/uno-end-action.interface";
 import {UnoEndActionType} from "../../../../model/dto/uno/enum/uno-end-action-type.enum";
@@ -15,6 +15,13 @@ export class UnoDeclareButtonComponent {
   @Input({ required: true }) playerId = "";
   @Input({ required: true }) gameId = "";
   @Output() declareEvent = new EventEmitter<UnoEndAction>();
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key.toLowerCase() === 'p') {
+      this.declare();
+    }
+  }
 
   readonly unoData = computed(() => {
     const unoPlayer = this.players().find(p => p.hand.length === 1 && !p.declaredUno);
