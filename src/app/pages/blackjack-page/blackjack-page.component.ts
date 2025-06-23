@@ -59,6 +59,9 @@ export class BlackjackPageComponent extends PlayGamePage<BlackjackService,BlackJ
     new ActionDescriptor("Miser double", "double-right", BlackJackActions.DOUBLE_DOWN),
     new ActionDescriptor("Split", "double-left", BlackJackActions.SPLIT),
   ]
+  // Nouveau: pour suivre l'état de la partie
+  protected gameEnded: WritableSignal<boolean> = signal(false);
+
   constructor(
     gameService: BlackjackService,
     configService: ConfigService,
@@ -84,6 +87,9 @@ export class BlackjackPageComponent extends PlayGamePage<BlackjackService,BlackJ
     this.gameService.listenEndGame()
       .subscribe(async (endGameData: any) => {
         this.isActionDisabled.set(true);
+        
+        // Marquer la partie comme terminée pour révéler les cartes du croupier
+        this.gameEnded.set(true);
         
         // Attendre 2 secondes pour laisser le temps de voir les cartes finales
         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -273,6 +279,8 @@ export class BlackjackPageComponent extends PlayGamePage<BlackjackService,BlackJ
   // Nouveaux handlers pour la modal de résultat
   handleGameResultReplay(): void {
     console.log('Player wants to replay');
+    // Réinitialiser l'état de la partie
+    this.gameEnded.set(false);
     this.showWaitingRoomModal();
   }
 
