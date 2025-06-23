@@ -55,6 +55,8 @@
 
     <div class="bottom-player" [class.active]="isPlayerTurn(playerId())">
       <app-uno-hand [playerCards]="playerCards" (playCardEvent)="playCardEvent.emit($event)"></app-uno-hand>
+      <uno-declare-button [players]="orderedPlayers" [playerId]="playerId()" (declareEvent)="declareEvent.emit($event)"
+                          [gameId]="gameId"></uno-declare-button>
     </div>
   </div>
 
@@ -71,7 +73,5 @@
         <span class="player-name">{{ orderedPlayers()[3].username }}</span>
       </div>
     }
-    <uno-declare-button [players]="orderedPlayers" [playerId]="playerId()" (declareEvent)="declareEvent.emit($event)"
-                        [gameId]="gameId"></uno-declare-button>
   </div>
 </div>

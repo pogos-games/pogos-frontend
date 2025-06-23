@@ -1,0 +1,23 @@
+.uno-button {
+  background-color: #4CAF50;      /* Vert */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-family: "Lilita One",sans-serif;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.uno-button:hover {
+  background-color: #45a049;
+  transform: translateY(-1px);
+}
+
+.uno-button:active {
+  background-color: #3e8e41;
+  transform: translateY(1px);
+}
