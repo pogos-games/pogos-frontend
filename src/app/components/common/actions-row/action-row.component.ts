@@ -27,6 +27,7 @@ export class ActionRowComponent {
   @Input() isSecondaryActionsDisabled: WritableSignal<boolean> = signal(false);
   @Input() playerBalance: number = 0;
   @Input() playerBet: WritableSignal<number> = signal(0);
+  @Input() totalPot: WritableSignal<number> = signal(0);
   @Input({required: true}) gameMode: string = "";
   @Input() showCoins: boolean = false;
 

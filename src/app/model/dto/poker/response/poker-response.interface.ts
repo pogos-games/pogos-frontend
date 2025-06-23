@@ -6,5 +6,6 @@ export interface PokerResponse extends GameResponse<PokerPlayerResponse> {
   dealerHand: Card[],
   pot: number,
   lastBet: number,
+  roundPot: number,
   nextPlayerId: string,
 }
