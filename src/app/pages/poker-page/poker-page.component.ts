@@ -53,13 +53,13 @@ export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,
 
   isPotEmpty = false;
 
-  override actions = [
+  override actions : ActionDescriptor[] = [
     new ActionDescriptor("Miser", "check", PokerActions.BET, this.isPotEmpty),
     new ActionDescriptor("Suivre", "check", PokerActions.CALL, !this.isPotEmpty),
     new ActionDescriptor("Relancer", "check", PokerActions.RAISE, !this.isPotEmpty)
   ]
 
-  override secondaryActions = [
+  override secondaryActions : ActionDescriptor[] = [
     new ActionDescriptor("Check", "check", PokerActions.CHECK),
     new ActionDescriptor("All In", "check", PokerActions.ALL_IN),
     new ActionDescriptor("Se coucher", "check", PokerActions.FOLD)
