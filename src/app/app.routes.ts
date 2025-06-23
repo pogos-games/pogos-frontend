@@ -9,9 +9,10 @@ import {ProfilePageComponent} from "./pages/profile-page/profile-page.component"
 import {AuthGuard} from "./auth/guard/auth-guard";
 import {MyProfileComponent} from './components/pages/profile/my-profile/my-profile.component';
 import {FriendsComponent} from "./components/pages/profile/friends/main-friends/friends.component";
-import {GameHistoryComponent} from "./components/pages/profile/rankings/game-history.component";
+import {GameHistoryComponent} from "./components/pages/profile/history/game-history.component";
 import {PokerPageComponent} from './pages/poker-page/poker-page.component';
 import {UnoPageComponent} from "./pages/uno-page/uno-page.component";
+import {UserDetailComponent} from "./pages/user-detail/user-detail.component";
 
 export const routes: Routes = [
   { path: 'games', component: GamePageComponent },
@@ -28,6 +29,7 @@ export const routes: Routes = [
       { path: 'game-history', component: GameHistoryComponent }
     ]
   },
+  {path: 'user/:id', component: UserDetailComponent},
   { path: '', component: HomePageComponent },
   { path: '**', component: NotFoundComponent }
 ];

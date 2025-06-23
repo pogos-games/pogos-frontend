@@ -1,24 +1,24 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
-import { SessionStorageService } from "../storage/session-storage.service";
-import { CookiesStorageService } from "../storage/cookies-storage.service";
-import { User } from "../../model/user.interface";
-import { JwtService } from "../jwt.service";
-import { DecodedJwt } from "../../model/decoded-jwt.interface";
-import { AuthService } from "../../auth/service/auth.service";
-import { catchError, map, Observable, of } from "rxjs";
-import { AuthResponseDto } from "../../model/dto/response/auth-response.dto";
-import { UpdateUserRequestDto } from '../../model/dto/request/update-user-request.dto';
-import { UpdateUserResponseDto } from '../../model/dto/response/update-user-response.dto';
-import { Avatar } from '../../model/dto/game/enum/avatar.enum';
-import { SelfResponseDto } from '../../model/dto/response/self-response.dto';
-import { UserService } from "../user.service";
+import {Injectable, signal, WritableSignal} from '@angular/core';
+import {SessionStorageService} from "../storage/session-storage.service";
+import {CookiesStorageService} from "../storage/cookies-storage.service";
+import {User} from "../../model/user.interface";
+import {JwtService} from "../jwt.service";
+import {DecodedJwt} from "../../model/decoded-jwt.interface";
+import {AuthService} from "../../auth/service/auth.service";
+import {catchError, map, Observable, of} from "rxjs";
+import {AuthResponseDto} from "../../model/dto/response/auth-response.dto";
+import {UpdateUserRequestDto} from '../../model/dto/request/update-user-request.dto';
+import {UpdateUserResponseDto} from '../../model/dto/response/update-user-response.dto';
+import {Avatar} from '../../model/dto/game/enum/avatar.enum';
+import {SelfResponseDto} from '../../model/dto/response/self-response.dto';
+import {UserService} from "../user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAuthService {
 
-  private readonly _user: WritableSignal<User> = signal({ accessToken: '', mail: '', id: '', pseudo: '', avatar: Avatar.DEFAULT, nbNotifications: 0 })
+  private readonly _user: WritableSignal<User> = signal({ accessToken: '', mail: '', id: '', pseudo: '', avatar: Avatar.DEFAULT, nbNotifications: 0, points: 0 })
   public user = this._user.asReadonly();
 
   private userAccessToken: string | undefined;
@@ -90,6 +90,7 @@ export class UserAuthService {
           const user = this.user()
           user.pseudo = response.username;
           user.avatar = response.avatar;
+          user.points = response.points;
           this.storageService.setItem<User>(this.USER__SESSION_STORAGE_NAME, user);
           this._user.set(user);
           return true;
@@ -108,7 +109,7 @@ export class UserAuthService {
     this.userTokenExpirationDate = this.jwtService.getTokenExpirationDate(jwtResponse.exp);
     this.userAccessToken = accessToken;
 
-    const user: User = { pseudo: jwtResponse.username, mail: jwtResponse.email, accessToken: accessToken, id: jwtResponse.sub, avatar: Avatar.DEFAULT, nbNotifications: 0 };
+    const user: User = { pseudo: jwtResponse.username, mail: jwtResponse.email, accessToken: accessToken, id: jwtResponse.sub, avatar: Avatar.DEFAULT, nbNotifications: this.user().nbNotifications, points: this.user().points  };
     this._user.set(user)
     this.storageService.setItem<User>(this.USER__SESSION_STORAGE_NAME, user);
 
@@ -121,6 +122,7 @@ export class UserAuthService {
           pseudo: selfResponse.username,
           avatar: selfResponse.avatar,
           nbNotifications: selfResponse.nbNotifications,
+          points: selfResponse.points,
         };
         this._user.set(newUser)
         this.storageService.setItem<User>(this.USER__SESSION_STORAGE_NAME, newUser);
@@ -138,10 +140,17 @@ export class UserAuthService {
   }
 
   logout(): void {
-    this._user.set({ accessToken: '', mail: '', id: '', pseudo: '', avatar: Avatar.DEFAULT, nbNotifications: 0 });
+    this._user.set({ accessToken: '', mail: '', id: '', pseudo: '', avatar: Avatar.DEFAULT, nbNotifications: 0, points: 0 });
     this.userTokenExpirationDate = undefined;
     this.storageService.removeItem(this.USER__SESSION_STORAGE_NAME);
     this.cookiesStorageService.deleteCookie(this.REFRESH_TOKEN_COOKIE_NAME);
+  }
+
+  isTokenExpired(): boolean {
+    if (!this.userTokenExpirationDate) {
+      return true; // return true if token is not set
+    }
+    return this.userTokenExpirationDate.getTime() < Date.now();
   }
 
 

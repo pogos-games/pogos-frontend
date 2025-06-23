@@ -1,0 +1,25 @@
+#game-history{
+  width: 98%;
+  border-radius: 10px;
+  background-color: var(--pogos-button-bg);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  margin: 10px;
+  height: 25px;
+}
+
+.text {
+  font-family: "Lilita One", sans-serif;
+  font-size: 1.2rem;
+}
+
+@media screen and (max-width: 992px) {
+  #game-history {
+    width: 95%;
+  }
+  .text{
+    font-size: 0.8em;
+  }
+}
