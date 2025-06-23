@@ -15,6 +15,7 @@ import {UserService} from '../../../../../services/user.service';
 import {FriendshipService} from '../../../../../services/friendship.service';
 import {PageResponseDto} from '../../../../../model/dto/response/page-response.dto';
 import {UserResponseDto} from '../../../../../model/dto/response/user-response.dto';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-add-friend',
@@ -30,7 +31,8 @@ import {UserResponseDto} from '../../../../../model/dto/response/user-response.d
     NzButtonModule,
     NzIconModule,
     NzPaginationModule,
-    NzSpinModule
+    NzSpinModule,
+    RouterLink
   ],
   templateUrl: './add-friend.component.html',
   styleUrl: './add-friend.component.scss'
