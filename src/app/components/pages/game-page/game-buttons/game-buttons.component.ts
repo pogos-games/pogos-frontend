@@ -57,15 +57,14 @@ export class GameButtonsComponent {
       return;
     }
     const clientId = gameService.getPlayerId()
-    let lastResult: { success: boolean; gameId: string } | null = null;
+    let lastResult: { success: boolean; gameId: string, gameName: string} | null = null;
 
     of(null).pipe(
       switchMap(() =>
-        this.http.get<{ success: boolean; gameId: string }>(
+        this.http.get<{ success: boolean; gameId: string, gameName: string }>(
           `${this.configService.config.GAMES_URL}/game/join-random`,
           {
             params: {
-              gamePrefix: this.gameName.toLowerCase(),
               clientId: clientId
             }
           }
@@ -75,11 +74,10 @@ export class GameButtonsComponent {
         if (res.success || i >= 9) return of(res); // Stop retrying if success or 10th attempt
         return timer(600).pipe(
           switchMap(() =>
-            this.http.get<{ success: boolean; gameId: string }>(
+            this.http.get<{ success: boolean; gameId: string, gameName: string }>(
               `${this.configService.config.GAMES_URL}/game/join-random`,
               {
                 params: {
-                  gamePrefix: this.gameName.toLowerCase(),
                   clientId: clientId
                 }
               }
@@ -94,10 +92,17 @@ export class GameButtonsComponent {
         return of(null);
       })
     ).subscribe({
-      next: (res: { success: boolean; gameId: string } |null) => {
-        if (res?.success && gameService) {
-          gameService.sendMessage(GameActions.JOIN_GAME, { gameId: res.gameId, playerName: this.userAuthService.user().pseudo, avatar: this.userAuthService.user().avatar });
-          this.subToGame(gameService, false);
+      next: (res: { success: boolean, gameId: string, gameName: string } |null) => {
+        if (res?.success) {
+          gameService = this.gameServiceFactory.getService(res.gameName);
+          if (gameService) {
+            gameService.sendMessage(GameActions.JOIN_GAME, {
+              gameId: res.gameId,
+              playerName: this.userAuthService.user().pseudo,
+              avatar: this.userAuthService.user().avatar
+            });
+            this.subToGame(gameService, false);
+          }
         }
         lastResult = res;
       },
