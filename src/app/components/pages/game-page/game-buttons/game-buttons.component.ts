@@ -65,6 +65,7 @@ export class GameButtonsComponent {
           `${this.configService.config.GAMES_URL}/game/join-random`,
           {
             params: {
+              gameName: this.gameName.toLowerCase(),
               clientId: clientId
             }
           }
@@ -78,6 +79,7 @@ export class GameButtonsComponent {
               `${this.configService.config.GAMES_URL}/game/join-random`,
               {
                 params: {
+                  gameName: this.gameName,
                   clientId: clientId
                 }
               }
