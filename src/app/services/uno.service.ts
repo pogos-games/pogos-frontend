@@ -17,7 +17,8 @@ export class UnoService extends GameService<UnoResponse,UnoPlayer,UnoPlayerRespo
   }
 
   checkStartGame(): boolean {
-    return true;
+    this.errorStartGame = "Insufficient players to start the game."
+    return this.playersList().length > 1;
   }
 
   updatePlayers(players: UnoPlayerResponse[]) {

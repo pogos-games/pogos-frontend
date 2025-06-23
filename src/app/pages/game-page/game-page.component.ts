@@ -15,6 +15,7 @@ import {ConfigService} from "../../services/config.service";
 import {GameServiceFactory} from "../../components/common/factory/game.service.factory";
 import {GameMode} from "../../model/dto/game/enum/game-mode.enum";
 import {Player} from "../../model/dto/game/player.interface";
+import {UserAuthService} from "../../services/auth/user-auth.service";
 
 @Component({
   selector: 'app-game-page',
@@ -47,7 +48,8 @@ export class GamePageComponent {
     private readonly http: HttpClient,
     private readonly router: Router,
     protected gameService: GameService<any, any, any, any>,
-    private readonly gameServiceFactory: GameServiceFactory
+    private readonly gameServiceFactory: GameServiceFactory,
+    private readonly userAuthService: UserAuthService,
   ) {}
 
   public showModal(res: { unsubscribe: () => void; showPrivacy: boolean; gameService: GameService<any, any, any, any> }): void {
@@ -121,9 +123,8 @@ export class GamePageComponent {
       }).subscribe((res) => {
         if (!res.success) return
         let gameService = this.gameServiceFactory.getService(res.gameName);
-        console.log(res)
         if (!(gameService instanceof GameService)) return;
-        gameService.sendMessage(GameActions.JOIN_GAME, {gameId: `#${code}`});
+        gameService.sendMessage(GameActions.JOIN_GAME, {gameId: `#${code}`, playerName: this.userAuthService.user().pseudo, avatar: this.userAuthService.user().avatar});
         const sub = gameService.listenGameUpdate().subscribe((data: any) => {
           const gameId = typeof data === 'string' ? data : data?.gameId;
 
@@ -133,9 +134,8 @@ export class GamePageComponent {
             console.error("Erreur : ID de la partie non reçu.", data);
           }
 
-          sub.unsubscribe();
         });
-        this.showModal({gameService: gameService, showPrivacy: false, unsubscribe: () => {}});
+        this.showModal({gameService: gameService, showPrivacy: false, unsubscribe: () => sub.unsubscribe()});
       });
   }
 }
