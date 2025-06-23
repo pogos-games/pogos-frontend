@@ -1,12 +1,34 @@
 .poker-back-hand {
   display: flex;
-  gap: 5px;
+  gap: 3px;
+  align-items: center;
+  justify-content: center;
 
   .poker-card-back {
-    flex-direction: column;
+    flex-shrink: 0;
+  }
+
+  .poker-card-back img {
+    width: 35px;
+    height: 50px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 }
 
 .poker-hand-horizontal {
   transform: rotate(90deg);
+  transform-origin: center;
+}
+
+.poker-hand-vertical {
+  flex-direction: row;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .poker-back-hand .poker-card-back img {
+    width: 25px;
+    height: 35px;
+  }
 }

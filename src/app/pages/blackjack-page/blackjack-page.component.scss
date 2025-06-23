@@ -78,7 +78,6 @@
   align-items: center;
 }
 
-
 @keyframes slideIn {
   from {
     transform: translateY(-100%);
@@ -88,5 +87,101 @@
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+/* Styles personnalisés pour les notifications de blackjack */
+::ng-deep .blackjack-notification {
+  .ant-notification-notice {
+    background-color: var(--secondary-bg-color);
+    border: 2px solid var(--pogos-button-bg);
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    
+    .ant-notification-notice-content {
+      .ant-notification-notice-with-icon {
+        .ant-notification-notice-message {
+          font-family: "Luckiest Guy", cursive;
+          font-size: 1.3em;
+          color: var(--primary-text-color);
+          margin-bottom: 8px;
+        }
+        
+        .ant-notification-notice-description {
+          font-family: "Lilita One", serif;
+          font-size: 1.1em;
+          color: var(--primary-text-color);
+          line-height: 1.4;
+        }
+      }
+    }
+    
+    .ant-notification-notice-close {
+      color: var(--primary-text-color);
+      opacity: 0.7;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  
+  /* Notification de succès (victoire) */
+  &.ant-notification-success {
+    .ant-notification-notice {
+      background: linear-gradient(135deg, 
+        rgba(76, 175, 80, 0.1) 0%, 
+        var(--secondary-bg-color) 100%);
+      border-color: #4CAF50;
+      
+      .ant-notification-notice-icon {
+        color: #4CAF50;
+      }
+    }
+  }
+  
+  /* Notification d'erreur (défaite) */
+  &.ant-notification-error {
+    .ant-notification-notice {
+      background: linear-gradient(135deg, 
+        rgba(244, 67, 54, 0.1) 0%, 
+        var(--secondary-bg-color) 100%);
+      border-color: #F44336;
+      
+      .ant-notification-notice-icon {
+        color: #F44336;
+      }
+    }
+  }
+  
+  /* Notification d'info (égalité) */
+  &.ant-notification-info {
+    .ant-notification-notice {
+      background: linear-gradient(135deg, 
+        rgba(33, 150, 243, 0.1) 0%, 
+        var(--secondary-bg-color) 100%);
+      border-color: #2196F3;
+      
+      .ant-notification-notice-icon {
+        color: #2196F3;
+      }
+    }
+  }
+}
+
+/* Animation d'entrée pour les notifications */
+::ng-deep .ant-notification-fade-enter {
+  animation: blackjackNotificationSlideIn 0.4s ease-out;
+}
+
+@keyframes blackjackNotificationSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%) scale(0.9);
+  }
+  
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
   }
 }

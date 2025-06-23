@@ -67,3 +67,23 @@
 .column-direction:hover img {
   transform: translate(-50%, -50%) translateX(calc(var(--card-index) * 15px)) translateY(calc(var(--card-index) * 18px));
 }
+
+/* Style pour le nom des cartes du joueur - positionné en dessous des cartes */
+.player1 h3 {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 16px;
+  color: #FFD700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Ajustement pour s'assurer que le texte ne chevauche pas avec les cartes */
+.player1 {
+  position: relative;
+  padding-bottom: 50px;
+}
