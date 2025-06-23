@@ -2,11 +2,13 @@ import {Component, EventEmitter, Input, Output, WritableSignal, signal} from '@a
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FormsModule } from '@angular/forms';
 import {NzButtonComponent} from "ng-zorro-antd/button";
+import {Player} from "../../../model/dto/game/player.interface";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-waiting-room-modal',
   standalone: true,
-  imports: [NzModalModule, FormsModule, NzButtonComponent],
+  imports: [NzModalModule, FormsModule, NzButtonComponent, NgOptimizedImage],
   templateUrl: './waiting-room-modal.component.html',
   styleUrls: ['./waiting-room-modal.component.scss']
 })
@@ -17,7 +19,7 @@ export class WaitingRoomModalComponent{
   @Input({ required: true }) okText: string = 'Commencer';
   @Input({ required: true }) cancelText: string = 'Annuler';
   @Input() gameId: string | null = '';
-  @Input() playersNames: WritableSignal<string[]> = signal([]);
+  @Input() players: WritableSignal<Player[]> = signal([]);
   @Input() initialBet: WritableSignal<number> = signal(-1);
   @Input() showPrivacy: boolean = true;
 

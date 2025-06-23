@@ -10,16 +10,16 @@
 
   </div>
 
+  <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'"
+                          [gameId]="gameId" [players]="players" [initialBet]="playerBet"
+                          [okText]="'Relancer'" (onOk)="handleWaitingRoomConfirmClick($event)"
+                          [cancelText]="'Quitter'" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
+
   <nz-modal [nzVisible]="isLeaveModalVisible()" nzTitle="Déconnexion" nzCentered (nzOnCancel)="handleCancelMiddle()"
             (nzOnOk)="handleOkMiddle()">
     <ng-container *nzModalContent>
       <p>Est-tu sûr de vouloir quitter la partie ?</p>
     </ng-container>
   </nz-modal>
-
-  <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'"
-                          [gameId]="gameId" [playersNames]="playerNames" [initialBet]="playerBet"
-                          [okText]="'Relancer'" (onOk)="handleWaitingRoomConfirmClick($event)"
-                          [cancelText]="'Quitter'" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
 
 </div>
