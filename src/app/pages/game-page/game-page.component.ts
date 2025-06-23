@@ -117,12 +117,13 @@ export class GamePageComponent {
 
   public searchGame(code: string){
     const clientId = this.gameService.getPlayerId()
-    this.http.get<{ success: string, gameName: string }>(
+    this.http.get<{ success: string, gameName: string, gameMode:GameMode }>(
       `${this.configService.config.GAMES_URL}/game/find`,
       { params:{ gameId: code, clientId: clientId }
       }).subscribe((res) => {
         if (!res.success) return
         let gameService = this.gameServiceFactory.getService(res.gameName);
+        gameService?.setGameMode(res.gameMode)
         if (!(gameService instanceof GameService)) return;
         gameService.sendMessage(GameActions.JOIN_GAME, {gameId: `#${code}`, playerName: this.userAuthService.user().pseudo, avatar: this.userAuthService.user().avatar});
         const sub = gameService.listenGameUpdate().subscribe((data: any) => {

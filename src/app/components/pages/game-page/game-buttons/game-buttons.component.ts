@@ -61,7 +61,7 @@ export class GameButtonsComponent {
 
     of(null).pipe(
       switchMap(() =>
-        this.http.get<{ success: boolean; gameId: string, gameName: string }>(
+        this.http.get<{ success: boolean; gameId: string, gameName: string, gameMode: GameMode }>(
           `${this.configService.config.GAMES_URL}/game/join-random`,
           {
             params: {
@@ -74,7 +74,7 @@ export class GameButtonsComponent {
         if (res.success || i >= 9) return of(res); // Stop retrying if success or 10th attempt
         return timer(600).pipe(
           switchMap(() =>
-            this.http.get<{ success: boolean; gameId: string, gameName: string }>(
+            this.http.get<{ success: boolean; gameId: string, gameName: string, gameMode: GameMode }>(
               `${this.configService.config.GAMES_URL}/game/join-random`,
               {
                 params: {
@@ -92,10 +92,11 @@ export class GameButtonsComponent {
         return of(null);
       })
     ).subscribe({
-      next: (res: { success: boolean, gameId: string, gameName: string } |null) => {
+      next: (res: { success: boolean, gameId: string, gameName: string, gameMode: GameMode } |null) => {
         if (res?.success) {
           gameService = this.gameServiceFactory.getService(res.gameName);
           if (gameService) {
+            gameService.setGameMode(res.gameMode)
             gameService.sendMessage(GameActions.JOIN_GAME, {
               gameId: res.gameId,
               playerName: this.userAuthService.user().pseudo,
