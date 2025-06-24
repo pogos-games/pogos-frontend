@@ -31,6 +31,7 @@ export abstract class GameService<
   protected gameUrl: string = "";
   public gameMode: string = GameMode.SOLO;
   protected errorStartGame: string = "";
+  public showPrivacy: boolean = false
 
   protected initializeSocket(): void {
     this.socket = io(this.GAMES_SOCKET + this.gameUrl, {
