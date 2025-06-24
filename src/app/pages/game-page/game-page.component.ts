@@ -128,14 +128,17 @@ export class GamePageComponent {
         gameService.sendMessage(GameActions.JOIN_GAME, {gameId: `#${code}`, playerName: this.userAuthService.user().pseudo, avatar: this.userAuthService.user().avatar});
         const sub = gameService.listenGameUpdate().subscribe((data: any) => {
           const gameId = typeof data === 'string' ? data : data?.gameId;
-
           if (gameId && gameService) {
             gameService.setGameId(gameId);
+            gameService.playersList.set(data.players)
+            gameService.players = data.players
+            this.players.set(data.players)
           } else {
             console.error("Erreur : ID de la partie non reçu.", data);
           }
 
         });
+        this.title = res.gameName
         this.showModal({gameService: gameService, showPrivacy: false, unsubscribe: () => sub.unsubscribe()});
       });
   }

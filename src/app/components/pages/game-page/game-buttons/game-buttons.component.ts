@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {GameActions} from "../../../../model/dto/game/enum/gateway/game.actions.enum";
@@ -10,6 +10,7 @@ import {HttpClient} from "@angular/common/http";
 import {catchError, expand, of, take, takeWhile, timer} from "rxjs";
 import {switchMap} from "rxjs/operators";
 import {UserAuthService} from "../../../../services/auth/user-auth.service";
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 @Component({
   selector: 'app-game-buttons',
@@ -28,6 +29,8 @@ export class GameButtonsComponent {
   @Output() joinRandomGame = new EventEmitter<void>();
 
   @Input() gameName: string = "BlackJack";
+
+  private readonly nzNotificationService : NzNotificationService = inject(NzNotificationService);
 
   constructor(
     private readonly configService: ConfigService,
@@ -112,6 +115,10 @@ export class GameButtonsComponent {
       complete: () => {
         if (!lastResult?.success) {
           console.warn('Unable to join a game after 10 attempts.');
+          this.nzNotificationService.create('info', 'Info', 'Aucune partie trouvée', {
+            nzClass: 'custom-notification',
+            nzDuration: 5000
+          });
         }
       }
     });
@@ -129,6 +136,7 @@ export class GameButtonsComponent {
         }
 
         gameService.playersList.set(data.players)
+        gameService.showPrivacy = showPrivacy
         this.showModalEvent.emit({gameService: gameService, showPrivacy: showPrivacy, unsubscribe: () => sub.unsubscribe() });
       });
   }

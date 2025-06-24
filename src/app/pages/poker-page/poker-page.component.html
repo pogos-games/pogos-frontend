@@ -32,6 +32,6 @@
   <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'"
                           [gameId]="gameId" [players]="players" [initialBet]="playerBet"
                           [okText]="'Relancer'" (onOk)="handleWaitingRoomConfirmClick($event)"
-                          [cancelText]="'Quitter'" (onCancel)="handleWaitingRoomLeave()"></app-waiting-room-modal>
+                          [cancelText]="'Quitter'" (onCancel)="handleWaitingRoomLeave()" [showPrivacy]="gameService.showPrivacy"></app-waiting-room-modal>
 
 </div>
