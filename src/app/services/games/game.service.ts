@@ -119,9 +119,10 @@ export abstract class GameService<
     return checkStartGame.asObservable();
   }
 
-  listenEndGame(): Observable<any> {
+  listenEndGame(): Observable<TPlayer> {
     return new Observable(observer => {
-      this.socket.on(GatewayEventEmitter.END_GAME, (data: any) => {
+      this.socket.on(GatewayEventEmitter.END_GAME, (data: TPlayer) => {
+        console.log('data in listen endGame', data)
         observer.next(data);
       });
     });

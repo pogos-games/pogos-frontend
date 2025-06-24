@@ -12,6 +12,7 @@ import {GameResponse} from "../../../model/dto/game/response/game-response.inter
 import {Player} from "../../../model/dto/game/player.interface";
 import {GamePlayerResponse} from "../../../model/dto/game/response/game-player-response.interface";
 import {BaseCard} from "../../../model/dto/game/card.interface";
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 @Directive()
 export abstract class PlayGamePage<
@@ -66,6 +67,7 @@ export abstract class PlayGamePage<
     protected readonly router: Router,
     protected readonly route: ActivatedRoute,
     protected readonly userAuthService: UserAuthService,
+    protected readonly nzNotificationService: NzNotificationService
   ) {
     this.route.queryParams.subscribe(params => {
       this.gameMode = params['gameMode']?.toUpperCase();
@@ -145,21 +147,21 @@ export abstract class PlayGamePage<
       });
   }
 
-
   protected listenForEndGame(): void {
     this.gameService.listenEndGame()
-      .subscribe(async () => {
+      .subscribe(async (winner: TPlayer) => {
         this.isActionDisabled.set(true);
+        if(winner){
+          this.showNotification(winner.username ?? winner.playerId);
+        }
+
         await this.sleep(3000);
-
         console.log('listenForEndGame play-game-page');
-        // 2. Réaffiche la WaitingRoomModal
         this.showWaitingRoomModal();
-
-        // 3. Réinitialisation partielle si besoin
         this.isActionDisabled.set(true);
       });
   }
+
 
   protected updatePlayerInfos(player: any): void {
     if (!player) {
@@ -231,5 +233,12 @@ export abstract class PlayGamePage<
     const clientId = this.gameService.getPlayerId();
     console.log('GAMES_URL', this.configService.config.GAMES_URL);
     this.http.post<{ success: boolean }>(this.configService.config.GAMES_URL +"/game/private-mode", { gameId:gameId, clientId:clientId }).subscribe();
+  }
+
+  public showNotification(username: string) {
+    this.nzNotificationService.create('success', 'Fin de partie', username + ' à gagné la partie 🏆', {
+      nzClass: 'custom-notification',
+      nzDuration: 5000
+    });
   }
 }

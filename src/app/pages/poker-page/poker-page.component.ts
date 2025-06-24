@@ -19,6 +19,7 @@ import {PokerResponse} from "../../model/dto/poker/response/poker-response.inter
 import {PokerPlayerResponse} from "../../model/dto/poker/response/poker-player-response.interface";
 import {ChatComponent} from "../../components/games/chat/chat.component";
 import {Card} from "../../model/dto/game/card.interface";
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 @Component({
   selector: 'app-poker-page',
@@ -66,8 +67,8 @@ export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,
     new ActionDescriptor("Se coucher", "check", PokerActions.FOLD)
   ]
 
-  constructor(configService: ConfigService, pokerService:PokerService, message:NzMessageService, router:Router, route:ActivatedRoute, http: HttpClient, userAuthService: UserAuthService) {
-    super(http,configService,pokerService,message,router,route, userAuthService);
+  constructor(configService: ConfigService, pokerService:PokerService, message:NzMessageService, router:Router, route:ActivatedRoute, http: HttpClient, userAuthService: UserAuthService, nzNotificationService:NzNotificationService) {
+    super(http,configService,pokerService,message,router,route, userAuthService,nzNotificationService);
   }
 
   protected readonly PokerActions = PokerActions;

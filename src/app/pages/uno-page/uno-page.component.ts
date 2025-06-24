@@ -20,6 +20,7 @@ import {UnoCard, UnoCardColor, UnoCardType} from "../../model/dto/uno/entities/u
 import {UnoGameDirection} from "../../model/dto/uno/enum/uno-game-direction.enum";
 import {UnoActionType} from "../../model/dto/uno/enum/uno-action.enum";
 import {UnoEndAction} from "../../model/dto/uno/entities/uno-end-action.interface";
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 @Component({
   selector: 'app-uno-page',
@@ -46,8 +47,8 @@ export class UnoPageComponent extends PlayGamePage<UnoService,UnoResponse,UnoPla
   direction= signal<UnoGameDirection>(UnoGameDirection.CLOCKWISE);
   playerCards = signal<UnoCard[]>([])
   playerId = signal<string>("")
-  constructor(configService: ConfigService, unoService:UnoService, message:NzMessageService, router:Router, route:ActivatedRoute, http: HttpClient,userAuthService: UserAuthService) {
-    super(http,configService,unoService,message,router,route,userAuthService);
+  constructor(configService: ConfigService, unoService:UnoService, message:NzMessageService, router:Router, route:ActivatedRoute, http: HttpClient,userAuthService: UserAuthService,nzNotificationService: NzNotificationService) {
+    super(http,configService,unoService,message,router,route,userAuthService,nzNotificationService);
   }
 
   drawCard(): void {
