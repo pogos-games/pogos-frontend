@@ -27,11 +27,11 @@
     <!-- Modal de salle d'attente -->
     <app-waiting-room-modal [isVisible]="isWaitingRoomModalVisible" [errorMessage]="errorWaitingRoom" [title]="'Rejouer la partie'" [okText]="'Relancer'"
       [cancelText]="'Quitter'" [gameId]="gameId" [players]="players" [initialBet]="playerBet"
-      (onOk)="handleWaitingRoomConfirmClick($event)" (onCancel)="handleWaitingRoomLeave()" (changePrivacy)="changePrivacy()"></app-waiting-room-modal>
+      (onOk)="handleWaitingRoomConfirmClick($event)" (onCancel)="handleWaitingRoomLeave()" (changePrivacy)="changePrivacy()" [showPrivacy]="gameService.showPrivacy"></app-waiting-room-modal>
 
     <!-- Nouvelle modal de résultat de partie -->
-    <app-game-result-modal 
-      [isVisible]="isGameResultModalVisible" 
+    <app-game-result-modal
+      [isVisible]="isGameResultModalVisible"
       [gameResult]="gameResult"
       (onReplay)="handleGameResultReplay()"
       (onQuit)="handleGameResultQuit()">
