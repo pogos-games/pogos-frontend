@@ -49,7 +49,7 @@ export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,
 
   protected currentPotAmount = signal(0);
 
-  protected playerBet: WritableSignal<number> = signal(-10); // Mise actuelle du joueur
+  protected playerBet: WritableSignal<number> = signal(-1); // Mise actuelle du joueur
   protected playerBalance: WritableSignal<number> = signal(-10); // Mise actuelle du joueur
 
   isPotEmpty: WritableSignal<boolean> = signal(false);
@@ -85,7 +85,7 @@ export class PokerPageComponent extends PlayGamePage<PokerService,PokerResponse,
     this.isActionDisabled.set(true);
     this.isSecondaryActionsDisabled.set(true)
 
-    this.gameService.sendMessage(GameActions.ACTION, { action: action, bet:this.playerBet, gameId: this.gameId });
+    this.gameService.sendMessage(GameActions.ACTION, { action: action, bet:this.playerBet(), gameId: this.gameId });
     this.playerBet.set(0);
   }
 
